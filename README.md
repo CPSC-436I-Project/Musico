@@ -75,21 +75,21 @@ Song voting system and integrating additional music sources
 ### Prototypes
 https://www.sketch.com/s/27d4371a-0086-456b-9cd1-ee272c0eec58
 
-**Register**
+#### Register:
 ![Register](images/Register.png)
 
-**Sign In**
+#### Sign In:
 ![Sign In](images/SignIn.png)
 
-**Landing**
+#### Landing:
 ![Landing](images/Landing.png)
 
-**Channel**
+#### Channel:
 ![Channel](images/Channel.png)
 
-**Add Song**
+#### Add Song:
 ![Add song](images/AddSong.png)
 
-**Profile**
+#### Profile:
 ![Profile](images/Profile.png)
 
