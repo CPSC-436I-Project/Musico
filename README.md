@@ -73,4 +73,5 @@ Song voting system and integrating additional music sources
 * Backend design to store user profiles
 
 ### Prototypes
+https://www.sketch.com/s/27d4371a-0086-456b-9cd1-ee272c0eec58
 
