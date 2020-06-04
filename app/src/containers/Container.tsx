@@ -32,12 +32,12 @@ abstract class Container<P extends IContainerProps = IContainerProps, S extends 
 	}
 }
 
-interface IContainerProps {
+export interface IContainerProps {
 
 }
 
-interface IContainerState {
+export interface IContainerState {
 
 }
 
-export {Container, IContainerState, IContainerProps};
+export {Container};

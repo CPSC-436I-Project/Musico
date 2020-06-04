@@ -30,12 +30,10 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 	}
 }
 
-interface IEnhancedComponentProps {
-
+export interface IEnhancedComponentProps {
 }
 
-interface IEnhancedComponentState {
-
+export interface IEnhancedComponentState {
 }
 
-export {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState};
+export {EnhancedComponent};
