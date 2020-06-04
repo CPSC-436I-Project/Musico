@@ -1,6 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {Button, IButtonProps, IButtonState} from "./Button";
+import "./Button.css";
 
 // TODO not done
 class TextButton extends Button<ITextButtonProps, ITextButtonState> {
