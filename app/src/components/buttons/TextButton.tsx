@@ -21,7 +21,7 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 
 	public render(): ReactNode {
 		return (
-			<div>
+			<div style={{userSelect: "none"}}>
 				<p>{this.state.text}</p>
 			</div>
 		);

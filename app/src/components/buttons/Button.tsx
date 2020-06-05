@@ -27,6 +27,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 			clicked: false,
 			disabled: false,
 			colour: this.props.buttonColour,
+			hovering: false,
 		};
 
 		this.wrapRenderButton = this.wrapRenderButton.bind(this);
@@ -62,16 +63,22 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 	private onPressedOut(): void {
 		this.setState({
 			pressed: false,
-			colour: this.props.buttonColour,
+			colour: this.state.hovering ? this.props.buttonHoverColour : this.props.buttonColour,
 		});
 	}
 
 	private onHoverIn(): void {
-		this.setState({colour: this.props.buttonHoverColour})
+		this.setState({
+			colour: this.props.buttonHoverColour,
+			hovering: true,
+		})
 	}
 
 	private onHoverOut(): void {
-		this.setState({colour: this.props.buttonColour})
+		this.setState({
+			colour: this.props.buttonColour,
+			hovering: false,
+		})
 	}
 
 	private wrapRenderButton(): void {
@@ -107,6 +114,7 @@ export interface IButtonState extends IEnhancedComponentState {
 	pressed: boolean;
 	disabled: boolean;
 	colour: string;
+	hovering: boolean;
 }
 
 export {Button};
