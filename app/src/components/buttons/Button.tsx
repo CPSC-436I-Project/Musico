@@ -7,33 +7,106 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 
 	public static defaultProps: IButtonProps = {
 		/* add default props that belong to every component */
-		width: 10,
-	}
+		...EnhancedComponent.defaultProps,
+		onAction: (callback: () => void): void => {
+			callback();
+		},
+		disabled: false,
+		buttonColour: "blue",
+		buttonHoverColour: "green",
+		buttonFocusedColour: "red",
+	};
+
+	protected renderPointer: () => ReactNode;
 
 	protected constructor(props: P) {
 		super(props);
 		// @ts-ignore
 		this.state = {
+			...this.state,
 			clicked: false,
+			disabled: false,
+			colour: this.props.buttonColour,
 		};
+
+		this.wrapRenderButton = this.wrapRenderButton.bind(this);
+		this.onActionWrapper = this.onActionWrapper.bind(this);
+		this.onPressedOut = this.onPressedOut.bind(this);
+		this.onPressedIn = this.onPressedIn.bind(this);
+		this.onHoverIn = this.onHoverIn.bind(this);
+		this.onHoverOut = this.onHoverOut.bind(this);
 	}
 
-	public render(): ReactNode {
-		return (
-			<div style={{height: this.props.height || 12}}>
+	public componentWillMount() {
+		this.renderPointer = this.render;
+		this.wrapRenderButton();
+	}
 
-			</div>
-		);
+	private onActionWrapper(): void {
+		if (!this.state.disabled && !this.props.disabled) {
+			this.setState({disabled: true}, () => {
+				this.props.onAction(() => {
+					this.setState({disabled: false});
+				});
+			});
+		}
+	}
+
+	private onPressedIn(): void {
+		this.setState({
+			pressed: true,
+			colour: this.props.buttonFocusedColour,
+		});
+	}
+
+	private onPressedOut(): void {
+		this.setState({
+			pressed: false,
+			colour: this.props.buttonColour,
+		});
+	}
+
+	private onHoverIn(): void {
+		this.setState({colour: this.props.buttonHoverColour})
+	}
+
+	private onHoverOut(): void {
+		this.setState({colour: this.props.buttonColour})
+	}
+
+	private wrapRenderButton(): void {
+		this.render = (): ReactNode => {
+			return(
+				<div
+					className={"main-button"}
+					onClick={this.onActionWrapper}
+					onMouseDown={this.onPressedIn}
+					onMouseUp={this.onPressedOut}
+					onMouseEnter={this.onHoverIn}
+					onMouseLeave={this.onHoverOut}
+					style={{
+						backgroundColor: this.state.colour,
+					}}
+				>
+					{this.renderPointer()}
+				</div>
+			);
+		};
 	}
 }
 
 export interface IButtonProps extends IEnhancedComponentProps {
-	width: number;
-	height?: number;
+	onAction?: (callback: () => void) => void;
+	disabled?: boolean;
+	buttonColour?: string;
+	buttonHoverColour?: string;
+	buttonFocusedColour?: string;
 }
 
 export interface IButtonState extends IEnhancedComponentState {
-	clicked: boolean;
+	pressed: boolean;
+	disabled: boolean;
+	colour: string;
 }
 
 export {Button};

@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import {TextButtonTest} from "./containers/TestScreens/TextButtonTest";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TextButtonTest />
   </React.StrictMode>,
   document.getElementById('root')
 );

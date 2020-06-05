@@ -3,19 +3,19 @@ import {ReactNode} from "react";
 import {Button, IButtonProps, IButtonState} from "./Button";
 import "./Button.css";
 
-// TODO not done
 class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 
 	public static defaultProps: ITextButtonProps = {
-		width: 15,
+		...Button.defaultProps,
 		text: "",
 	}
 
 	protected constructor(props: ITextButtonProps) {
 		super(props);
 		this.state = {
-			clicked: false,
-			text: props.text,
+			...this.state,
+			pressed: false,
+			text: this.props.text,
 		};
 	}
 
