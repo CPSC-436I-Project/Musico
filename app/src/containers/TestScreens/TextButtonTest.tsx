@@ -11,13 +11,22 @@ class TextButtonTest extends Container<ITextButtonTextProps, ITextButtonTextStat
 	protected constructor(props: ITextButtonTextProps) {
 		super(props);
 		this.state = {};
+
+	}
+
+	private static textButtonCallback(callback: () => void): void {
+		console.log("Text Button clicked");
+		callback();
 	}
 
 	public render(): ReactNode {
 		return (
 			<div className={"flex-column-center"}>
 				<h2>Text Button</h2>
-				<TextButton text={"Test test test"} onAction={(callback: () => void) => {alert("Text Button clicked"); }}/>
+				<TextButton
+					text={"Test test test"}
+					onAction={TextButtonTest.textButtonCallback}
+				/>
 			</div>
 		);
 	}
