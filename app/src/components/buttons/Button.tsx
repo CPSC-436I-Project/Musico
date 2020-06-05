@@ -12,9 +12,9 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 			callback();
 		},
 		disabled: false,
-		buttonColour: "blue",
-		buttonHoverColour: "green",
-		buttonFocusedColour: "red",
+		buttonColour: "#a8a8a8",
+		buttonHoverColour: "#c9c9c9",
+		buttonFocusedColour: "#6f6f6f",
 	};
 
 	protected renderPointer: () => ReactNode;

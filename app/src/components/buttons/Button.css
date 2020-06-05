@@ -1,13 +1,14 @@
 .main-button {
     border: none;
-    color: white;
-    padding: 20px;
+    padding: 0 5px;
     text-align: center;
     text-decoration: none;
+    letter-spacing: 2px;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
     margin: 4px 2px;
-    border-radius: 30%;
+    border-radius: 500px;
+    min-width: 160px;
 }
 
 .main-button:hover {

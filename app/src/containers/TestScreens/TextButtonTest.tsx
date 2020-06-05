@@ -24,8 +24,15 @@ class TextButtonTest extends Container<ITextButtonTextProps, ITextButtonTextStat
 			<div className={"flex-column-center"}>
 				<h2>Text Button</h2>
 				<TextButton
-					text={"Test test test"}
+					text={"Default Props"}
 					onAction={TextButtonTest.textButtonCallback}
+				/>
+				<TextButton
+					text={"Custom Colours"}
+					onAction={TextButtonTest.textButtonCallback}
+					buttonColour={"#b32e2e"}
+					buttonHoverColour={"#dc6c6c"}
+					buttonFocusedColour={"#821c1c"}
 				/>
 			</div>
 		);
