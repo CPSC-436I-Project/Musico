@@ -4,11 +4,11 @@ import "../Container.css";
 import {Container, IContainerProps, IContainerState} from "../Container";
 import {TextButton} from "../../components/buttons/TextButton";
 
-class TextButtonTest extends Container<ITextButtonTextProps, ITextButtonTextState> {
+class TextButtonTest extends Container<ITextButtonTestProps, ITextButtonTestState> {
 
-	public static defaultProps: ITextButtonTextProps = {};
+	public static defaultProps: ITextButtonTestProps = {};
 
-	protected constructor(props: ITextButtonTextProps) {
+	protected constructor(props: ITextButtonTestProps) {
 		super(props);
 		this.state = {};
 
@@ -39,11 +39,11 @@ class TextButtonTest extends Container<ITextButtonTextProps, ITextButtonTextStat
 	}
 }
 
-export interface ITextButtonTextProps extends IContainerProps {
+export interface ITextButtonTestProps extends IContainerProps {
 
 }
 
-export interface ITextButtonTextState extends IContainerState {
+export interface ITextButtonTestState extends IContainerState {
 
 }
 
