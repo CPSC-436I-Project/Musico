@@ -1,0 +1,8 @@
+.image_button {
+    background-position: center;
+    background-size: cover;
+    width: 100px;
+    height: 30px;
+    padding: 0;
+    margin: 0;
+}
