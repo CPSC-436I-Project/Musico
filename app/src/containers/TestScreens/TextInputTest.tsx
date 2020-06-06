@@ -23,18 +23,20 @@ class TextInputTest extends Container<ITextInputTestProps, ITextInputTestState> 
         return (
             <div>
                 <h2>Text Inputs</h2>
-                    <TextInput
-                        defaultText={"This is a text input"}
-                        onsubmit={TextInputTest.textInputCallback}
-                    />
-                    <TextInput
-                        defaultText={"This is another text input"}
-                        onsubmit={TextInputTest.textInputCallback}
-                    />
-                    <TextInput
-                        defaultText={"This is also a text input"}
-                        onsubmit={TextInputTest.textInputCallback}
-                    />
+                    <form onSubmit={(event) => event.preventDefault()}>
+                        <TextInput
+                            defaultText={"This is a text input"}
+                            onsubmit={TextInputTest.textInputCallback}
+                        />
+                        <TextInput
+                            defaultText={"This is another text input"}
+                            onsubmit={TextInputTest.textInputCallback}
+                        />
+                        <TextInput
+                            defaultText={"This is also a text input"}
+                            onsubmit={TextInputTest.textInputCallback}
+                        />
+                    </form>
             </div>
         );
     }

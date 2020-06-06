@@ -33,12 +33,8 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
     public render(): ReactNode {
         return (
             <div>
-                <form onSubmit={
-                    event => {event.preventDefault();}
-                }>
-                    <input type="text" name="text_input" placeholder={this.state.defaultText}
-                            value={this.state.text} onChange={this.updateText} />
-                </form>
+                <input type="text" name="text_input" placeholder={this.state.defaultText}
+                       value={this.state.text} onChange={this.updateText} />
             </div>
         );
     }
