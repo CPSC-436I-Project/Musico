@@ -27,10 +27,7 @@ class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISideb
 					alt={this.props.text.concat(" icon")}
 					className="sidebar-text-image-button-icon"
 				/>
-				<p style={{
-					marginTop: this.props.fontSize / 2,
-					marginBottom: this.props.fontSize / 2
-				}}>{this.props.text}</p>
+				<p>{this.props.text}</p>
 			</div>
 		);
 	}
