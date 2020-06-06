@@ -6,7 +6,10 @@ import "./Components.css";
 class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 
     public static defaultProps: ITextInputProps = {
-        // callback: () => {return void},
+        ...EnhancedComponent.defaultProps,
+        onsubmit: (callback: () => void): void => {
+            callback();
+        },
         defaultText: "",
         text: "",
     };
@@ -14,27 +17,41 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
     protected constructor(props: ITextInputProps) {
         super(props);
         this.state = {
-            // callback: props.callback,
+            ...this.state,
             defaultText: props.defaultText,
             text: props.text,
         };
+        this.updateText = this.updateText.bind(this);
+    }
+
+    private updateText(event: any): void {
+        this.setState({
+            text: event.target.value,
+        })
     }
 
     public render(): ReactNode {
         return (
-            <div> THIS IS A PLACEHOLDER </div>
+            <div>
+                <form onSubmit={
+                    event => {event.preventDefault();}
+                }>
+                    <input type="text" name="text_input" placeholder={this.state.defaultText}
+                            value={this.state.text} onChange={this.updateText} />
+                </form>
+            </div>
         );
     }
 }
 
 export interface ITextInputProps {
-    // callback: () => void;
+    onsubmit: (callback: () => void) => void;
     defaultText: string;
     text: string;
 }
 
 export interface ITextInputState {
-    // callback: () => void;
+    onsubmit: (callback: () => void) => void;
     defaultText: string;
     text: string;
 }
