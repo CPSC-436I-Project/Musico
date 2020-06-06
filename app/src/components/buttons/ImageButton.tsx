@@ -6,6 +6,7 @@ import "./Button.css";
 class ImageButton extends Button<IImageButtonProps, IImageButtonState> {
 
     public static defaultProps: IImageButtonProps = {
+        ...Button.defaultProps,
         width: 150,
         src: "",
     };
@@ -13,7 +14,8 @@ class ImageButton extends Button<IImageButtonProps, IImageButtonState> {
     protected constructor(props: IImageButtonProps) {
         super(props);
         this.state = {
-            clicked: false,
+            ...this.state,
+            pressed: false,
             src: props.src,
         };
     }
