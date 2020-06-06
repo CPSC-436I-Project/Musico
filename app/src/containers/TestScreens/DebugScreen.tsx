@@ -4,10 +4,13 @@ import "../Container.css";
 import {Container, IContainerProps, IContainerState} from "../Container";
 import {testScreen, testScreenMap} from "./";
 import {Nav, Navbar, NavItem, NavLink} from "reactstrap";
+import {TextButton} from "../../components";
 
 class DebugScreen extends Container<IDebugScreenProps, IDebugScreenState> {
 
-	public static defaultProps: IDebugScreenProps = {};
+	public static defaultProps: IDebugScreenProps = {
+		...Container.defaultProps,
+	};
 
 	protected constructor(props: IDebugScreenProps) {
 		super(props);
@@ -35,7 +38,9 @@ class DebugScreen extends Container<IDebugScreenProps, IDebugScreenState> {
 					href={"#"}
 					selected={this.state.currentPage === pageKey}
 				>
-					{testScreenMap[pageKey].name}
+					<TextButton
+						text={testScreenMap[pageKey].name}
+					/>
 				</NavLink>
 			</NavItem>
 		);

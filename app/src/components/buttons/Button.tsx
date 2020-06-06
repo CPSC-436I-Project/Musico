@@ -36,10 +36,11 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		this.onPressedIn = this.onPressedIn.bind(this);
 		this.onHoverIn = this.onHoverIn.bind(this);
 		this.onHoverOut = this.onHoverOut.bind(this);
+
+		this.renderPointer = this.render;
 	}
 
 	public componentWillMount() {
-		this.renderPointer = this.render;
 		this.wrapRenderButton();
 	}
 

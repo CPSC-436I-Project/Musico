@@ -6,7 +6,9 @@ import {TextButton} from "../../components/buttons/TextButton";
 
 class TextButtonTest extends Container<ITextButtonTestProps, ITextButtonTestState> {
 
-	public static defaultProps: ITextButtonTestProps = {};
+	public static defaultProps: ITextButtonTestProps = {
+		...Container.defaultProps,
+	};
 
 	protected constructor(props: ITextButtonTestProps) {
 		super(props);
