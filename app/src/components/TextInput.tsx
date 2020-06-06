@@ -8,7 +8,6 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 	public static defaultProps: ITextInputProps = {
 		...EnhancedComponent.defaultProps,
 		defaultText: "",
-		text: "",
 		width: "100%",
 		color: "transparent",
 		colorMargin: 0,
@@ -21,13 +20,13 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 		super(props);
 		this.state = {
 			...this.state,
-			text: props.text,
 		};
 		this.updateText = this.updateText.bind(this);
 	}
 
 	private updateText(event: any): void {
 		this.setState({
+			...this.state,
 			text: event.target.value,
 		});
 	}
@@ -45,7 +44,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 					className="text_input"
 					type="text" name="text_input"
 					placeholder={this.props.defaultText}
-					value={this.props.text}
+					value={this.state.text}
 					onChange={this.updateText}
 					style={{
 						margin: this.props.colorMargin,
@@ -60,7 +59,6 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 
 export interface ITextInputProps extends IEnhancedComponentProps {
 	defaultText: string;
-	text: string;
 	width?: number | string;
 	color?: string;
 	colorMargin?: number;
