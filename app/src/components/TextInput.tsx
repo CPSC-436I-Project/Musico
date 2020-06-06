@@ -41,11 +41,13 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 
     public render(): ReactNode {
         return (
-            <div className="text_input_div" style={{width: this.state.width, backgroundColor: this.state.color,
-                        border: this.state.border ? "1px solid " + this.state.borderColor : "0px solid black"}}>
+            <div className="text_input_div" style={{width: this.state.width, backgroundColor: this.state.color}}>
                 <input className="text_input" type="text" name="text_input" placeholder={this.state.defaultText}
                        value={this.state.text} onChange={this.updateText}
-                       style={{margin: this.state.colorMargin, fontSize: this.state.fontSize}}/>
+                       style={{
+                           margin: this.state.colorMargin, fontSize: this.state.fontSize,
+                           outline: "none", border: Number(this.state.border)
+                       }}/>
             </div>
         );
     }
