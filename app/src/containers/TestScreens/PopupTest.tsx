@@ -1,7 +1,6 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {Container, IContainerProps, IContainerState} from "../Container";
-import {PopupContainer} from "../PopupContainer";
 import {AddSongForm} from "../../components/AddSongForm";
 
 class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
@@ -13,14 +12,6 @@ class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
         super(props);
         this.state = {};
     }
-
-    // openPopup = () => {
-    //     this.setState({popupOpen: true});
-    // };
-    //
-    // closePopup = () => {
-    //     this.setState({popupOpen: false});
-    // };
 
     popupRender = () => {
         return (

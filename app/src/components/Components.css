@@ -1,3 +1,38 @@
+/* Style the header with a grey background and some padding */
+.header {
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #EBEAEA;
+    padding: 10px 10px;
+    height: 54px;
+    position: relative;
+}
+
+.header .logo {
+    margin: 0 10px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #6236FF;
+    text-align: center;
+    padding: 5px;
+    text-decoration: none;
+    line-height: 25px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.header-right {
+    float: right;
+}
+
+.header-right .main-button {
+    border: 3px solid #6236FF;
+    padding: 0;
+    overflow: hidden;
+}
+
 .center-mid {
     display: flex;
     justify-content: center;
