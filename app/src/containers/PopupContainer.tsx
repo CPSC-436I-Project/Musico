@@ -1,26 +1,26 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import {Container, IContainerProps, IContainerState} from "./Container";
+import {ImageButton} from "../components/buttons/ImageButton";
+import closeIcon from "../icons/close.png";
 
-// TODO not done
-class PopupContainer extends Container<IPopupContainerProps, IPopupContainerState> {
+
+class PopupContainer<P extends IPopupContainerProps, S extends IPopupContainerState = IPopupContainerState> extends React.Component<P, S> {
 
 	public static defaultProps: IPopupContainerProps = {
-
+		/* any default props to all popups here */
 	};
 
-	protected constructor(props: IPopupContainerProps) {
+	protected constructor(props: P) {
 		super(props);
-		this.state = {
-		};
 	}
 
-	// TODO Replace close button with ImageButton
 	public render(): ReactNode {
 		return (
 			<div className="overlay">
 				<div className="popup">
-					<button id="close_button" onClick={this.props.closeFn}>x</button>
+					<span className="closeButtonContainer">
+						<ImageButton src={closeIcon} onAction={this.props.closeFn} height={20} width={20} buttonColour="white"/>
+					</span>
 					{this.props.children}
 				</div>
 			</div>
@@ -28,12 +28,12 @@ class PopupContainer extends Container<IPopupContainerProps, IPopupContainerStat
 	}
 }
 
-export interface IPopupContainerProps extends IContainerProps {
+export interface IPopupContainerProps {
 	children?: ReactNode;
-	closeFn?: any;
+	closeFn?: (callback: () => void) => void;
 }
 
-export interface IPopupContainerState extends IContainerState {
+export interface IPopupContainerState {
 
 }
 

@@ -24,10 +24,17 @@
     padding: 20px;
 }
 
-.popup #close_button {
+.popup .closeButtonContainer {
     position: absolute;
     top: 20px;
     right: 30px;
     padding: 0;
     width: 30px;
+}
+
+.flex-column-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px 2px;
 }
