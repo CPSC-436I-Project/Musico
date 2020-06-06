@@ -3,19 +3,20 @@ import {ReactNode} from "react";
 import "./Container.css";
 import {Container} from "./Container";
 import {TextButton} from "../components/buttons/TextButton";
+import {Image} from "../components/Image";
 
 class LoginScreen extends Container {
 
 	public render(): ReactNode {
 		return (
 			<div
-				className={"flex-column-center"}
-				style={{
-					width: "100%",
-					height: "100%"
-				}}
+				className={"fill-container center-mid"}
 			>
-				<img/>
+				<div style={{
+					marginBottom: 180,
+				}}>
+					<Image path={"/logo.png"}/>
+				</div>
 				<TextButton
 					text={"Login"}
 					width={250}
@@ -26,6 +27,7 @@ class LoginScreen extends Container {
 					buttonFocusedColour={"#431cd7"}
 					buttonHoverColour={"#815cff"}
 				/>
+				<div style={{height: 10}}/>
 				<TextButton
 					text={"Sign Up"}
 					width={250}

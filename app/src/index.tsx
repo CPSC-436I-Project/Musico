@@ -5,7 +5,7 @@ import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import {DebugScreen} from "./containers/TestScreens/DebugScreen";
 
-const prod: boolean = false;
+const prod: boolean = true;
 
 ReactDOM.render(
   <React.StrictMode>
