@@ -6,22 +6,35 @@ import "./Button.css";
 class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 
 	public static defaultProps: ITextButtonProps = {
-		width: 15,
+		...Button.defaultProps,
 		text: "",
-	};
+		bold: false,
+		fontSize: 16,
+		fontColour: "#eee"
+	}
 
 	protected constructor(props: ITextButtonProps) {
 		super(props);
 		this.state = {
-			clicked: false,
-			text: props.text,
+			...this.state,
+			pressed: false,
+			text: this.props.text,
 		};
 	}
 
 	public render(): ReactNode {
 		return (
-			<div>
-				<p>{this.state.text}</p>
+			<div
+				className={"center-mid"}
+				style={{
+					userSelect: "none",
+					fontSize: this.props.fontSize,
+					color: this.props.fontColour,
+					fontWeight: this.props.bold ? "bold" : "normal",
+					height: this.props.height
+				}}
+			>
+				<p style={{marginTop: this.props.fontSize/2, marginBottom: this.props.fontSize/2}}>{this.state.text}</p>
 			</div>
 		);
 	}
@@ -29,6 +42,9 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 
 export interface ITextButtonProps extends IButtonProps {
 	text: string;
+	bold?: boolean;
+	fontSize?: number;
+	fontColour?: string;
 }
 
 export interface ITextButtonState extends IButtonState {

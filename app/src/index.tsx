@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
+import {TextButtonTest} from "./containers/TestScreens/TextButtonTest";
+import {DebugScreen} from "./containers/TestScreens/DebugScreen";
+
+const prod: boolean = false;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      {prod ? <App/> : <DebugScreen/>}
   </React.StrictMode>,
   document.getElementById('root')
 );
