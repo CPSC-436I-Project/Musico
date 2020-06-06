@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import "../Container.css";
+import "./Container.css";
 import {Container} from "./Container";
 import {TextButton} from "../components/buttons/TextButton";
 
@@ -8,7 +8,13 @@ class LoginScreen extends Container {
 
 	public render(): ReactNode {
 		return (
-			<div>
+			<div
+				className={"flex-column-center"}
+				style={{
+					width: "100%",
+					height: "100%"
+				}}
+			>
 				<img/>
 				<TextButton
 					text={"Login"}
