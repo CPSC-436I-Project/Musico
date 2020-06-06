@@ -9,7 +9,6 @@ $sidebar-item-padding: 0.4em 0.8em;
     font-family: $sidebar-font-family;
     font-size: $sidebar-font-size;
     width: 200px;
-    height: 820px;
 
     .sidebar-search-wrapper {
         padding-left: 20px;
@@ -27,10 +26,9 @@ $sidebar-item-padding: 0.4em 0.8em;
     }
 
     .sidebar-channels {
-        position: relative;
-        display: block;
+        display: flex;
         background-color: transparent;
         padding: $sidebar-item-padding;
-        cursor: pointer;      
+        flex-direction: column;
     }
 }

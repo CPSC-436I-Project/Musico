@@ -6,9 +6,6 @@ import {HeaderTest} from "./HeaderTest";
 import {TextInputTest} from "./TextInputTest";
 import {SidebarTest} from "./SidebarTest";
 
-// TODO remove this later
-import {LoginScreen} from "../LoginScreen";
-
 export enum testScreen {
 	EmptyPage,
 	TextButtonTest,
@@ -17,8 +14,6 @@ export enum testScreen {
 	HeaderTest,
 	TextInputTest,
 	SidebarTest,
-	// TODO remove
-	LoginScreen,
 }
 
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
@@ -29,6 +24,4 @@ export const testScreenMap: { [key: string]: { pointer: any, name: string } } = 
 	[testScreen.HeaderTest]: {pointer: HeaderTest, name: "Header Test Page"},
 	[testScreen.TextInputTest]: {pointer: TextInputTest, name: "Text Input Page"},
 	[testScreen.SidebarTest]: {pointer: SidebarTest, name: "Sidebar Test Page"},
-	// TODO remove
-	[testScreen.LoginScreen]: {pointer: LoginScreen, name: "Login"},
 }
