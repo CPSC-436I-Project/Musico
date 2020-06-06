@@ -1,8 +1,10 @@
 import * as React from "react";
+import logo from '../logo.svg';
 import {ReactNode} from "react";
 import {Container, IContainerProps, IContainerState} from "./Container";
 import {PopupContainer} from "./PopupContainer";
 import {AddSongForm} from "../components/AddSongForm";
+import {Header} from "../components/Header";
 
 // TODO this is for experimentation only
 class MainContainer extends Container<IMainContainerProps, IMainContainerState> {
@@ -29,6 +31,7 @@ class MainContainer extends Container<IMainContainerProps, IMainContainerState> 
     public render(): ReactNode {
         return (
             <div className="main">
+                <Header profileImgSrc={logo}/>
                 <button id="openPopup" onClick={this.openPopup}>Open Popup</button>
                 {this.state.popupOpen &&
                 <PopupContainer closeFn={this.closePopup} >
