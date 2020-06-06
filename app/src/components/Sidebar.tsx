@@ -51,7 +51,15 @@ class Sidebar extends EnhancedComponent<SidebarProps, SidebarState> {
                 </div>
                 <div className="sidebar-channels">
                     {this.musicGenres.map(item =>
-                        <SidebarTextImageButton key={item.genre} genre={item.genre} icon={item.icon}/>
+                        <SidebarTextImageButton
+                            key={item.genre}
+                            text={item.genre}
+                            icon={item.icon}
+                            onAction={(callback: () => void) => {
+                                console.log("Clicked on " + item.genre);
+                                callback();
+                            }}
+                        />
                     )}
                 </div>
             </div>
