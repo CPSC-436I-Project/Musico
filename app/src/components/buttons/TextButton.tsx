@@ -13,16 +13,16 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 
 	protected constructor(props: ITextButtonProps) {
 		super(props);
-		this.state = {
-			clicked: false,
-			text: props.text,
-		};
+		// this.state = {
+		// 	clicked: false,
+		// 	text: props.text,
+		// };
 	}
 
 	public render(): ReactNode {
 		return (
 			<div>
-				<p>{this.state.text}</p>
+				<p>HELLO</p>
 			</div>
 		);
 	}

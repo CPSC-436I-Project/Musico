@@ -1,0 +1,36 @@
+$sidebar-border: 1px solid black;
+$sidebar-font-family: "Roboto", sans-serif;
+$sidebar-font-size: 18px;
+$sidebar-item-padding: 0.4em 0.8em;
+
+.sidebar {
+    background-color: #E1E1E1;
+    box-sizing: border-box;
+    font-family: $sidebar-font-family;
+    font-size: $sidebar-font-size;
+    width: 200px;
+    height: 820px;
+
+    .sidebar-search-wrapper {
+        padding-left: 20px;
+        padding-top: 20px;
+    }
+
+    .search-bar {
+        outline: none;
+        border: none;
+        display: block;
+        font-family: $sidebar-font-family;
+        font-size: $sidebar-font-size;
+        height: 30px;
+        width: 160px;
+    }
+
+    .sidebar-channels {
+        position: relative;
+        display: block;
+        background-color: transparent;
+        padding: $sidebar-item-padding;
+        cursor: pointer;      
+    }
+}

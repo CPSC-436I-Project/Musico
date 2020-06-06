@@ -20,8 +20,8 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 
 	public render(): ReactNode {
 		return (
-			<div style={{height: this.props.height || 12}}>
-
+			<div>
+				TEMP
 			</div>
 		);
 	}

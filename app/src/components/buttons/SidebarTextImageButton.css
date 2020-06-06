@@ -1,0 +1,13 @@
+.sidebar-text-image-button {
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;  
+}
+
+.sidebar-text-image-button-icon {
+    padding-right: 10px;
+}
