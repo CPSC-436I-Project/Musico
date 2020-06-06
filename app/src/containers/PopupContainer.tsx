@@ -1,8 +1,10 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {Container, IContainerProps, IContainerState} from "./Container";
+import {ImageButton} from "../components/buttons/ImageButton";
+import closeIcon from "../icons/close.png";
 
-// TODO not done
+
 class PopupContainer extends Container<IPopupContainerProps, IPopupContainerState> {
 
 	public static defaultProps: IPopupContainerProps = {
@@ -15,12 +17,13 @@ class PopupContainer extends Container<IPopupContainerProps, IPopupContainerStat
 		};
 	}
 
-	// TODO Replace close button with ImageButton
 	public render(): ReactNode {
 		return (
 			<div className="overlay">
 				<div className="popup">
-					<button id="close_button" onClick={this.props.closeFn}>x</button>
+					<span className="closeButtonContainer">
+						<ImageButton src={closeIcon} onAction={this.props.closeFn} height={20} width={20} buttonColour="white"/>
+					</span>
 					{this.props.children}
 				</div>
 			</div>

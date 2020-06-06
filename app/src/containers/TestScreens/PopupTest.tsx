@@ -1,11 +1,10 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import {Container, IContainerProps, IContainerState} from "./Container";
-import {PopupContainer} from "./PopupContainer";
-import {AddSongForm} from "../components/AddSongForm";
+import {Container, IContainerProps, IContainerState} from "../Container";
+import {PopupContainer} from "../PopupContainer";
+import {AddSongForm} from "../../components/AddSongForm";
 
-// TODO this is for experimentation only
-class MainContainer extends Container<IMainContainerProps, IMainContainerState> {
+class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
 
     public static defaultProps: IMainContainerProps = {
     };
@@ -46,4 +45,4 @@ export interface IMainContainerState extends IContainerState {
     popupOpen: boolean
 }
 
-export {MainContainer};
+export {PopupTest};
