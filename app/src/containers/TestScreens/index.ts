@@ -7,7 +7,7 @@ export enum testScreen {
 	EmptyPage,
 	TextButtonTest,
 	ImageButtonTest,
-	TextInputTest
+	TextInputTest,
 }
 
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
