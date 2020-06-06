@@ -6,37 +6,73 @@ import "./Components.css";
 class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 
     public static defaultProps: ITextInputProps = {
-        // callback: () => {return void},
+        ...EnhancedComponent.defaultProps,
         defaultText: "",
         text: "",
+        width: 1000,
+        color: "transparent",
+        colorMargin: 0,
+        border: true,
+        borderColor: "black",
+        fontSize: 16,
     };
 
     protected constructor(props: ITextInputProps) {
         super(props);
         this.state = {
-            // callback: props.callback,
+            ...this.state,
             defaultText: props.defaultText,
             text: props.text,
+            width: props.width,
+            color: props.color,
+            colorMargin: props.colorMargin,
+            border: props.border,
+            borderColor: props.borderColor,
+            fontSize: props.fontSize,
         };
+        this.updateText = this.updateText.bind(this);
+    }
+
+    private updateText(event: any): void {
+        this.setState({
+            text: event.target.value,
+        })
     }
 
     public render(): ReactNode {
         return (
-            <div> THIS IS A PLACEHOLDER </div>
+            <div className="text_input_div" style={{width: this.state.width, backgroundColor: this.state.color}}>
+                <input className="text_input" type="text" name="text_input" placeholder={this.state.defaultText}
+                       value={this.state.text} onChange={this.updateText}
+                       style={{
+                           margin: this.state.colorMargin, fontSize: this.state.fontSize,
+                           outline: "none", border: Number(this.state.border)
+                       }}/>
+            </div>
         );
     }
 }
 
 export interface ITextInputProps {
-    // callback: () => void;
     defaultText: string;
     text: string;
+    width?: number;
+    color?: string;
+    colorMargin?: number;
+    border: boolean;
+    borderColor?: string;
+    fontSize?: number;
 }
 
 export interface ITextInputState {
-    // callback: () => void;
     defaultText: string;
     text: string;
+    width?: number;
+    color?: string;
+    colorMargin?: number;
+    border: boolean;
+    borderColor?: string;
+    fontSize?: number;
 }
 
 export {TextInput};
