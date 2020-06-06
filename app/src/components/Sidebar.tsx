@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SidebarTextImageButton } from "./buttons/SidebarTextImageButton";
-import "./buttons/SidebarTextImageButton.css";
+import "./buttons/Button.css";
 import "./Sidebar.scss";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {TextInput} from "./TextInput";

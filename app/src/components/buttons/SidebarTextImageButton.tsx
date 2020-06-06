@@ -1,8 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import "./SidebarTextImageButton.css";
+import "./Button.css";
 import {Button, IButtonProps, IButtonState} from "./Button";
-import {IImageButtonProps} from "./ImageButton";
 import {ITextButtonProps} from "./TextButton";
 
 class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISidebarTextImageButtonState> {
