@@ -41,8 +41,13 @@
     flex: 1;
 }
 
-.addSongForm #message_tb {
+.add-song-form #message_tb {
     width: 100%;
+}
+
+.add-song-form .text_input_div {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .text_input_div {
@@ -50,6 +55,7 @@
 }
 
 .text_input {
+    max-width: 100%;
     flex-grow: 1;
 }
 

@@ -8,28 +8,20 @@ import {TextInput} from "./TextInput";
 class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState> {
 
     public static defaultProps: IAddSongFormProps = {
-        width: 15,
-        text: "",
     };
 
     protected constructor(props: IAddSongFormProps) {
         super(props);
         this.state = {
-            linkInputVal: ""
         };
     }
 
-    handleChange = (e: any) => {
-        this.setState({linkInputVal: e.target.value});
-    };
-
     public render(): ReactNode {
         return (
-            <div className="addSongForm">
+            <div className="add-song-form">
                 <h2>Add a song to the queue:</h2>
-                <TextInput defaultText="Paste a YouTube song link here" />
-                <input id="message_tb" type="text" value={this.state.linkInputVal} onChange={this.handleChange} placeholder="Paste a YouTube song link here"/>
-                <TextButton text="Submit" bold={true}/>
+                <TextInput defaultText="Paste a YouTube song link here" width={300}/>
+                <TextButton text="Submit" bold={true} buttonColour="#6236FF" height={30} width={90}/>
             </div>
         );
     }
@@ -40,7 +32,6 @@ export interface IAddSongFormProps extends IEnhancedComponentProps {
 }
 
 export interface IAddSongFormState extends IEnhancedComponentState {
-    linkInputVal: string,
 }
 
 export {AddSongForm};
