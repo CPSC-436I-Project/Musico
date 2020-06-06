@@ -11,7 +11,6 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 	private readonly childRender: () => ReactNode;
 
 	protected constructor(props: P) {
-		console.log(props, EnhancedComponent.defaultProps)
 		super(props);
 		// @ts-ignore
 		this.state = {};

@@ -56,7 +56,9 @@ class DebugScreen extends Container<IDebugScreenProps, IDebugScreenState> {
 
 		return (
 			<div className={"flex-column-center"}>
-				<Navbar expand={"md"}>
+				<Navbar
+					expand={"md"}
+				>
 					<Nav navbar={true}>
 						{links.map(this.createNavLinks)}
 					</Nav>

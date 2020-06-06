@@ -6,7 +6,6 @@ import "./Button.css";
 abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonState = IButtonState> extends EnhancedComponent<P, S> {
 
 	public static defaultProps: IButtonProps = {
-		/* add default props that belong to every component */
 		...EnhancedComponent.defaultProps,
 		onAction: (callback: () => void): void => {
 			callback();
@@ -15,6 +14,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		buttonColour: "#a8a8a8",
 		buttonHoverColour: "#c9c9c9",
 		buttonFocusedColour: "#6f6f6f",
+		width: 160,
 	};
 
 	protected renderPointer: () => ReactNode;
@@ -85,7 +85,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		this.render = (): ReactNode => {
 			return(
 				<div
-					className={"main-button"}
+					className={"main-button center-mid"}
 					onClick={this.onActionWrapper}
 					onMouseDown={this.onPressedIn}
 					onMouseUp={this.onPressedOut}
@@ -93,6 +93,8 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 					onMouseLeave={this.onHoverOut}
 					style={{
 						backgroundColor: this.state.colour,
+						width: this.props.width,
+						minHeight: this.props.height,
 					}}
 				>
 					{this.renderPointer()}
@@ -108,6 +110,8 @@ export interface IButtonProps extends IEnhancedComponentProps {
 	buttonColour?: string;
 	buttonHoverColour?: string;
 	buttonFocusedColour?: string;
+	width?: number;
+	height?: number;
 }
 
 export interface IButtonState extends IEnhancedComponentState {
