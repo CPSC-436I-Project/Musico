@@ -1,5 +1,6 @@
 import * as React from "react";
 import {ReactNode} from "react";
+import "./Components.css";
 
 abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedComponentProps, S extends IEnhancedComponentState = IEnhancedComponentState> extends React.PureComponent<P, S> {
 
@@ -30,12 +31,10 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 	}
 }
 
-interface IEnhancedComponentProps {
-
+export interface IEnhancedComponentProps {
 }
 
-interface IEnhancedComponentState {
-
+export interface IEnhancedComponentState {
 }
 
-export {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState};
+export {EnhancedComponent};
