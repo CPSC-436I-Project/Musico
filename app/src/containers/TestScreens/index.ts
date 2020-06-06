@@ -2,6 +2,7 @@ import {TextButtonTest} from "./TextButtonTest";
 import {EmptyPage} from "./EmptyPage";
 import {ImageButtonTest} from "./ImageButtonTest";
 import {PopupTest} from "./PopupTest";
+import {HeaderTest} from "./HeaderTest";
 
 
 export enum testScreen {
@@ -9,6 +10,7 @@ export enum testScreen {
 	TextButtonTest,
 	ImageButtonTest,
 	PopupTest,
+	HeaderTest
 }
 
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
@@ -16,4 +18,5 @@ export const testScreenMap: { [key: string]: { pointer: any, name: string } } = 
 	[testScreen.TextButtonTest]: {pointer: TextButtonTest, name: "Text Button Page"},
 	[testScreen.ImageButtonTest]: {pointer: ImageButtonTest, name: "Image Button Page"},
 	[testScreen.PopupTest]: {pointer: PopupTest, name: "Popup Page"},
+	[testScreen.HeaderTest]: {pointer: HeaderTest, name: "Header Test Page"},
 }

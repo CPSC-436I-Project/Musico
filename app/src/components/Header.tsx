@@ -2,11 +2,13 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Components.css";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
+import {ImageButton} from "./buttons/ImageButton";
+import profilePlaceholder from "../icons/profile-placeholder.png";
+import menuIcon from "../icons/menu.png";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
     public static defaultProps: IHeaderProps = {
-        profileImgSrc: ""
     }
 
     protected constructor(props: IHeaderProps) {
@@ -18,10 +20,10 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
     public render(): ReactNode {
         return (
             <div className="header">
-                
-                <a href="#default" className="logo">Musico</a>
+                <ImageButton src={menuIcon} width={40} height={40} buttonColour="transparent" onAction={this.props.onMenuClick}/>
+                <span className="logo">Musico</span>
                 <div className="header-right">
-                    <a className="profileImage" href=""><img src={this.props.profileImgSrc} alt="ProfileImage"/></a>
+                    <ImageButton src={this.props.profileImgSrc || profilePlaceholder} width={40} height={40} buttonColour="white" onAction={this.props.onProfileClick}/>
                 </div>
             </div>
         );
@@ -29,7 +31,9 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 }
 
 export interface IHeaderProps extends IEnhancedComponentProps {
-    profileImgSrc: string,
+    profileImgSrc?: string,
+    onProfileClick?: (callback: () => void) => void;
+    onMenuClick?: (callback: () => void) => void;
 }
 
 export interface IHeaderState extends IEnhancedComponentState {

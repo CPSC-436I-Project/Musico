@@ -1,42 +1,36 @@
 /* Style the header with a grey background and some padding */
 .header {
+    margin: 0 auto;
     overflow: hidden;
     background-color: #EBEAEA;
     padding: 10px 10px;
+    height: 54px;
+    position: relative;
 }
 
-/* Style the header links */
-.header a {
-    float: left;
-    color: black;
+.header .logo {
+    margin: 0 10px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #6236FF;
     text-align: center;
     padding: 5px;
     text-decoration: none;
-    font-size: 18px;
     line-height: 25px;
-}
-
-/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
-.header a.logo {
-    font-size: 25px;
+    font-size: 40px;
     font-weight: bold;
-    height: 40px;
 }
 
-/* Style the active/current link*/
-.header a.active {
-    background-color: dodgerblue;
-    color: white;
-}
-
-/* Float the link section to the right */
 .header-right {
     float: right;
 }
 
-.profileImage img {
-    height: 40px;
-    border-radius: 50%;
+.header-right .main-button {
+    border: 3px solid #6236FF;
+    padding: 0;
+    overflow: hidden;
 }
 
 .center-mid {
