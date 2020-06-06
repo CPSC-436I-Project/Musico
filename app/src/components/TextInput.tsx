@@ -7,9 +7,6 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 
     public static defaultProps: ITextInputProps = {
         ...EnhancedComponent.defaultProps,
-        onsubmit: (callback: () => void): void => {
-            callback();
-        },
         defaultText: "",
         text: "",
         width: 1000,
@@ -55,7 +52,6 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 }
 
 export interface ITextInputProps {
-    onsubmit: (callback: () => void) => void;
     defaultText: string;
     text: string;
     width?: number;
@@ -67,7 +63,6 @@ export interface ITextInputProps {
 }
 
 export interface ITextInputState {
-    onsubmit: (callback: () => void) => void;
     defaultText: string;
     text: string;
     width?: number;
