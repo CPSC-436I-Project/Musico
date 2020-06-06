@@ -1,20 +1,17 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import {Container, IContainerProps, IContainerState} from "./Container";
 import {ImageButton} from "../components/buttons/ImageButton";
 import closeIcon from "../icons/close.png";
 
 
-class PopupContainer extends Container<IPopupContainerProps, IPopupContainerState> {
+class PopupContainer<P extends IPopupContainerProps, S extends IPopupContainerState = IPopupContainerState> extends React.Component<P, S> {
 
 	public static defaultProps: IPopupContainerProps = {
-
+		/* any default props to all popups here */
 	};
 
-	protected constructor(props: IPopupContainerProps) {
+	protected constructor(props: P) {
 		super(props);
-		this.state = {
-		};
 	}
 
 	public render(): ReactNode {
@@ -31,12 +28,12 @@ class PopupContainer extends Container<IPopupContainerProps, IPopupContainerStat
 	}
 }
 
-export interface IPopupContainerProps extends IContainerProps {
+export interface IPopupContainerProps {
 	children?: ReactNode;
-	closeFn?: any;
+	closeFn?: (callback: () => void) => void;
 }
 
-export interface IPopupContainerState extends IContainerState {
+export interface IPopupContainerState {
 
 }
 
