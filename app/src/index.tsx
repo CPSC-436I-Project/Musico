@@ -3,10 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import {TextButtonTest} from "./containers/TestScreens/TextButtonTest";
-import {DebugScreen} from "./containers/TestScreens/DebugScreen";
+import {DebugScreen} from "./containers";
 
-const prod: boolean = false;
+const prod: boolean = true;
 
 ReactDOM.render(
   <React.StrictMode>

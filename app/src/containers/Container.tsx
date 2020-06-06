@@ -39,7 +39,7 @@ abstract class Container<P extends IContainerProps = IContainerProps, S extends 
 	private wrapRender(): void {
 		this.render = (): ReactNode => {
 			return (
-				<div>
+				<div className={"fill-container"}>
 					{this.childRender()}
 					{this.state.popupOpen &&
 					<PopupContainer closeFn={this.closePopup}>
