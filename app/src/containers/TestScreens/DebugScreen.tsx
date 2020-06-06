@@ -40,6 +40,7 @@ class DebugScreen extends Container<IDebugScreenProps, IDebugScreenState> {
 				>
 					<TextButton
 						text={testScreenMap[pageKey].name}
+						width={"100%"}
 					/>
 				</NavLink>
 			</NavItem>

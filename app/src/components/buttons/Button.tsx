@@ -111,7 +111,7 @@ export interface IButtonProps extends IEnhancedComponentProps {
 	buttonColour?: string;
 	buttonHoverColour?: string;
 	buttonFocusedColour?: string;
-	width?: number;
+	width?: number | string;
 	height?: number;
 }
 
