@@ -5,3 +5,11 @@
     align-items: center;
     flex: 1;
 }
+
+.text_input_div {
+    display: flex;
+}
+
+.text_input {
+    flex-grow: 1;
+}

@@ -27,14 +27,24 @@ class TextInputTest extends Container<ITextInputTestProps, ITextInputTestState> 
                         <TextInput
                             defaultText={"This is a text input"}
                             onsubmit={TextInputTest.textInputCallback}
+                            width={300}
+                            color={"yellow"}
+                            colorMargin={3}
                         />
                         <TextInput
                             defaultText={"This is another text input"}
                             onsubmit={TextInputTest.textInputCallback}
+                            color={"red"}
+                            colorMargin={10}
+                            border={false}
+                            fontSize={20}
                         />
                         <TextInput
                             defaultText={"This is also a text input"}
                             onsubmit={TextInputTest.textInputCallback}
+                            width={550}
+                            borderColor={"blue"}
+                            fontSize={30}
                         />
                     </form>
             </div>
