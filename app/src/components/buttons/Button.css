@@ -32,6 +32,10 @@
     font-weight: bold;
 }
 
+.sidebar-text-image-button p {
+    margin: 5px 10px;
+}
+
 .sidebar-text-image-button-icon {
     padding-right: 10px;
 }

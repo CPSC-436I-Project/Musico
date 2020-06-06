@@ -54,6 +54,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                             key={item.genre}
                             text={item.genre}
                             icon={item.icon}
+                            buttonColour="#E1E1E2"
                             onAction={(callback: () => void) => {
                                 console.log("Clicked on " + item.genre);
                                 callback();
