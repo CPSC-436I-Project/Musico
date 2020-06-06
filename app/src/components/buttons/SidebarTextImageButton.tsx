@@ -1,45 +1,38 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "../EnhancedComponent";
 import "./SidebarTextImageButton.css";
+import {Button, IButtonProps, IButtonState} from "./Button";
 
-class SidebarTextImageButton<P extends IButtonProps = IButtonProps, S extends IButtonState = IButtonState> extends EnhancedComponent<P, S> {
+class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISidebarTextImageButtonState> {
 
-	protected constructor(props: P) {
+	protected constructor(props: ISidebarTextImageButtonProps) {
 		super(props);
-		// @ts-ignore
 		this.state = {
-			clicked: false,
-			genre: this.props.genre,
-			icon: this.props.icon
+			...this.state,
 		};
 	}
 
 	public render(): ReactNode {
-		console.log("PROPS:", this.props);
 		return (
-			<button className="sidebar-text-image-button">
-                <img 
+			<div className="sidebar-text-image-button">
+                <img
                     src={this.props.icon}
                     alt={this.props.genre.concat(" icon")}
                     className="sidebar-text-image-button-icon"
-                    >
-                </img>
+				/>
                 {this.props.genre}
-            </button>
+            </div>
 		);
 	}
 }
 
-export interface IButtonProps extends IEnhancedComponentProps {
+export interface ISidebarTextImageButtonProps extends IButtonProps {
 	genre: string;
 	icon: string;
 }
 
-export interface IButtonState extends IEnhancedComponentState {
-	clicked: boolean;
-	genre: string;
-	icon: string;
+export interface ISidebarTextImageButtonState extends IButtonState {
+
 }
 
 export {SidebarTextImageButton};

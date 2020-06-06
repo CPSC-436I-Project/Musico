@@ -2,43 +2,28 @@ import * as React from "react";
 import { SidebarTextImageButton } from "./buttons/SidebarTextImageButton";
 import "./buttons/SidebarTextImageButton.css";
 import "./Sidebar.scss";
+import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 
-const musicGenres = [
-    {genre: "Electronic", icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png"},
-    {genre: "Rock", icon: "https://img.icons8.com/ios-glyphs/30/000000/rock-music.png"},
-    {genre: "Lo-Fi", icon: "https://img.icons8.com/ios-glyphs/30/000000/easy-listening.png"},
-    {genre: "Reggae", icon: "https://img.icons8.com/ios-glyphs/30/000000/reggae.png"},
-    {genre: "Country", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
-    {genre: "Hip-Hop", icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
-    {genre: "Jazz", icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
-    {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"}
-  ]
-
-interface SidebarGenreChannel {
-    genre: string;
-    icon: string;
-    href?: string;
-}
-
-interface SidebarProps<T extends SidebarGenreChannel> {
-    className?: string;
-    hasSearch?: boolean;
-}
-
-interface SidebarState {
-    searchValue?: string;
-    genre: "";
-    icon: "";
-}
-
-class Sidebar<T extends SidebarGenreChannel> extends React.Component<SidebarProps<T>, SidebarState> {
-
-    constructor(props: SidebarProps<T>) {
+class Sidebar extends EnhancedComponent<SidebarProps, SidebarState> {
+    public static defaultProps: SidebarProps = {
+        ...EnhancedComponent.defaultProps,
+    };
+    private readonly musicGenres: SidebarGenreChannel[] = [
+        {genre: "Electronic", icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png"},
+        {genre: "Rock", icon: "https://img.icons8.com/ios-glyphs/30/000000/rock-music.png"},
+        {genre: "Lo-Fi", icon: "https://img.icons8.com/ios-glyphs/30/000000/easy-listening.png"},
+        {genre: "Reggae", icon: "https://img.icons8.com/ios-glyphs/30/000000/reggae.png"},
+        {genre: "Country", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
+        {genre: "Hip-Hop", icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
+        {genre: "Jazz", icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
+        {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
+    ]
+    constructor(props: SidebarProps) {
         super(props);
         this.state = {
             searchValue: "",
             genre: "",
-            icon: ""
+            icon: "",
         };
     }
 
@@ -55,7 +40,7 @@ class Sidebar<T extends SidebarGenreChannel> extends React.Component<SidebarProp
         return (
             <div className="sidebar">
                 <div className="sidebar-search-wrapper">
-                    <input 
+                    <input
                         type="text"
                         placeholder={placeholder}
                         className="search-bar"
@@ -63,15 +48,31 @@ class Sidebar<T extends SidebarGenreChannel> extends React.Component<SidebarProp
                         onChange={this.onSearch}
                     />
                     <hr />
-                </div>   
-                <div className="sidebar-channels">  
-                    {musicGenres.map(item => 
-                        <SidebarTextImageButton key={item.genre} genre={item.genre} icon={item.icon}/> 
+                </div>
+                <div className="sidebar-channels">
+                    {this.musicGenres.map(item =>
+                        <SidebarTextImageButton key={item.genre} genre={item.genre} icon={item.icon}/>
                     )}
                 </div>
             </div>
         )
     }
+}
+
+interface SidebarGenreChannel {
+    genre: string;
+    icon: string;
+}
+
+interface SidebarProps extends IEnhancedComponentProps{
+    className?: string;
+    hasSearch?: boolean;
+}
+
+interface SidebarState extends IEnhancedComponentState {
+    searchValue?: string;
+    genre: "";
+    icon: "";
 }
 
 export default Sidebar;
