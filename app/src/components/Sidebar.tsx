@@ -4,6 +4,7 @@ import "./buttons/Button.css";
 import "./Sidebar.scss";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {TextInput} from "./TextInput";
+import {SearchBar} from "./SearchBar";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     public static defaultProps: ISidebarProps = {
@@ -43,7 +44,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         return (
             <div className="sidebar">
                 <div className="sidebar-search-wrapper">
-                    <TextInput
+                    <SearchBar
                         defaultText={placeholder}
                     />
                     <hr />

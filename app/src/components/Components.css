@@ -45,19 +45,20 @@
     width: 100%;
 }
 
-.add-song-form .text_input_div {
+.add-song-form {
     width: 100%;
     margin-bottom: 10px;
 }
 
-.text_input_div {
-    display: flex;
-}
+/*.text_input_div {*/
+/*    display: flex;*/
+/*    flex-grow: 1;*/
+/*}*/
 
-.text_input {
-    max-width: 100%;
-    flex-grow: 1;
-}
+/*.text_input {*/
+/*    !*max-width: 100%;*!*/
+/*    flex-grow: 1;*/
+/*}*/
 
 .unselectable {
     user-select: none;

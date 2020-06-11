@@ -2,13 +2,15 @@ import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./Components.css";
+import {TextInput} from "./TextInput";
+import {Image} from "./Image";
 
-class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
+class SearchBar extends TextInput {
 
-    public static defaultProps: ITextInputProps = {
+    public static defaultProps: ISearchBarProps = {
         ...EnhancedComponent.defaultProps,
         defaultText: "",
-        width: "100%",
+        width: "50%",
         color: "transparent",
         colorMargin: 0,
         border: false,
@@ -16,7 +18,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         fontSize: 16,
     };
 
-    protected constructor(props: ITextInputProps) {
+    protected constructor(props: ISearchBarProps) {
         super(props);
         this.state = {
             ...this.state,
@@ -24,25 +26,28 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         this.updateText = this.updateText.bind(this);
     }
 
-    protected updateText(event: any): void {
-        this.setState({
-            ...this.state,
-            text: event.target.value,
-        });
-    }
+    // private updateText(event: any): void {
+    //     this.setState({
+    //         ...this.state,
+    //         text: event.target.value,
+    //     });
+    // }
 
     public render(): ReactNode {
         return (
             <div
-                className="text_input_div"
+                className="search_bar_div"
                 style={{
-                    backgroundColor: this.props.color,
-					outline: "none",
-					border: Number(this.props.border),
-					display: "flex",
-					flexGrow: 1,
+                    // backgroundColor: this.props.color,
+                    backgroundColor: "red",
+                    outline: "none",
+                    border: Number(this.props.border),
+                    width: this.props.width,
+                    display: "flex",
+                    flexGrow: 1,
                 }}
             >
+                <Image path={"https://img.icons8.com/ios-filled/30/000000/search.png"}/>
                 <input
                     className="text_input"
                     type="text"
@@ -51,8 +56,9 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
                     value={this.state.text}
                     onChange={this.updateText}
                     style={{
-                    	flexGrow: 1,
-                        margin: this.props.colorMargin,
+                        flexGrow: 1,
+                        // margin: this.props.colorMargin,
+                        margin: 5,
                         fontSize: this.props.fontSize,
                     }}
                 />
@@ -61,7 +67,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
     }
 }
 
-export interface ITextInputProps extends IEnhancedComponentProps {
+export interface ISearchBarProps extends IEnhancedComponentProps {
     defaultText: string;
     width?: number | string;
     color?: string;
@@ -71,8 +77,8 @@ export interface ITextInputProps extends IEnhancedComponentProps {
     fontSize?: number;
 }
 
-export interface ITextInputState extends IEnhancedComponentState {
+export interface ISearchBarState extends IEnhancedComponentState {
     text: string;
 }
 
-export {TextInput};
+export {SearchBar};
