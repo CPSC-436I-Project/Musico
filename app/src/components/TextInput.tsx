@@ -14,6 +14,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         border: false,
         borderColor: "black",
         fontSize: 16,
+		submit: event => {},
     };
 
     protected constructor(props: ITextInputProps) {
@@ -32,30 +33,33 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
     }
 
     public render(): ReactNode {
+		let input_width = 2 * this.props.colorMargin + 5;
         return (
             <div
                 className="text_input_div"
                 style={{
                     backgroundColor: this.props.color,
-					outline: "none",
-					border: Number(this.props.border),
-					display: "flex",
-					flexGrow: 1,
+                    outline: "none",
+                    border: Number(this.props.border),
+					width: this.props.width,
+                    display: "flex",
                 }}
             >
-                <input
-                    className="text_input"
-                    type="text"
-                    name="text_input"
-                    placeholder={this.props.defaultText}
-                    value={this.state.text}
-                    onChange={this.updateText}
-                    style={{
-                    	flexGrow: 1,
-                        margin: this.props.colorMargin,
-                        fontSize: this.props.fontSize,
-                    }}
-                />
+                <form onSubmit={this.props.submit}>
+                    <input
+                        className="text_input"
+                        type="text"
+                        name="text_input"
+                        placeholder={this.props.defaultText}
+                        value={this.state.text}
+                        onChange={this.updateText}
+                        style={{
+							margin: this.props.colorMargin,
+							width: `calc(100% - ${input_width}px)`,
+                            fontSize: this.props.fontSize,
+                        }}
+                    />
+                </form>
             </div>
         );
     }
@@ -69,6 +73,7 @@ export interface ITextInputProps extends IEnhancedComponentProps {
     border?: boolean;
     borderColor?: string;
     fontSize?: number;
+    submit: (event: React.SyntheticEvent) => void;
 }
 
 export interface ITextInputState extends IEnhancedComponentState {

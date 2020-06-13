@@ -3,7 +3,6 @@ import { SidebarTextImageButton } from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./Sidebar.scss";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import {TextInput} from "./TextInput";
 import {SearchBar} from "./SearchBar";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
@@ -29,14 +28,18 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
             genre: "",
             icon: "",
         };
+        this.onSearch = this.onSearch.bind(this);
     }
 
     private onSearch(event: React.SyntheticEvent) {
+        event.preventDefault();
         let target = event.currentTarget as HTMLInputElement;
-        let value = target.value;
+        let value = target.getElementsByClassName("search_input")[0].getAttribute("value");
         this.setState({
-            searchValue: value
+            ...this.state,
+            searchValue: value,
         });
+        // setState is asynchronous so this doesn't always get updated right away
     }
 
     public render() {
@@ -46,6 +49,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                 <div className="sidebar-search-wrapper">
                     <SearchBar
                         defaultText={placeholder}
+                        submit={this.onSearch}
                     />
                     <hr />
                 </div>
