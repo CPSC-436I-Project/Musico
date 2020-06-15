@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SidebarTextImageButton } from "./buttons/SidebarTextImageButton";
+import {SidebarTextImageButton} from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./Sidebar.scss";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
@@ -21,21 +21,11 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
     ]
 
-    // private shownGenres: ISidebarGenreChannel[] = [
-    //     {genre: "Electronic", icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png"},
-    //     {genre: "Rock", icon: "https://img.icons8.com/ios-glyphs/30/000000/rock-music.png"},
-    //     {genre: "Lo-Fi", icon: "https://img.icons8.com/ios-glyphs/30/000000/easy-listening.png"},
-    //     {genre: "Reggae", icon: "https://img.icons8.com/ios-glyphs/30/000000/reggae.png"},
-    //     {genre: "Country", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
-    //     {genre: "Hip-Hop", icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
-    //     {genre: "Jazz", icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
-    //     {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
-    // ]
+    private shownGenres: ISidebarGenreChannel[] = [];
 
     protected constructor(props: ISidebarProps) {
         super(props);
         this.state = {
-            searchValue: "",
             genre: "",
             icon: "",
             shownGenres: [
@@ -55,33 +45,23 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     private onSearch(event: React.SyntheticEvent) {
         event.preventDefault();
         let target = event.currentTarget as HTMLInputElement;
-        let value = target.getElementsByClassName("search_input")[0].getAttribute("value");
-        this.setState({
-            ...this.state,
-            searchValue: value,
-            shownGenres: [],
-        });
-        // setState is asynchronous so this doesn't always get updated right away
-
-        console.log(this.state.shownGenres);
-
-        for (let i: number = 0; i < this.musicGenres.length; i++) {
-
-            console.log(this.musicGenres[i]);
-            console.log(this.state.searchValue);
-
-            if (this.musicGenres[i].genre.includes(this.state.searchValue)) {
-                let currShown: {genre: string, icon: string}[] = this.state.shownGenres;
-                currShown.push(this.musicGenres[i]);
-                this.setState({
-                    ...this.state,
-                    shownGenres: currShown,
-                })
+        let searchValue = target.getElementsByClassName("search_input")[0].getAttribute("value");
+        if (searchValue !== "") {
+            for (let i: number = 0; i < this.musicGenres.length; i++) {
+                if (this.musicGenres[i].genre.includes(searchValue)) {
+                    this.shownGenres.push(this.musicGenres[i]);
+                }
             }
+            this.setState({
+                ...this.state,
+                shownGenres: this.shownGenres,
+            });
+        } else {
+            this.setState({
+                ...this.state,
+                shownGenres: this.musicGenres,
+            })
         }
-
-        console.log(this.state.shownGenres);
-
     }
 
     public render() {
@@ -93,7 +73,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                         defaultText={placeholder}
                         submit={this.onSearch}
                     />
-                    <hr />
+                    <hr/>
                 </div>
                 <div className="sidebar-channels">
                     {this.state.shownGenres.map(item =>
@@ -119,16 +99,15 @@ interface ISidebarGenreChannel {
     icon: string;
 }
 
-export interface ISidebarProps extends IEnhancedComponentProps{
+export interface ISidebarProps extends IEnhancedComponentProps {
     className?: string;
     hasSearch?: boolean;
 }
 
 export interface ISidebarState extends IEnhancedComponentState {
-    searchValue?: string;
     genre: string;
     icon: string;
-    shownGenres: {genre: string, icon: string}[];
+    shownGenres: { genre: string, icon: string }[];
 }
 
 export {Sidebar};
