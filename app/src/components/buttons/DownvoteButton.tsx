@@ -12,7 +12,7 @@ class DownvoteButton extends Button<IDownvoteButtonProps, IDownvoteButtonState> 
         buttonFocusedColour: "transparent"
     }
 
-    public constructor(props: IDownvoteButtonProps) {
+    protected constructor(props: IDownvoteButtonProps) {
         super(props);
         this.state = {
             ...this.state

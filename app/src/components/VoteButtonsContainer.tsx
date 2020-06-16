@@ -6,20 +6,21 @@ import { UpvoteButton } from "./buttons/UpvoteButton";
 import { DownvoteButton } from "./buttons/DownvoteButton";
 import "./buttons/VoteButtons.css"
 
-class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsProps, IVoteButtonsState> {
+class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps, IVoteButtonsContainerState> {
+
+    protected constructor(props: IVoteButtonsContainerProps) {
+        super(props);
+        this.state = {
+            rating: 0
+        }
+    }
 
     public render(): ReactNode {
         return (
-            <div 
-                style={{
-                    display: "inline-block",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
+            <div>
                 <UpvoteButton />
                 <div className={"rating"}>
-                    0
+                    {this.state.rating}
                 </div>
                 <DownvoteButton />
             </div>
@@ -27,12 +28,12 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsProps, IVoteBut
     }
 }
 
-export interface IVoteButtonsProps extends IEnhancedComponentProps {
+export interface IVoteButtonsContainerProps extends IEnhancedComponentProps {
 
 }
 
-export interface IVoteButtonsState extends IEnhancedComponentState {
-
+export interface IVoteButtonsContainerState extends IEnhancedComponentState {
+    rating: number;
 }
 
 export {VoteButtonsContainer}
