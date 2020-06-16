@@ -13,6 +13,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
     protected constructor(props: IAddSongFormProps) {
         super(props);
         this.state = {
+            ...this.state,
         };
     }
 
