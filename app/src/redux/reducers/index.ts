@@ -1,12 +1,17 @@
 import {combineReducers} from "redux";
 
+export enum PopUpActionEnum {
+	SHOW_POPUP,
+	HIDE_POPUP,
+}
+
 const popupReducer = (popUpOpen: any, action: any) => {
 	switch (action.type) {
-		case "SHOW_POPUP":
+		case PopUpActionEnum.SHOW_POPUP:
 			return {
 				popupOpen: true,
 			};
-		case "HIDE_POPUP":
+		case PopUpActionEnum.HIDE_POPUP:
 		default:
 			return {
 				popupOpen: false,

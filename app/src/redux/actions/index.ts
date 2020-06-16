@@ -1,17 +1,13 @@
-export const reduxTestAction = () => {
-	return {
-		type: "CASE_1"
-	};
-}
+import {PopUpActionEnum} from "../reducers";
 
 export const showPopUp = () => {
 	return {
-		type: "SHOW_POPUP",
+		type: PopUpActionEnum.SHOW_POPUP,
 	}
 }
 
 export const hidePopUp = () => {
 	return {
-		type: "HIDE_POPUP",
+		type: PopUpActionEnum.HIDE_POPUP,
 	}
 }

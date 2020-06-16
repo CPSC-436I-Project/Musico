@@ -1,7 +1,12 @@
+import {IPopUpStore} from "./stores";
+
 export interface IStore {
-	popupStore: {popupOpen: boolean};
+	popupStore: IPopUpStore;
 }
 
+/**
+ * Initial values of redux state
+ */
 export default {
 	popupStore: {
 		popupOpen: false,
