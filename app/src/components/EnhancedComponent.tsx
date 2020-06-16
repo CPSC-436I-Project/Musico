@@ -14,9 +14,7 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 	protected constructor(props: P) {
 		super(props);
 		// @ts-ignore
-		this.state = {
-			reduxTest: 0,
-		};
+		this.state = {};
 
 		this.childRender = this.render;
 		this.wrapRender = this.wrapRender.bind(this);
@@ -38,7 +36,6 @@ export interface IEnhancedComponentProps {
 }
 
 export interface IEnhancedComponentState {
-	reduxTest?: number;
 }
 
 export {EnhancedComponent};
