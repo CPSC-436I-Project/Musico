@@ -31,9 +31,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         this.setState({
             ...this.state,
             text: event.target.value,
-        }, () => {
-            this.props.submit();
-        });
+        }, this.props.submit);
     }
 
     public getText(): string {
