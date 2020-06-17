@@ -15,14 +15,24 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
         }
     }
 
+    voteUp = () => {
+        this.setState({rating: this.state.rating + 1})
+    };
+
+    voteDown = () => {
+        if (this.state.rating > 0) {
+            this.setState({rating: this.state.rating - 1})
+        }
+    };
+
     public render(): ReactNode {
         return (
             <div>
-                <UpvoteButton />
+                <UpvoteButton onAction={this.voteUp} />
                 <div className={"rating"}>
                     {this.state.rating}
                 </div>
-                <DownvoteButton />
+                <DownvoteButton onAction={this.voteDown} />
             </div>
         )
     }
