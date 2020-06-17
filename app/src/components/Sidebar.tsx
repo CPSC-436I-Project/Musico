@@ -21,7 +21,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
     ]
 
-    private shownGenres: ISidebarGenreChannel[] = [];
+    // private shownGenres: ISidebarGenreChannel[] = [];
 
     protected constructor(props: ISidebarProps) {
         super(props);
@@ -43,19 +43,19 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     }
 
     private onSearch(event: React.SyntheticEvent) {
+        let currShownGenres: ISidebarGenreChannel[] = [];
         event.preventDefault();
         let target = event.currentTarget as HTMLInputElement;
         let searchValue = target.getElementsByClassName("search_input")[0].getAttribute("value");
         if (searchValue !== "") {
-            this.shownGenres = [];
             for (let i: number = 0; i < this.musicGenres.length; i++) {
                 if (this.musicGenres[i].genre.toLowerCase().includes(searchValue.toLowerCase())) {
-                    this.shownGenres.push(this.musicGenres[i]);
+                    currShownGenres.push(this.musicGenres[i]);
                 }
             }
             this.setState({
                 ...this.state,
-                shownGenres: this.shownGenres,
+                shownGenres: currShownGenres,
             });
         } else {
             this.setState({
@@ -108,7 +108,7 @@ export interface ISidebarProps extends IEnhancedComponentProps {
 export interface ISidebarState extends IEnhancedComponentState {
     genre: string;
     icon: string;
-    shownGenres: { genre: string, icon: string }[];
+    shownGenres: ISidebarGenreChannel[];
 }
 
 export {Sidebar};
