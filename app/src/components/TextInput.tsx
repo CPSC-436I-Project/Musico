@@ -35,6 +35,10 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         // this.props.submit(event.currentTarget.form.submit()); // reloads page - doesn't see preventDefault
     }
 
+    public getText(): string {
+        return this.state.text;
+    }
+
     public render(): ReactNode {
 		let input_width = 2 * this.props.colorMargin + 5;
         return (

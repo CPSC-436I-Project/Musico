@@ -20,11 +20,11 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: "Jazz", icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
         {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
     ]
-
-    // private shownGenres: ISidebarGenreChannel[] = [];
+    private search: React.RefObject<SearchBar>;
 
     protected constructor(props: ISidebarProps) {
         super(props);
+        this.search = React.createRef();
         this.state = {
             genre: "",
             icon: "",
@@ -43,10 +43,9 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     }
 
     private onSearch(event: React.SyntheticEvent) {
-        let currShownGenres: ISidebarGenreChannel[] = [];
         event.preventDefault();
-        let target = event.currentTarget as HTMLInputElement;
-        let searchValue = target.getElementsByClassName("search_input")[0].getAttribute("value");
+        let currShownGenres: ISidebarGenreChannel[] = [];
+        let searchValue = this.search.current.getText();
         if (searchValue !== "") {
             for (let i: number = 0; i < this.musicGenres.length; i++) {
                 if (this.musicGenres[i].genre.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -73,6 +72,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                     <SearchBar
                         defaultText={placeholder}
                         submit={this.onSearch}
+                        ref={this.search}
                     />
                     <hr/>
                 </div>
