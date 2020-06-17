@@ -30,7 +30,9 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
             ...this.state,
             text: event.target.value,
         });
-        // event.currentTarget.form.submit();
+
+        // console.log(event.currentTarget.form); // gets the right form but doesn't run this.props.submit
+        // this.props.submit(event.currentTarget.form.submit()); // reloads page - doesn't see preventDefault
     }
 
     public render(): ReactNode {

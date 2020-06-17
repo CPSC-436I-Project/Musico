@@ -46,9 +46,11 @@ class SearchBar extends TextInput {
                     border: Number(this.props.border),
                     width: this.props.width,
                     display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
                 }}
             >
-                <Image path={"https://img.icons8.com/ios-filled/30/000000/search.png"}/>
+                <Image path={"https://img.icons8.com/ios-filled/25/000000/search.png"}/>
                 <form onSubmit={this.props.submit}>
                     <input
                         className="search_input"
@@ -61,6 +63,7 @@ class SearchBar extends TextInput {
                             margin: this.props.colorMargin,
                             width: `calc(100% - ${input_width}px)`,
                             fontSize: this.props.fontSize,
+                            marginLeft: 3,
                         }}
                     />
                 </form>
