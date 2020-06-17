@@ -63,7 +63,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                 shownGenres: currShownGenres,
             });
         } else {
-            console.log("resetting");
             this.setState({
                 ...this.state,
                 shownGenres: this.musicGenres,
