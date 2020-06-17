@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./Components.css";
-import {TextInput} from "./TextInput";
+import {ITextInputProps, ITextInputState, TextInput} from "./TextInput";
 import {Image} from "./Image";
 
 class SearchBar extends TextInput {
@@ -72,19 +72,19 @@ class SearchBar extends TextInput {
     }
 }
 
-export interface ISearchBarProps extends IEnhancedComponentProps {
-    defaultText: string;
-    width?: number | string;
-    color?: string;
-    colorMargin?: number;
-    border?: boolean;
-    borderColor?: string;
-    fontSize?: number;
-    submit: (event: React.SyntheticEvent) => void;
+export interface ISearchBarProps extends ITextInputProps {
+    // defaultText: string;
+    // width?: number | string;
+    // color?: string;
+    // colorMargin?: number;
+    // border?: boolean;
+    // borderColor?: string;
+    // fontSize?: number;
+    // submit: (event: React.SyntheticEvent) => void;
 }
 
-export interface ISearchBarState extends IEnhancedComponentState {
-    text: string;
+export interface ISearchBarState extends ITextInputState {
+    // text: string;
 }
 
 export {SearchBar};
