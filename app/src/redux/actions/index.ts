@@ -1,13 +1,3 @@
-import {PopUpActionEnum} from "../reducers";
+import {showPopUp, hidePopUp} from "./popupActions";
 
-export const showPopUp = () => {
-	return {
-		type: PopUpActionEnum.SHOW_POPUP,
-	}
-}
-
-export const hidePopUp = () => {
-	return {
-		type: PopUpActionEnum.HIDE_POPUP,
-	}
-}
+export {showPopUp, hidePopUp};
