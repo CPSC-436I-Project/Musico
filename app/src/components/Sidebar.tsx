@@ -48,22 +48,15 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         }
         let currShownGenres: ISidebarGenreChannel[] = [];
         let searchValue = this.search.current.getText();
-        if (searchValue !== "") {
-            for (let i: number = 0; i < this.musicGenres.length; i++) {
-                if (this.musicGenres[i].genre.toLowerCase().includes(searchValue.toLowerCase())) {
-                    currShownGenres.push(this.musicGenres[i]);
-                }
+        for (const currGenre of this.musicGenres) {
+            if (currGenre.genre.toLowerCase().includes(searchValue.toLowerCase())) {
+                currShownGenres.push(currGenre);
             }
-            this.setState({
-                ...this.state,
-                shownGenres: currShownGenres,
-            });
-        } else {
-            this.setState({
-                ...this.state,
-                shownGenres: this.musicGenres,
-            })
         }
+        this.setState({
+            ...this.state,
+            shownGenres: currShownGenres,
+        });
     }
 
     public render() {
