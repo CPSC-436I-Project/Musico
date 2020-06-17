@@ -45,6 +45,12 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     private onSearch(event: React.SyntheticEvent) {
         event.preventDefault();
         let currShownGenres: ISidebarGenreChannel[] = [];
+
+        // console.log("this = " + this);
+        // console.log("this.search = " + this.search);
+        // console.log("this.search.current = " + this.search.current);
+        // console.log("this.search.current.getText() + " + this.search.current.getText());
+
         let searchValue = this.search.current.getText();
         if (searchValue !== "") {
             for (let i: number = 0; i < this.musicGenres.length; i++) {
