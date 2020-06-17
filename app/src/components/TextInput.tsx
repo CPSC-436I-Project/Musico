@@ -20,7 +20,6 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
     protected constructor(props: ITextInputProps) {
         super(props);
         this.state = {
-            // ...this.state,
             text: "",
         };
         this.updateText = this.updateText.bind(this);
@@ -35,17 +34,10 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         }, () => {
             this.props.submit();
         });
-
-        // console.log(event.currentTarget.form); // gets the right form but doesn't run this.props.submit
-        // this.props.submit(event.currentTarget.form.submit()); // reloads page - doesn't see preventDefault
-
     }
 
     public getText(): string {
-
-        // console.log("text = " + this.state.text);
-
-        return this.state.text; // state doesn't update here until enter pressed ???
+        return this.state.text;
     }
 
     public render(): ReactNode {

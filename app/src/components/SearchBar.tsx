@@ -20,19 +20,27 @@ class SearchBar extends TextInput {
     };
 
     // INHERITED FROM TEXTINPUT BUT COPIED HERE FOR REFERENCE:
-    // protected constructor(props: ISearchBarProps) {
+    // protected constructor(props: ITextInputProps) {
     //     super(props);
     //     this.state = {
     //         ...this.state,
     //     };
     //     this.updateText = this.updateText.bind(this);
+    //     this.getText = this.getText.bind(this);
     // }
     //
     // protected updateText(event: any): void {
+    //     event.preventDefault();
     //     this.setState({
     //         ...this.state,
     //         text: event.target.value,
+    //     }, () => {
+    //         this.props.submit();
     //     });
+    // }
+    //
+    // public getText(): string {
+    //     return this.state.text;
     // }
 
     public render(): ReactNode {
