@@ -49,7 +49,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         if (searchValue !== "") {
             this.shownGenres = [];
             for (let i: number = 0; i < this.musicGenres.length; i++) {
-                if (this.musicGenres[i].genre.includes(searchValue)) {
+                if (this.musicGenres[i].genre.toLowerCase().includes(searchValue.toLowerCase())) {
                     this.shownGenres.push(this.musicGenres[i]);
                 }
             }
