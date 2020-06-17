@@ -47,6 +47,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         let target = event.currentTarget as HTMLInputElement;
         let searchValue = target.getElementsByClassName("search_input")[0].getAttribute("value");
         if (searchValue !== "") {
+            this.shownGenres = [];
             for (let i: number = 0; i < this.musicGenres.length; i++) {
                 if (this.musicGenres[i].genre.includes(searchValue)) {
                     this.shownGenres.push(this.musicGenres[i]);

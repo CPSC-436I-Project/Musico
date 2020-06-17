@@ -30,6 +30,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
             ...this.state,
             text: event.target.value,
         });
+        // event.currentTarget.form.submit();
     }
 
     public render(): ReactNode {
