@@ -1,0 +1,21 @@
+.upvote-button {
+    width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+    border-bottom: 15px solid #6DD400;
+}
+
+.downvote-button {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 15px solid #E02020;
+}
+
+.rating {
+	padding-left: 11px;
+	font-size: 20px;
+	font-weight: 500;
+}
