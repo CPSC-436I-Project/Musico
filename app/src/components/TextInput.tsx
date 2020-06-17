@@ -47,10 +47,8 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
                 className="text_input_div"
                 style={{
                     backgroundColor: this.props.color,
-                    outline: "none",
                     border: Number(this.props.border),
 					width: this.props.width,
-                    display: "flex",
                 }}
             >
                 <form onSubmit={this.props.submit}>

@@ -28,16 +28,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         this.state = {
             genre: "",
             icon: "",
-            shownGenres: [
-                {genre: "Electronic", icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png"},
-                {genre: "Rock", icon: "https://img.icons8.com/ios-glyphs/30/000000/rock-music.png"},
-                {genre: "Lo-Fi", icon: "https://img.icons8.com/ios-glyphs/30/000000/easy-listening.png"},
-                {genre: "Reggae", icon: "https://img.icons8.com/ios-glyphs/30/000000/reggae.png"},
-                {genre: "Country", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
-                {genre: "Hip-Hop", icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
-                {genre: "Jazz", icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
-                {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
-            ],
+            shownGenres: this.musicGenres,
         };
         this.onSearch = this.onSearch.bind(this);
     }
