@@ -16,7 +16,7 @@ class SearchBar extends TextInput {
         border: false,
         borderColor: "black",
         fontSize: 18,
-        submit: event => {},
+        submit: () => {},
     };
 
     // INHERITED FROM TEXTINPUT BUT COPIED HERE FOR REFERENCE:

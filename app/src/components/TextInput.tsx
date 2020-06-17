@@ -14,7 +14,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         border: false,
         borderColor: "black",
         fontSize: 16,
-		submit: event => {},
+		submit: () => {},
     };
 
     protected constructor(props: ITextInputProps) {
@@ -28,14 +28,17 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
     }
 
     protected updateText(event: any): void {
+        event.preventDefault();
         this.setState({
             ...this.state,
             text: event.target.value,
+        }, () => {
+            this.props.submit();
         });
 
         // console.log(event.currentTarget.form); // gets the right form but doesn't run this.props.submit
         // this.props.submit(event.currentTarget.form.submit()); // reloads page - doesn't see preventDefault
-        this.props.submit(event);
+
     }
 
     public getText(): string {
@@ -86,7 +89,7 @@ export interface ITextInputProps extends IEnhancedComponentProps {
     border?: boolean;
     borderColor?: string;
     fontSize?: number;
-    submit: (event: React.SyntheticEvent) => void;
+    submit: () => void;
 }
 
 export interface ITextInputState extends IEnhancedComponentState {
