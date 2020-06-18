@@ -29,7 +29,6 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
     protected updateText(event: any): void {
         event.preventDefault();
         this.setState({
-            ...this.state,
             text: event.target.value,
         }, this.props.submit);
     }
