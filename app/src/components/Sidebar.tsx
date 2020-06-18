@@ -7,6 +7,7 @@ import {SearchBar} from "./SearchBar";
 import {IStore} from "../redux/initialStore";
 import {setSelectedGenre} from "../redux/actions";
 import {connect} from "react-redux";
+import {GenreEnum} from "./";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     public static defaultProps: ISidebarProps = {
@@ -92,17 +93,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
             </div>
         )
     }
-}
-
-export enum GenreEnum {
-    ELECTRONIC = "Electronic",
-    ROCK = "Rock",
-    LO_FI = "Lo-Fi",
-    REGGAE = "Reggae",
-    COUNTRY = "Country",
-    HIP_HOP = "Hip-Hop",
-    JAZZ = "Jazz",
-    RAP = "Rap",
 }
 
 interface ISidebarGenreChannel {

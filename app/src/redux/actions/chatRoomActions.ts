@@ -1,5 +1,5 @@
 import {ChatRoomEnum} from "../reducers/chatRoomReducer";
-import {GenreEnum} from "../../components/Sidebar";
+import {GenreEnum} from "../../components/";
 
 export const setSelectedGenre = (genre: GenreEnum) => {
 	return {

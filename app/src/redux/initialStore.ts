@@ -1,5 +1,4 @@
 import {IChatRoomStore, IPopUpStore} from "./stores";
-import {GenreEnum} from "../components/Sidebar";
 
 export interface IStore {
 	popupStore: IPopUpStore;

@@ -1,4 +1,4 @@
-import {GenreEnum} from "../components/Sidebar";
+import {GenreEnum} from "../components/";
 
 export interface IPopUpStore {
 	popupOpen: boolean;
