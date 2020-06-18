@@ -5,6 +5,7 @@ import PopupTest from "./PopupTest";
 import {HeaderTest} from "./HeaderTest";
 import {TextInputTest} from "./TextInputTest";
 import {SidebarTest} from "./SidebarTest";
+import { VoteButtonTest } from "./VoteButtonTest";
 
 export enum testScreen {
 	EmptyPage,
@@ -14,6 +15,7 @@ export enum testScreen {
 	HeaderTest,
 	TextInputTest,
 	SidebarTest,
+	VoteButtonTest
 }
 
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
@@ -24,4 +26,5 @@ export const testScreenMap: { [key: string]: { pointer: any, name: string } } = 
 	[testScreen.HeaderTest]: {pointer: HeaderTest, name: "Header Test Page"},
 	[testScreen.TextInputTest]: {pointer: TextInputTest, name: "Text Input Page"},
 	[testScreen.SidebarTest]: {pointer: SidebarTest, name: "Sidebar Test Page"},
+	[testScreen.VoteButtonTest]: {pointer: VoteButtonTest, name: "Vote Button Test Page"}
 }

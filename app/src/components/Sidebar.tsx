@@ -24,7 +24,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.RAP, icon: "https://img.icons8.com/ios-glyphs/30/000000/rap.png"},
     ]
 
-    private search: React.RefObject<SearchBar>;
+    private readonly search: React.RefObject<SearchBar>;
 
     public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
         return {
