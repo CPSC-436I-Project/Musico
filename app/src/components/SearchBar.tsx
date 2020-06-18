@@ -19,30 +19,6 @@ class SearchBar extends TextInput {
         submit: () => {},
     };
 
-    // INHERITED FROM TEXTINPUT BUT COPIED HERE FOR REFERENCE:
-    // protected constructor(props: ITextInputProps) {
-    //     super(props);
-    //     this.state = {
-    //         ...this.state,
-    //     };
-    //     this.updateText = this.updateText.bind(this);
-    //     this.getText = this.getText.bind(this);
-    // }
-    //
-    // protected updateText(event: any): void {
-    //     event.preventDefault();
-    //     this.setState({
-    //         ...this.state,
-    //         text: event.target.value,
-    //     }, () => {
-    //         this.props.submit();
-    //     });
-    // }
-    //
-    // public getText(): string {
-    //     return this.state.text;
-    // }
-
     public render(): ReactNode {
         let input_width = 2 * this.props.colorMargin + 5;
         return (
@@ -76,18 +52,9 @@ class SearchBar extends TextInput {
 }
 
 export interface ISearchBarProps extends ITextInputProps {
-    // defaultText: string;
-    // width?: number | string;
-    // color?: string;
-    // colorMargin?: number;
-    // border?: boolean;
-    // borderColor?: string;
-    // fontSize?: number;
-    // submit: (event: React.SyntheticEvent) => void;
 }
 
 export interface ISearchBarState extends ITextInputState {
-    // text: string;
 }
 
 export {SearchBar};

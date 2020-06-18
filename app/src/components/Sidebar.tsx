@@ -18,7 +18,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: "Country", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
         {genre: "Hip-Hop", icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
         {genre: "Jazz", icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
-        {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
+        {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/rap.png"},
     ]
     private search: React.RefObject<SearchBar>;
 
@@ -45,7 +45,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
             }
         }
         this.setState({
-            ...this.state,
             shownGenres: currShownGenres,
         });
     }
