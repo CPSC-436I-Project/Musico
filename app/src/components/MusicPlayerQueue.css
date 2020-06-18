@@ -1,0 +1,13 @@
+div.music-player-queue {
+    background-color: #242424;
+    color: #ffffff;
+    /* height: 294px;
+    width: 186px;  */
+    /* display: grid;
+    grid-template-columns: 20px auto;
+    grid-template-rows: 50px auto; */
+}
+
+div.queue-item-1 {
+    grid-column-start: 1;
+}
