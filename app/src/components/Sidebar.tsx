@@ -4,6 +4,9 @@ import "./buttons/Button.css";
 import "./Sidebar.scss";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {SearchBar} from "./SearchBar";
+import {IStore} from "../redux/initialStore";
+import {setSelectedGenre} from "../redux/actions";
+import {connect} from "react-redux";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     public static defaultProps: ISidebarProps = {
@@ -23,6 +26,13 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 
     private search: React.RefObject<SearchBar>;
 
+    public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
+        return {
+            ...props,
+            selectedGenre: state.chatRoomStore.selectedGenre,
+        };
+    }
+
     protected constructor(props: ISidebarProps) {
         super(props);
         this.search = React.createRef();
@@ -31,6 +41,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
             shownGenres: this.musicGenres,
         };
         this.onSearch = this.onSearch.bind(this);
+        this.sidebarButtonClicked = this.sidebarButtonClicked.bind(this);
     }
 
     private onSearch(event?: React.SyntheticEvent) {
@@ -47,6 +58,12 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         this.setState({
             shownGenres: currShownGenres,
         });
+    }
+
+    private sidebarButtonClicked(genre: GenreEnum): () => void {
+        return () => {
+            this.props.dispatch(setSelectedGenre(genre));
+        }
     }
 
     public render() {
@@ -68,10 +85,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                             text={item.genre}
                             icon={item.icon}
                             buttonColour="#E1E1E2"
-                            onAction={(callback: () => void) => {
-                                console.log("Clicked on " + item.genre);
-                                callback();
-                            }}
+                            onAction={this.sidebarButtonClicked(item.genre)}
                         />
                     )}
                 </div>
@@ -80,7 +94,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     }
 }
 
-enum GenreEnum {
+export enum GenreEnum {
     ELECTRONIC = "Electronic",
     ROCK = "Rock",
     LO_FI = "Lo-Fi",
@@ -99,6 +113,7 @@ interface ISidebarGenreChannel {
 export interface ISidebarProps extends IEnhancedComponentProps {
     className?: string;
     hasSearch?: boolean;
+    selectedGenre?: GenreEnum | null;
 }
 
 export interface ISidebarState extends IEnhancedComponentState {
@@ -106,4 +121,6 @@ export interface ISidebarState extends IEnhancedComponentState {
     shownGenres: ISidebarGenreChannel[];
 }
 
-export {Sidebar};
+// @ts-ignore
+export default connect(Sidebar.mapStateToProps)(Sidebar);
+
