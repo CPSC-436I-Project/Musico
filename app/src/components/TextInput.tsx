@@ -5,72 +5,82 @@ import "./Components.css";
 
 class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 
-	public static defaultProps: ITextInputProps = {
-		...EnhancedComponent.defaultProps,
-		defaultText: "",
-		text: "",
-		width: "100%",
-		color: "transparent",
-		colorMargin: 0,
-		border: false,
-		borderColor: "black",
-		fontSize: 16,
-	};
+    public static defaultProps: ITextInputProps = {
+        ...EnhancedComponent.defaultProps,
+        defaultText: "",
+        width: "100%",
+        color: "transparent",
+        colorMargin: 0,
+        border: false,
+        borderColor: "black",
+        fontSize: 16,
+		submit: () => {},
+    };
 
-	protected constructor(props: ITextInputProps) {
-		super(props);
-		this.state = {
-			...this.state,
-			text: props.text,
-		};
-		this.updateText = this.updateText.bind(this);
-	}
+    protected constructor(props: ITextInputProps) {
+        super(props);
+        this.state = {
+            text: "",
+        };
+        this.updateText = this.updateText.bind(this);
+        this.getText = this.getText.bind(this);
+    }
 
-	private updateText(event: any): void {
-		this.setState({
-			text: event.target.value,
-		});
-	}
+    protected updateText(event: any): void {
+        event.preventDefault();
+        this.setState({
+            text: event.target.value,
+        }, this.props.submit);
+    }
 
-	public render(): ReactNode {
-		return (
-			<div
-				className="text_input_div"
-				style={{
+    public getText(): string {
+        return this.state.text;
+    }
+
+    public render(): ReactNode {
+		let input_width = 2 * this.props.colorMargin + 5;
+        return (
+            <div
+                className="text_input_div"
+                style={{
+                    backgroundColor: this.props.color,
+                    border: Number(this.props.border),
 					width: this.props.width,
-					backgroundColor: this.props.color,
-				}}
-			>
-				<input
-					className="text_input"
-					type="text" name="text_input"
-					placeholder={this.props.defaultText}
-					value={this.props.text}
-					onChange={this.updateText}
-					style={{
-						margin: this.props.colorMargin,
-						fontSize: this.props.fontSize,
-						outline: "none", border: Number(this.props.border)
-					}}
-				/>
-			</div>
-		);
-	}
+                }}
+            >
+                <form onSubmit={this.props.submit}>
+                    <input
+                        className="text_input"
+                        type="text"
+                        name="text_input"
+                        placeholder={this.props.defaultText}
+                        value={this.state.text}
+                        onChange={this.updateText}
+                        style={{
+							margin: this.props.colorMargin,
+							width: `calc(100% - ${input_width}px)`,
+                            fontSize: this.props.fontSize,
+                        }}
+                    />
+                </form>
+            </div>
+        );
+    }
 }
 
 export interface ITextInputProps extends IEnhancedComponentProps {
-	defaultText: string;
-	text: string;
-	width?: number | string;
-	color?: string;
-	colorMargin?: number;
-	border?: boolean;
-	borderColor?: string;
-	fontSize?: number;
+    defaultText: string;
+    width?: number | string;
+    color?: string;
+    colorMargin?: number;
+    border?: boolean;
+    borderColor?: string;
+    fontSize?: number;
+    submit: () => void;
 }
 
 export interface ITextInputState extends IEnhancedComponentState {
-	text: string;
+    text: string;
 }
 
 export {TextInput};
