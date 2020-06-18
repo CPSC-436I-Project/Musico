@@ -1,13 +1,33 @@
-div.music-player-queue {
+.music-player-queue {
     background-color: #242424;
     color: #ffffff;
     /* height: 294px;
-    width: 186px;  */
-    /* display: grid;
-    grid-template-columns: 20px auto;
-    grid-template-rows: 50px auto; */
+    width: 186px; 
+    */
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
-div.queue-item-1 {
-    grid-column-start: 1;
+.header {
+    background-color: #242424;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: start;
+    align-content: space-around;
+}
+
+.queue-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.song {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start; 
 }

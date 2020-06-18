@@ -1,6 +1,12 @@
+div.song-info-container {
+    display: inline-flex;
+    flex-direction: column;
+}
+
 p.song-description {
     font-size: 12;
     font-family: "Roboto";
     font-weight: 500;
     color: #ffffff;
 }
+

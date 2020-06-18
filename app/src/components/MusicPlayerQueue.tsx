@@ -18,12 +18,22 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
         const playlistIcon = "https://img.icons8.com/color/48/000000/smart-playlist.png";
         return (
             <div className="music-player-queue">
-                <img className="playlist-icon" src={playlistIcon} />
-                <h4>Queue</h4>
-                <VoteButtonsContainer />
-                <SongInfoContainer />
-                <VoteButtonsContainer />
-                <SongInfoContainer />
+                <div className="header">
+                    <img className="playlist-icon" src={playlistIcon} />
+                    <h4>Queue</h4>
+                </div>
+                {/* <img className="playlist-icon" src={playlistIcon} />
+                <h4>Queue</h4> */}
+                <div className={"queue-items"}>
+                    <div className={"song"}>
+                        <VoteButtonsContainer />
+                        <SongInfoContainer />
+                    </div>
+                    <div className={"song"}>
+                        <VoteButtonsContainer />
+                        <SongInfoContainer />
+                    </div>
+                </div>
             </div>
         )
     }
