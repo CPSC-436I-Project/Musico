@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
+import {EnhancedComponent} from "./EnhancedComponent";
 import "./Components.css";
 import {ITextInputProps, ITextInputState, TextInput} from "./TextInput";
 import {Image} from "./Image";

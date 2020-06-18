@@ -1,13 +1,4 @@
-import {PopUpActionEnum} from "../reducers";
+import {showPopUp, hidePopUp} from "./popupActions";
+import {setSelectedGenre} from "./chatRoomActions";
 
-export const showPopUp = () => {
-	return {
-		type: PopUpActionEnum.SHOW_POPUP,
-	}
-}
-
-export const hidePopUp = () => {
-	return {
-		type: PopUpActionEnum.HIDE_POPUP,
-	}
-}
+export {showPopUp, hidePopUp, setSelectedGenre};

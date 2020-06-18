@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container} from "./Container";
-import {Header, Image, Sidebar} from "../components";
+import {Header, Sidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
 

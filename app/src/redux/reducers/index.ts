@@ -1,24 +1,8 @@
 import {combineReducers} from "redux";
-
-export enum PopUpActionEnum {
-	SHOW_POPUP,
-	HIDE_POPUP,
-}
-
-const popupReducer = (popUpOpen: any, action: any) => {
-	switch (action.type) {
-		case PopUpActionEnum.SHOW_POPUP:
-			return {
-				popupOpen: true,
-			};
-		case PopUpActionEnum.HIDE_POPUP:
-		default:
-			return {
-				popupOpen: false,
-			};
-	}
-}
+import popupReducer from "./popupReducer";
+import chatRoomReducer from "./chatRoomReducer";
 
 export default combineReducers({
 	popupStore: popupReducer,
+	chatRoomStore: chatRoomReducer,
 })
