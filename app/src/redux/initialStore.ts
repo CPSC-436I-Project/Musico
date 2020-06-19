@@ -18,6 +18,7 @@ export default {
 	},
 	userStore: {
 		username: null,
+        password: null,
 		email: null,
 		profileImgSrc: null
 	}
