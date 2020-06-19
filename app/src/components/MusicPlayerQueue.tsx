@@ -1,9 +1,10 @@
 import * as React from "react";
-import { EnhancedComponent } from ".";
-import { IEnhancedComponentProps, IEnhancedComponentState } from "./EnhancedComponent";
-import { VoteButtonsContainer } from "./VoteButtonsContainer";
-import { SongInfoContainer } from "./SongInfoContainer";
+import {EnhancedComponent} from ".";
+import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
+import {VoteButtonsContainer} from "./VoteButtonsContainer";
+import {SongInfoContainer} from "./SongInfoContainer";
 import "./MusicPlayerQueue.css";
+import {Image} from "./Image"
 
 class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicPlayerQueueState> {
     public static defaultProps: IMusicPlayerQueueProps = {
@@ -18,20 +19,21 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
         const playlistIcon = "https://img.icons8.com/color/48/000000/smart-playlist.png";
         return (
             <div className="music-player-queue">
-                <div className="header">
-                    <img className="playlist-icon" src={playlistIcon} />
+                <div className="queue-header">
+                    {/*<img className="playlist-icon" src={playlistIcon}/>*/}
+                    <Image path={playlistIcon}/>
                     <h4>Queue</h4>
                 </div>
                 {/* <img className="playlist-icon" src={playlistIcon} />
                 <h4>Queue</h4> */}
                 <div className={"queue-items"}>
                     <div className={"song"}>
-                        <VoteButtonsContainer />
-                        <SongInfoContainer />
+                        <VoteButtonsContainer/>
+                        <SongInfoContainer/>
                     </div>
                     <div className={"song"}>
-                        <VoteButtonsContainer />
-                        <SongInfoContainer />
+                        <VoteButtonsContainer/>
+                        <SongInfoContainer/>
                     </div>
                 </div>
             </div>
@@ -47,4 +49,4 @@ export interface IMusicPlayerQueueState extends IEnhancedComponentState {
 
 }
 
-export { MusicPlayerQueue };
+export {MusicPlayerQueue};

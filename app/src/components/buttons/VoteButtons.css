@@ -1,4 +1,4 @@
-div.vote-buttons-container {
+.vote-buttons-container {
 	align-items: center;
 	margin: 20px;
 	/* text-align: center; */
@@ -25,5 +25,4 @@ div.vote-buttons-container {
 	font-size: 20px;
 	font-weight: 500;
 	font-family: "Roboto Slab";
-	/*padding-left: 11px;*/
 }
