@@ -14,14 +14,19 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
         super(props);
         this.state = {
             ...this.state,
+            songLink: "",
         };
     }
+
+    addSong = (text: string) => {
+        this.setState({songLink: text});
+    };
 
     public render(): ReactNode {
         return (
             <div className="add-song-form">
                 <h3>Add a song</h3>
-                <TextInput defaultText="Paste a YouTube song link here" />
+                <TextInput defaultText="Paste a YouTube song link here" submit={this.addSong} />
                 <TextButton text="Submit" bold={true} buttonColour="#6236FF" height={30} width={90} onAction={this.props.addSong}/>
             </div>
         );
@@ -33,6 +38,7 @@ export interface IAddSongFormProps extends IEnhancedComponentProps {
 }
 
 export interface IAddSongFormState extends IEnhancedComponentState {
+    songLink: string
 }
 
 export {AddSongForm};
