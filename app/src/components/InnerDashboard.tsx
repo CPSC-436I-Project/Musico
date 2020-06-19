@@ -3,6 +3,7 @@ import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./Components.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
+import { findByLabelText } from "@testing-library/react";
 
 class InnerDashboard extends EnhancedComponent {
 
@@ -11,9 +12,20 @@ class InnerDashboard extends EnhancedComponent {
     };
 
     public render(): ReactNode {
+        const audioWaveIcon = "https://img.icons8.com/nolan/64/audio-wave.png"
         return (
             <div className="inner_dashboard">
-                <h3> Trending Music </h3>
+                <div 
+                    style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "flexstart",
+                    }}
+                >
+                    <img width={30} height={30} src={audioWaveIcon}/>
+                    <h3> Trending Music </h3>
+                </div>
                 <div className="dashboard_trending">
                     <DashboardSongInfo genre={"Electronic"}/>
                     <DashboardSongInfo genre={"Hip-Hop"}/>
