@@ -15,14 +15,12 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
         }
     }
 
-    voteUp = () => {
-        this.setState({rating: this.state.rating + 1})
+    voteUp = (callback: () => void) => {
+        this.setState({rating: this.state.rating + 1}, callback);
     };
 
-    voteDown = () => {
-        if (this.state.rating > 0) {
-            this.setState({rating: this.state.rating - 1})
-        }
+    voteDown = (callback: () => void) => {
+        this.setState({rating: this.state.rating - 1}, callback)
     };
 
     public render(): ReactNode {
