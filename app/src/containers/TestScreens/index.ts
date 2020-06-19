@@ -7,6 +7,7 @@ import {TextInputTest} from "./TextInputTest";
 import {SidebarTest} from "./SidebarTest";
 import {VoteButtonTest} from "./VoteButtonTest";
 import {MusicPlayerQueueTest} from "./MusicPlayerQueueTest";
+import {InnerDashboardTest} from "./InnerDashboardTest";
 
 
 export enum testScreen {
@@ -18,7 +19,8 @@ export enum testScreen {
 	TextInputTest,
 	SidebarTest,
 	VoteButtonTest,
-	MusicPlayerQueueTest
+	MusicPlayerQueueTest,
+	InnerDashboardTest
 }
 
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
@@ -30,5 +32,6 @@ export const testScreenMap: { [key: string]: { pointer: any, name: string } } = 
 	[testScreen.TextInputTest]: {pointer: TextInputTest, name: "Text Input Page"},
 	[testScreen.SidebarTest]: {pointer: SidebarTest, name: "Sidebar Test Page"},
 	[testScreen.VoteButtonTest]: {pointer: VoteButtonTest, name: "Vote Button Test Page"},
-	[testScreen.MusicPlayerQueueTest]: {pointer: MusicPlayerQueueTest, name: "Music Player Queue Test Page"}
+	[testScreen.MusicPlayerQueueTest]: {pointer: MusicPlayerQueueTest, name: "Music Player Queue Test Page"},
+	[testScreen.InnerDashboardTest]: {pointer: InnerDashboardTest, name: "Inner Dashboard Test Page"}
 }

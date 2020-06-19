@@ -1,25 +1,26 @@
 import * as React from "react";
-import { EnhancedComponent } from "./EnhancedComponent";
-import { IEnhancedComponentProps, IEnhancedComponentState } from "./EnhancedComponent";
+import {EnhancedComponent} from "./EnhancedComponent";
+import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./SongInfoContainer.css";
 
 class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISongInfoContainerState> {
     public static defaultProps: ISongInfoContainerProps = {
-        ...EnhancedComponent.defaultProps
-    }
+        ...EnhancedComponent.defaultProps,
+        color: "#ffffff",
+    };
 
     protected constructor(props: ISongInfoContainerProps) {
         super(props);
     }
 
     public render() {
-        const albumPicture = "https://image.shutterstock.com/image-vector/minimal-abstract-black-sphere-design-600w-158384345.jpg"
-        const songDescription = "Song Name - Artist"
+        const albumPicture = "https://image.shutterstock.com/image-vector/minimal-abstract-black-sphere-design-600w-158384345.jpg";
+        const songDescription = "Song Name - Artist";
         return (
-            <div className={"song-info-container"}>
-                <img 
-                    className={"album-picture"} 
-                    src={albumPicture} 
+            <div className={"song-info-container"} style={{color: this.props.color}}>
+                <img
+                    className={"album-picture"}
+                    src={albumPicture}
                     height="74"
                     width="132"
                     // alt="Album Image" // this generates a warning that "image" shouldn't be part of the description
@@ -32,11 +33,11 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
 }
 
 export interface ISongInfoContainerProps extends IEnhancedComponentProps {
-
+    color?: string,
 }
 
 export interface ISongInfoContainerState extends IEnhancedComponentState {
 
 }
 
-export { SongInfoContainer };
+export {SongInfoContainer};
