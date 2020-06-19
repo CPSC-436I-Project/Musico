@@ -23,7 +23,6 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
                     src={albumPicture}
                     height="74"
                     width="132"
-                    // alt="Album Image" // this generates a warning that "image" shouldn't be part of the description
                     alt={"Album"}
                 />
                 <p className={"song-description"}>{songDescription}</p>
