@@ -1,8 +1,9 @@
-import {IChatRoomStore, IPopUpStore} from "./stores";
+import {IChatRoomStore, IPopUpStore, IUserStore} from "./stores";
 
 export interface IStore {
 	popupStore: IPopUpStore;
 	chatRoomStore: IChatRoomStore;
+	userStore: IUserStore;
 }
 
 /**
@@ -14,5 +15,10 @@ export default {
 	},
 	chatRoomStore: {
 		selectedGenre: null,
+	},
+	userStore: {
+		username: null,
+		email: null,
+		profileImgSrc: null
 	}
 };
