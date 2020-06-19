@@ -66,6 +66,11 @@
     margin-left: 3px;
 }
 
+.dashboard_trending {
+    display: flex;
+    justify-content: space-around;
+}
+
 .unselectable {
     user-select: none;
 }

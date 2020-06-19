@@ -12,9 +12,13 @@ class InnerDashboard extends EnhancedComponent {
 
     public render(): ReactNode {
         return (
-            <div>
-                <SongInfoContainer color={"#000000"}/>
-                <SongInfoContainer color={"#000000"}/>
+            <div className="inner_dashboard">
+                <h3> Trending Music </h3>
+                <div className="dashboard_trending">
+                    <SongInfoContainer color={"#000000"}/>
+                    <SongInfoContainer color={"#000000"}/>
+                    <SongInfoContainer color={"#000000"}/>
+                </div>
             </div>);
     }
 }
