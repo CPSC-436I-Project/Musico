@@ -7,12 +7,14 @@ const userReducer = (state: any, action: any) => {
         case UserEnum.SET_USER:
             return {
                 username: action.username,
+                password: action.password,
                 email: action.email,
                 profileImgSrc: action.profileImgSrc
             };
         default:
             return {
                 username: null,
+                password: null,
                 email: null,
                 profileImgSrc: null
             };
