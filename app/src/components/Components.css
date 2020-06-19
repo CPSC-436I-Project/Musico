@@ -45,7 +45,7 @@
     width: 100%;
 }
 
-.add-song-form .text_input_div {
+.add-song-form {
     width: 100%;
     margin-bottom: 10px;
 }
@@ -57,11 +57,18 @@
 
 .text_input_div {
     display: flex;
+    outline: none;
 }
 
-.text_input {
-    max-width: 100%;
-    flex-grow: 1;
+.search_bar_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+
+.search_input {
+    margin-left: 3px;
 }
 
 .unselectable {

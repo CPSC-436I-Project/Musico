@@ -21,6 +21,8 @@ class Image extends EnhancedComponent<IImageProps, IImageState> {
 				src={this.props.path}
 				alt={this.props.name}
 				className={"unselectable"}
+				style={{objectFit: "cover",
+						verticalAlign: "middle"}}
 			/>
 		)
 	}

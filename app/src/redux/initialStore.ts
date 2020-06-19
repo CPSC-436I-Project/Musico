@@ -1,7 +1,10 @@
-import {IPopUpStore} from "./stores";
+import {IChatRoomStore, IPopUpStore, IUserStore} from "./stores";
+import profilePlaceholder from "../icons/profile-placeholder.png";
 
 export interface IStore {
 	popupStore: IPopUpStore;
+	chatRoomStore: IChatRoomStore;
+	userStore: IUserStore;
 }
 
 /**
@@ -10,5 +13,13 @@ export interface IStore {
 export default {
 	popupStore: {
 		popupOpen: false,
+	},
+	chatRoomStore: {
+		selectedGenre: null,
+	},
+	userStore: {
+		username: null,
+		email: null,
+		profileImgSrc: profilePlaceholder,
 	}
 };
