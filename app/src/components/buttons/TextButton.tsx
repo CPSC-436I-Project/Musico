@@ -24,13 +24,12 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 	public render(): ReactNode {
 		return (
 			<div
-				className={"center-mid"}
+				className={"center-mid unselectable"}
 				style={{
-					userSelect: "none",
 					fontSize: this.props.fontSize,
 					color: this.props.fontColour,
 					fontWeight: this.props.bold ? "bold" : "normal",
-					height: this.props.height
+					height: this.props.height,
 				}}
 			>
 				<p style={{marginTop: this.props.fontSize/2, marginBottom: this.props.fontSize/2}}>{this.state.text}</p>

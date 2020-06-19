@@ -95,6 +95,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 					style={{
 						backgroundColor: this.state.colour,
 						width: this.props.width,
+						maxHeight: this.props.height,
 						minHeight: this.props.height,
 					}}
 				>

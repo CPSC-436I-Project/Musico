@@ -1,16 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
 import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
-import {DebugScreen} from "./containers/TestScreens/DebugScreen";
+import {DebugScreen} from "./containers";
+import {createStore} from "redux";
+import reducers from "./redux/reducers";
+import initialStore from "./redux/initialStore";
 
-// Set to true for production build
 const prod: boolean = false;
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={createStore(reducers, initialStore)}>
       {prod ? <App/> : <DebugScreen/>}
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

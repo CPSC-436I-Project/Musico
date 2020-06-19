@@ -1,5 +1,26 @@
 import {Button} from "./buttons/Button";
 import {TextButton} from "./buttons/TextButton";
 import {ExpandableButton} from "./buttons/ExpandableButton";
+import {AddSongForm} from "./AddSongForm";
+import {EnhancedComponent} from "./EnhancedComponent";
+import {Header} from "./Header";
+import {Image} from "./Image";
+import Sidebar from "./Sidebar";
+import {TextInput} from "./TextInput";
 
-export {Button, TextButton, ExpandableButton};
+enum GenreEnum {
+	ELECTRONIC = "Electronic",
+	ROCK = "Rock",
+	LO_FI = "Lo-Fi",
+	REGGAE = "Reggae",
+	COUNTRY = "Country",
+	HIP_HOP = "Hip-Hop",
+	JAZZ = "Jazz",
+	RAP = "Rap",
+}
+
+export {
+	GenreEnum,
+	Button, TextButton, ExpandableButton,
+	AddSongForm, EnhancedComponent, Header, Image, Sidebar, TextInput
+};
