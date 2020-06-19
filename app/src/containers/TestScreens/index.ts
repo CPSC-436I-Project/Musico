@@ -1,12 +1,16 @@
 import {TextButtonTest} from "./TextButtonTest";
 import {EmptyPage} from "./EmptyPage";
 import {ImageButtonTest} from "./ImageButtonTest";
-import {PopupTest} from "./PopupTest";
+import PopupTest from "./PopupTest";
 import {HeaderTest} from "./HeaderTest";
 import {TextInputTest} from "./TextInputTest";
 import {SidebarTest} from "./SidebarTest";
+<<<<<<< HEAD
 import {VoteButtonTest} from "./VoteButtonTest";
 import {MusicPlayerQueueTest} from "./MusicPlayerQueueTest";
+=======
+import { VoteButtonTest } from "./VoteButtonTest";
+>>>>>>> dev
 
 export enum testScreen {
 	EmptyPage,
@@ -16,8 +20,12 @@ export enum testScreen {
 	HeaderTest,
 	TextInputTest,
 	SidebarTest,
+<<<<<<< HEAD
 	VoteButtonTest,
 	MusicPlayerQueueTest
+=======
+	VoteButtonTest
+>>>>>>> dev
 }
 
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
@@ -28,6 +36,10 @@ export const testScreenMap: { [key: string]: { pointer: any, name: string } } = 
 	[testScreen.HeaderTest]: {pointer: HeaderTest, name: "Header Test Page"},
 	[testScreen.TextInputTest]: {pointer: TextInputTest, name: "Text Input Page"},
 	[testScreen.SidebarTest]: {pointer: SidebarTest, name: "Sidebar Test Page"},
+<<<<<<< HEAD
 	[testScreen.VoteButtonTest]: {pointer: VoteButtonTest, name: "Vote Button Test Page"},
 	[testScreen.MusicPlayerQueueTest]: {pointer: MusicPlayerQueueTest, name: "Music Player Queue Test Page"}
+=======
+	[testScreen.VoteButtonTest]: {pointer: VoteButtonTest, name: "Vote Button Test Page"}
+>>>>>>> dev
 }

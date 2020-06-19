@@ -2,8 +2,8 @@ import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./Components.css";
-import { UpvoteButton } from "./buttons/UpvoteButton";
-import { DownvoteButton } from "./buttons/DownvoteButton";
+import {UpvoteButton} from "./buttons/UpvoteButton";
+import {DownvoteButton} from "./buttons/DownvoteButton";
 import "./buttons/VoteButtons.css"
 
 class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps, IVoteButtonsContainerState> {
@@ -28,11 +28,11 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
     public render(): ReactNode {
         return (
             <div className={"vote-buttons-container"}>
-                <UpvoteButton onAction={this.voteUp} />
+                <UpvoteButton onAction={this.voteUp}/>
                 <div className={"rating"}>
                     {this.state.rating}
                 </div>
-                <DownvoteButton onAction={this.voteDown} />
+                <DownvoteButton onAction={this.voteDown}/>
             </div>
         )
     }

@@ -1,9 +1,12 @@
+<<<<<<< HEAD
 div.vote-buttons-container {
 	align-items: center;
 	margin: 20px;
 	/* text-align: center; */
 }
 
+=======
+>>>>>>> dev
 .upvote-button {
     width: 0;
 	height: 0;
@@ -21,8 +24,14 @@ div.vote-buttons-container {
 }
 
 .rating {
+<<<<<<< HEAD
 	padding-left: 12px;
 	font-size: 20px;
 	font-weight: 500;
 	font-family: "Roboto Slab";
+=======
+	padding-left: 11px;
+	font-size: 20px;
+	font-weight: 500;
+>>>>>>> dev
 }
