@@ -22,7 +22,11 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
         return (
             <div className="dashboard_song">
                 <SongInfoContainer color={"#000000"}/>
-                <TextButton text={this.props.genre} fontSize={10} width={75}/>
+                <TextButton text={this.props.genre}
+                            fontSize={10} width={75}
+                            fontColour={"#ffffff"}
+                            buttonColour={"#000000"}
+                            buttonHoverColour={"#000000"}/>
             </div>
         );
     }

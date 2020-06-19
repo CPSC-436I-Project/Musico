@@ -68,7 +68,11 @@
 
 .dashboard_trending {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
+}
+
+.dashboard_song {
+    margin: 10px;
 }
 
 .unselectable {
