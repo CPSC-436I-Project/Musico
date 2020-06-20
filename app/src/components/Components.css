@@ -69,3 +69,38 @@
 .unselectable {
     user-select: none;
 }
+
+.music-player-queue {
+    background-color: #242424;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.queue-header {
+    background-color: #242424;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: space-around;
+    flex-grow: 1;
+}
+
+.queue-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.song {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: stretch;
+}
