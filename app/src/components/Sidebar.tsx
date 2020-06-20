@@ -1,9 +1,13 @@
 import * as React from "react";
-import { SidebarTextImageButton } from "./buttons/SidebarTextImageButton";
+import {SidebarTextImageButton} from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./Sidebar.scss";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import {TextInput} from "./TextInput";
+import {SearchBar} from "./SearchBar";
+import {IStore} from "../redux/initialStore";
+import {setSelectedGenre} from "../redux/actions";
+import {connect} from "react-redux";
+import {GenreEnum} from "./";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     public static defaultProps: ISidebarProps = {
@@ -11,31 +15,49 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [
-        {genre: "Electronic", icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png"},
-        {genre: "Rock", icon: "https://img.icons8.com/ios-glyphs/30/000000/rock-music.png"},
-        {genre: "Lo-Fi", icon: "https://img.icons8.com/ios-glyphs/30/000000/easy-listening.png"},
-        {genre: "Reggae", icon: "https://img.icons8.com/ios-glyphs/30/000000/reggae.png"},
-        {genre: "Country", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
-        {genre: "Hip-Hop", icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
-        {genre: "Jazz", icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
-        {genre: "Rap", icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
+        {genre: GenreEnum.ELECTRONIC, icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png"},
+        {genre: GenreEnum.ROCK, icon: "https://img.icons8.com/ios-glyphs/30/000000/rock-music.png"},
+        {genre: GenreEnum.LO_FI, icon: "https://img.icons8.com/ios-glyphs/30/000000/easy-listening.png"},
+        {genre: GenreEnum.REGGAE, icon: "https://img.icons8.com/ios-glyphs/30/000000/reggae.png"},
+        {genre: GenreEnum.COUNTRY, icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
+        {genre: GenreEnum.HIP_HOP, icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
+        {genre: GenreEnum.JAZZ, icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
+        {genre: GenreEnum.RAP, icon: "https://img.icons8.com/ios-glyphs/30/000000/rap.png"},
     ]
+
+    public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
+        return {
+            ...props,
+            selectedGenre: state.chatRoomStore.selectedGenre,
+        };
+    }
 
     protected constructor(props: ISidebarProps) {
         super(props);
         this.state = {
-            searchValue: "",
-            genre: "",
-            icon: "",
+            selectedGenre: null,
+            shownGenres: this.musicGenres,
         };
+        this.onSearch = this.onSearch.bind(this);
+        this.sidebarButtonClicked = this.sidebarButtonClicked.bind(this);
     }
 
-    private onSearch(event: React.SyntheticEvent) {
-        let target = event.currentTarget as HTMLInputElement;
-        let value = target.value;
+    private onSearch(searchValue: string) {
+        let currShownGenres: ISidebarGenreChannel[] = [];
+        for (const currGenre of this.musicGenres) {
+            if (currGenre.genre.toLowerCase().includes(searchValue.toLowerCase())) {
+                currShownGenres.push(currGenre);
+            }
+        }
         this.setState({
-            searchValue: value
+            shownGenres: currShownGenres,
         });
+    }
+
+    private sidebarButtonClicked(genre: GenreEnum): () => void {
+        return () => {
+            this.props.dispatch(setSelectedGenre(genre));
+        }
     }
 
     public render() {
@@ -43,22 +65,20 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         return (
             <div className="sidebar">
                 <div className="sidebar-search-wrapper">
-                    <TextInput
+                    <SearchBar
                         defaultText={placeholder}
+                        submit={this.onSearch}
                     />
-                    <hr />
+                    <hr/>
                 </div>
                 <div className="sidebar-channels">
-                    {this.musicGenres.map(item =>
+                    {this.state.shownGenres.map(item =>
                         <SidebarTextImageButton
                             key={item.genre}
                             text={item.genre}
                             icon={item.icon}
                             buttonColour="#E1E1E2"
-                            onAction={(callback: () => void) => {
-                                console.log("Clicked on " + item.genre);
-                                callback();
-                            }}
+                            onAction={this.sidebarButtonClicked(item.genre)}
                         />
                     )}
                 </div>
@@ -68,19 +88,21 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 }
 
 interface ISidebarGenreChannel {
-    genre: string;
+    genre: GenreEnum;
     icon: string;
 }
 
-export interface ISidebarProps extends IEnhancedComponentProps{
+export interface ISidebarProps extends IEnhancedComponentProps {
     className?: string;
     hasSearch?: boolean;
+    selectedGenre?: GenreEnum | null;
 }
 
 export interface ISidebarState extends IEnhancedComponentState {
-    searchValue?: string;
-    genre: string;
-    icon: string;
+    selectedGenre: GenreEnum | null;
+    shownGenres: ISidebarGenreChannel[];
 }
 
-export {Sidebar};
+// @ts-ignore
+export default connect(Sidebar.mapStateToProps)(Sidebar);
+

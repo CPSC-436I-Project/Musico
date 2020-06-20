@@ -33,6 +33,7 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 }
 
 export interface IEnhancedComponentProps {
+	dispatch?: any;
 }
 
 export interface IEnhancedComponentState {

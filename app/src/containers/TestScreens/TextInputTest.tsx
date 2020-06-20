@@ -14,11 +14,6 @@ class TextInputTest extends Container<ITextInputTestProps, ITextInputTestState> 
 
     }
 
-    private static textInputCallback(callback: () => void): void {
-        console.log("Text Input Sent");
-        callback();
-    }
-
     public render(): ReactNode {
         return (
             <div>

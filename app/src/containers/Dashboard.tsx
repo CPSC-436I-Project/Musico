@@ -2,9 +2,10 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container} from "./Container";
-import {Header, Image, Sidebar} from "../components";
+import {Header, Sidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
+import {Profile} from "./Profile";
 
 class Dashboard extends Container {
 	public render(): ReactNode {
@@ -13,14 +14,14 @@ class Dashboard extends Container {
 				// className={"fill-container"}
 			>
 				<div>
-					<Header profileImgSrc={profilePlaceholder}/>
+					<Header profileImgSrc={profilePlaceholder} onProfileClick={this.toggleProfile}/>
 				</div>
 				<div>
 					<div style={{position: "absolute"}}>
 						<Sidebar/>
 					</div>
 					<div className={"flex-column-center"} style={{marginLeft: 200}}>
-						<DebugScreen/>
+						{this.state.profileOpen ? <Profile/> : <DebugScreen/>}
 					</div>
 				</div>
 			</div>

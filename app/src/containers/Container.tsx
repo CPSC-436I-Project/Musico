@@ -2,17 +2,25 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
-import {AddSongForm} from "../components/AddSongForm";
+import {hidePopUp, showPopUp} from "../redux/actions";
+import {IStore} from "../redux/initialStore";
 
-abstract class Container<P extends IContainerProps = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
+abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
 	public static defaultProps: IContainerProps = {
-		/* default props to all containers here */
+
 	};
 
 	private readonly childRender: () => ReactNode;
 
 	public popupRender: () => ReactNode;
+
+	public static mapStateToProps:(state: IStore, props: IContainerProps) => IContainerProps = (state: IStore, props: IContainerProps) => {
+		return {
+			...props,
+			popupOpen: state.popupStore.popupOpen,
+		};
+	}
 
 	protected constructor(props: P) {
 		super(props);
@@ -22,6 +30,7 @@ abstract class Container<P extends IContainerProps = IContainerProps, S extends 
 		// @ts-ignore
 		this.state = {
 			popupOpen: false,
+			profileOpen: false,
 		};
 
 		this.childRender = this.render;
@@ -29,11 +38,15 @@ abstract class Container<P extends IContainerProps = IContainerProps, S extends 
 	}
 
 	openPopup = () => {
-		this.setState({popupOpen: true});
+		this.props.dispatch(showPopUp());
 	};
 
 	closePopup = () => {
-		this.setState({popupOpen: false});
+		this.props.dispatch(hidePopUp());
+	};
+
+	toggleProfile = (callback: () => void) => {
+		this.setState({profileOpen: !this.state.profileOpen}, callback)
 	};
 
 	private wrapRender(): void {
@@ -41,7 +54,7 @@ abstract class Container<P extends IContainerProps = IContainerProps, S extends 
 			return (
 				<div className={"fill-container"}>
 					{this.childRender()}
-					{this.state.popupOpen &&
+					{this.props.popupOpen &&
 					<PopupContainer closeFn={this.closePopup}>
 						{this.popupRender()}
 					</PopupContainer>}
@@ -52,11 +65,13 @@ abstract class Container<P extends IContainerProps = IContainerProps, S extends 
 }
 
 export interface IContainerProps {
-
+	popupOpen?: boolean;
+	dispatch?: any;
 }
 
 export interface IContainerState {
 	popupOpen?: boolean;
+	profileOpen?: boolean;
 }
 
 export {Container};

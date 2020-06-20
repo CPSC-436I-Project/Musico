@@ -45,20 +45,137 @@
     width: 100%;
 }
 
-.add-song-form .text_input_div {
+.add-song-form {
     width: 100%;
     margin-bottom: 10px;
 }
 
-.text_input_div {
+.add-song-form .main-button {
     display: flex;
+    margin: 10px 0px auto auto;
 }
 
-.text_input {
-    max-width: 100%;
-    flex-grow: 1;
+.add-song-form .valid-check {
+    display: flex;
+    font-size: 12px;
+    margin: 10px 0px 0 auto;
+}
+
+.add-song-form .invalid-URL-text {
+    color: red;
+}
+
+.add-song-form .valid-URL-text {
+    color: green;
+}
+
+.text_input_div {
+    display: flex;
+    outline: none;
+}
+
+.search_bar_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+}
+
+.search_input {
+    margin-left: 3px;
+}
+
+.dashboard_trending {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dashboard_song {
+    margin: 10px;
 }
 
 .unselectable {
     user-select: none;
+}
+
+.inner_profile {
+    margin: 100px 100px 0px;
+}
+
+.inner_profile .profile_head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.inner_profile img {
+    border: 3px solid #6236FF;
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.inner_profile h2 {
+    margin-left: 50px;
+}
+
+.song-info-container {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.song-description {
+    font-size: 20px;
+    font-family: "Roboto";
+    font-weight: 500;
+    margin: 10px 0px;
+}
+
+.music-player-queue {
+    background-color: #242424;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 300px;
+}
+
+.queue-header {
+    background-color: #242424;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: space-around;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.queue-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    flex-grow: 1;
+    width: 280px;
+    margin-left: 10px;
+}
+
+.song {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: stretch;
+    width: 280px;
+    margin-bottom: 20px;
+}
+
+.music-player-queue .song-info-container {
+    width: 220px;
+}
+
+.music-player-queue .vote-buttons-container {
+    margin: 0px 10px 0px 0px;
 }

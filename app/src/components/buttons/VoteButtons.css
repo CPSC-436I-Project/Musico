@@ -1,0 +1,28 @@
+.vote-buttons-container {
+	align-items: center;
+	margin: 20px;
+	/* text-align: center; */
+}
+
+.upvote-button {
+    width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+    border-bottom: 15px solid #6DD400;
+}
+
+.downvote-button {
+	width: 0;
+	height: 0;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-top: 15px solid #E02020;
+}
+
+.rating {
+	padding-left: 12px;
+	font-size: 20px;
+	font-weight: 500;
+	font-family: "Roboto Slab";
+}
