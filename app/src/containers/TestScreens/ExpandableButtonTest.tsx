@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "../Container.css";
 import {Container} from "../Container";
-import {ExpandableButton, TextInput} from "../../components";
+import {ExpandableButton, TextButton, TextInput} from "../../components";
 
 class ExpandableButtonTest extends Container {
 	public render(): ReactNode {
@@ -14,6 +14,7 @@ class ExpandableButtonTest extends Container {
 				<TextInput
 					defaultText={"password"}
 				/>
+				<TextButton text={"Done!"} width={70}/>
 		</div>;
 		return (
 			<div className={"flex-column-center"}>

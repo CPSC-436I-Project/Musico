@@ -47,13 +47,12 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
                     border: Number(this.props.border),
 					width: this.props.width,
                 }}
-                onClick={(e) => e.stopPropagation()}
             >
                 <form onSubmit={this.props.submit}>
                     <input
-                        className="text_input"
-                        type="text"
-                        name="text_input"
+                        className={"text_input unselectable"}
+                        type={"text"}
+                        name={"text_input"}
                         placeholder={this.props.defaultText}
                         value={this.state.text}
                         onChange={this.updateText}

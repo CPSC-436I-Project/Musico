@@ -24,7 +24,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		// @ts-ignore
 		this.state = {
 			...this.state,
-			clicked: false,
+			pressed: false,
 			disabled: false,
 			colour: this.props.buttonColour,
 			hovering: false,
@@ -49,7 +49,10 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		if (!this.state.disabled && !this.props.disabled) {
 			this.setState({disabled: true}, () => {
 				this.state.onAction(() => {
-					this.setState({disabled: false});
+					this.setState({
+						disabled: false,
+						pressed: this.state.pressed
+					});
 				});
 			});
 		}
@@ -89,8 +92,8 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 				<div
 					className={"main-button center-mid"}
 					onClick={this.onActionWrapper}
-					onMouseDown={this.onPressedIn}
-					onMouseUp={this.onPressedOut}
+					// onMouseDown={this.onPressedIn}
+					// onMouseUp={this.onPressedOut}
 					onMouseEnter={this.onHoverIn}
 					onMouseLeave={this.onHoverOut}
 					style={{

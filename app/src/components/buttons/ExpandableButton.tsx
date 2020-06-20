@@ -37,7 +37,9 @@ class ExpandableButton extends Button<IExpandableButtonProps, IExpandableButtonS
 			text: this.props.text,
 			expandState: ExpansionState.COLLAPSED,
 			onAction: (callback: () => void) => {
-				this.setState({expandState: this.state.expandState === ExpansionState.EXPANDED ? ExpansionState.COLLAPSED : ExpansionState.EXPANDED}, () => {
+				this.setState({
+					expandState: this.state.expandState === ExpansionState.EXPANDED ? ExpansionState.COLLAPSED : ExpansionState.EXPANDED
+				}, () => {
 					this.props.onAction(callback);
 				});
 			}
@@ -64,8 +66,9 @@ class ExpandableButton extends Button<IExpandableButtonProps, IExpandableButtonS
 					transition={{
 						duration: 0.5,
 					}}
+					onClick={(e) => e.stopPropagation()}
 				>
-					{this.props.child}
+					{this.state.expandState === ExpansionState.EXPANDED && this.props.child}
 				</motion.div>
 			</motion.div>
 		);
