@@ -10,15 +10,15 @@ export enum SongListEnum {
 const songListReducer = (store: ISongListStore, action: any) => {
     switch (action.type) {
         case SongListEnum.ADD_SONG:
-            let updatedSongs = store;
-            if (updatedSongs[action.genre] !== undefined) {
-                updatedSongs[action.genre].push({
-                    link: action.link,
-                    voteCount: 1,
-                    username: action.username
-                });
-            }
-            return updatedSongs;
+            let updatedSongs = store.songs;
+            updatedSongs[action.genre].push({
+                link: action.link,
+                voteCount: 1,
+                username: action.username
+            });
+            return {
+                songs: updatedSongs,
+            };
         case SongListEnum.RESET_SONGS:
             return {
                 songs: defaultSongs,
