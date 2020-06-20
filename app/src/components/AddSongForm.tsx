@@ -29,11 +29,17 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
         this.state = {
             ...this.state,
             songLink: "",
+            validLink: false
         };
     }
 
+    checkYouTubeUrl = () => {
+        let re = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/watch\?v=([^&]+)/m;
+        this.setState({validLink: re.test(this.state.songLink)});
+    };
+
     updateSongLink = (text: string) => {
-        this.setState({songLink: text});
+        this.setState({songLink: text}, this.checkYouTubeUrl);
     };
 
     addSongSender = (link: string) => {
@@ -47,6 +53,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
             <div className="add-song-form">
                 <h3>Add a song</h3>
                 <TextInput defaultText="Paste a YouTube song link here" submit={this.updateSongLink} />
+                {this.state.validLink ? <span className="valid-check valid-URL-text">The URL is valid</span> : <span className="valid-check invalid-URL-text">Please enter a valid YouTube URL!</span>}
                 <TextButton text="Submit" bold={true} buttonColour="#6236FF" height={30} width={90} onAction={this.addSongSender(this.state.songLink)}/>
             </div>
         );
@@ -62,6 +69,7 @@ export interface IAddSongFormProps extends IEnhancedComponentProps {
 
 export interface IAddSongFormState extends IEnhancedComponentState {
     songLink: string,
+    validLink: boolean,
 }
 
 // @ts-ignore
