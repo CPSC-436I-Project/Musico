@@ -22,6 +22,8 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
                 <Image
                     path={albumPicture}
                     name={"Album"}
+                    width={this.props.width}
+                    height={this.props.height}
                 />
                 <p className={"song-description"}>{songDescription}</p>
             </div>
@@ -31,6 +33,8 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
 
 export interface ISongInfoContainerProps extends IEnhancedComponentProps {
     color?: string,
+    width?: number,
+    height?: number
 }
 
 export interface ISongInfoContainerState extends IEnhancedComponentState {

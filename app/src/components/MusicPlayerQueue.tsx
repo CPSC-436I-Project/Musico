@@ -19,17 +19,17 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
         return (
             <div className="music-player-queue">
                 <div className="queue-header">
-                    <Image width={60} height={60} path={playlistIcon}/>
+                    <Image width={30} height={30} path={playlistIcon}/>
                     <h2>Queue</h2>
                 </div>
                 <div className={"queue-items"}>
                     <div className={"song"}>
                         <VoteButtonsContainer/>
-                        <SongInfoContainer/>
+                        <SongInfoContainer width={200} height={112} />
                     </div>
                     <div className={"song"}>
                         <VoteButtonsContainer/>
-                        <SongInfoContainer/>
+                        <SongInfoContainer width={200} height={112} />
                     </div>
                 </div>
             </div>
