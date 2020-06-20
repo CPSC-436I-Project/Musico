@@ -11,6 +11,7 @@ export interface IChatRoomStore {
 
 export interface IUserStore {
 	username: string | null;
+	password: string | null;
 	email: string | null;
 	profileImgSrc: string | null;
 }
