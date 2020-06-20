@@ -26,13 +26,6 @@ const userReducer = (store: IUserStore, action: any) => {
             };
         case UserEnum.RESET_USER:
         default:
-            return {
-                username: null,
-                password: null,
-                email: null,
-                profileImgSrc: profilePlaceholder,
-            };
-        default:
             return store || initialStore.userStore;
     }
 };
