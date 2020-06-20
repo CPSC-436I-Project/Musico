@@ -1,4 +1,5 @@
 import {GenreEnum} from "../components/";
+import {ISongListObject} from "../utility/songs";
 
 export interface IPopUpStore {
 	popupOpen: boolean;
@@ -13,4 +14,8 @@ export interface IUserStore {
 	password: string | null;
 	email: string | null;
 	profileImgSrc: string | null;
+}
+
+export interface ISongListStore {
+	songs: ISongListObject
 }

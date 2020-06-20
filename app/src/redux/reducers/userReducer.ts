@@ -1,11 +1,14 @@
 import profilePlaceholder from "../../icons/profile-placeholder.png";
+import {IUserStore} from "../stores";
+import initialStore from "../initialStore";
 
 export enum UserEnum {
-    SET_USER,
-    CREATE_USER
+    SET_USER= "SET_USER",
+    CREATE_USER = "CREATE_USER",
+    RESET_USER = "RESET_USER",
 }
 
-const userReducer = (state: any, action: any) => {
+const userReducer = (store: IUserStore, action: any) => {
     switch (action.type) {
         case UserEnum.SET_USER:
             return {
@@ -21,13 +24,9 @@ const userReducer = (state: any, action: any) => {
                 email: action.email,
                 profileImgSrc: profilePlaceholder
             };
+        case UserEnum.RESET_USER:
         default:
-            return {
-                username: null,
-                password: null,
-                email: null,
-                profileImgSrc: profilePlaceholder,
-            };
+            return store || initialStore.userStore;
     }
 };
 

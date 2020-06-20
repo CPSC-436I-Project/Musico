@@ -50,6 +50,25 @@
     margin-bottom: 10px;
 }
 
+.add-song-form .main-button {
+    display: flex;
+    margin: 10px 0px auto auto;
+}
+
+.add-song-form .valid-check {
+    display: flex;
+    font-size: 12px;
+    margin: 10px 0px 0 auto;
+}
+
+.add-song-form .invalid-URL-text {
+    color: red;
+}
+
+.add-song-form .valid-URL-text {
+    color: green;
+}
+
 .text_input_div {
     display: flex;
     outline: none;
