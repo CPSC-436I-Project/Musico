@@ -14,7 +14,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         border: false,
         borderColor: "black",
         fontSize: 16,
-		submit: () => {},
+		submit: (text: string) => {},
     };
 
     protected constructor(props: ITextInputProps) {
@@ -30,7 +30,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         event.preventDefault();
         this.setState({
             text: event.target.value,
-        }, this.props.submit);
+        }, () => {this.props.submit(this.state.text)});
     }
 
     public getText(): string {
@@ -48,21 +48,19 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 					width: this.props.width,
                 }}
             >
-                <form onSubmit={this.props.submit}>
-                    <input
-                        className="text_input"
-                        type="text"
-                        name="text_input"
-                        placeholder={this.props.defaultText}
-                        value={this.state.text}
-                        onChange={this.updateText}
-                        style={{
-							margin: this.props.colorMargin,
-							width: `calc(100% - ${input_width}px)`,
-                            fontSize: this.props.fontSize,
-                        }}
-                    />
-                </form>
+                <input
+                    className="text_input"
+                    type="text"
+                    name="text_input"
+                    placeholder={this.props.defaultText}
+                    value={this.state.text}
+                    onChange={this.updateText}
+                    style={{
+                        margin: this.props.colorMargin,
+                        width: `calc(100% - ${input_width}px)`,
+                        fontSize: this.props.fontSize,
+                    }}
+                />
             </div>
         );
     }
@@ -76,7 +74,7 @@ export interface ITextInputProps extends IEnhancedComponentProps {
     border?: boolean;
     borderColor?: string;
     fontSize?: number;
-    submit: () => void;
+    submit: (text: string) => void;
 }
 
 export interface ITextInputState extends IEnhancedComponentState {

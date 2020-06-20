@@ -1,19 +1,23 @@
+import {IPopUpStore} from "../stores";
+import initialStore from "../initialStore";
+
 export enum PopUpActionEnum {
-	SHOW_POPUP,
-	HIDE_POPUP,
+	SHOW_POPUP = "SHOW_POPUP",
+	HIDE_POPUP = "HIDE_POPUP",
 }
 
-const popupReducer = (popUpOpen: any, action: any) => {
+const popupReducer = (store: IPopUpStore, action: any) => {
 	switch (action.type) {
 		case PopUpActionEnum.SHOW_POPUP:
 			return {
 				popupOpen: true,
 			};
 		case PopUpActionEnum.HIDE_POPUP:
-		default:
 			return {
 				popupOpen: false,
 			};
+		default:
+			return store || initialStore.popupStore;
 	}
 }
 
