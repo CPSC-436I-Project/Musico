@@ -2,11 +2,10 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
-import {connect} from "react-redux";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 
-abstract class Container<P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
+abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
 	public static defaultProps: IContainerProps = {
 
@@ -39,12 +38,10 @@ abstract class Container<P extends (IContainerProps & {}) = IContainerProps, S e
 
 	openPopup = () => {
 		this.props.dispatch(showPopUp());
-		// this.setState({popupOpen: true});
 	};
 
 	closePopup = () => {
 		this.props.dispatch(hidePopUp());
-		// this.setState({popupOpen: false});
 	};
 
 	private wrapRender(): void {

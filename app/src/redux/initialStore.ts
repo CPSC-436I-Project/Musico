@@ -1,7 +1,12 @@
-import {IPopUpStore} from "./stores";
+import {IChatRoomStore, IPopUpStore, ISongListStore, IUserStore} from "./stores";
+import profilePlaceholder from "../icons/profile-placeholder.png";
+import {defaultSongs} from "../utility/songs";
 
 export interface IStore {
 	popupStore: IPopUpStore;
+	chatRoomStore: IChatRoomStore;
+	userStore: IUserStore;
+	songListStore: ISongListStore;
 }
 
 /**
@@ -10,5 +15,17 @@ export interface IStore {
 export default {
 	popupStore: {
 		popupOpen: false,
+	},
+	chatRoomStore: {
+		selectedGenre: null,
+	},
+	userStore: {
+		username: null,
+		password: null,
+		email: null,
+		profileImgSrc: profilePlaceholder,
+	},
+	songListStore: {
+		songs: defaultSongs
 	}
 };

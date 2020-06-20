@@ -4,12 +4,13 @@ import {Button, IButtonProps, IButtonState} from "./Button";
 import "./VoteButtons.css"
 
 class UpvoteButton extends Button<IUpvoteButtonProps, IUpvoteButtonState> {
-    
+
     public static defaultProps: IUpvoteButtonProps = {
         ...Button.defaultProps,
         buttonColour: "transparent",
         buttonHoverColour: "transparent",
-        buttonFocusedColour: "transparent"
+        buttonFocusedColour: "transparent",
+        width: 20,
     }
 
     public constructor(props: IUpvoteButtonProps) {
@@ -21,7 +22,7 @@ class UpvoteButton extends Button<IUpvoteButtonProps, IUpvoteButtonState> {
 
     public render(): ReactNode {
         return (
-            <div className={"upvote-button"}></div>
+            <div className={"upvote-button"}/>
         )
     }
 }
