@@ -5,7 +5,7 @@ import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 
-abstract class Container<P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
+abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
 	public static defaultProps: IContainerProps = {
 
