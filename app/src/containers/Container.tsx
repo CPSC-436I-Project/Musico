@@ -30,6 +30,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		// @ts-ignore
 		this.state = {
 			popupOpen: false,
+			profileOpen: false,
 		};
 
 		this.childRender = this.render;
@@ -42,6 +43,10 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 	closePopup = () => {
 		this.props.dispatch(hidePopUp());
+	};
+
+	toggleProfile = (callback: () => void) => {
+		this.setState({profileOpen: !this.state.profileOpen}, callback)
 	};
 
 	private wrapRender(): void {
@@ -66,6 +71,7 @@ export interface IContainerProps {
 
 export interface IContainerState {
 	popupOpen?: boolean;
+	profileOpen?: boolean;
 }
 
 export {Container};

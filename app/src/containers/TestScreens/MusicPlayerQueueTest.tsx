@@ -7,7 +7,7 @@ import { MusicPlayerQueue } from "../../components/MusicPlayerQueue";
 class MusicPlayerQueueTest extends Container {
     public render(): ReactNode {
         return (
-            <div>
+            <div className={"flex-column-center"}>
                 <h2>Music Player Queue</h2>
                 <MusicPlayerQueue />
             </div>

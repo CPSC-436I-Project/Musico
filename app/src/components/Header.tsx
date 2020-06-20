@@ -5,11 +5,22 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import {ImageButton} from "./buttons/ImageButton";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
+import {IStore} from "../redux/initialStore";
+import {connect} from "react-redux";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
     public static defaultProps: IHeaderProps = {
+        ...EnhancedComponent.defaultProps,
     }
+
+    public static mapStateToProps:(state: IStore, props: IHeaderProps) => IHeaderProps = (state: IStore, props: IHeaderProps) => {
+        return {
+            ...props,
+            profileImgSrc: state.userStore.profileImgSrc,
+        };
+    }
+
 
     protected constructor(props: IHeaderProps) {
         super(props);
@@ -39,4 +50,5 @@ export interface IHeaderProps extends IEnhancedComponentProps {
 export interface IHeaderState extends IEnhancedComponentState {
 }
 
-export {Header};
+// @ts-ignore
+export default connect(Header.mapStateToProps)(Header);
