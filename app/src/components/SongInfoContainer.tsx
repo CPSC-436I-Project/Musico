@@ -1,7 +1,6 @@
 import * as React from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./SongInfoContainer.css";
 import {Image} from "./Image";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
 

@@ -98,6 +98,18 @@
     user-select: none;
 }
 
+.song-info-container {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.song-description {
+    font-size: 20px;
+    font-family: "Roboto";
+    font-weight: 500;
+    margin: 10px 0px;
+}
+
 .music-player-queue {
     background-color: #242424;
     color: #ffffff;
@@ -136,6 +148,7 @@
     justify-content: stretch;
     align-items: stretch;
     width: 280px;
+    margin-bottom: 20px;
 }
 
 .music-player-queue .song-info-container {
