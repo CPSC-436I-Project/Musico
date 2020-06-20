@@ -66,6 +66,15 @@
     margin-left: 3px;
 }
 
+.dashboard_trending {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.dashboard_song {
+    margin: 10px;
+}
+
 .unselectable {
     user-select: none;
 }

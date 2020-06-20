@@ -9,7 +9,8 @@ class UpvoteButton extends Button<IUpvoteButtonProps, IUpvoteButtonState> {
         ...Button.defaultProps,
         buttonColour: "transparent",
         buttonHoverColour: "transparent",
-        buttonFocusedColour: "transparent"
+        buttonFocusedColour: "transparent",
+        width: 20,
     }
 
     public constructor(props: IUpvoteButtonProps) {
