@@ -14,7 +14,7 @@ const songListReducer = (store: ISongListStore, action: any) => {
             updatedSongs[action.genre].push({
                 link: action.link,
                 voteCount: 1,
-                username: action.username
+                submittor: action.username
             });
             return {
                 songs: updatedSongs,

@@ -38,7 +38,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 
     addSongSender = (link: string) => {
         return () => {
-            this.props.dispatch(addSong("this.props.username", link, this.props.selectedGenre));
+            this.props.dispatch(addSong(this.props.username, link, this.props.selectedGenre));
         }
     };
 
