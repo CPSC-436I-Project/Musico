@@ -1,4 +1,5 @@
 import {IChatRoomStore, IPopUpStore, IUserStore} from "./stores";
+import profilePlaceholder from "../icons/profile-placeholder.png";
 
 export interface IStore {
 	popupStore: IPopUpStore;
@@ -20,6 +21,6 @@ export default {
 		username: null,
         password: null,
 		email: null,
-		profileImgSrc: null
+		profileImgSrc: profilePlaceholder,
 	}
 };

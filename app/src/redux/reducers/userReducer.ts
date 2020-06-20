@@ -1,3 +1,5 @@
+import profilePlaceholder from "../../icons/profile-placeholder.png";
+
 export enum UserEnum {
     SET_USER
 }
@@ -16,7 +18,7 @@ const userReducer = (state: any, action: any) => {
                 username: null,
                 password: null,
                 email: null,
-                profileImgSrc: null
+                profileImgSrc: profilePlaceholder,
             };
     }
 }
