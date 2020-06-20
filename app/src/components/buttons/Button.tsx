@@ -28,6 +28,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 			disabled: false,
 			colour: this.props.buttonColour,
 			hovering: false,
+			onAction: this.props.onAction,
 		};
 
 		this.wrapRenderButton = this.wrapRenderButton.bind(this);
@@ -47,7 +48,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 	private onActionWrapper(): void {
 		if (!this.state.disabled && !this.props.disabled) {
 			this.setState({disabled: true}, () => {
-				this.props.onAction(() => {
+				this.state.onAction(() => {
 					this.setState({disabled: false});
 				});
 			});
@@ -121,6 +122,7 @@ export interface IButtonState extends IEnhancedComponentState {
 	disabled: boolean;
 	colour: string;
 	hovering: boolean;
+	onAction: (callback: () => void) => void;
 }
 
 export {Button};

@@ -19,8 +19,13 @@ enum GenreEnum {
 	RAP = "Rap",
 }
 
+enum ExpansionState {
+	EXPANDED = "expanded",
+	COLLAPSED = "collapsed",
+}
+
 export {
-	GenreEnum,
+	GenreEnum, ExpansionState,
 	Button, TextButton, ExpandableButton,
 	AddSongForm, EnhancedComponent, Header, Image, Sidebar, TextInput
 };

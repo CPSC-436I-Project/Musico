@@ -47,6 +47,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
                     border: Number(this.props.border),
 					width: this.props.width,
                 }}
+                onClick={(e) => e.stopPropagation()}
             >
                 <form onSubmit={this.props.submit}>
                     <input

@@ -2,8 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container} from "./Container";
-import {TextButton} from "../components/buttons/TextButton";
-import {Image} from "../components/Image";
+import {TextButton, Image} from "../components";
 
 class LoginScreen extends Container {
 
