@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {Container, IContainerProps, IContainerState} from "../Container";
-import {Header} from "../../components/Header";
+import Header from "../../components/Header";
 import profilePlaceholder from "../../icons/profile-placeholder.png";
 
 class HeaderTest extends Container<IHeaderTestProps, IHeaderTestState> {
