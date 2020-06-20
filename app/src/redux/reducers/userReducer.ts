@@ -3,7 +3,7 @@ import {IUserStore} from "../stores";
 import initialStore from "../initialStore";
 
 export enum UserEnum {
-    SET_USER= "SET_USER",
+    SET_USER = "SET_USER",
     CREATE_USER = "CREATE_USER",
     RESET_USER = "RESET_USER",
 }
