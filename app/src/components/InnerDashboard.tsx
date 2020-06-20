@@ -23,8 +23,8 @@ class InnerDashboard extends EnhancedComponent {
                         justifyContent: "flexstart",
                     }}
                 >
-                    <Image width={30} height={30} path={audioWaveIcon}/>
-                    <h3> Trending Music </h3>
+                    <Image width={40} height={40} path={audioWaveIcon}/>
+                    <h2> Trending Music </h2>
                 </div>
                 <div className="dashboard_trending">
                     <DashboardSongInfo genre={"Electronic"}/>

@@ -6,8 +6,8 @@ class Image extends EnhancedComponent<IImageProps, IImageState> {
 	public static defaultProps: IImageProps = {
 		...EnhancedComponent.defaultProps,
 		path: "/logo.png",
-		width: 132,
-		height: 74,
+		width: 250,
+		height: 150,
 	};
 
 	protected constructor(props: IImageProps) {
