@@ -4,7 +4,7 @@ import {Button, IButtonProps, IButtonState} from "./Button";
 import "./Button.css";
 
 class DownvoteButton extends Button<IDownvoteButtonProps, IDownvoteButtonState> {
-    
+
     public static defaultProps: IDownvoteButtonProps = {
         ...Button.defaultProps,
         buttonColour: "transparent",
@@ -22,7 +22,7 @@ class DownvoteButton extends Button<IDownvoteButtonProps, IDownvoteButtonState> 
 
     public render(): ReactNode {
         return (
-            <div className={"downvote-button"}></div>
+            <div className={"downvote-button"}/>
         )
     }
 }
@@ -32,7 +32,7 @@ export interface IDownvoteButtonProps extends IButtonProps {
 }
 
 export interface IDownvoteButtonState extends IButtonState {
-    
+
 }
 
 export {DownvoteButton};

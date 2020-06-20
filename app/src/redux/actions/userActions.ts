@@ -8,4 +8,13 @@ export const setUser = (username: string, password: string, email: string, profi
         email: email,
         profileImgSrc: profileImgSrc,
     }
-}
+};
+
+export const createUser = (username: string, password: string, email: string) => {
+    return {
+        type: UserEnum.CREATE_USER,
+        username: username,
+        password: password,
+        email: email,
+    }
+};
