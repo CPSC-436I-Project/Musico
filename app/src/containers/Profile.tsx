@@ -2,20 +2,15 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {Image} from "../components";
+import {InnerProfile} from "../components/InnerProfile";
 
+//TODO: this is incomplete
 class Profile extends Container<IProfileProps, IProfileState> {
 
     public render(): ReactNode {
         return (
             <div>
-               <div className="profile-head">
-                   <Image path={this.props.profileImgUrl}/>
-                   <h2>{this.props.username}</h2>
-               </div>
-               <div className="profile-played-songs">
-
-               </div>
+                <InnerProfile />
             </div>
         );
     }
