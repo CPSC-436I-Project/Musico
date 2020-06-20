@@ -3,7 +3,7 @@ import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./Components.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
-import { findByLabelText } from "@testing-library/react";
+import {Image} from "./Image"
 
 class InnerDashboard extends EnhancedComponent {
 
@@ -23,7 +23,7 @@ class InnerDashboard extends EnhancedComponent {
                         justifyContent: "flexstart",
                     }}
                 >
-                    <img width={30} height={30} src={audioWaveIcon}/>
+                    <Image width={30} height={30} path={audioWaveIcon}/>
                     <h3> Trending Music </h3>
                 </div>
                 <div className="dashboard_trending">

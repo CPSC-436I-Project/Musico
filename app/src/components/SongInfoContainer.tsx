@@ -2,6 +2,7 @@ import * as React from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./SongInfoContainer.css";
+import {Image} from "./Image";
 
 class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISongInfoContainerState> {
     public static defaultProps: ISongInfoContainerProps = {
@@ -18,13 +19,9 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
         const songDescription = "Song Name - Artist";
         return (
             <div className={"song-info-container"} style={{color: this.props.color}}>
-                <img
-                    className={"album-picture"}
-                    src={albumPicture}
-                    height="74"
-                    width="132"
-                    // alt="Album Image" // this generates a warning that "image" shouldn't be part of the description
-                    alt={"Album"}
+                <Image
+                    path={albumPicture}
+                    name={"Album"}
                 />
                 <p className={"song-description"}>{songDescription}</p>
             </div>
