@@ -3,6 +3,7 @@ import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import "./SongInfoContainer.css";
 import {Image} from "./Image";
+import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
 
 class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISongInfoContainerState> {
     public static defaultProps: ISongInfoContainerProps = {
@@ -15,12 +16,11 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
     }
 
     public render() {
-        const albumPicture = "https://image.shutterstock.com/image-vector/minimal-abstract-black-sphere-design-600w-158384345.jpg";
         const songDescription = "Song Name - Artist";
         return (
             <div className={"song-info-container"} style={{color: this.props.color}} >
                 <Image
-                    path={albumPicture}
+                    path={thumbnailPlaceholder}
                     name={"Album"}
                     width={this.props.width}
                     height={this.props.height}
