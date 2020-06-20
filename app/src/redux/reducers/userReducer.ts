@@ -7,6 +7,7 @@ export enum UserEnum {
 const userReducer = (state: any, action: any) => {
     switch (action.type) {
         case UserEnum.SET_USER:
+            console.log("error SET_USER - this should not happen when sidebar item is selected");
             return {
                 username: action.username,
                 email: action.email,
