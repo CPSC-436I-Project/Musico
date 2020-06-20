@@ -5,6 +5,7 @@ import "./Components.css";
 import {Image} from "./Image"
 import {IStore} from "../redux/initialStore";
 import profilePlaceholder from "../icons/profile-placeholder.png";
+import {connect} from "react-redux";
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
 
@@ -24,14 +25,12 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
     public render(): ReactNode {
         return (
             <div className="inner_profile">
-                <div className="profile-head">
-                    <Image path={this.props.profileImgUrl}/>
-                    <h2>{this.props.username}</h2>
+                <div className="profile_head">
+                    <Image path={this.props.profileImgUrl} width={170} height={170}/>
+                    <h2>{this.props.username || "Unknown User"}</h2>
                 </div>
-                <div className="profile-played-songs">
-                    TODO
-                </div>
-            </div>);
+            </div>
+        );
     }
 }
 
@@ -43,4 +42,5 @@ export interface IInnerProfileProps extends IEnhancedComponentProps {
 export interface IInnerProfileState extends IEnhancedComponentState {
 }
 
-export {InnerProfile};
+// @ts-ignore
+export default connect(InnerProfile.mapStateToProps)(InnerProfile);

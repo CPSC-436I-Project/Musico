@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {InnerProfile} from "../components/InnerProfile";
+import InnerProfile from "../components/InnerProfile";
 
 //TODO: this is incomplete
 class Profile extends Container<IProfileProps, IProfileState> {
