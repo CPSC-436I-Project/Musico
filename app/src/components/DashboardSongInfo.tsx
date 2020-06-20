@@ -26,7 +26,9 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
                             fontSize={14} width={100}
                             fontColour={"#ffffff"}
                             buttonColour={"#000000"}
-                            buttonHoverColour={"#000000"}/>
+                            buttonHoverColour={"#000000"}
+                            height={20}
+                />
             </div>
         );
     }
