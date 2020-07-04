@@ -4,11 +4,11 @@ import {GenreEnum} from '../../../app/src/components/index';
 
 
 const playlistObject = {
-    songID: ObjectID,
+    songID: mongoose.Types.ObjectId,
     songName: String,
     artists: [String],
     src: String,
-    requesterID: ObjectID
+    requesterID: mongoose.Types.ObjectId
 };
 
 const playlistSchema = new Schema({
