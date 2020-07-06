@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import Schema from 'mongoose';
-import {GenreEnum} from '../../../app/src/components/index';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+// import {GenreEnum} from '../../../app/src/components/index';
 
 
 const queueObject = {
@@ -9,7 +9,8 @@ const queueObject = {
 };
 
 const queueSchema = new Schema({
-    channel: GenreEnum,
+    // channel: GenreEnum,
+    channel: String,
     queue: [queueObject]
 });
 

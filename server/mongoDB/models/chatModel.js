@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import Schema from 'mongoose';
-import {GenreEnum} from '../../../app/src/components/index';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+// import {GenreEnum} from '../../../app/src/components/index';
 
 const messageObject = {
     user: mongoose.Types.ObjectId,
@@ -8,7 +8,8 @@ const messageObject = {
 }
 
 const chatSchema = new Schema({
-    channel: GenreEnum,
+    // channel: GenreEnum,
+    channel: String,
     messages: [messageObject]
 });
 

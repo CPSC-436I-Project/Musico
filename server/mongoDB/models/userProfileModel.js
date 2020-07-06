@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import Schema from 'mongoose';
-import {GenreEnum} from '../../../app/src/components/index';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+// import {GenreEnum} from '../../../app/src/components/index';
 
 
 const userProfileSchema = new Schema({
@@ -10,8 +10,10 @@ const userProfileSchema = new Schema({
     profilePicture: String,
     requests: [mongoose.Types.ObjectId],
     likedSongs: [mongoose.Types.ObjectId],
-    favouriteGenres: [GenreEnum],
-    channels: [GenreEnum]
+    // favouriteGenres: [GenreEnum],
+    // channels: [GenreEnum]
+    favouriteGenres: [String],
+    channels: [String]
 });
 
 let UserProfile = mongoose.model("UserProfile", userProfileSchema);

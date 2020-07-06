@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
-import Schema from 'mongoose';
-import {GenreEnum} from '../../../app/src/components/index';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+// import {GenreEnum} from '../../../app/src/components/index';
 
 
 const playlistObject = {
@@ -12,7 +12,8 @@ const playlistObject = {
 };
 
 const playlistSchema = new Schema({
-    channel: GenreEnum,
+    // channel: GenreEnum,
+    channel: String,
     playlist: [playlistObject]
 });
 
