@@ -4,11 +4,26 @@ const Schema = mongoose.Schema;
 
 
 const playlistObject = {
-    songID: mongoose.Types.ObjectId,
-    songName: String,
-    artists: [String],
-    src: String,
-    requesterID: mongoose.Types.ObjectId
+    songID: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    songName: {
+        type: String,
+        required: true
+    },
+    artists: {
+        type: [String],
+        required: true
+    },
+    src: {
+        type: String,
+        required: true
+    },
+    requesterID: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    }
 };
 
 const playlistSchema = new Schema({

@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const UserProfile = require('../mongoDB/models/userProfileModel');
 
-router.get('/userProfiles', function(req, res, next) {
+router.get('/', (req, res) => {
   UserProfile.find()
-      .then(doc => {res.send(doc)})
-      .catch(err => {console.log(err)});
+    .then(profiles => {res.json(profiles)})
+    .catch(err => {console.log(err)});
 });
 
 module.exports = router;

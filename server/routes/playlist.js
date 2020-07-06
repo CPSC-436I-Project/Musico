@@ -2,9 +2,9 @@ var express = require('express');
 var router = express.Router();
 const Playlist = require('../mongoDB/models/playlistModel');
 
-router.get('/playlists', function(req, res, next) {
+router.get('/', function(req, res) {
     Playlist.find()
-        .then(doc => {res.send(doc)})
+        .then(playlists => {res.send(playlists)})
         .catch(err => {console.log(err)});
 });
 

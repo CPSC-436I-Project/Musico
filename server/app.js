@@ -13,7 +13,6 @@ var chatsRouter = require('./routes/chat');
 var playlistsRouter = require('./routes/playlist');
 var queuesRouter = require('./routes/queue');
 
-
 dotenv.config();
 var app = express();
 
@@ -36,10 +35,10 @@ connection.once('open', () => {
 })
 
 app.use('/', indexRouter);
-app.use('/userProfiles', usersRouter);
 app.use('/chats', chatsRouter);
 app.use('/playlists', playlistsRouter);
 app.use('/queues', queuesRouter);
+app.use('/userProfiles', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

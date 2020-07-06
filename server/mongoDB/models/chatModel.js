@@ -3,13 +3,22 @@ const Schema = mongoose.Schema;
 // import {GenreEnum} from '../../../app/src/components/index';
 
 const messageObject = {
-    user: mongoose.Types.ObjectId,
-    message: String
+    user: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    message: {
+        type: String,
+        required: true
+    }
 }
 
 const chatSchema = new Schema({
     // channel: GenreEnum,
-    channel: String,
+    channel: {
+        type: String,
+        required: true
+    },
     messages: [messageObject]
 });
 

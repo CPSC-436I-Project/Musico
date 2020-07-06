@@ -2,15 +2,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // import {GenreEnum} from '../../../app/src/components/index';
 
-
 const queueObject = {
-    songID: mongoose.Types.ObjectId,
-    numVotes: Number
+    songID: {
+        type: mongoose.Types.ObjectId,
+        required: true
+    },
+    numVotes: {
+        type: Number,
+        required: true 
+    },
+    albumCover: {
+        type: String,
+        default: ""
+    }
 };
 
 const queueSchema = new Schema({
     // channel: GenreEnum,
-    channel: String,
+    channel: {
+        type: String,
+    },
     queue: [queueObject]
 });
 
