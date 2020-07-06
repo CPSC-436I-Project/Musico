@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import Schema from 'mongoose';
 import {GenreEnum} from '../../../app/src/components/index';
 
+
 const userProfileSchema = new Schema({
     username: String,
     password: String,
