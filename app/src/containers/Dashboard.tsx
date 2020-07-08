@@ -5,6 +5,7 @@ import {Container} from "./Container";
 import {Header, Sidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
+import {GenericScreen} from "./TestScreens/GenericScreen";
 import {Profile} from "./Profile";
 
 class Dashboard extends Container {
@@ -21,7 +22,8 @@ class Dashboard extends Container {
 						<Sidebar/>
 					</div>
 					<div className={"flex-column-center"} style={{marginLeft: 200}}>
-						{this.state.profileOpen ? <Profile/> : <DebugScreen/>}
+						{/*{this.state.profileOpen ? <Profile/> : <DebugScreen/>}*/}
+						{this.state.profileOpen ? <Profile/> : <GenericScreen/>}
 					</div>
 				</div>
 			</div>
