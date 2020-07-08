@@ -13,4 +13,12 @@ const verifyToken = (req, res, next) => {
     }
 };
 
+const createToken = (id) => {
+    const token = jwt.sign({_id: id}, process.env.JWT_SECRET, {
+        expiresIn: 1008000
+    });
+    return token;
+}
+
 module.exports.verifyToken = verifyToken;
+module.exports.createToken = createToken;

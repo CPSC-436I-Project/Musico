@@ -4,7 +4,7 @@ const UserProfile = require('../mongoDB/models/userProfileModel');
 const {registerValidation, loginValidation} = require('../validation');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const {verifyToken} = require('../authenticate');
+const {verifyToken, createToken} = require('../authenticate');
 
 router.get('/', verifyToken, (req, res) => {
   UserProfile.find()
@@ -37,7 +37,10 @@ router.post('/register', async (req, res) => {
   });
 
   newUserProfile.save()
-      .then(val => res.json({userid: val._id}))
+      .then(val => {
+        const token = createToken(val._id);
+        res.json({id: val._id, username: val.username, email: val.email, token: token})
+      })
       .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -58,8 +61,8 @@ router.post('/login', async (req, res) => {
   if (!validpw) return res.status(400).send('Invalid email or password');
 
   // Create a token
-  const token = jwt.sign({_id: user._id}, process.env.JWT_SECRET);
-  res.header('auth-token', token).send(token);
+  const token = createToken(user._id);
+  res.header('auth-token', token).json({id: user._id, username: user.username, email: user.email, token: token});
 })
 
 module.exports = router;
