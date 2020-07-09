@@ -11,17 +11,15 @@ import {Profile} from "./Profile";
 class Dashboard extends Container {
 	public render(): ReactNode {
 		return (
-			<div
-				// className={"fill-container"}
-			>
-				<div>
+			<div id={"dashboard"}>
+				<div id={"dashboard_upper"}>
 					<Header profileImgSrc={profilePlaceholder} onProfileClick={this.toggleProfile}/>
 				</div>
-				<div>
-					<div style={{position: "absolute"}}>
+				<div id={"dashboard_lower"}>
+					<div id={"dashboard_sidebar"}>
 						<Sidebar/>
 					</div>
-					<div className={"flex-column-center"} style={{marginLeft: 200}}>
+					<div id={"dashboard_display"}>
 						{/*{this.state.profileOpen ? <Profile/> : <DebugScreen/>}*/}
 						{this.state.profileOpen ? <Profile/> : <GenericScreen/>}
 					</div>
