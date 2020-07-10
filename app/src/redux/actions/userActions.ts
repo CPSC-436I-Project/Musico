@@ -1,20 +1,85 @@
 import {UserEnum} from "../reducers/userReducer";
+import { API_URL } from "src/utility/constants";
+import { setCookie } from "src/utility/cookies";
 
-export const setUser = (username: string, password: string, email: string, profileImgSrc: string) => {
+export const setUser = (id: string, username: string, email: string) => {
     return {
         type: UserEnum.SET_USER,
+        id: id,
         username: username,
-        password: password,
-        email: email,
-        profileImgSrc: profileImgSrc,
+        email: email
     }
 };
 
-export const createUser = (username: string, password: string, email: string) => {
-    return {
-        type: UserEnum.CREATE_USER,
+export const createUser = (username: string, email: string, password: string) => {
+    let newUser = {
         username: username,
-        password: password,
         email: email,
+        password: password
+    }
+    return (dispatch: any) => {
+        // register the user
+        return fetch(API_URL+'userprofiles/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newUser)
+        })
+        .then(async res => { return {text: await res.text(), status: res.status}})
+        .then(res => {
+            if (res.status !== 200) {
+                // TODO: this needs to send an error to the front end
+                console.log(res.text)
+            } else {
+                // get the created user
+                const user = JSON.parse(res.text);
+                if (user) {
+                    // store the user token as a cookie
+                    setCookie('auth-token', user.token, 70)
+                    // set the user in redux to be the current user
+                    dispatch(setUser(user.id, user.username, user.email));
+                }
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+};
+
+export const loginUser = (email: string, password: string) => {
+    let thisUser = {
+        email: email,
+        password: password
+    }
+    return (dispatch: any) => {
+        // register the user
+        return fetch(API_URL+'userprofiles/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(thisUser)
+        })
+        .then(async res => { return {text: await res.text(), status: res.status}})
+        .then(res => {
+            if (res.status !== 200) {
+                // TODO: this needs to send an error to the front end
+                console.log(res.text)
+            } else {
+                // get the created user
+                const user = JSON.parse(res.text);
+                if (user) {
+                    // store the user token as a cookie
+                    setCookie('auth-token', user.token, 70)
+                    // set the user in redux to be the current user
+                    dispatch(setUser(user.id, user.username, user.email));
+                }
+            }  
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 };
