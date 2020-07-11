@@ -75,13 +75,27 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         }
     }
 
+    componentDidUpdate = (previousProps: any) => {
+        if (this.props.selectedGenre !== previousProps.selectedGenre) {
+            if (this.props.selectedGenre === null) {
+                console.log("No selected genre!");
+                return;
+            }
+            socket.emit('join', {genre: this.props.selectedGenre}, () => {
+                this.getChatRoomMessages();
+            });
+            console.log(socket);
+        }
+    }
+
     // callback for loading chat messages from the server when user joins
     getChatRoomMessages = () => {
         console.log("Getting chat");
+        let token = getCookie('auth-token');
         fetch(API_URL+"chats/"+this.props.selectedGenre, {
             method: 'GET',
             headers: {
-                'auth-token': getCookie('auth-token')
+                'auth-token': token
             }
         })
         .then(res => res.text())
