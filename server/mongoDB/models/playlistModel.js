@@ -1,35 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// import {GenreEnum} from '../../../app/src/components/index';
+const Song = require('./songModel').schema;
 
-
-const playlistObject = {
-    songID: {
-        type: mongoose.Types.ObjectId,
-        required: true
-    },
-    songName: {
-        type: String,
-        required: true
-    },
-    artists: {
-        type: [String],
-        required: true
-    },
-    src: {
-        type: String,
-        required: true
-    },
-    requesterID: {
-        type: mongoose.Types.ObjectId,
-        required: true
-    }
-};
 
 const playlistSchema = new Schema({
-    // channel: GenreEnum,
-    channel: String,
-    playlist: [playlistObject]
+    channel: {
+        type: String,
+        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
+        required: true
+    },
+    playlist: {
+        type: [Song],
+        required: true
+    }
 });
 
 let Playlist = mongoose.model("Playlist", playlistSchema);

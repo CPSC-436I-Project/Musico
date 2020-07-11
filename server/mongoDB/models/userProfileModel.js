@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// import {GenreEnum} from '../../../app/src/components/index';
+
+
+let defaultProfilePic = "https://img.icons8.com/ios-glyphs/30/000000/cat-profile--v1.png"
 
 const userProfileSchema = new Schema({
     username: {
@@ -17,7 +19,7 @@ const userProfileSchema = new Schema({
     },
     profilePicture: {
         type: String,
-        // default:
+        default: defaultProfilePic
     },
     requests: {
         type: [mongoose.Types.ObjectId]
@@ -25,13 +27,13 @@ const userProfileSchema = new Schema({
     likedSongs: {
         type: [mongoose.Types.ObjectId]
     },
-    // favouriteGenres: [GenreEnum],
-    // channels: [GenreEnum]
     favouriteGenres: {
-        type: [String]
+        type: [String],
+        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"]
     },
     channels: {
-        type: [String]
+        type: [String],
+        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"]
     }
 });
 

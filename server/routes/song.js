@@ -1,16 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const Queue = require('../mongoDB/models/queueModel');
+const Song = require('../mongoDB/models/songModel');
 
 router.get('/', (req, res) => {
-    Queue.find()
-        .then(queues => {res.json(queues)})
+    Song.find()
+        .then(songs => {res.json(songs)})
         .catch(err => {console.log(err)});
 });
 
-
 router.post('/add', (req, res) => {
-    const newSong = {
+    const newSong = new Song({
         songName: req.body.songName,
         artists: req.body.artists,
         genre: req.body.genre,
@@ -18,19 +17,11 @@ router.post('/add', (req, res) => {
         requesterID: req.body.requesterID,
         albumCover: req.body.albumCover,
         numVotes: req.body.numVotes
-    }
-    
-    Queue.findOneAndUpdate(
-        {channel: req.body.genre}, 
-        {$push: {queue: newSong}}, 
-        {new: true, useFindAndModify: false},
-        (err, queue) => {
-            if (err) {
-                return res.send(err)
-            } else {
-                return res.json(queue)
-            }
-    });
+    })
+
+    newSong.save()
+        .then(result => res.json(result))
+        .catch(err => res.status(400).json('Error: ' + err));
 })
 
 module.exports = router;
