@@ -5,23 +5,23 @@ import {Container} from "./Container";
 import {Header, Sidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
+import {GenericScreen} from "./TestScreens/GenericScreen";
 import {Profile} from "./Profile";
 
 class Dashboard extends Container {
 	public render(): ReactNode {
 		return (
-			<div
-				// className={"fill-container"}
-			>
-				<div>
+			<div id={"dashboard"}>
+				<div id={"dashboard_upper"}>
 					<Header profileImgSrc={profilePlaceholder} onProfileClick={this.toggleProfile}/>
 				</div>
-				<div>
-					<div style={{position: "absolute"}}>
+				<div id={"dashboard_lower"}>
+					<div id={"dashboard_sidebar"}>
 						<Sidebar/>
 					</div>
-					<div className={"flex-column-center"} style={{marginLeft: 200}}>
-						{this.state.profileOpen ? <Profile/> : <DebugScreen/>}
+					<div id={"dashboard_display"}>
+						{/*{this.state.profileOpen ? <Profile/> : <DebugScreen/>}*/}
+						{this.state.profileOpen ? <Profile/> : <GenericScreen/>}
 					</div>
 				</div>
 			</div>
