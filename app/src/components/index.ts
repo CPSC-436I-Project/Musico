@@ -24,8 +24,29 @@ enum ExpansionState {
 	COLLAPSED = "collapsed",
 }
 
+const API_KEY = "";
+const txt = document.createElement("textarea");
+
+async function youtubeQuery(type: string, options: any): Promise<any> {
+	let optionsString = Object.keys(options).map((k) => `${k}=${options[k]}`).join("&");
+	optionsString += `&key=${API_KEY}`;
+	const url = `https://www.googleapis.com/youtube/v3/${type}?${optionsString}`;
+
+	return fetch(url)
+		.then((res) => res.json())
+		.catch((err) => {
+			console.log(err);
+		});
+}
+
+function decodeHTML(snippet: string) {
+	txt.innerHTML = snippet;
+	return txt.value;
+}
+
 export {
 	GenreEnum, ExpansionState,
 	Button, TextButton, ExpandableButton,
-	AddSongForm, EnhancedComponent, Header, Image, Sidebar, TextInput
+	AddSongForm, EnhancedComponent, Header, Image, Sidebar, TextInput,
+	youtubeQuery, decodeHTML,
 };
