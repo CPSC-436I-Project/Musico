@@ -63,7 +63,7 @@
 }
 
 #generic_background {
-    background-image: url("https://img.icons8.com/ios-glyphs/300/000000/music.png");
+    background-image: url("./musicNote.png");
     background-repeat: no-repeat;
     background-position-x: right;
     background-position-y: bottom;
