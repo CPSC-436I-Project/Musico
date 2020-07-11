@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// import {GenreEnum} from '../../../app/src/components/index';
+
 
 const songSchema = new Schema({
     songName: {

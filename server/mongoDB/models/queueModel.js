@@ -4,7 +4,7 @@ const Song = require('./songModel').schema;
 
 const queueSchema = new Schema({
     channel: {
-        type: String,
+        type: GenreEnum,
         required: true
     },
     queue: [{

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// import {GenreEnum} from '../../../app/src/components/index';
+import {GenreEnum} from './GenreEnum';
 
 const messageObject = {
     user: {
@@ -14,9 +14,8 @@ const messageObject = {
 }
 
 const chatSchema = new Schema({
-    // channel: GenreEnum,
     channel: {
-        type: String,
+        type: GenreEnum,
         required: true
     },
     messages: [messageObject]
