@@ -11,10 +11,8 @@ import initialStore from "./redux/initialStore";
 import thunk from 'redux-thunk';
 
 const prod: boolean = true;
-
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={createStore(reducers, initialStore, applyMiddleware(thunk))}>
+// @ts-ignore
+ReactDOM.render( <React.StrictMode> <Provider store={createStore(reducers, initialStore, applyMiddleware(thunk))}>
       {prod ? <App/> : <DebugScreen/>}
     </Provider>
   </React.StrictMode>,

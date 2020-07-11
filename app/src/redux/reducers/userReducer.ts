@@ -11,8 +11,8 @@ const userReducer = (store: IUserStore, action: any) => {
     switch (action.type) {
         case UserEnum.SET_USER:
             return {
+                userId: action.userId,
                 username: action.username,
-                password: action.password,
                 email: action.email,
                 profileImgSrc: profilePlaceholder
             };

@@ -1,11 +1,11 @@
 import {UserEnum} from "../reducers/userReducer";
 import { API_URL } from "src/utility/constants";
-import { setCookie } from "src/utility/cookies";
+import { setCookie, getCookie } from "src/utility/cookies";
 
 export const setUser = (id: string, username: string, email: string) => {
     return {
         type: UserEnum.SET_USER,
-        id: id,
+        userId: id,
         username: username,
         email: email
     }
@@ -22,7 +22,7 @@ export const createUser = (username: string, email: string, password: string) =>
         return fetch(API_URL+'userprofiles/register', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(newUser)
         })
@@ -58,7 +58,7 @@ export const loginUser = (email: string, password: string) => {
         return fetch(API_URL+'userprofiles/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(thisUser)
         })

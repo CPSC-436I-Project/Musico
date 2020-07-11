@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
+const Chat = require('../mongoDB/models/chatModel');
 
 /**
  * Get port from environment and store in Express.
@@ -20,6 +21,57 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+var socketmap = {};
+
+/**
+ * Setup Socket
+ */
+const io = require("socket.io")(server);
+io.on("connection", socket => {
+
+  // join a room, a room is available for every genre.
+  // The chat component connects the socket to the genre's room
+  socket.on("join", ({genre}, callback) => {
+    console.log("called join");
+    // join the room
+    socket.join(genre);
+    // store the socketid mapped to the userid
+    socketmap[socket.id] = genre;
+    // call the callback
+    if (typeof(callback) === "function") {
+      callback();
+    }
+  });
+
+  socket.on("message", async (data, callback) => {
+    console.log("message called")
+    const newMessage = {userId: data.userId, message: data.message};
+    // use the socketmap to get the genre for that socket, 
+    // and post message to that genre
+    io.to(socketmap[socket.id]).emit("newMessage", );
+    // store the message in Mongodb
+    var messages = await Chat.findOne({channel: socketmap[socket.id]})
+      .then(chats => chats["messages"])
+      .catch(err => {console.log(err)});
+
+    messages.push(newMessage);
+
+    Chat.findOneAndUpdate({channel: socketmap[socket.id]}, {messages: messages})
+      .catch(err => console.log('Error: ' + err));
+    
+    // callback
+    callback();
+  });
+
+  socket.on("disconnect", (data, callback) => {
+    console.log("disconnect called", socket.id);
+    // remove socket from socketmap
+    delete socketmap[socket.id];
+    // call the callback
+    //callback();
+  });
+});
 
 /**
  * Listen on provided port, on all network interfaces.
