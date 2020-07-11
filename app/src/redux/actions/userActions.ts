@@ -2,12 +2,13 @@ import {UserEnum} from "../reducers/userReducer";
 import { API_URL } from "src/utility/constants";
 import { setCookie, getCookie } from "src/utility/cookies";
 
-export const setUser = (id: string, username: string, email: string) => {
+export const setUser = (id: string, username: string, email: string, profilePicture: string) => {
     return {
         type: UserEnum.SET_USER,
         userId: id,
         username: username,
-        email: email
+        email: email,
+        profilePicture: profilePicture,
     }
 };
 
@@ -37,8 +38,9 @@ export const createUser = (username: string, email: string, password: string) =>
                 if (user) {
                     // store the user token as a cookie
                     setCookie('auth-token', user.token, 70)
+                    console.log("Succcessfully signed up");
                     // set the user in redux to be the current user
-                    dispatch(setUser(user.id, user.username, user.email));
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
                 }
             }
         })
@@ -74,7 +76,7 @@ export const loginUser = (email: string, password: string) => {
                     // store the user token as a cookie
                     setCookie('auth-token', user.token, 70)
                     // set the user in redux to be the current user
-                    dispatch(setUser(user.id, user.username, user.email));
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
                 }
             }  
         })

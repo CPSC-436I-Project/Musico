@@ -102,7 +102,13 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         })
         .then(res => res.text())
         .then(res => {
-            let messages = JSON.parse(res);
+            let messages: any = [];
+            try {
+                messages = JSON.parse(res);
+            } catch {
+                console.log("Getting chat failed!");
+                messages = [{_id: "none", message: "Access Denied, try logging in first", user: "(No User)"}];
+            }
             this.setState({messages: messages});
             this.setInitialized(true);
         });
@@ -114,7 +120,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
     public render(): ReactNode {
         const items = this.state.messages.map(function(item){
-            return <li key={item._id}> {item.message} </li>;
+            return <li key={item._id}> {item.user} says: {item.message} </li>;
         });
         const dash = () => {
             if (this.props.selectedGenre === null) {

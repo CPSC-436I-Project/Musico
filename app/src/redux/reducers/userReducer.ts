@@ -10,11 +10,12 @@ export enum UserEnum {
 const userReducer = (store: IUserStore, action: any) => {
     switch (action.type) {
         case UserEnum.SET_USER:
+            console.log("Setting user");
             return {
                 userId: action.userId,
                 username: action.username,
                 email: action.email,
-                profileImgSrc: profilePlaceholder
+                profileImgSrc: action.profilePicture
             };
         case UserEnum.RESET_USER:
         default:
