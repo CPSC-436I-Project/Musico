@@ -10,6 +10,8 @@ import { GenreEnum } from ".";
 import io from "socket.io-client";
 import { API_URL } from "src/utility/constants";
 import { getCookie } from "src/utility/cookies";
+import { GenericScreen } from "src/containers/TestScreens/GenericScreen";
+import PopupTest from "src/containers/TestScreens/PopupTest";
 
 const SOCKET_IO_URL = "http://localhost:9000";
 const socket = io(SOCKET_IO_URL);
@@ -100,7 +102,13 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         })
         .then(res => res.text())
         .then(res => {
-            let messages = JSON.parse(res);
+            let messages: any = [];
+            try {
+                messages = JSON.parse(res);
+            } catch {
+                console.log("Getting chat failed!");
+                messages = [{_id: "none", message: "Access Denied, try logging in first", user: "(No User)"}];
+            }
             this.setState({messages: messages});
             this.setInitialized(true);
         });
@@ -110,32 +118,35 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         this.setState({currentMessage: text});
     };
 
-    messageSender = (text: string) => {
-        return () => {
-            //this.props.dispatch(addSong(this.props.selectedGenre));
-        }
-    };
-
     public render(): ReactNode {
         const items = this.state.messages.map(function(item){
-            return <li key={item._id}> {item.message} </li>;
-          });
-        return (
-            <div className="chat">
-                <ul>
-                {items}
-                </ul>
-                <TextInput defaultText="Enter a message" submit={this.updateCurrMessage} />
-                <TextButton text={"Send"}
-                            fontSize={14} width={100}
-                            fontColour={"#ffffff"}
-                            buttonColour={"#000000"}
-                            buttonHoverColour={"#000000"}
-                            height={20}
-                            onAction = {this.handleSubmit}
-                />
-            </div>
-        );
+            return <li key={item._id}> {item.user} says: {item.message} </li>;
+        });
+        const dash = () => {
+            if (this.props.selectedGenre === null) {
+                return <GenericScreen/>
+            } else {
+                return (
+                    <div className="chat">
+                        <ul>
+                        {items}
+                        </ul>
+                        <TextInput defaultText="Enter a message" submit={this.updateCurrMessage} />
+                        <TextButton text={"Send"}
+                                    fontSize={14} width={100}
+                                    fontColour={"#ffffff"}
+                                    buttonColour={"#000000"}
+                                    buttonHoverColour={"#000000"}
+                                    height={20}
+                                    onAction = {this.handleSubmit}
+                        />
+                        <PopupTest/>
+                    </div>
+                );
+            }
+        }
+        
+        return dash();
     }
 }
 

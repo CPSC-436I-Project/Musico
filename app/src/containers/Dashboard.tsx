@@ -7,6 +7,7 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
 import {GenericScreen} from "./TestScreens/GenericScreen";
 import {Profile} from "./Profile";
+import Chat from "src/components/Chat";
 
 class Dashboard extends Container {
 	public render(): ReactNode {
@@ -20,8 +21,8 @@ class Dashboard extends Container {
 						<Sidebar/>
 					</div>
 					<div id={"dashboard_display"}>
-						{/*{this.state.profileOpen ? <Profile/> : <GenericScreen/>}*/}
-						{this.state.profileOpen ? <Profile/> : <DebugScreen/>}
+						{/*{this.state.profileOpen ? <Profile/> : <GenericScreen/><DebugScreen/>}*/}
+						{this.state.profileOpen ? <Profile/> : <Chat/>}
 					</div>
 				</div>
 			</div>

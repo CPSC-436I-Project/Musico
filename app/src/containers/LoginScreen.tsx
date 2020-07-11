@@ -45,7 +45,7 @@ class LoginScreen extends Container {
 	public render(): ReactNode {
 		const loginButtonChild: ReactNode = <div className={"flex-column-center"}>
 			<TextInput
-				defaultText={"username"}
+				defaultText={"email"}
 				ref={(ref: TextInput) => {this.loginUserNameTextRef = ref; }}
 			/>
 			<TextInput
@@ -61,12 +61,12 @@ class LoginScreen extends Container {
 				ref={(ref: TextInput) => {this.signUpUserNameTextRef = ref; }}
 			/>
 			<TextInput
-				defaultText={"password"}
-				ref={(ref: TextInput) => {this.signUpPasswordTextRef = ref; }}
-			/>
-			<TextInput
 				defaultText={"email"}
 				ref={(ref: TextInput) => {this.signUpEmailTextRef = ref; }}
+			/>
+			<TextInput
+				defaultText={"password"}
+				ref={(ref: TextInput) => {this.signUpPasswordTextRef = ref; }}
 			/>
 			<TextButton text={"Done!"} width={70} onAction={this.signUpButtonOnClick}/>
 		</div>;

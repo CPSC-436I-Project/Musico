@@ -21,6 +21,7 @@ router.post('/register', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
+  const profilePicture = "https://img.icons8.com/ios-glyphs/30/000000/cat-profile--v1.png";
 
   // Check email already exists
   const user = await UserProfile.findOne({email: email});
@@ -33,13 +34,14 @@ router.post('/register', async (req, res) => {
   const newUserProfile = new UserProfile({
     username: username,
     password: hashedpw,
-    email: email
+    email: email,
+    profilePicture: profilePicture
   });
 
   newUserProfile.save()
       .then(val => {
         const token = createToken(val._id);
-        res.json({id: val._id, username: val.username, email: val.email, token: token})
+        res.json({id: val._id, username: val.username, email: val.email, profilePicture: val.profilePicture, token: token})
       })
       .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -62,7 +64,7 @@ router.post('/login', async (req, res) => {
 
   // Create a token
   const token = createToken(user._id);
-  res.header('auth-token', token).json({id: user._id, username: user.username, email: user.email, token: token});
+  res.header('auth-token', token).json({id: user._id, username: user.username, email: user.email, profilePicture: user.profilePicture, token: token});
 })
 
 module.exports = router;
