@@ -29,58 +29,47 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 		super(props);
 		this.state = {
 			...this.state,
-			songLink: "",
-			validLink: false,
+			songTitle: "",
 			videoList: [],
 		};
 	}
 
-	checkYouTubeUrl = () => {
-		// let re = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/watch\?v=([^&]+)/m;
-		// this.setState({validLink: re.test(this.state.songLink)});
-		this.setState({validLink: true});
-	};
-
 	updateSongLink = (text: string) => {
-		this.setState({songLink: text.trim()}, this.checkYouTubeUrl);
+		this.setState({songTitle: text.trim()});
 	};
 
 	addSongSender = (link: string) => {
 		return (callback: () => void) => {
-			if (this.state.validLink) {
-				// this.props.dispatch(addSong(this.props.username, link, this.props.selectedGenre));
-
-				let videoList: any[] = [];
-				youtubeQuery("search", {
-					part: "snippet",
-					maxResults: AddSongForm.NUM_SEARCH_RESULTS,
-					q: this.state.songLink.replace(/ /g, "%20"),
-					type: "video",
-					videoCategoryId: 10,
-					safeSearch: "strict",
-					// videoDuration: "short",
-				}).then((res) => {
-					videoList = res.items || [];
-					return youtubeQuery("videos", {
-						part: "topicDetails",
-						id: res.items.map((k: any) => k.id.videoId).join(","),
-					});
-				}).then((res) => {
-					for (let i = 0; i < res.items.length; i++) {
-						if (res.items[i].topicDetails && res.items[i].topicDetails.topicCategories) {
-							videoList[i].genreCategories = res.items[i].topicDetails.topicCategories
-								.map((k: string) => k.replace("https://en.wikipedia.org/wiki/", ""));
-						} else {
-							res.items.splice(i, 1);
-							videoList.splice(i, 1);
-							i -= 1;
-						}
-					}
-					this.setState({videoList: videoList});
-				}).catch((err) => {
-					console.error(err);
+			let videoList: any[] = [];
+			youtubeQuery("search", {
+				part: "snippet",
+				maxResults: AddSongForm.NUM_SEARCH_RESULTS,
+				q: this.state.songTitle.replace(/ /g, "%20"),
+				type: "video",
+				videoCategoryId: 10,
+				safeSearch: "strict",
+				// videoDuration: "short",
+			}).then((res) => {
+				videoList = res.items || [];
+				return youtubeQuery("videos", {
+					part: "topicDetails",
+					id: res.items.map((k: any) => k.id.videoId).join(","),
 				});
-			}
+			}).then((res) => {
+				for (let i = 0; i < res.items.length; i++) {
+					if (res.items[i].topicDetails && res.items[i].topicDetails.topicCategories) {
+						videoList[i].genreCategories = res.items[i].topicDetails.topicCategories
+							.map((k: string) => k.replace("https://en.wikipedia.org/wiki/", ""));
+					} else {
+						res.items.splice(i, 1);
+						videoList.splice(i, 1);
+						i -= 1;
+					}
+				}
+				this.setState({videoList: videoList});
+			}).catch((err) => {
+				console.error(err);
+			});
 			callback();
 		}
 	};
@@ -106,18 +95,15 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 			<div className="add-song-form">
 				<h3>Search a song</h3>
 				<TextInput
-					defaultText="Paste a YouTube song link here"
+					defaultText="Enter a song title here"
 					submit={this.updateSongLink}
 				/>
-				{this.state.validLink ?
-					<span className="valid-check valid-URL-text">The URL is valid</span> :
-					<span className="valid-check invalid-URL-text">Please enter a valid YouTube URL!</span>}
 				<TextButton
 					text="Submit" bold={true}
 					buttonColour="#6236FF"
 					height={30}
 					width={90}
-					onAction={this.addSongSender(this.state.songLink)}
+					onAction={this.addSongSender(this.state.songTitle)}
 				/>
 				<div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
 					{this.state.videoList.map(AddSongForm.renderVideoObject)}
@@ -135,8 +121,7 @@ export interface IAddSongFormProps extends IEnhancedComponentProps {
 }
 
 export interface IAddSongFormState extends IEnhancedComponentState {
-	songLink: string;
-	validLink: boolean;
+	songTitle: string;
 	videoList: any[];
 }
 
