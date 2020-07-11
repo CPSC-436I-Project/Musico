@@ -20,8 +20,10 @@
     background: #fff;
     border-radius: 5px;
     width: 50%;
+    max-height: 80%;
     position: relative;
     visibility: visible;
+    overflow: hidden;
 }
 
 .popup .text {

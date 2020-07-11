@@ -41,6 +41,11 @@
     flex: 1;
 }
 
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
 .add-song-form #message_tb {
     width: 100%;
 }
@@ -178,4 +183,8 @@
 
 .music-player-queue .vote-buttons-container {
     margin: 0px 10px 0px 0px;
+}
+
+.scrollable-container {
+    overflow: auto;
 }
