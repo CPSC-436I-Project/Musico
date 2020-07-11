@@ -14,7 +14,7 @@ class LoginScreen extends Container {
 				<div style={{
 					marginBottom: 180,
 				}}>
-					<Image path={"/logo.png"}/>
+					<Image path={"/logo.png"} width={600} height={140}/>
 				</div>
 				<TextButton
 					text={"Login"}

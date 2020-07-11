@@ -30,8 +30,7 @@ class SearchBar extends TextInput {
                     width: this.props.width,
                 }}
             >
-                <Image path={"https://img.icons8.com/ios-filled/25/000000/search.png"}/>
-                <form onSubmit={this.props.submit}>
+                <Image width={30} height={30} path={"https://img.icons8.com/ios-filled/25/000000/search.png"}/>
                     <input
                         className="search_input"
                         type="text"
@@ -45,7 +44,6 @@ class SearchBar extends TextInput {
                             fontSize: this.props.fontSize,
                         }}
                     />
-                </form>
             </div>
         );
     }

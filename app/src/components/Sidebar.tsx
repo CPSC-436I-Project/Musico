@@ -25,8 +25,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.RAP, icon: "https://img.icons8.com/ios-glyphs/30/000000/rap.png"},
     ]
 
-    private readonly search: React.RefObject<SearchBar>;
-
     public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
         return {
             ...props,
@@ -36,7 +34,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 
     protected constructor(props: ISidebarProps) {
         super(props);
-        this.search = React.createRef();
         this.state = {
             selectedGenre: null,
             shownGenres: this.musicGenres,
@@ -45,12 +42,8 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         this.sidebarButtonClicked = this.sidebarButtonClicked.bind(this);
     }
 
-    private onSearch(event?: React.SyntheticEvent) {
-        if (event !== undefined) {
-            event.preventDefault();
-        }
+    private onSearch(searchValue: string) {
         let currShownGenres: ISidebarGenreChannel[] = [];
-        let searchValue = this.search.current.getText();
         for (const currGenre of this.musicGenres) {
             if (currGenre.genre.toLowerCase().includes(searchValue.toLowerCase())) {
                 currShownGenres.push(currGenre);
@@ -75,7 +68,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                     <SearchBar
                         defaultText={placeholder}
                         submit={this.onSearch}
-                        ref={this.search}
                     />
                     <hr/>
                 </div>

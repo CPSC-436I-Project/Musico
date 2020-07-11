@@ -9,7 +9,8 @@ class DownvoteButton extends Button<IDownvoteButtonProps, IDownvoteButtonState> 
         ...Button.defaultProps,
         buttonColour: "transparent",
         buttonHoverColour: "transparent",
-        buttonFocusedColour: "transparent"
+        buttonFocusedColour: "transparent",
+        width: 20,
     }
 
     protected constructor(props: IDownvoteButtonProps) {
