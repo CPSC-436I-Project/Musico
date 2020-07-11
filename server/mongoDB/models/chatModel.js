@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-import {GenreEnum} from './GenreEnum';
+
 
 const messageObject = {
     user: {
@@ -15,7 +15,8 @@ const messageObject = {
 
 const chatSchema = new Schema({
     channel: {
-        type: GenreEnum,
+        type: String,
+        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
         required: true
     },
     messages: [messageObject]

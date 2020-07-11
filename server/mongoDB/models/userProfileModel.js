@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-import {GenreEnum} from './GenreEnum';
 
 
 let defaultProfilePic = "https://img.icons8.com/ios-glyphs/30/000000/cat-profile--v1.png"
@@ -29,10 +28,12 @@ const userProfileSchema = new Schema({
         type: [mongoose.Types.ObjectId]
     },
     favouriteGenres: {
-        type: [GenreEnum]
+        type: [String],
+        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"]
     },
     channels: {
-        type: [GenreEnum]
+        type: [String],
+        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"]
     }
 });
 
