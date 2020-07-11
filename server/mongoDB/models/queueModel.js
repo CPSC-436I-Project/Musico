@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// import {GenreEnum} from '../../../app/src/components/index';
-
+const Song = require('./songModel').schema;
 
 const queueSchema = new Schema({
-    // channel: GenreEnum,
     channel: {
         type: String,
         required: true
     },
-    queue: [mongoose.Types.ObjectId]
+    queue: [{
+        type: Song
+    }]
 });
 
 let Queue = mongoose.model("Queue", queueSchema);

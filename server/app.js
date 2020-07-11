@@ -12,6 +12,7 @@ var usersRouter = require('./routes/userProfile');
 var chatsRouter = require('./routes/chat');
 var playlistsRouter = require('./routes/playlist');
 var queuesRouter = require('./routes/queue');
+var songsRouter = require('./routes/song');
 
 dotenv.config();
 var app = express();
@@ -39,6 +40,7 @@ app.use('/chats', chatsRouter);
 app.use('/playlists', playlistsRouter);
 app.use('/queues', queuesRouter);
 app.use('/userProfiles', usersRouter);
+app.use('/songs', songsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -8,4 +8,20 @@ router.get('/', (req, res) => {
         .catch(err => {console.log(err)});
 });
 
+router.post('/add', (req, res) => {
+    const newSong = new Song({
+        songName: req.body.songName,
+        artists: req.body.artists,
+        genre: req.body.genre,
+        src: req.body.src,
+        requesterID: req.body.requesterID,
+        albumCover: req.body.albumCover,
+        numVotes: req.body.numVotes
+    })
+
+    newSong.save()
+        .then(result => res.json(result))
+        .catch(err => res.status(400).json('Error: ' + err));
+})
+
 module.exports = router;

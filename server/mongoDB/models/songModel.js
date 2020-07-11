@@ -11,6 +11,10 @@ const songSchema = new Schema({
         type: [String],
         required: true
     },
+    genre: {
+        type: String,
+        required: true
+    },
     src: {
         type: String,
         required: true
@@ -21,12 +25,11 @@ const songSchema = new Schema({
     },
     albumCover: {
         type: String,
-        default: "",
-        required: true
+        default: ""
     },
     numVotes: {
         type: Number,
-        required: true
+        default: 1
     }
 });
 

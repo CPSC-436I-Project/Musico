@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// import {GenreEnum} from '../../../app/src/components/index';
-
+const Song = require('./songModel').schema;
 
 const playlistSchema = new Schema({
-    // channel: GenreEnum,
     channel: {
         type: String,
         required: true
     },
-    playlist: [mongoose.Types.ObjectId]
+    playlist: {
+        type: [Song],
+        required: true
+    }
 });
 
 let Playlist = mongoose.model("Playlist", playlistSchema);
