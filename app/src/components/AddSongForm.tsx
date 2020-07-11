@@ -4,7 +4,7 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import {TextButton} from "./buttons/TextButton";
 import {TextInput} from "./TextInput";
 import {addSong} from "../redux/actions";
-import {GenreEnum, Image} from "./index";
+import {decodeHTML, GenreEnum, Image, youtubeQuery} from "./index";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {ISongListObject} from "../utility/songs";
@@ -24,8 +24,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 		};
 	}
 
-	private static API_KEY = "AIzaSyDGmUdyCKrKJURuFORxFbdjl7i6PUPChbg";
-	private static NUM_SEARCH_RESULTS = 6;
+	private static NUM_SEARCH_RESULTS = 5;
 
 	protected constructor(props: IAddSongFormProps) {
 		super(props);
@@ -35,8 +34,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 			validLink: false,
 			videoList: [],
 		};
-
-		this.renderVideoObject = this.renderVideoObject.bind(this);
 	}
 
 	checkYouTubeUrl = () => {
@@ -54,27 +51,36 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 			if (this.state.validLink) {
 				// this.props.dispatch(addSong(this.props.username, link, this.props.selectedGenre));
 				const searchTerms: string = this.state.songLink.replace(/ /g, "%20");
-				const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=${AddSongForm.NUM_SEARCH_RESULTS}&q=${searchTerms}&key=${AddSongForm.API_KEY}`;
-				console.log(JSON.stringify(searchTerms), url);
-				fetch(url)
-					.then(response => response.json())
-					.then(data => {
-						this.setState({videoList: data.items});
+				const youtubeQueryOptions = {
+					part: "snippet",
+					maxResults: AddSongForm.NUM_SEARCH_RESULTS,
+					q: searchTerms,
+					type: "video",
+					videoCategoryId: 10,
+					safeSearch: "strict",
+					// videoDuration: "short",
+				};
+
+				youtubeQuery("search", youtubeQueryOptions)
+					.then((res) => {
+						this.setState({videoList: res.items || []});
+					})
+					.catch((err) => {
+						console.error(err);
 					});
 			}
 			callback();
 		}
 	};
 
-	private renderVideoObject(video: any): ReactNode {
-		console.log(video);
+	private static renderVideoObject(video: any): ReactNode {
 		return(
 			<div key={video.id.videoId} className={"flex-row"}>
 				<Image
 					path={video.snippet.thumbnails.high.url}
 				/>
 				<div className={"flex-column-center"} style={{width: "100%"}}>
-					<h2>{video.snippet.title}</h2>
+					<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}><h2>{decodeHTML(video.snippet.title)}</h2></a>
 					<p>{video.snippet.channelTitle + ": " + video.snippet.description.substring(0, 50)}</p>
 				</div>
 			</div>
@@ -100,7 +106,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					onAction={this.addSongSender(this.state.songLink)}
 				/>
 				<div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
-					{this.state.videoList.map(this.renderVideoObject)}
+					{this.state.videoList.map(AddSongForm.renderVideoObject)}
 				</div>
 			</div>
 		);
@@ -122,3 +128,4 @@ export interface IAddSongFormState extends IEnhancedComponentState {
 
 // @ts-ignore
 export default connect(AddSongForm.mapStateToProps)(AddSongForm);
+
