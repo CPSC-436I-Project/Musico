@@ -7,6 +7,7 @@ export interface IPopUpStore {
 
 export interface IChatRoomStore {
 	selectedGenre: GenreEnum | null;
+	getMessages: boolean;
 }
 
 export interface IUserStore {

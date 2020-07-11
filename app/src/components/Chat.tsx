@@ -12,21 +12,17 @@ import { API_URL } from "src/utility/constants";
 import { getCookie } from "src/utility/cookies";
 import { GenericScreen } from "src/containers/TestScreens/GenericScreen";
 import PopupTest from "src/containers/TestScreens/PopupTest";
+import { getMessages } from "src/redux/actions/chatRoomActions";
+import { store } from "src";
 
 const SOCKET_IO_URL = "http://localhost:9000";
-const socket = io(SOCKET_IO_URL);
+const socket = io(SOCKET_IO_URL); 
 
-// const getChatData = () => {
-//     return JSON.parse(localStorage.getItem("chatData"));
-// };
-
-// export const getChatRooms = () => axios.get(`${API_URL}/chatroom/chatrooms`);
-
-// export const getChatRoomMessages = (chatRoomName: string) =>
-//   axios.get(`${API_URL}/chat/chatroom/messages/${chatRoomName}`);
-
-// export const joinRoom = (room: any) =>
-//   axios.post(`${API_URL}/chat/chatroom`, { room });
+socket.on("newMessage", (data: any) => {
+    console.log("this runs");
+    console.log(data);
+    store.dispatch(getMessages());
+});
 
 class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
@@ -38,6 +34,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         return {
             ...props,
             selectedGenre: state.chatRoomStore.selectedGenre,
+            getMessages: state.chatRoomStore.getMessages,
             userId: state.userStore.userId,
         };
     }
@@ -87,6 +84,10 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
                 this.getChatRoomMessages();
             });
             console.log(socket);
+        }
+        console.log("updating messages");
+        if (this.props.getMessages !== previousProps.getMessages) {
+            this.getChatRoomMessages();
         }
     }
 
@@ -152,6 +153,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
 export interface IChatProps extends IEnhancedComponentProps {
     selectedGenre?: GenreEnum | null;
+    getMessages?: boolean;
     userId?: string | null;
 }
 

@@ -12,7 +12,8 @@ import thunk from 'redux-thunk';
 
 const prod: boolean = true;
 // @ts-ignore
-ReactDOM.render( <React.StrictMode> <Provider store={createStore(reducers, initialStore, applyMiddleware(thunk))}>
+export const store = createStore(reducers, initialStore, applyMiddleware(thunk));
+ReactDOM.render( <React.StrictMode> <Provider store={store}>
       {prod ? <App/> : <DebugScreen/>}
     </Provider>
   </React.StrictMode>,
