@@ -20,6 +20,7 @@ export default {
 		selectedGenre: null,
 	},
 	userStore: {
+		userId: null,
 		username: null,
 		password: null,
 		email: null,

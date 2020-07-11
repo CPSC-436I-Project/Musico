@@ -4,10 +4,17 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
+var dotenv = require('dotenv');
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/userProfile');
+var chatsRouter = require('./routes/chat');
+var playlistsRouter = require('./routes/playlist');
+var queuesRouter = require('./routes/queue');
+var songsRouter = require('./routes/song');
 
+dotenv.config();
 var app = express();
 
 // view engine setup
@@ -21,8 +28,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully!");
+})
+
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/chats', chatsRouter);
+app.use('/playlists', playlistsRouter);
+app.use('/queues', queuesRouter);
+app.use('/userProfiles', usersRouter);
+app.use('/songs', songsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

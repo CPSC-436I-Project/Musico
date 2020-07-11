@@ -24,10 +24,11 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		// @ts-ignore
 		this.state = {
 			...this.state,
-			clicked: false,
+			pressed: false,
 			disabled: false,
 			colour: this.props.buttonColour,
 			hovering: false,
+			onAction: this.props.onAction,
 		};
 
 		this.wrapRenderButton = this.wrapRenderButton.bind(this);
@@ -36,18 +37,22 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		this.onPressedIn = this.onPressedIn.bind(this);
 		this.onHoverIn = this.onHoverIn.bind(this);
 		this.onHoverOut = this.onHoverOut.bind(this);
+
+		this.renderPointer = this.render;
 	}
 
 	public componentWillMount() {
-		this.renderPointer = this.render;
 		this.wrapRenderButton();
 	}
 
 	private onActionWrapper(): void {
 		if (!this.state.disabled && !this.props.disabled) {
 			this.setState({disabled: true}, () => {
-				this.props.onAction(() => {
-					this.setState({disabled: false});
+				this.state.onAction(() => {
+					this.setState({
+						disabled: false,
+						pressed: this.state.pressed
+					});
 				});
 			});
 		}
@@ -87,8 +92,8 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 				<div
 					className={"main-button center-mid"}
 					onClick={this.onActionWrapper}
-					onMouseDown={this.onPressedIn}
-					onMouseUp={this.onPressedOut}
+					// onMouseDown={this.onPressedIn}
+					// onMouseUp={this.onPressedOut}
 					onMouseEnter={this.onHoverIn}
 					onMouseLeave={this.onHoverOut}
 					style={{
@@ -111,7 +116,7 @@ export interface IButtonProps extends IEnhancedComponentProps {
 	buttonColour?: string;
 	buttonHoverColour?: string;
 	buttonFocusedColour?: string;
-	width?: number;
+	width?: number | string;
 	height?: number;
 }
 
@@ -120,6 +125,7 @@ export interface IButtonState extends IEnhancedComponentState {
 	disabled: boolean;
 	colour: string;
 	hovering: boolean;
+	onAction: (callback: () => void) => void;
 }
 
 export {Button};

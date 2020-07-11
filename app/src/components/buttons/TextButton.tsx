@@ -17,7 +17,6 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 		super(props);
 		this.state = {
 			...this.state,
-			pressed: false,
 			text: this.props.text,
 		};
 	}
