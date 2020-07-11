@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// import {GenreEnum} from '../../../app/src/components/index';
+import {GenreEnum} from './GenreEnum';
 
 
 const queueSchema = new Schema({
-    // channel: GenreEnum,
     channel: {
-        type: String,
+        type: GenreEnum,
         required: true
     },
     queue: [mongoose.Types.ObjectId]
