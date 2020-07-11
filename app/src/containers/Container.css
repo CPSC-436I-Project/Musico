@@ -45,3 +45,30 @@
     align-items: center;
     padding: 5px 2px;
 }
+
+#dashboard {
+    display: flex;
+    flex-direction: column;
+}
+
+#dashboard_lower {
+    display: flex;
+}
+
+#dashboard_sidebar {
+    width: 200px;
+}
+
+#dashboard_display {
+    flex-grow: 1;
+    padding: 15px;
+}
+
+#generic_background {
+    background-image: url("./musicNote.png");
+    background-repeat: no-repeat;
+    background-position-x: right;
+    background-position-y: bottom;
+    width: 100%;
+    height: 100%;
+}

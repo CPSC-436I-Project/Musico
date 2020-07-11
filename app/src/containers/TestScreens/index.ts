@@ -5,15 +5,16 @@ import PopupTest from "./PopupTest";
 import {HeaderTest} from "./HeaderTest";
 import {TextInputTest} from "./TextInputTest";
 import {SidebarTest} from "./SidebarTest";
+import {ExpandableButtonTest} from "./ExpandableButtonTest";
 import {VoteButtonTest} from "./VoteButtonTest";
 import {MusicPlayerQueueTest} from "./MusicPlayerQueueTest";
 import {InnerDashboardTest} from "./InnerDashboardTest";
 import {InnerProfileTest} from "./InnerProfileTest";
 
-
 export enum testScreen {
 	EmptyPage,
 	TextButtonTest,
+	ExpandableButtonTest,
 	ImageButtonTest,
 	PopupTest,
 	HeaderTest,
@@ -28,6 +29,7 @@ export enum testScreen {
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
 	[testScreen.EmptyPage]: {pointer: EmptyPage, name: "Empty Page"},
 	[testScreen.TextButtonTest]: {pointer: TextButtonTest, name: "Text Button Page"},
+	[testScreen.ExpandableButtonTest]: {pointer: ExpandableButtonTest, name: "Expandable Button Page"},
 	[testScreen.ImageButtonTest]: {pointer: ImageButtonTest, name: "Image Button Page"},
 	[testScreen.PopupTest]: {pointer: PopupTest, name: "Popup Page"},
 	[testScreen.HeaderTest]: {pointer: HeaderTest, name: "Header Test Page"},
