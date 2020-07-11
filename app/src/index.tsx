@@ -9,7 +9,7 @@ import {createStore} from "redux";
 import reducers from "./redux/reducers";
 import initialStore from "./redux/initialStore";
 
-const prod: boolean = false;
+const prod: boolean = true;
 
 ReactDOM.render(
   <React.StrictMode>
