@@ -13,11 +13,12 @@ class Dashboard extends Container {
 		return (
 			<div id={"dashboard"}>
 				<div id={"dashboard_upper"}>
-					<Header profileImgSrc={profilePlaceholder} onProfileClick={this.toggleProfile}/>
+					<Header profileImgSrc={profilePlaceholder} onProfileClick={this.toggleProfile} onMenuClick={this.toggleSidebar}/>
 				</div>
 				<div id={"dashboard_lower"}>
 					<div id={"dashboard_sidebar"}>
-						<Sidebar/>
+						{this.state.sidebarOpen ? <Sidebar /> : null}
+						{/* <Sidebar/> */}
 					</div>
 					<div id={"dashboard_display"}>
 						{/*{this.state.profileOpen ? <Profile/> : <GenericScreen/>}*/}

@@ -20,3 +20,7 @@ export interface IUserStore {
 export interface ISongListStore {
 	songs: ISongListObject
 }
+
+export interface ISidebarStore {
+	sidebarOpen: boolean;
+}

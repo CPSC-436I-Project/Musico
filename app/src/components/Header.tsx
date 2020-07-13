@@ -12,19 +12,21 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
     public static defaultProps: IHeaderProps = {
         ...EnhancedComponent.defaultProps,
+        sidebarOpen: true
     }
 
     public static mapStateToProps:(state: IStore, props: IHeaderProps) => IHeaderProps = (state: IStore, props: IHeaderProps) => {
         return {
             ...props,
             profileImgSrc: state.userStore.profileImgSrc,
+            sidebarOpen: state.sidebarStore.sidebarOpen,
         };
     }
-
 
     protected constructor(props: IHeaderProps) {
         super(props);
         this.state = {
+            sidebarOpen: true
         };
     }
 
@@ -43,6 +45,7 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
 export interface IHeaderProps extends IEnhancedComponentProps {
     profileImgSrc?: string,
+    sidebarOpen: boolean,
     onProfileClick?: (callback: () => void) => void;
     onMenuClick?: (callback: () => void) => void;
 }
