@@ -26,7 +26,7 @@ export const removeUser = () => {
 }
 
 
-export const createUser = (username: string, email: string, password: string) => {
+export const createUser = (username: string, email: string, password: string, errorCallback: (message: string) => void) => {
     let newUser = {
         username: username,
         email: email,
@@ -45,7 +45,8 @@ export const createUser = (username: string, email: string, password: string) =>
         .then(res => {
             if (res.status !== 200) {
                 // TODO: this needs to send an error to the front end
-                console.log(res.text)
+                console.log(res.text);
+                errorCallback(res.text);
             } else {
                 // get the created user
                 const user = JSON.parse(res.text);
@@ -63,7 +64,7 @@ export const createUser = (username: string, email: string, password: string) =>
     }
 };
 
-export const loginUser = (email: string, password: string) => {
+export const loginUser = (email: string, password: string, errorCallback: (message: string) => void) => {
     let thisUser = {
         email: email,
         password: password
@@ -81,7 +82,8 @@ export const loginUser = (email: string, password: string) => {
         .then(res => {
             if (res.status !== 200) {
                 // TODO: this needs to send an error to the front end
-                console.log(res.text)
+                console.log(res.text);
+                errorCallback(res.text);
             } else {
                 // get the created user
                 const user = JSON.parse(res.text);
