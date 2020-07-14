@@ -1,6 +1,6 @@
 import {UserEnum} from "../reducers/userReducer";
 import { API_URL } from "src/utility/constants";
-import { setCookie, getCookie } from "src/utility/cookies";
+import { setCookie, getCookie, deleteCookie } from "src/utility/cookies";
 
 export const setUser = (id: string, username: string, email: string, profilePicture: string) => {
     return {
@@ -11,6 +11,20 @@ export const setUser = (id: string, username: string, email: string, profilePict
         profilePicture: profilePicture,
     }
 };
+
+export const resetUser = () => {
+    return {
+        type: UserEnum.RESET_USER
+    }
+}
+
+export const removeUser = () => {
+    return (dispatch: any) => {
+        deleteCookie('auth-token');
+        dispatch(resetUser());
+    }
+}
+
 
 export const createUser = (username: string, email: string, password: string) => {
     let newUser = {
