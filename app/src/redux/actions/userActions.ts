@@ -2,12 +2,13 @@ import {UserEnum} from "../reducers/userReducer";
 import { API_URL } from "src/utility/constants";
 import { setCookie, getCookie } from "src/utility/cookies";
 
-export const setUser = (id: string, username: string, email: string) => {
+export const setUser = (id: string, username: string, email: string, profilePicture: string) => {
     return {
         type: UserEnum.SET_USER,
         userId: id,
         username: username,
-        email: email
+        email: email,
+        profilePicture: profilePicture,
     }
 };
 
@@ -38,7 +39,7 @@ export const createUser = (username: string, email: string, password: string) =>
                     // store the user token as a cookie
                     setCookie('auth-token', user.token, 70)
                     // set the user in redux to be the current user
-                    dispatch(setUser(user.id, user.username, user.email));
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
                 }
             }
         })
@@ -74,12 +75,47 @@ export const loginUser = (email: string, password: string) => {
                     // store the user token as a cookie
                     setCookie('auth-token', user.token, 70)
                     // set the user in redux to be the current user
-                    dispatch(setUser(user.id, user.username, user.email));
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
                 }
             }  
         })
         .catch(err => {
             console.log(err);
+        });
+    }
+};
+
+export const autoLoginUser = (callback: () => void) => {
+    const token = getCookie('auth-token');
+    return (dispatch: any) => {
+        // register the user
+        return fetch(API_URL+'userprofiles/getFromToken', {
+            method: 'GET',
+            headers: {
+                'auth-token': token,
+            }
+        })
+        .then(async res => { return {json: await res.json(), status: res.status}})
+        .then(res => {
+            if (res.status !== 200) {
+                // TODO: this needs to send an error to the front end
+                console.log("You have been logged out, please log in!");
+                callback();
+            } else {
+                // get the created user
+                const user = res.json;
+                if (user) {
+                    // set the user in redux to be the current user
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
+                } else {
+                    console.log("You have been logged out, please log in!");
+                    callback();
+                }
+            }  
+        })
+        .catch(err => {
+            console.log(err);
+            callback();
         });
     }
 };
