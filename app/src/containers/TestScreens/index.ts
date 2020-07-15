@@ -11,7 +11,7 @@ import {MusicPlayerQueueTest} from "./MusicPlayerQueueTest";
 import {InnerDashboardTest} from "./InnerDashboardTest";
 import {InnerProfileTest} from "./InnerProfileTest";
 import {ChatTest} from "./ChatTest";
-import { MusicSidebarTest } from "./MusicSidebarTest";
+import {MusicSidebarTest} from "./MusicSidebarTest";
 
 export enum testScreen {
 	EmptyPage,

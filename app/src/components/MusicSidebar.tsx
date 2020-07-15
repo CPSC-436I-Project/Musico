@@ -26,8 +26,9 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     }
 
     public render() {
-        return (
+        return (  
             <div className="music-sidebar">
+                <button className="close-button">×</button>
                 <div className="currently-playing">
                     <Image
                         path={thumbnailPlaceholder}
@@ -37,15 +38,19 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
                     />
                     <p>Video title or song name from YouTube - Artist</p>
                 </div>
-                <MusicPlayerQueue />
-                <TextButton
-                    text={"+ Add Music"}
-                    bold={true}
-                    buttonColour="#6236FF"
-					height={44}
-                    width={204}
-                    fontSize={20}
-				/>
+                <div className="music-player-queue">
+                    <MusicPlayerQueue />
+                </div>
+                <div className="add-music-button">
+                    <TextButton
+                        text={"+ Add Music"}
+                        bold={true}
+                        buttonColour="#6236FF"
+					    height={44}
+                        width={204}
+                        fontSize={20}
+				    />
+                </div>
             </div>
         )
     }

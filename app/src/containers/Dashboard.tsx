@@ -7,6 +7,7 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
 import {GenericScreen} from "./TestScreens/GenericScreen";
 import {Profile} from "./Profile";
+import MusicSidebar from "src/components/MusicSidebar";
 
 class Dashboard extends Container {
 	public render(): ReactNode {
@@ -18,11 +19,13 @@ class Dashboard extends Container {
 				<div id={"dashboard_lower"}>
 					<div id={"dashboard_sidebar"}>
 						{this.state.sidebarOpen ? <Sidebar /> : null}
-						{/* <Sidebar/> */}
 					</div>
 					<div id={"dashboard_display"}>
 						{/*{this.state.profileOpen ? <Profile/> : <GenericScreen/>}*/}
 						{this.state.profileOpen ? <Profile/> : <DebugScreen/>}
+					</div>
+					<div id={"music_sidebar"}>
+						<MusicSidebar />
 					</div>
 				</div>
 			</div>

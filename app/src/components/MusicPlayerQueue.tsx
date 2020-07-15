@@ -31,6 +31,10 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
                         <VoteButtonsContainer/>
                         <SongInfoContainer width={200} height={112} />
                     </div>
+                    <div className={"song"}>
+                        <VoteButtonsContainer/>
+                        <SongInfoContainer width={200} height={112} />
+                    </div>
                 </div>
             </div>
         )
