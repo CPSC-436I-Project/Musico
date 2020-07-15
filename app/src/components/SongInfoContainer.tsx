@@ -21,8 +21,8 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
                 <Image
                     path={thumbnailPlaceholder}
                     name={"Album"}
-                    width={this.props.width}
-                    height={this.props.height}
+                    width={132}
+                    height={74}
                 />
                 <p className={"song-description"}>{songDescription}</p>
             </div>

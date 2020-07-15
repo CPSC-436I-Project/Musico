@@ -11,6 +11,7 @@ import {MusicPlayerQueueTest} from "./MusicPlayerQueueTest";
 import {InnerDashboardTest} from "./InnerDashboardTest";
 import {InnerProfileTest} from "./InnerProfileTest";
 import {ChatTest} from "./ChatTest";
+import { MusicSidebarTest } from "./MusicSidebarTest";
 
 export enum testScreen {
 	EmptyPage,
@@ -25,7 +26,8 @@ export enum testScreen {
 	MusicPlayerQueueTest,
 	InnerDashboardTest,
 	InnerProfileTest,
-	ChatTest
+	ChatTest,
+	MusicSidebarTest,
 }
 
 export const testScreenMap: { [key: string]: { pointer: any, name: string } } = {
@@ -41,5 +43,6 @@ export const testScreenMap: { [key: string]: { pointer: any, name: string } } = 
 	[testScreen.MusicPlayerQueueTest]: {pointer: MusicPlayerQueueTest, name: "Music Player Queue Test Page"},
 	[testScreen.InnerDashboardTest]: {pointer: InnerDashboardTest, name: "Inner Dashboard Test Page"},
 	[testScreen.InnerProfileTest]: {pointer: InnerProfileTest, name: "Inner Profile Test Page"},
-	[testScreen.ChatTest]: {pointer: ChatTest, name: "Chat Page"}
+	[testScreen.ChatTest]: {pointer: ChatTest, name: "Chat Page"},
+	[testScreen.MusicSidebarTest]: {pointer: MusicSidebarTest, name: "Music Sidebar"},
 }
