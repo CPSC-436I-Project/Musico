@@ -2,11 +2,13 @@ import * as React from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
-import {GenreEnum} from "./";
 import {Image} from "./Image";
 import {TextButton} from "./buttons/TextButton";
-import { MusicPlayerQueue } from "./MusicPlayerQueue";
-import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
+import {ImageButton} from "./buttons/ImageButton";
+import {MusicPlayerQueue} from "./MusicPlayerQueue";
+import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
+import {hideMusicSidebar} from "../redux/actions/musicSidebarActions";
+import closeIcon from "../icons/close.png";
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {
     public static defaultProps: IMusicSidebarProps = {
@@ -16,19 +18,27 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     public static mapStateToProps:(state: IStore, props: IMusicSidebarProps) => IMusicSidebarProps = (state: IStore, props: IMusicSidebarProps) => {
         return {
             ...props,
+            musicSidebarOpen: state.musicSidebarStore.musicSidebarOpen,
         };
     }
 
     protected constructor(props: IMusicSidebarProps) {
         super(props);
         this.state = {
+            musicSidebarOpen: true
         };
     }
+
+    closeMusicSidebar = () => {
+		this.props.dispatch(hideMusicSidebar());
+	}
 
     public render() {
         return (  
             <div className="music-sidebar">
-                <button className="close-button">×</button>
+                <span className="close-button">
+						<ImageButton src={closeIcon} onAction={this.closeMusicSidebar} height={20} width={20} buttonColour="grey"/>
+				</span>
                 <div className="currently-playing">
                     <Image
                         path={thumbnailPlaceholder}
@@ -58,11 +68,14 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
 export interface IMusicSidebarProps extends IEnhancedComponentProps {
     width?: number,
-    height?: number
+    height?: number,
+    dispatch?: any,
+    musicSidebarOpen?: boolean,
 }
 
 export interface IMusicSidebarState extends IEnhancedComponentState {
+    musicSidebarOpen: boolean
 }
 
 // @ts-ignore
-export default MusicSidebar;
+export default connect(MusicSidebar.mapStateToProps)(MusicSidebar);

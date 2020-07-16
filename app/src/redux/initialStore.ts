@@ -1,4 +1,4 @@
-import {IChatRoomStore, IPopUpStore, ISongListStore, IUserStore, ISidebarStore} from "./stores";
+import {IChatRoomStore, IPopUpStore, ISongListStore, IUserStore, ISidebarStore, IMusicSidebarStore} from "./stores";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {defaultSongs} from "../utility/songs";
 
@@ -8,6 +8,7 @@ export interface IStore {
 	userStore: IUserStore;
 	songListStore: ISongListStore;
 	sidebarStore: ISidebarStore;
+	musicSidebarStore: IMusicSidebarStore;
 }
 
 /**
@@ -32,5 +33,8 @@ export default {
 	},
 	sidebarStore: {
 		sidebarOpen: true
+	},
+	musicSidebarStore: {
+		musicSidebarOpen: true
 	}
 };

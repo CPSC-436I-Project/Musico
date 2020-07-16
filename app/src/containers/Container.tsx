@@ -2,9 +2,8 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
-import {hidePopUp, showPopUp} from "../redux/actions";
+import {hidePopUp, showPopUp, hideSidebar, showSidebar, hideMusicSidebar} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
-import { hideSidebar, showSidebar } from "src/redux/actions/sidebarActions";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -21,6 +20,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 			...props,
 			popupOpen: state.popupStore.popupOpen,
 			sidebarOpen: state.sidebarStore.sidebarOpen,
+			musicSidebarOpen: state.musicSidebarStore.musicSidebarOpen,
 		};
 	}
 
@@ -33,7 +33,8 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.state = {
 			popupOpen: false,
 			profileOpen: false,
-			sidebarOpen: true
+			sidebarOpen: true,
+			musicSidebarOpen: true,
 		};
 
 		this.childRender = this.render;
@@ -62,7 +63,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
         } else {
             this.props.dispatch(showSidebar());
         }
-    }
+	}
 
 	private wrapRender(): void {
 		this.render = (): ReactNode => {
@@ -82,6 +83,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 export interface IContainerProps {
 	popupOpen?: boolean;
 	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 	dispatch?: any;
 }
 
@@ -89,6 +91,7 @@ export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
 	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 }
 
 export {Container};

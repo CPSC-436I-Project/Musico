@@ -7,6 +7,7 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
+import {hideSidebar, showSidebar} from "../redux/actions";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
@@ -30,10 +31,18 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
         };
     }
 
+    onMenuClick = () => {
+        if (this.props.sidebarOpen) {
+            this.props.dispatch(hideSidebar());
+        } else {
+            this.props.dispatch(showSidebar());
+        }
+    }
+
     public render(): ReactNode {
         return (
             <div className="header">
-                <ImageButton src={menuIcon} width={40} height={40} buttonColour="transparent" onAction={this.props.onMenuClick}/>
+                <ImageButton src={menuIcon} width={40} height={40} buttonColour="transparent" onAction={this.onMenuClick}/>
                 <span className="logo">Musico</span>
                 <div className="header-right">
                     <ImageButton src={this.props.profileImgSrc || profilePlaceholder} width={40} height={40} buttonColour="white" onAction={this.props.onProfileClick}/>
@@ -47,7 +56,6 @@ export interface IHeaderProps extends IEnhancedComponentProps {
     profileImgSrc?: string,
     sidebarOpen: boolean,
     onProfileClick?: (callback: () => void) => void;
-    onMenuClick?: (callback: () => void) => void;
 }
 
 export interface IHeaderState extends IEnhancedComponentState {

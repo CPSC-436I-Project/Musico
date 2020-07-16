@@ -24,3 +24,7 @@ export interface ISongListStore {
 export interface ISidebarStore {
 	sidebarOpen: boolean;
 }
+
+export interface IMusicSidebarStore {
+	musicSidebarOpen: boolean
+}
