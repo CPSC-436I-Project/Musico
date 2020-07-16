@@ -191,11 +191,11 @@
     background-color: #242424;
     padding: 50px 20px 15px 20px;
     max-width: 100%;
-    max-height: 100%;
+    /* max-height: 100%; */
     width: 210px;
     height: 690px;
     overflow-x: hidden;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
     display: flex;
     flex-direction: column;
 }
@@ -220,8 +220,8 @@
 }
 
 .add-music-button {
-    position: relative;
-    bottom: -50px;
+    position: fixed;
+    bottom: 160px;
 }
 
 .close-button {
