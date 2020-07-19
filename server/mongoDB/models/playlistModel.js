@@ -10,7 +10,7 @@ const playlistSchema = new Schema({
         required: true
     },
     playlist: {
-        type: [Song],
+        type: [mongoose.Types.ObjectId],
         required: true
     }
 });

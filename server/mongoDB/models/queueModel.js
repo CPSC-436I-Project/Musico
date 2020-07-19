@@ -9,9 +9,10 @@ const queueSchema = new Schema({
         enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
         required: true
     },
-    queue: [{
-        type: Song
-    }]
+    queue: {
+        type: [mongoose.Types.ObjectId],
+        required: true
+    }
 });
 
 let Queue = mongoose.model("Queue", queueSchema);
