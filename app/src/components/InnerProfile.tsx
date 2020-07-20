@@ -6,13 +6,14 @@ import {Image} from "./Image"
 import {IStore} from "../redux/initialStore";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
-import {ISidebarProps} from "./Sidebar";
+import { TextButton } from "./buttons/TextButton";
+import { removeUser } from "src/redux/actions/userActions";
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
 
     public static defaultProps: IInnerProfileProps = {
         ...EnhancedComponent.defaultProps,
-        profileImgUrl: profilePlaceholder
+        profileImgSrc: profilePlaceholder
     };
 
     private constructor(props: IInnerProfileProps) {
@@ -25,14 +26,22 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             profileImgSrc: state.userStore.profileImgSrc,
             username: state.userStore.username,
         };
-    }
+    };
+
+    logOut = () => {
+        this.props.dispatch(removeUser());
+        // TODO: route to the <App> so that login screen is shown or refresh the page
+    };
 
     public render(): ReactNode {
         return (
             <div className="inner_profile">
                 <div className="profile_head">
-                    <Image path={this.props.profileImgUrl} width={170} height={170}/>
+                    <Image path={this.props.profileImgSrc} width={170} height={170}/>
                     <h2>{this.props.username || "Unknown User"}</h2>
+                    <span className="log_out">
+                        <TextButton text="Log out" onAction={this.logOut} width={100}/>
+                    </span>
                 </div>
             </div>
         );
@@ -40,7 +49,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
 }
 
 export interface IInnerProfileProps extends IEnhancedComponentProps {
-    profileImgUrl?: string;
+    profileImgSrc?: string;
     username?: string;
 }
 
