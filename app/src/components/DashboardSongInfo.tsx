@@ -26,7 +26,7 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
             <div className="dashboard_song">
                 <SongInfoContainer
                     color={"#000000"}
-                    pic = {this.props.pic}
+                    pic = {this.props.pic === "" ? thumbnailPlaceholder : this.props.pic}
                     name = {this.props.name}
                     artists = {this.props.artists}
                 />

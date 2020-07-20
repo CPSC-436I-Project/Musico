@@ -60,14 +60,13 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                         topSong = song;
                     }
                 });
-
-                console.log(topSong);
-
             })
             .then(() => {
-                let topSongs: Song[] = that.state.topSongs;
-                let updatedTopSongs: Song[] = topSongs.concat(topSong);
-                return that.setState({topSongs: updatedTopSongs});
+                if (topSong.songName !== "default") {
+                    let topSongs: Song[] = that.state.topSongs;
+                    let updatedTopSongs: Song[] = topSongs.concat(topSong);
+                    return that.setState({topSongs: updatedTopSongs});
+                }
             })
             .then(() => {
                 return Promise.resolve();
@@ -87,7 +86,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         this.state.topSongs.forEach(function(song: Song) {
             nextSongs.push(<DashboardSongInfo
                 genre={song.genre}
-                pic={song.albumCover}                       // don't use if empty string
+                pic={song.albumCover}
                 name={song.songName}
                 artists={song.artists}
             />);
