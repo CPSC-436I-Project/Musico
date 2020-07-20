@@ -8,23 +8,12 @@ import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import { GenreEnum } from ".";
 import io from "socket.io-client";
-import { API_URL } from "src/utility/constants";
+import { IMessageInterface } from "src/utility/messages";
+import { downloadMessages } from "src/redux/actions/chatRoomActions";
 import { getCookie } from "src/utility/cookies";
 
 const SOCKET_IO_URL = "http://localhost:9000";
 const socket = io(SOCKET_IO_URL);
-
-// const getChatData = () => {
-//     return JSON.parse(localStorage.getItem("chatData"));
-// };
-
-// export const getChatRooms = () => axios.get(`${API_URL}/chatroom/chatrooms`);
-
-// export const getChatRoomMessages = (chatRoomName: string) =>
-//   axios.get(`${API_URL}/chat/chatroom/messages/${chatRoomName}`);
-
-// export const joinRoom = (room: any) =>
-//   axios.post(`${API_URL}/chat/chatroom`, { room });
 
 class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
@@ -36,14 +25,15 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         return {
             ...props,
             selectedGenre: state.chatRoomStore.selectedGenre,
+            messages: state.chatRoomStore.messages,
             userId: state.userStore.userId,
+            username: state.userStore.username,
         };
     }
 
     private constructor(props: IChatProps) {
         super(props);
         this.state = {
-            messages: [],
             currentMessage: "",
             isInitialized: false
         };
@@ -55,10 +45,14 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
     handleSubmit = (callback: () => void) => {
         let data = {
+            token: getCookie('auth-token'),
+            username: this.props.username,
             userId: this.props.userId,
             message: this.state.currentMessage
         };
-        socket.emit("message", data, this.getChatRoomMessages);
+        socket.emit("message", data, () => {
+            this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
+        });
         callback();
     };
 
@@ -69,63 +63,49 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
                 return;
             }
             socket.emit('join', {genre: this.props.selectedGenre}, () => {
-                this.getChatRoomMessages();
+                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
             });
-            console.log(socket);
+            socket.on("newMessage", (data: any) => {
+                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
+            });
         }
     }
 
     componentDidUpdate = (previousProps: any) => {
         if (this.props.selectedGenre !== previousProps.selectedGenre) {
+            socket.emit('disconnect');
             if (this.props.selectedGenre === null) {
                 console.log("No selected genre!");
                 return;
             }
             socket.emit('join', {genre: this.props.selectedGenre}, () => {
-                this.getChatRoomMessages();
+                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
             });
-            console.log(socket);
+            socket.on("newMessage", (data: any) => {
+                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
+            });
         }
     }
+    
 
-    // callback for loading chat messages from the server when user joins
-    getChatRoomMessages = () => {
-        console.log("Getting chat");
-        let token = getCookie('auth-token');
-        fetch(API_URL+"chats/"+this.props.selectedGenre, {
-            method: 'GET',
-            headers: {
-                'auth-token': token
-            }
-        })
-        .then(res => res.text())
-        .then(res => {
-            let messages = JSON.parse(res);
-            this.setState({messages: messages});
-            this.setInitialized(true);
-        });
+    gotMessagesCallback = () => {
+        this.setInitialized(true);
     }
 
     updateCurrMessage = (text: string) => {
         this.setState({currentMessage: text});
     };
 
-    messageSender = (text: string) => {
-        return () => {
-            //this.props.dispatch(addSong(this.props.selectedGenre));
-        }
-    };
-
     public render(): ReactNode {
-        const items = this.state.messages.map(function(item){
-            return <li key={item._id}> {item.message} </li>;
+        const items = this.props.messages.map(function(item){
+            return <li key={item._id}> {item.username}: {item.message} </li>;
           });
         return (
             <div className="chat">
                 <ul>
                 {items}
                 </ul>
-                <TextInput defaultText="Enter a message" submit={this.updateCurrMessage} />
+                <TextInput defaultText="Enter a message" submit={this.updateCurrMessage} onEnterDisabled={false} onEnterKeyDown={this.handleSubmit}/>
                 <TextButton text={"Send"}
                             fontSize={14} width={100}
                             fontColour={"#ffffff"}
@@ -141,11 +121,12 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
 export interface IChatProps extends IEnhancedComponentProps {
     selectedGenre?: GenreEnum | null;
+    messages?: IMessageInterface[];
     userId?: string | null;
+    username?: string;
 }
 
 export interface IChatState extends IEnhancedComponentState {
-    messages: any[],
     currentMessage: string,
     isInitialized: boolean
 }
