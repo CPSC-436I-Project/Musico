@@ -6,6 +6,7 @@ import {Image} from "./Image"
 import {IStore} from "../redux/initialStore";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
+import {ISidebarProps} from "./Sidebar";
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
 
@@ -14,6 +15,10 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         profileImgUrl: profilePlaceholder
     };
 
+    private constructor(props: IInnerProfileProps) {
+        super(props);
+    }
+    
     public static mapStateToProps:(state: IStore, props: IInnerProfileProps) => IInnerProfileProps = (state: IStore, props: IInnerProfileProps) => {
         return {
             ...props,

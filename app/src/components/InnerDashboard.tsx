@@ -13,7 +13,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         ...EnhancedComponent.defaultProps,
     };
 
-    private constructor(props: ISidebarProps) {
+    private constructor(props: IInnerDashboardProps) {
         super(props);
         this.state = {topSongs: []};
         this.getTopSongsOnQueues = this.getTopSongsOnQueues.bind(this);
