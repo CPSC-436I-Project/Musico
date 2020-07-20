@@ -71,13 +71,13 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     }
 
     public componentDidMount(): void {
-        this.getTopSongsOnQueues();
+        this.getTopSongsOnQueues();     // check that this runs when page loaded
     }
 
     public render(): ReactNode {
         const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
-        let nextSongs = [];
-        this.state.topSongs.forEach(function(song: Song) {
+        let nextSongs: any[] = [];
+        this.state.topSongs.forEach(function(song: Song) {          // why does this show default data???
             nextSongs.push(<DashboardSongInfo
                 genre={song.genre}
                 pic={song.albumCover}
@@ -100,7 +100,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                     <h2> Playing next </h2>
                 </div>
                 <div className="dashboard_trending">
-                    nextSongs
+                    {nextSongs}
                 </div>
             </div>);
     }
