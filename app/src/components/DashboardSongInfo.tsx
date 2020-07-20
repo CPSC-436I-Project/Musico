@@ -11,7 +11,7 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
 
     public static defaultProps: IDashboardSongInfoProps = {
         ...EnhancedComponent.defaultProps,
-        genre: null,
+        genre: "jazz",
         pic: thumbnailPlaceholder,
         name: "default song name",
         artists: ["artist1", "artist2"],
@@ -43,7 +43,7 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
 }
 
 export interface IDashboardSongInfoProps extends IEnhancedComponentProps {
-    genre: GenreEnum | null;
+    genre: string;
     pic: string;
     name: string;
     artists: string[];

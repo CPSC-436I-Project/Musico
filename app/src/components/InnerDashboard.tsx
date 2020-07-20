@@ -40,7 +40,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         let topSong: Song = {
             songName: "default",
             artists: ["shouldn't", "see", "this"],
-            genre: GenreEnum.JAZZ,
+            genre: "Jazz",
             src: "",
             requesterID: 0,
             albumCover: "",
@@ -54,7 +54,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             })
             .then((songs: Song[]) => {
                 songs.forEach(function (song: Song) {
-                    if (song.numVotes > topSong.numVotes) {
+                    if (song.numVotes > topSong.numVotes && song.genre in GenreEnum) {
                         topSong = song;
                     }
                 })
@@ -62,7 +62,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             .then(() => {
                 let topSongs: Song[] = this.state.topSongs;
                 let updatedTopSongs: Song[] = topSongs.concat(topSong);
-                this.setState({topSongs: updatedTopSongs})
+                this.setState({topSongs: updatedTopSongs});
                 return Promise.resolve();
             })
             .catch(() => {
@@ -75,9 +75,19 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     }
 
     public render(): ReactNode {
-        const audioWaveIcon = "https://img.icons8.com/nolan/64/audio-wave.png"
+        const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
+        let nextSongs = [];
+        this.state.topSongs.forEach(function(song: Song) {
+            nextSongs.push(<DashboardSongInfo
+                genre={song.genre}
+                pic={song.albumCover}
+                name={song.songName}
+                artists={song.artists}
+            />);
+        });
+
         return (
-            <div className="inner_dashboard">
+        <div className="inner_dashboard">
                 <div
                     style={{
                         display: "flex",
@@ -87,15 +97,10 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                     }}
                 >
                     <Image width={40} height={40} path={audioWaveIcon}/>
-                    <h2> Trending Music </h2>
+                    <h2> Playing next </h2>
                 </div>
                 <div className="dashboard_trending">
-
-                    // UPDATE THESE TO GET DATA FROM DB!!!
-
-                    {/*<DashboardSongInfo genre={GenreEnum.ELECTRONIC}/>*/}
-                    {/*<DashboardSongInfo genre={GenreEnum.HIP_HOP}/>*/}
-                    {/*<DashboardSongInfo genre={GenreEnum.JAZZ}/>*/}
+                    nextSongs
                 </div>
             </div>);
     }
@@ -104,7 +109,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
 interface Song {
     songName: string,
     artists: string[],
-    genre: GenreEnum,
+    genre: string,
     src: string,
     requesterID: any,
     albumCover: string,
