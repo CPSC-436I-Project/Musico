@@ -7,7 +7,7 @@ import {Image} from "./Image"
 import {GenreEnum} from "./index";
 import {ISidebarProps} from "./Sidebar";
 
-class InnerDashboard extends EnhancedComponent {
+class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashboardState> {
 
     public static defaultProps: IInnerDashboardProps = {
         ...EnhancedComponent.defaultProps,
@@ -17,42 +17,56 @@ class InnerDashboard extends EnhancedComponent {
         super(props);
         this.state = {topSongs: []};
         this.getTopSongsOnQueues = this.getTopSongsOnQueues.bind(this);
+        this.addTopSong = this.addTopSong.bind(this);
     }
 
     private getTopSongsOnQueues(): void {
-
-        console.log("inside getTopSongsOnQueues");
-
-        let topSongs: Song[] = [];
         // fetch('/queues')                     // use this when deploying app
         fetch('http://localhost:9000/queues')       // use this for now
             .then(response => response.json())
             .then(queues => {
-                return queues.map(function(obj: any) {
+                return queues.map(function (obj: any) {
                     return obj.queue;
                 });
             })
-            .then(queue => {
-                queue.forEach(function (q: []) {
-                    let topSong: Song = {
-                        songName: "default",
-                        artists: ["shouldn't", "see", "this"],
-                        genre: GenreEnum.JAZZ,
-                        src: "",
-                        requesterID: 0,
-                        albumCover: "",
-                        numVotes: 0
-                    };
-                    q.forEach(function (song: Song) {
-                        if (song.numVotes > topSong.numVotes) {
-                            topSong = song;
-                        }
-                    });
-                    topSongs.push(topSong);
-                });
-                console.log(topSongs);
+            .then(queueList => {
+                let queueRequests = queueList.map((queue: string[]) =>
+                    this.addTopSong(queue));
+                Promise.all(queueRequests);
+            });
+    }
 
-                this.setState({topSongs: topSongs});
+    private addTopSong(queue: string[]): Promise<void> {
+        let topSong: Song = {
+            songName: "default",
+            artists: ["shouldn't", "see", "this"],
+            genre: GenreEnum.JAZZ,
+            src: "",
+            requesterID: 0,
+            albumCover: "",
+            numVotes: 0
+        };
+        return Promise.all(
+            // queue.map((songID: string) => fetch('/songs/' + songID)            // for deployment
+            queue.map((songID: string) => fetch('http://localhost:9000/songs/' + songID)))
+            .then((responses) => {
+                return Promise.all(responses.map(response => response.json()))
+            })
+            .then((songs: Song[]) => {
+                songs.forEach(function (song: Song) {
+                    if (song.numVotes > topSong.numVotes) {
+                        topSong = song;
+                    }
+                })
+            })
+            .then(() => {
+                let topSongs: Song[] = this.state.topSongs;
+                let updatedTopSongs: Song[] = topSongs.concat(topSong);
+                this.setState({topSongs: updatedTopSongs})
+                return Promise.resolve();
+            })
+            .catch(() => {
+                return Promise.reject();
             });
     }
 

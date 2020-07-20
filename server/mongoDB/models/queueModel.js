@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Song = require('./songModel').schema;
 
 
 const queueSchema = new Schema({

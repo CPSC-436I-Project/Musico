@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:songID', (req, res) => {
-    Song.find({_id: req.params.songID})
+    Song.findOne({_id: req.params.songID})
         .then(song => {res.json(song)})
         .catch(err => {console.log(err)});
 });
