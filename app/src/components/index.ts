@@ -17,6 +17,7 @@ enum GenreEnum {
 	HIP_HOP = "Hip-Hop",
 	JAZZ = "Jazz",
 	RAP = "Rap",
+	CLASSICAL = "Classical"
 }
 
 enum ExpansionState {

@@ -37,6 +37,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     }
 
     private addTopSong(queue: string[]): Promise<void> {
+        let that = this;
         let topSong: Song = {
             songName: "default",
             artists: ["shouldn't", "see", "this"],
@@ -54,15 +55,21 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             })
             .then((songs: Song[]) => {
                 songs.forEach(function (song: Song) {
-                    if (song.numVotes > topSong.numVotes && song.genre in GenreEnum) {
+                    // @ts-ignore
+                    if (song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
                         topSong = song;
                     }
-                })
+                });
+
+                console.log(topSong);
+
             })
             .then(() => {
-                let topSongs: Song[] = this.state.topSongs;
+                let topSongs: Song[] = that.state.topSongs;
                 let updatedTopSongs: Song[] = topSongs.concat(topSong);
-                this.setState({topSongs: updatedTopSongs});
+                return that.setState({topSongs: updatedTopSongs});
+            })
+            .then(() => {
                 return Promise.resolve();
             })
             .catch(() => {
@@ -71,16 +78,16 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     }
 
     public componentDidMount(): void {
-        this.getTopSongsOnQueues();     // check that this runs when page loaded
-    }
+        this.getTopSongsOnQueues();
+    };
 
     public render(): ReactNode {
         const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
         let nextSongs: any[] = [];
-        this.state.topSongs.forEach(function(song: Song) {          // why does this show default data???
+        this.state.topSongs.forEach(function(song: Song) {
             nextSongs.push(<DashboardSongInfo
                 genre={song.genre}
-                pic={song.albumCover}
+                pic={song.albumCover}                       // don't use if empty string
                 name={song.songName}
                 artists={song.artists}
             />);
