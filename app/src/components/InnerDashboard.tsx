@@ -55,7 +55,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             })
             .then((songs: Song[]) => {
                 songs.forEach(function (song: Song) {
-                    // @ts-ignore
+                    // @ts-ignore //lint error for string enums because they can't be reverse mapped
                     if (song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
                         topSong = song;
                     }

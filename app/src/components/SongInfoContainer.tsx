@@ -24,14 +24,19 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
         });
         let artists = artistsString.substring(2);
         return (
-            <div className={"song-info-container"} style={{color: this.props.color}} >
+            <div className={"song-info-container"} style={{
+                color: this.props.color,
+                width: this.props.width
+            }} >
                 <Image
                     path={this.props.pic}
                     name={"Album"}
                     width={this.props.width}
                     height={this.props.height}
                 />
-                <p className={"song-description"}>{this.props.name} <br/> {artists}</p>
+                <div className={"song-description-container"}>
+                    <p className={"song-description"}>{this.props.name} <br/> {artists}</p>
+                </div>
             </div>
         )
     }

@@ -130,6 +130,11 @@
     flex-direction: column;
 }
 
+.song-description-container {
+    overflow: scroll;
+    white-space: nowrap;
+}
+
 .song-description {
     font-size: 20px;
     font-family: "Roboto";
