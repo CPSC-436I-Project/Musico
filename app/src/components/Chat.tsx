@@ -17,6 +17,8 @@ const socket = io(SOCKET_IO_URL);
 
 class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
+    messagesEndRef: any = React.createRef()
+
     public static defaultProps: IChatProps = {
         ...EnhancedComponent.defaultProps,
     };
@@ -57,6 +59,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
     };
 
     componentDidMount = () => {
+        this.scrollToBottom();
         if (!this.state.isInitialized) {
             if (this.props.selectedGenre === null) {
                 console.log("No selected genre!");
@@ -72,6 +75,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
     }
 
     componentDidUpdate = (previousProps: any) => {
+        this.scrollToBottom();
         if (this.props.selectedGenre !== previousProps.selectedGenre) {
             socket.emit('disconnect');
             if (this.props.selectedGenre === null) {
@@ -96,24 +100,38 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         this.setState({currentMessage: text});
     };
 
+    scrollToBottom = () => {
+        this.messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+
     public render(): ReactNode {
         const items = this.props.messages.map(function(item){
-            return <li key={item._id}> {item.username}: {item.message} </li>;
+            let message = item.username + " says: "+item.message;
+            return <span key={item._id} className="messageItem">
+                <TextButton disabled={true} buttonColour={"#009AFF"} width="auto" fontColour="white" text={message}/>
+            </span>;
           });
         return (
             <div className="chat">
-                <ul>
+                <div className="scrollable-container">
                 {items}
-                </ul>
-                <TextInput defaultText="Enter a message" submit={this.updateCurrMessage} onEnterDisabled={false} onEnterKeyDown={this.handleSubmit}/>
-                <TextButton text={"Send"}
-                            fontSize={14} width={100}
-                            fontColour={"#ffffff"}
-                            buttonColour={"#000000"}
-                            buttonHoverColour={"#000000"}
-                            height={20}
-                            onAction = {this.handleSubmit}
-                />
+                <span ref={this.messagesEndRef}/>
+                </div>
+                <div className="chat-input">
+                    <TextInput defaultText="Enter a message"
+                                submit={this.updateCurrMessage} 
+                                onEnterDisabled={false} 
+                                onEnterKeyDown={this.handleSubmit} 
+                    />
+                    <TextButton text={"Send"}
+                                fontSize={14} width={"10%"}
+                                fontColour={"#ffffff"}
+                                buttonColour={"#000000"}
+                                buttonHoverColour={"#000000"}
+                                height={20}
+                                onAction = {this.handleSubmit}
+                    />
+                </div>
             </div>
         );
     }

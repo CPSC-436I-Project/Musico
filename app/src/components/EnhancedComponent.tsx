@@ -24,7 +24,7 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 	private wrapRender(): void {
 		this.render = (): ReactNode => {
 			return(
-				<div>
+				<div className="enhanced-component-container" >
 					{this.childRender()}
 				</div>
 			);
