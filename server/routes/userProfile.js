@@ -39,7 +39,17 @@ router.post('/register', async (req, res) => {
   newUserProfile.save()
       .then(val => {
         const token = createToken(val._id);
-        res.json({id: val._id, username: val.username, email: val.email, token: token})
+        res.json({
+          id: val._id,
+          username: val.username,
+          email: val.email,
+          profilePicture: val.profilePicture,
+          requests: val.requests,
+          likedSongs: val.likedSongs,
+          favouriteGenres: val.favouriteGenres,
+          channels: val.channels,
+          token: token
+        })
       })
       .catch(err => res.status(400).json('Error: ' + err));
 });
@@ -62,12 +72,31 @@ router.post('/login', async (req, res) => {
 
   // Create a token
   const token = createToken(user._id);
-  res.header('auth-token', token).json({id: user._id, username: user.username, email: user.email, token: token});
+  res.header('auth-token', token).json({
+    id: user._id,
+    username: user.username,
+    email: user.email,
+    profilePicture: user.profilePicture,
+    requests: user.requests,
+    likedSongs: user.likedSongs,
+    favouriteGenres: user.favouriteGenres,
+    channels: user.channels,
+    token: token
+  });
 })
 
 module.exports = router;
 
 router.get('/getFromToken', verifyToken, async (req, res) => {
   const user = await UserProfile.findById(req.user._id);
-  res.json({id: user._id, username: user.username, email: user.email, profilePicture: user.profilePicture});
+  res.json({
+    id: user._id,
+    username: user.username,
+    email: user.email,
+    profilePicture: user.profilePicture,
+    requests: user.requests,
+    likedSongs: user.likedSongs,
+    favouriteGenres: user.favouriteGenres,
+    channels: user.channels
+  });
 })

@@ -25,6 +25,10 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             ...props,
             profileImgSrc: state.userStore.profileImgSrc,
             username: state.userStore.username,
+            requests: state.userStore.requests,
+            likedSongs: state.userStore.likedSongs,
+            favouriteGenres: state.userStore.favouriteGenres,
+            channels: state.userStore.channels
         };
     };
 
@@ -51,6 +55,10 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
 export interface IInnerProfileProps extends IEnhancedComponentProps {
     profileImgSrc?: string;
     username?: string;
+    requests?: string[];
+    likedSongs?: string[];
+    favouriteGenres?: string[];
+    channels?: string[];
 }
 
 export interface IInnerProfileState extends IEnhancedComponentState {

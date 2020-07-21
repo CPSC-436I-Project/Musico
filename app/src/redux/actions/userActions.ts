@@ -2,13 +2,23 @@ import {UserEnum} from "../reducers/userReducer";
 import { API_URL } from "src/utility/constants";
 import { setCookie, getCookie, deleteCookie } from "src/utility/cookies";
 
-export const setUser = (id: string, username: string, email: string, profilePicture: string) => {
+export const setUser = (id: string, username: string, email: string, profilePicture: string,
+                        requests: string[], likedSongs: string[], favouriteGenres: string[], channels: string[]) => {
+
+    console.log("inside setUser");
+    console.log(username);
+    console.log(requests);
+
     return {
         type: UserEnum.SET_USER,
         userId: id,
         username: username,
         email: email,
         profilePicture: profilePicture,
+        requests: requests,
+        likedSongs: likedSongs,
+        favouriteGenres: favouriteGenres,
+        channels: channels
     }
 };
 
@@ -24,7 +34,6 @@ export const removeUser = () => {
         dispatch(resetUser());
     }
 }
-
 
 export const createUser = (username: string, email: string, password: string, errorCallback: (message: string) => void) => {
     let newUser = {
@@ -54,7 +63,8 @@ export const createUser = (username: string, email: string, password: string, er
                     // store the user token as a cookie
                     setCookie('auth-token', user.token, 70)
                     // set the user in redux to be the current user
-                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture, user.requests,
+                        user.likedSongs, user.favouriteGenres, user.channels));
                 }
             }
         })
@@ -91,8 +101,8 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
                     // store the user token as a cookie
                     setCookie('auth-token', user.token, 70)
                     // set the user in redux to be the current user
-                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
-                }
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture, user.requests,
+                        user.likedSongs, user.favouriteGenres, user.channels));                }
             }  
         })
         .catch(err => {
@@ -122,7 +132,8 @@ export const autoLoginUser = (callback: () => void) => {
                 const user = res.json;
                 if (user) {
                     // set the user in redux to be the current user
-                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture));
+                    dispatch(setUser(user.id, user.username, user.email, user.profilePicture, user.requests,
+                        user.likedSongs, user.favouriteGenres, user.channels));
                 } else {
                     console.log("You have been logged out, please log in!");
                     callback();

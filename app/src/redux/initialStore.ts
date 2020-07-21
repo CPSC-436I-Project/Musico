@@ -22,9 +22,12 @@ export default {
 	userStore: {
 		userId: null,
 		username: null,
-		password: null,
 		email: null,
 		profileImgSrc: profilePlaceholder,
+		requests: null,
+		likedSongs: null,
+		favouriteGenres: null,
+		channels: null,
 	},
 	songListStore: {
 		songs: defaultSongs
