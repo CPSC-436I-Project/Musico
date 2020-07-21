@@ -4,11 +4,6 @@ import { setCookie, getCookie, deleteCookie } from "src/utility/cookies";
 
 export const setUser = (id: string, username: string, email: string, profilePicture: string,
                         requests: string[], likedSongs: string[], favouriteGenres: string[], channels: string[]) => {
-
-    console.log("inside setUser");
-    console.log(username);
-    console.log(requests);
-
     return {
         type: UserEnum.SET_USER,
         userId: id,

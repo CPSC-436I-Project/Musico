@@ -6,10 +6,12 @@ import {Image} from "./Image"
 import {IStore} from "../redux/initialStore";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
-import { TextButton } from "./buttons/TextButton";
-import { removeUser } from "src/redux/actions/userActions";
+import {TextButton} from "./buttons/TextButton";
+import {removeUser} from "src/redux/actions/userActions";
 import {GenreEnum} from "./index";
 import {Song} from "./index";
+import {DashboardSongInfo} from "./DashboardSongInfo";
+import {ProfileSongInfo} from "./ProfileSongInfo";
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
 
@@ -20,9 +22,14 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
 
     private constructor(props: IInnerProfileProps) {
         super(props);
+        this.state = {
+            requestsDetails: [],
+            likedSongDetails: []
+        };
+        this.getSongs = this.getSongs.bind(this);
     }
-    
-    public static mapStateToProps:(state: IStore, props: IInnerProfileProps) => IInnerProfileProps = (state: IStore, props: IInnerProfileProps) => {
+
+    public static mapStateToProps: (state: IStore, props: IInnerProfileProps) => IInnerProfileProps = (state: IStore, props: IInnerProfileProps) => {
         return {
             ...props,
             profileImgSrc: state.userStore.profileImgSrc,
@@ -39,7 +46,44 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         // TODO: route to the <App> so that login screen is shown or refresh the page
     };
 
+    private getSongs(idList: string[], stateToUpdate: Song[]): void {
+        let that = this;
+        let updatedSongs: Song[] = [];
+        Promise.all(
+            // queue.map((songID: string) => fetch('/songs/' + songID)            // for deployment
+            idList.map((songID: string) => fetch('http://localhost:9000/songs/' + songID)))
+            .then((responses) => {
+                return Promise.all(responses.map(response => response.json()))
+            })
+            .then((songs: Song[]) => {
+                songs.forEach(function (song: Song) {
+                    updatedSongs.push(song);
+                })
+            })
+            .then(() => {
+                if (stateToUpdate === this.state.requestsDetails) {
+                    return that.setState({requestsDetails: updatedSongs});
+                } else {
+                    return that.setState({likedSongDetails: updatedSongs});
+                }
+            })
+    }
+
+    public componentDidMount(): void {
+        this.getSongs(this.props.requests, this.state.requestsDetails);
+        this.getSongs(this.props.likedSongs, this.state.likedSongDetails);
+    };
+
     public render(): ReactNode {
+        let requestedSongsList: any[] = [];
+        this.state.requestsDetails.forEach(function (song: Song) {
+            requestedSongsList.push(<ProfileSongInfo
+                genre={song.genre}
+                pic={song.albumCover}
+                name={song.songName}
+                artists={song.artists}
+            />);
+        });
         return (
             <div className="inner_profile">
                 <div className="profile_head">
@@ -48,6 +92,9 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                     <span className="log_out">
                         <TextButton text="Log out" onAction={this.logOut} width={100}/>
                     </span>
+                </div>
+                <div className="profile_requested_songs">
+                    {requestedSongsList}
                 </div>
             </div>
         );
@@ -64,7 +111,8 @@ export interface IInnerProfileProps extends IEnhancedComponentProps {
 }
 
 export interface IInnerProfileState extends IEnhancedComponentState {
-
+    requestsDetails: Song[];
+    likedSongDetails: Song[];
 }
 
 // @ts-ignore
