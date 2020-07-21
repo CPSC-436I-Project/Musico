@@ -82,6 +82,7 @@ class LoginScreen extends Container {
 				</div>
 				<div className={"flex-column-center"}>
 					<ExpandableButton
+						buttonColour={"#6236ff"}
 						text={"Login"}
 						width={350}
 						child={loginButtonChild}
