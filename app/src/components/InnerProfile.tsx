@@ -44,6 +44,10 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         // TODO: route to the <App> so that login screen is shown or refresh the page
     };
 
+    private updateProfilePic() {
+        // TODO: implement action/reducer for this
+    }
+
     private getSongs(idList: string[], stateToUpdate: Song[]): void {
         let that = this;
         let updatedSongs: Song[] = [];
@@ -100,9 +104,13 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                 <div className="profile_head">
                     <Image path={this.props.profileImgSrc} width={170} height={170}/>
                     <h2>{this.props.username || "Unknown User"}</h2>
+                    <span className="update_profile_pic">
+                        <TextButton text="Update Profile Picture" onAction={this.updateProfilePic} width={100}/>
+                    </span>
                     <span className="log_out">
                         <TextButton text="Log out" onAction={this.logOut} width={100}/>
                     </span>
+
                 </div>
                 <div className="profile_fav_genres">
                     <h2> Favourite Genres </h2>
