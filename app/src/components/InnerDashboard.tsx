@@ -5,7 +5,8 @@ import "./Components.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
 import {Image} from "./Image"
 import {GenreEnum} from "./index";
-import {ISidebarProps} from "./Sidebar";
+import {Song} from "./index";
+
 
 class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashboardState> {
 
@@ -110,16 +111,6 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                 </div>
             </div>);
     }
-}
-
-interface Song {
-    songName: string,
-    artists: string[],
-    genre: string,
-    src: string,
-    requesterID: any,
-    albumCover: string,
-    numVotes: number
 }
 
 export interface IInnerDashboardProps extends IEnhancedComponentProps {

@@ -8,6 +8,8 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
 import { TextButton } from "./buttons/TextButton";
 import { removeUser } from "src/redux/actions/userActions";
+import {GenreEnum} from "./index";
+import {Song} from "./index";
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
 
@@ -62,6 +64,7 @@ export interface IInnerProfileProps extends IEnhancedComponentProps {
 }
 
 export interface IInnerProfileState extends IEnhancedComponentState {
+
 }
 
 // @ts-ignore
