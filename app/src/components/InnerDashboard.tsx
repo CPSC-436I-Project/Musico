@@ -1,7 +1,8 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./Components.css";
+import "./css/Components.css";
+import "./css/Dashboard.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
 import {Image} from "./Image"
 
@@ -14,7 +15,7 @@ class InnerDashboard extends EnhancedComponent {
     public render(): ReactNode {
         const audioWaveIcon = "https://img.icons8.com/nolan/64/audio-wave.png"
         return (
-            <div className="inner_dashboard">
+            <div className="inner-dashboard">
                 <div 
                     style={{
                         display: "flex",
@@ -26,7 +27,7 @@ class InnerDashboard extends EnhancedComponent {
                     <Image width={40} height={40} path={audioWaveIcon}/>
                     <h2> Trending Music </h2>
                 </div>
-                <div className="dashboard_trending">
+                <div className="dashboard-trending">
                     <DashboardSongInfo genre={"Electronic"}/>
                     <DashboardSongInfo genre={"Hip-Hop"}/>
                     <DashboardSongInfo genre={"Jazz"}/>
