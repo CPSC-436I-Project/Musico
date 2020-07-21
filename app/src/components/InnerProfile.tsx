@@ -8,9 +8,7 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
 import {TextButton} from "./buttons/TextButton";
 import {removeUser} from "src/redux/actions/userActions";
-import {GenreEnum} from "./index";
 import {Song} from "./index";
-import {DashboardSongInfo} from "./DashboardSongInfo";
 import {ProfileSongInfo} from "./ProfileSongInfo";
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
@@ -75,10 +73,23 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
     };
 
     public render(): ReactNode {
+        let favGenreList: any[] = [];
+        this.props.favouriteGenres.forEach(function (genre: string) {
+            favGenreList.push(<TextButton
+                text={genre}
+            />)
+        });
         let requestedSongsList: any[] = [];
         this.state.requestsDetails.forEach(function (song: Song) {
             requestedSongsList.push(<ProfileSongInfo
-                genre={song.genre}
+                pic={song.albumCover}
+                name={song.songName}
+                artists={song.artists}
+            />);
+        });
+        let likedSongsList: any[] = [];
+        this.state.likedSongDetails.forEach(function (song: Song) {
+            likedSongsList.push(<ProfileSongInfo
                 pic={song.albumCover}
                 name={song.songName}
                 artists={song.artists}
@@ -93,8 +104,23 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                         <TextButton text="Log out" onAction={this.logOut} width={100}/>
                     </span>
                 </div>
-                <div className="profile_requested_songs">
-                    {requestedSongsList}
+                <div className="profile_fav_genres">
+                    <h2> Favourite Genres </h2>
+                    {favGenreList}
+                </div>
+                <div className="profile_songs">
+                    <div className="profile_requested_songs">
+                        <h2> Requested Songs </h2>
+                        <div className="profile_requested_songs_inner">
+                            {requestedSongsList}
+                        </div>
+                    </div>
+                    <div className="profile_liked_songs">
+                        <h2> Liked Songs </h2>
+                        <div className="profile_liked_songs_inner">
+                            {likedSongsList}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

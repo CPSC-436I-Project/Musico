@@ -7,7 +7,6 @@ import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
 class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileSongInfoState> {
     public static defaultProps: IProfileSongInfoProps = {
         ...EnhancedComponent.defaultProps,
-        color: "#ffffff",
         width: 125,
         height: 75,
         pic: thumbnailPlaceholder,
@@ -26,30 +25,29 @@ class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileS
         });
         let artists = artistsString.substring(2);
         return (
-            <div className={"profile-song-info-container"} style={{
-                color: this.props.color,
-                width: this.props.width
-            }}>
-                <Image
-                    path={this.props.pic}
-                    name={"Album"}
-                    width={this.props.width}
-                    height={this.props.height}
-                />
-                <p className={"song-description"}>{this.props.name} <br/> {artists}</p>
+            <div className={"profile_song_info_container"}>
+                <div className={"profile_song_image"}>
+                    <Image
+                        path={this.props.pic === "" ? thumbnailPlaceholder : this.props.pic}
+                        name={"Album"}
+                        width={this.props.width}
+                        height={this.props.height}
+                    />
+                </div>
+                <div className={"profile_song_description"}>
+                    <p>{this.props.name} <br/> {artists}</p>
+                </div>
             </div>
         )
     }
 }
 
 export interface IProfileSongInfoProps extends IEnhancedComponentProps {
-    color?: string,
     width?: number,
     height?: number,
     pic?: string,
     name?: string,
-    artists?: string[],
-    genre?: string
+    artists?: string[]
 }
 
 export interface IProfileSongInfoState extends IEnhancedComponentState {

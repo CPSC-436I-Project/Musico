@@ -114,20 +114,53 @@
     align-items: center;
 }
 
-.inner_profile .profile_head .log_out{
+.log_out{
     display: block;
 }
 
+.profile_head h2 {
+    margin-left: 50px;
+}
 
-.inner_profile img {
+.profile_head img {
     border: 3px solid #6236FF;
     padding: 0;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.inner_profile h2 {
-    margin-left: 50px;
+.profile_songs {
+    display: flex;
+}
+
+.profile_requested_songs {
+    flex-grow: 1;
+}
+
+.profile_requested_songs_inner {
+    max-height: 425px;
+    overflow: scroll;
+}
+
+.profile_liked_songs {
+    flex-grow: 1;
+}
+
+.profile_liked_songs_inner {
+    max-height: 425px;
+    overflow: scroll;
+}
+
+.profile_song_info_container {
+    display: flex;
+}
+
+.profile_song_image {
+    margin: 5px;
+}
+
+.profile_song_description {
+    flex-grow: 1;
 }
 
 .song-info-container {
