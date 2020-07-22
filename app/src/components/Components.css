@@ -129,6 +129,21 @@
     overflow: hidden;
 }
 
+.update_profile_pic_bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.update_profile_pic_input {
+    flex-grow: 1;
+}
+
+.update_profile_pic_button {
+    max-width: 100px;
+}
+
+
 .profile_songs {
     display: flex;
 }

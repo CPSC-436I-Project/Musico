@@ -1,6 +1,8 @@
 import * as React from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
+import {TextInput} from "./TextInput";
+import {TextButton} from "./buttons/TextButton";
 
 class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, IUpdateProfilePicBarState> {
     public static defaultProps: IUpdateProfilePicBarProps = {
@@ -14,14 +16,20 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
 
     public render() {
         if (this.props.shown) {
-
-            console.log(this.props.shown);
-
-            return <div> UPDATE PROFILE BAR WILL BE HERE </div>
+            return <div className={"update_profile_pic_bar"}>
+                <div className={"update_profile_pic_input"}>
+                    <TextInput
+                        defaultText={"Enter profile picture URL here"}
+                    />
+                </div>
+                <div className={"update_profile_pic_button"}>
+                    <TextButton
+                        text={"Update"}
+                        width={100}
+                    />
+                </div>
+            </div>
         } else {
-
-            console.log(this.props.shown);
-
             return null;
         }
     }
