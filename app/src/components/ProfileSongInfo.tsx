@@ -34,8 +34,8 @@ class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileS
                         height={this.props.height}
                     />
                 </div>
-                <div className={"profile_song_description"}>
-                    <p>{this.props.name} <br/> {artists}</p>
+                <div className={"profile_song_description_container"}>
+                    <p className={"profile_song_description"}>{this.props.name} <br/> {artists}</p>
                 </div>
             </div>
         )

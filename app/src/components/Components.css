@@ -159,8 +159,10 @@
     margin: 5px;
 }
 
-.profile_song_description {
+.profile_song_description_container {
     flex-grow: 1;
+    overflow: scroll;
+    white-space: nowrap;
 }
 
 .song-info-container {
@@ -173,7 +175,7 @@
     white-space: nowrap;
 }
 
-.song-description {
+.song-description .profile_song_description{
     font-size: 20px;
     font-family: "Roboto";
     font-weight: 500;
