@@ -14,8 +14,14 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
 
     public render() {
         if (this.props.shown) {
+
+            console.log(this.props.shown);
+
             return <div> UPDATE PROFILE BAR WILL BE HERE </div>
         } else {
+
+            console.log(this.props.shown);
+
             return null;
         }
     }

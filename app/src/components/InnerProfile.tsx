@@ -27,7 +27,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             updateProfile: false
         };
         this.getSongs = this.getSongs.bind(this);
-        this.profileUpdateShown = this.profileUpdateShown.bind(this);
+        this.picUpdateShown = this.picUpdateShown.bind(this);
     }
 
     public static mapStateToProps: (state: IStore, props: IInnerProfileProps) => IInnerProfileProps = (state: IStore, props: IInnerProfileProps) => {
@@ -47,10 +47,8 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         // TODO: route to the <App> so that login screen is shown or refresh the page
     };
 
-    private profileUpdateShown() {
-        this.setState((state, props) => ({
-            updateProfile: !state.updateProfile
-        }));
+    private picUpdateShown = (callback: () => void) => {
+        this.setState({updateProfile: !this.state.updateProfile}, callback);
     }
 
     private getSongs(idList: string[], stateToUpdate: Song[]): void {
@@ -110,7 +108,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                     <Image path={this.props.profileImgSrc} width={170} height={170}/>
                     <h2>{this.props.username || "Unknown User"}</h2>
                     <span className="update_profile_pic">
-                        <TextButton text="Update Profile Picture" onAction={this.profileUpdateShown} width={100}/>
+                        <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={100}/>
                     </span>
                     <span className="log_out">
                         <TextButton text="Log out" onAction={this.logOut} width={100}/>
