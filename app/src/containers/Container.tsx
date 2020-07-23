@@ -4,6 +4,7 @@ import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
+import {PageEnum} from "./index";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -13,12 +14,13 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 	private readonly childRender: () => ReactNode;
 
-	public popupRender: () => ReactNode;
+	public popupRender: () => ReactNode; 
 
 	public static mapStateToProps:(state: IStore, props: IContainerProps) => IContainerProps = (state: IStore, props: IContainerProps) => {
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
+			selectedGenre: state.chatRoomStore.selectedGenre
 		};
 	}
 
@@ -67,11 +69,14 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 export interface IContainerProps {
 	popupOpen?: boolean;
 	dispatch?: any;
+	changePage?: (page: PageEnum) => void;
+	selectedGenre?: string;
 }
 
 export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
+	selectedGenre?: string;
 }
 
 export {Container};

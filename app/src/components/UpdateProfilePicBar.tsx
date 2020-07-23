@@ -25,7 +25,7 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         this.setState({url: url.trim()});
     };
 
-    private updateButtonOnClick(callback: () => void): void {
+    private updateButtonOnClick(callback: () => void): void { // connect this to mongo !!!
         this.props.dispatch(updateUser(this.state.url));
         this.props.onComplete();
         callback();
@@ -43,7 +43,7 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
                 <TextButton
                     text={"Update"}
                     width={100}
-                    onAction={this.updateButtonOnClick}
+                    onAction={this.updateButtonOnClick} // add error handler for invalid urls
                 />
             </div>
         </div>

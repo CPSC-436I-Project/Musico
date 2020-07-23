@@ -18,6 +18,7 @@ export default {
 	},
 	chatRoomStore: {
 		selectedGenre: null,
+		messages: [],
 	},
 	userStore: {
 		userId: null,

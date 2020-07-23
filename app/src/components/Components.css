@@ -90,113 +90,12 @@
     margin-left: 3px;
 }
 
-.dashboard_trending {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.dashboard_song {
-    margin: 10px;
-}
-
 .unselectable {
     user-select: none;
 }
 
-.inner_profile {
-    margin: 100px 100px 0px;
-}
-
-.inner_profile .profile_head {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
 .log_out{
     display: block;
-}
-
-
-/* MOVED TO PROFILE.CSS */
-
-/*.profile_head h2 {*/
-/*    margin-left: 50px;*/
-/*}*/
-
-/*.profile_head img {*/
-/*    border: 3px solid #6236FF;*/
-/*    padding: 0;*/
-/*    border-radius: 50%;*/
-/*    overflow: hidden;*/
-/*}*/
-
-/*.update_profile_pic_bar {*/
-/*    display: flex;*/
-/*    justify-content: center;*/
-/*    align-items: center;*/
-/*}*/
-
-/*.update_profile_pic_input {*/
-/*    flex-grow: 1;*/
-/*}*/
-
-/*.update_profile_pic_button {*/
-/*    max-width: 100px;*/
-/*}*/
-
-/*.profile_songs {*/
-/*    display: flex;*/
-/*}*/
-
-/*.profile_requested_songs {*/
-/*    flex-grow: 1;*/
-/*}*/
-
-/*.profile_requested_songs_inner {*/
-/*    max-height: 425px;*/
-/*    overflow: scroll;*/
-/*}*/
-
-/*.profile_liked_songs {*/
-/*    flex-grow: 1;*/
-/*}*/
-
-/*.profile_liked_songs_inner {*/
-/*    max-height: 425px;*/
-/*    overflow: scroll;*/
-/*}*/
-
-/*.profile_song_info_container {*/
-/*    display: flex;*/
-/*}*/
-
-/*.profile_song_image {*/
-/*    margin: 5px;*/
-/*}*/
-
-/*.profile_song_description_container {*/
-/*    flex-grow: 1;*/
-/*    overflow: scroll;*/
-/*    white-space: nowrap;*/
-/*}*/
-
-.song-info-container {
-    display: inline-flex;
-    flex-direction: column;
-}
-
-.song-description-container {
-    overflow: scroll;
-    white-space: nowrap;
-}
-
-.song-description .profile_song_description{
-    font-size: 20px;
-    font-family: "Roboto";
-    font-weight: 500;
-    margin: 10px 0px;
 }
 
 .music-player-queue {

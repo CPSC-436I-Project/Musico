@@ -56,7 +56,6 @@ export const createUser = (username: string, email: string, password: string, er
         .then(res => {
             if (res.status !== 200) {
                 // TODO: this needs to send an error to the front end
-                console.log(res.text);
                 errorCallback(res.text);
             } else {
                 // get the created user
@@ -94,7 +93,6 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
         .then(res => {
             if (res.status !== 200) {
                 // TODO: this needs to send an error to the front end
-                console.log(res.text);
                 errorCallback(res.text);
             } else {
                 // get the created user

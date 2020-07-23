@@ -7,6 +7,10 @@ const messageObject = {
         type: mongoose.Types.ObjectId,
         required: true
     },
+    username: {
+        type: String,
+        required: true
+    },
     message: {
         type: String,
         required: true
