@@ -7,6 +7,7 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
 import {GenericScreen} from "./TestScreens/GenericScreen";
 import {Profile} from "./Profile";
+import Chat from "src/components/Chat";
 
 class Dashboard extends Container {
 	public render(): ReactNode {
