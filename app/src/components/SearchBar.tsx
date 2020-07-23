@@ -17,6 +17,7 @@ class SearchBar extends TextInput {
         border: false,
         borderColor: "black",
         fontSize: 18,
+        onEnterDisabled: false,
         submit: () => {},
     };
 

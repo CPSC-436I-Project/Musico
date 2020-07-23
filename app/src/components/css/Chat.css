@@ -1,0 +1,21 @@
+.chat {
+    height: 400px;
+}
+
+.chat .scrollable-container {
+    overflow: auto;
+    height: 400px;
+}
+
+.chat .messageItem {
+    display: block;
+}
+
+.chat .messageItem .main-button .center-mid {
+    margin: 0 10px;
+}
+
+.chat .chat-input .enhanced-component-container {
+    display: inline-block;
+    width: 88%;
+}

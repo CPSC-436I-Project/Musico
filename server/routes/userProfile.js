@@ -65,9 +65,19 @@ router.post('/login', async (req, res) => {
   res.header('auth-token', token).json({id: user._id, username: user.username, email: user.email, token: token});
 })
 
-module.exports = router;
-
 router.get('/getFromToken', verifyToken, async (req, res) => {
   const user = await UserProfile.findById(req.user._id);
   res.json({id: user._id, username: user.username, email: user.email, profilePicture: user.profilePicture});
-})
+});
+
+router.get('/username/:id', verifyToken, async (req, res) => {
+  const user = await UserProfile.findById(req.params.id);
+  if (user !== undefined && user !== null) {
+    res.json({id: user._id, username: user.username});
+  } else {
+    res.json({id: "invalid", username: "Deleted User"});
+  } 
+  
+});
+
+module.exports = router;
