@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
-import {hidePopUp, showPopUp, hideSidebar, showSidebar, hideMusicSidebar} from "../redux/actions";
+import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
@@ -53,18 +53,6 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.setState({profileOpen: !this.state.profileOpen}, callback)
 	};
 
-	toggleSidebar = (callback: () => void) => {
-		this.setState({sidebarOpen: !this.state.sidebarOpen}, callback)
-	}
-
-	onMenuClick = () => {
-        if (this.props.sidebarOpen) {
-            this.props.dispatch(hideSidebar());
-        } else {
-            this.props.dispatch(showSidebar());
-        }
-	}
-
 	private wrapRender(): void {
 		this.render = (): ReactNode => {
 			return (
@@ -94,4 +82,4 @@ export interface IContainerState {
 	musicSidebarOpen?: boolean;
 }
 
-export {Container};
+export {Container}

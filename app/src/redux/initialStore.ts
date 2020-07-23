@@ -35,6 +35,7 @@ export default {
 		sidebarOpen: true
 	},
 	musicSidebarStore: {
-		musicSidebarOpen: true
+		musicSidebarOpen: true,
+		selectedGenre: null,
 	}
 };

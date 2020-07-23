@@ -26,5 +26,6 @@ export interface ISidebarStore {
 }
 
 export interface IMusicSidebarStore {
-	musicSidebarOpen: boolean
+	musicSidebarOpen: boolean,
+	selectedGenre: GenreEnum | null;
 }

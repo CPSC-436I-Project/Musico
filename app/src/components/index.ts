@@ -5,6 +5,7 @@ import AddSongForm from "./AddSongForm";
 import {EnhancedComponent} from "./EnhancedComponent";
 import Header from "./Header";
 import {Image} from "./Image";
+import MusicSidebar from "./MusicSidebar";
 import Sidebar from "./Sidebar";
 import {TextInput} from "./TextInput";
 
@@ -52,6 +53,6 @@ function decodeHTML(snippet: string) {
 export {
 	GenreEnum, ExpansionState,
 	Button, TextButton, ExpandableButton,
-	AddSongForm, EnhancedComponent, Header, Image, Sidebar, TextInput,
+	AddSongForm, EnhancedComponent, Header, Image, MusicSidebar, Sidebar, TextInput,
 	youtubeQuery, decodeHTML,
 };

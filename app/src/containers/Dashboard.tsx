@@ -2,13 +2,11 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {Header, Sidebar} from "../components";
+import {Header, Sidebar, MusicSidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {DebugScreen} from "./TestScreens/DebugScreen";
 import {GenericScreen} from "./TestScreens/GenericScreen";
 import {Profile} from "./Profile";
-import MusicSidebar from "src/components/MusicSidebar";
-import {hideMusicSidebar} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
 

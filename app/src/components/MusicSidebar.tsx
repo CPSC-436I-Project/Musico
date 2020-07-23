@@ -1,14 +1,17 @@
 import * as React from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {IStore} from "../redux/initialStore";
+import closeIcon from "../icons/close.png";
 import {connect} from "react-redux";
+import {GenreEnum} from ".";
+import {hideMusicSidebar} from "../redux/actions/musicSidebarActions";
 import {Image} from "./Image";
-import {TextButton} from "./buttons/TextButton";
 import {ImageButton} from "./buttons/ImageButton";
 import {MusicPlayerQueue} from "./MusicPlayerQueue";
+import {TextButton} from "./buttons/TextButton";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
-import {hideMusicSidebar} from "../redux/actions/musicSidebarActions";
-import closeIcon from "../icons/close.png";
+import { API_URL } from "src/utility/constants";
+import "./css/MusicSidebar.css";
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {
     public static defaultProps: IMusicSidebarProps = {
@@ -19,13 +22,15 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         return {
             ...props,
             musicSidebarOpen: state.musicSidebarStore.musicSidebarOpen,
+            selectedGenre: state.musicSidebarStore.selectedGenre,
         };
     }
 
     protected constructor(props: IMusicSidebarProps) {
         super(props);
         this.state = {
-            musicSidebarOpen: true
+            musicSidebarOpen: true,
+            queue: [],
         };
     }
 
@@ -71,10 +76,12 @@ export interface IMusicSidebarProps extends IEnhancedComponentProps {
     height?: number,
     dispatch?: any,
     musicSidebarOpen?: boolean,
+    selectedGenre?: GenreEnum | null;
 }
 
 export interface IMusicSidebarState extends IEnhancedComponentState {
-    musicSidebarOpen: boolean
+    musicSidebarOpen: boolean,
+    queue: any[],
 }
 
 // @ts-ignore

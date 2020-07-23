@@ -44,7 +44,7 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
     public render(): ReactNode {
         return (
             <div className="header">
-                <ImageButton src={menuIcon} width={40} height={40} buttonColour="transparent" onAction={this.props.onMenuClick}/>
+                <ImageButton src={menuIcon} width={40} height={40} buttonColour="transparent" onAction={this.onMenuClick}/>
                 <div className="logo-icon">
                     <Image width={40} height={40} path={musicNoteIcon} />
                 </div>
