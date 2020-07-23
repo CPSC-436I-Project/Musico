@@ -63,6 +63,7 @@ export interface IHeaderProps extends IEnhancedComponentProps {
     profileImgSrc?: string,
     sidebarOpen: boolean,
     onProfileClick?: (callback: () => void) => void;
+    onMenuClick?: (callback: () => void) => void;
 }
 
 export interface IHeaderState extends IEnhancedComponentState {

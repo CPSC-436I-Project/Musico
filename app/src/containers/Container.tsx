@@ -81,6 +81,8 @@ export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
 	selectedGenre?: string;
+	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 }
 
 export {Container}
