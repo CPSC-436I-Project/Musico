@@ -1,6 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import "./Button.css";
+import "../css/Sidebar.css";
 import {Button, IButtonProps, IButtonState} from "./Button";
 import {ITextButtonProps} from "./TextButton";
 
