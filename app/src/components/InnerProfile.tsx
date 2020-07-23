@@ -10,7 +10,7 @@ import {TextButton} from "./buttons/TextButton";
 import {removeUser} from "src/redux/actions/userActions";
 import {Song} from "./index";
 import {ProfileSongInfo} from "./ProfileSongInfo";
-import {UpdateProfilePicBar} from "./UpdateProfilePicBar";
+import UpdateProfilePicBar from "./UpdateProfilePicBar";
 
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
@@ -106,13 +106,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         return (
             <div className="inner_profile">
                 <div className="profile_head">
-                    {/*<Image path={this.props.profileImgSrc} width={170} height={170}/>*/}
-
-
-                    <Image path={profilePlaceholder} width={170} height={170}/>
-                    {console.log(this.props.profileImgSrc)}
-
-
+                    <Image path={this.props.profileImgSrc} width={170} height={170}/>
                     <h2>{this.props.username || "Unknown User"}</h2>
                     <span className="update_profile_pic">
                         <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={100}/>
@@ -122,7 +116,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                     </span>
                 </div>
                 <div>
-                    <UpdateProfilePicBar shown={this.state.updateProfile}/>
+                    {this.state.updateProfile && <UpdateProfilePicBar onComplete={this.picUpdateShown}/>}
                 </div>
                 <div className="profile_fav_genres">
                     <h2> Favourite Genres </h2>

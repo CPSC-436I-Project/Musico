@@ -4,12 +4,12 @@ import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedCompon
 import {TextInput} from "./TextInput";
 import {TextButton} from "./buttons/TextButton";
 import {updateUser} from "../redux/actions/userActions";
+import {connect} from "react-redux";
 
 
 class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, IUpdateProfilePicBarState> {
     public static defaultProps: IUpdateProfilePicBarProps = {
-        ...EnhancedComponent.defaultProps,
-        shown: false
+        ...EnhancedComponent.defaultProps
     };
 
     protected constructor(props: IUpdateProfilePicBarProps) {
@@ -27,38 +27,36 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
 
     private updateButtonOnClick(callback: () => void): void {
         this.props.dispatch(updateUser(this.state.url));
+        this.props.onComplete();
         callback();
     }
 
     public render() {
-        if (this.props.shown) {
-            return <div className={"update_profile_pic_bar"}>
-                <div className={"update_profile_pic_input"}>
-                    <TextInput
-                        defaultText={"Enter profile picture URL here"}
-                        submit={this.updateUrl}
-                    />
-                </div>
-                <div className={"update_profile_pic_button"}>
-                    <TextButton
-                        text={"Update"}
-                        width={100}
-                        onAction={this.updateButtonOnClick}
-                    />
-                </div>
+        return <div className={"update_profile_pic_bar"}>
+            <div className={"update_profile_pic_input"}>
+                <TextInput
+                    defaultText={"Enter profile picture URL here"}
+                    submit={this.updateUrl}
+                />
             </div>
-        } else {
-            return null;
-        }
+            <div className={"update_profile_pic_button"}>
+                <TextButton
+                    text={"Update"}
+                    width={100}
+                    onAction={this.updateButtonOnClick}
+                />
+            </div>
+        </div>
     };
 }
 
 export interface IUpdateProfilePicBarProps extends IEnhancedComponentProps {
-    shown: boolean;
+    onComplete?: any;
 }
 
 export interface IUpdateProfilePicBarState extends IEnhancedComponentState {
     url: string;
 }
 
-export {UpdateProfilePicBar};
+// @ts-ignore
+export default connect()(UpdateProfilePicBar);
