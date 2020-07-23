@@ -113,30 +113,30 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                 <div className="profile-head">
                     <Image path={this.props.profileImgSrc} width={170} height={170}/>
                     <h2>{this.props.username || "Unknown User"}</h2>
-                    <span className="update_profile_pic">
+                    <span className="update-profile-pic">
                         <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={100}/>
                     </span>
-                    <span className="log_out">
+                    <span className="log-out">
                         <TextButton text="Log out" onAction={this.logOut} width={100}/>
                     </span>
                 </div>
                 <div>
                     {this.state.updateProfile && <UpdateProfilePicBar onComplete={this.picUpdateShown}/>}
                 </div>
-                <div className="profile_fav_genres">
+                <div className="profile-fav-genres">
                     <h2> Favourite Genres </h2>
                     {favGenreList}
                 </div>
-                <div className="profile_songs">
-                    <div className="profile_requested_songs">
+                <div className="profile-songs">
+                    <div className="profile-requested-songs">
                         <h2> Requested Songs </h2>
-                        <div className="profile_requested_songs_inner">
+                        <div className="profile-requested-songs-inner">
                             {requestedSongsList}
                         </div>
                     </div>
-                    <div className="profile_liked_songs">
+                    <div className="profile-liked-songs">
                         <h2> Liked Songs </h2>
-                        <div className="profile_liked_songs_inner">
+                        <div className="profile-liked-songs-inner">
                             {likedSongsList}
                         </div>
                     </div>

@@ -42,7 +42,7 @@ export const createUser = (username: string, email: string, password: string, er
         username: username,
         email: email,
         password: password
-    }
+    };
     return (dispatch: any) => {
         // register the user
         return fetch(API_URL+'userprofiles/register', {
