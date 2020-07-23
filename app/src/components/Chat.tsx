@@ -11,6 +11,7 @@ import io from "socket.io-client";
 import { IMessageInterface } from "src/utility/messages";
 import { downloadMessages } from "src/redux/actions/chatRoomActions";
 import { getCookie } from "src/utility/cookies";
+import "./css/Chat.css";
 
 const SOCKET_IO_URL = "http://localhost:9000";
 const socket = io(SOCKET_IO_URL);
