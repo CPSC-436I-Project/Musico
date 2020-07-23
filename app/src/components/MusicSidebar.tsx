@@ -12,6 +12,10 @@ import {TextButton} from "./buttons/TextButton";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
 import { API_URL } from "src/utility/constants";
 import "./css/MusicSidebar.css";
+import io from "socket.io-client";
+
+const SOCKET_IO_URL = "http://localhost:9000";
+const socket = io(SOCKET_IO_URL);
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {
     public static defaultProps: IMusicSidebarProps = {
@@ -34,6 +38,29 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         };
     }
 
+    componentDidMount = () => {
+        if (this.props.selectedGenre === null) {
+            console.log("No selected genre!");
+        }
+        socket.emit('join', {genre: this.props.selectedGenre}, () => {
+            this.getChannelQueue();
+        });
+        console.log(socket);
+    }
+
+    getChannelQueue = () => {
+        console.log("Getting queue");
+        fetch(API_URL+"queues/"+this.props.selectedGenre, {
+            method: 'GET',
+        })
+        .then(res => res.text())
+        .then(res => {
+            let queue = JSON.parse(res);
+            this.setState({queue: queue});
+        });
+    }
+
+
     closeMusicSidebar = () => {
 		this.props.dispatch(hideMusicSidebar());
 	}
@@ -41,9 +68,9 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     public render() {
         return (  
             <div className="music-sidebar">
-                <span className="close-button">
+                {/* <span className="close-button">
 						<ImageButton src={closeIcon} onAction={this.closeMusicSidebar} height={20} width={20} buttonColour="grey"/>
-				</span>
+				</span> */}
                 <div className="currently-playing">
                     <Image
                         path={thumbnailPlaceholder}

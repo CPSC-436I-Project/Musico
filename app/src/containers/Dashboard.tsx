@@ -46,9 +46,6 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 					<div id={"dashboard-display"}>
 						{renderer}
 					</div>
-					<div id={"music_sidebar"}>
-						{this.props.musicSidebarOpen && <MusicSidebar />}
-					</div>
 				</div>
 			</div>
 		);

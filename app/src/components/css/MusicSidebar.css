@@ -18,20 +18,17 @@
 .music-sidebar {
     border-radius: 25px 0px 0px 25px;
     background-color: #242424;
-    padding: 50px 20px 15px 20px;
+    padding: 15px 20px 15px 20px;
     max-width: 100%;
-    /* max-height: 100%; */
     width: 210px;
-    height: 690px;
+    height: 70%;
     overflow-x: hidden;
-    /* overflow-y: hidden; */
     display: flex;
     flex-direction: column;
 }
 
 .music-sidebar .currently-playing {
     position: relative;
-    top: -25px;
     padding-left: 5px;
 }
 
@@ -45,22 +42,21 @@
     font-family: "Roboto", sans-serif;
     font-size: 14px;
     font-weight: 500;
-
 }
 
 .add-music-button {
-    position: fixed;
-    bottom: 160px;
+    position: sticky;
+    bottom: 0;
 }
 
-.close-button {
+/* .close-button {
     position: relative;
     top: -40px;
     width: 45px;
     height: 45px;
     right: 60px;
     margin-left: 50px;
-}
+} */
 
 .queue-header {
     background-color: #242424;
