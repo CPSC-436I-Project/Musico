@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./Components.css";
+import "./css/Components.css";
 
 class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 

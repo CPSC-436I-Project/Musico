@@ -12,7 +12,7 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
 		},
 		disabled: false,
 		buttonColour: "#a8a8a8",
-		buttonHoverColour: "#c9c9c9",
+		buttonHoverColour: "#383838",
 		buttonFocusedColour: "#6f6f6f",
 		width: 160,
 	};

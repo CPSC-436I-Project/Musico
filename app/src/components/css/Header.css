@@ -1,0 +1,42 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #202020;
+    padding: 10px 10px;
+    height: 54px;
+    position: relative;
+}
+
+.header .logo-icon {
+    position: absolute;
+    top: 25%;
+    padding-left: 70px;
+}
+
+.header .logo {
+    margin: 0 10px;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    color: #ffffff;
+    text-align: center;
+    padding: 100px;
+    text-decoration: none;
+    line-height: 25px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.header-right {
+    float: right;
+}
+
+.header-right .main-button {
+    border: 3px solid #6236FF;
+    padding: 0;
+    overflow: hidden;
+}

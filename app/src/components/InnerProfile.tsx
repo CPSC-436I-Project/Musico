@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./Components.css";
+import "./css/Profile.css";
 import {Image} from "./Image"
 import {IStore} from "../redux/initialStore";
 import profilePlaceholder from "../icons/profile-placeholder.png";
@@ -31,8 +31,8 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
 
     public render(): ReactNode {
         return (
-            <div className="inner_profile">
-                <div className="profile_head">
+            <div className="inner-profile">
+                <div className="profile-head">
                     <Image path={this.props.profileImgSrc} width={170} height={170}/>
                     <h2>{this.props.username || "Unknown User"}</h2>
                     <span className="log_out">

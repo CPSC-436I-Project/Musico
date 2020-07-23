@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./Components.css";
+import "./css/Components.css";
 import {TextButton} from "./buttons/TextButton";
 import { TextInput } from "./TextInput";
 import {connect} from "react-redux";
