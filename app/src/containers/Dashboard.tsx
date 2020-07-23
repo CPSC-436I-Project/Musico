@@ -42,7 +42,7 @@ class Dashboard extends Container {
 					<div id={"dashboard_sidebar"}>
 						{this.props.sidebarOpen && <Sidebar />}
 					</div>
-					<div id={"dashboard_display"}>
+					<div id={"dashboard-display"}>
 						{/*{this.state.profileOpen ? <Profile/> : <GenericScreen/>}*/}
 						{this.state.profileOpen ? <Profile/> : <DebugScreen/>}
 					</div>

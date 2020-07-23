@@ -7,6 +7,7 @@ import {decodeHTML, GenreEnum, Image, youtubeQuery} from "./index";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {ISongListObject} from "../utility/songs";
+import "./css/AddSongForm.css";
 
 class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState> {
 

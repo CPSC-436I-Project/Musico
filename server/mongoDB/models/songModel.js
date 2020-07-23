@@ -17,7 +17,8 @@ const songSchema = new Schema({
     },
     src: {
         type: String,
-        required: true
+        required: true,
+        index: {unique: true}
     },
     requesterID: {
         type: mongoose.Types.ObjectId,

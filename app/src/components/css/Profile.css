@@ -1,0 +1,20 @@
+.inner-profile {
+    margin: 100px 100px 0px;
+}
+
+.inner-profile .profile-head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.inner-profile img {
+    border: 3px solid #6236FF;
+    padding: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.inner-profile h2 {
+    margin-left: 50px;
+}

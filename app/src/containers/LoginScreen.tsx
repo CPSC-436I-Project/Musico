@@ -1,16 +1,16 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
-import {Container} from "./Container";
+import {Container, IContainerProps, IContainerState} from "./Container";
 import {TextButton, Image, ExpandableButton, TextInput} from "../components";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {IAddSongFormProps} from "../components/AddSongForm";
 import {createUser, loginUser} from "../redux/actions";
 
-class LoginScreen extends Container {
+class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 
-	public static mapStateToProps: (state: IStore, props: any) => IAddSongFormProps = (state: IStore, props: any) => {
+	public static mapStateToProps: (state: IStore, props: any) => ILoginScreenProps = (state: IStore, props: any) => {
 		return {
 			...props,
 			username: state.userStore.username,
@@ -29,33 +29,46 @@ class LoginScreen extends Container {
 
 		this.loginButtonOnClick = this.loginButtonOnClick.bind(this);
 		this.signUpButtonOnClick = this.signUpButtonOnClick.bind(this);
+		this.displayError = this.displayError.bind(this);
+
+		this.state = {
+			errorMessage: "",
+		}
 
 	}
 
+	private displayError(message: string) {
+		this.setState({errorMessage: message});
+	}
+
 	private loginButtonOnClick(callback: () => void): void {
-		this.props.dispatch(loginUser(this.loginUserNameTextRef.getText(), this.loginPasswordTextRef.getText()));
+		this.props.dispatch(loginUser(this.loginUserNameTextRef.getText(), this.loginPasswordTextRef.getText(), this.displayError));
 		callback();
 	}
 
 	private signUpButtonOnClick(callback: () => void): void {
-		this.props.dispatch(createUser(this.signUpUserNameTextRef.getText(), this.signUpEmailTextRef.getText(), this.signUpPasswordTextRef.getText()));
+		this.props.dispatch(createUser(this.signUpUserNameTextRef.getText(), this.signUpEmailTextRef.getText(), this.signUpPasswordTextRef.getText(), this.displayError));
 		callback();
 	}
 
 	public render(): ReactNode {
 		const loginButtonChild: ReactNode = <div className={"flex-column-center"}>
 			<TextInput
-				defaultText={"username"}
+				defaultText={"email"}
 				ref={(ref: TextInput) => {this.loginUserNameTextRef = ref; }}
 			/>
 			<TextInput
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.loginPasswordTextRef = ref; }}
 			/>
-			<TextButton text={"Done!"} width={70} onAction={this.loginButtonOnClick}/>
+			<TextButton text={"Log In"} width={70} onAction={this.loginButtonOnClick}/>
 		</div>;
 
 		const signUpButtonChild: ReactNode = <div className={"flex-column-center"}>
+			<TextInput
+				defaultText={"email"}
+				ref={(ref: TextInput) => {this.signUpEmailTextRef = ref; }}
+			/>
 			<TextInput
 				defaultText={"username"}
 				ref={(ref: TextInput) => {this.signUpUserNameTextRef = ref; }}
@@ -64,11 +77,8 @@ class LoginScreen extends Container {
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.signUpPasswordTextRef = ref; }}
 			/>
-			<TextInput
-				defaultText={"email"}
-				ref={(ref: TextInput) => {this.signUpEmailTextRef = ref; }}
-			/>
-			<TextButton text={"Done!"} width={70} onAction={this.signUpButtonOnClick}/>
+			
+			<TextButton text={"Sign Up"} width={70} onAction={this.signUpButtonOnClick}/>
 		</div>;
 
 		return (
@@ -82,6 +92,8 @@ class LoginScreen extends Container {
 				</div>
 				<div className={"flex-column-center"}>
 					<ExpandableButton
+						buttonHoverColour={"#6236ff"}
+						buttonColour={"#6236ff"}
 						text={"Login"}
 						width={350}
 						child={loginButtonChild}
@@ -93,9 +105,21 @@ class LoginScreen extends Container {
 						child={signUpButtonChild}
 					/>
 				</div>
+				<div className="error-message flex-column-center">
+					{this.state.errorMessage}
+				</div>
 			</div>
 		);
 	}
+}
+
+export interface ILoginScreenProps extends IContainerProps {
+	username?: string | null;
+	email?: string | null;
+}
+
+export interface ILoginScreenState extends IContainerState {
+	errorMessage: string;
 }
 
 // @ts-ignore

@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./Components.css";
+import "./css/Components.css";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 
 class Image extends EnhancedComponent<IImageProps, IImageState> {
