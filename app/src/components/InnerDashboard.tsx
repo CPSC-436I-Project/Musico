@@ -1,7 +1,6 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./css/Components.css";
 import "./css/Dashboard.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
 import {Image} from "./Image"
@@ -117,7 +116,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                     <Image width={40} height={40} path={audioWaveIcon}/>
                     <h2> Playing next </h2>
                 </div>
-                <div className="dashboard_trending">
+                <div className="dashboard-trending">
                     {nextSongs}
                 </div>
             </div>

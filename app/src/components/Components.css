@@ -90,16 +90,6 @@
     margin-left: 3px;
 }
 
-.dashboard_trending {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-}
-
-.dashboard_song {
-    margin: 10px;
-}
-
 .unselectable {
     user-select: none;
 }
@@ -127,23 +117,6 @@
 
 .inner_profile h2 {
     margin-left: 50px;
-}
-
-.song-info-container {
-    display: inline-flex;
-    flex-direction: column;
-}
-
-.song-description-container {
-    overflow: scroll;
-    white-space: nowrap;
-}
-
-.song-description {
-    font-size: 20px;
-    font-family: "Roboto";
-    font-weight: 500;
-    margin: 10px 0px;
 }
 
 .music-player-queue {

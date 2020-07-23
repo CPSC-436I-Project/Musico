@@ -4,7 +4,6 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import "./css/Dashboard.css";
 import {SongInfoContainer} from "./SongInfoContainer";
 import {TextButton} from "./buttons/TextButton";
-import {GenreEnum} from "./index";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
 
 class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDashboardSongInfoState> {
@@ -24,9 +23,9 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
 
     public render(): ReactNode {
         return (
-            <div className="dashboard_song">
+            <div className="dashboard-song">
                 <SongInfoContainer
-                    color={"#000000"}
+                    color={"#ffffff"}
                     width={this.props.width}
                     pic = {this.props.pic === "" ? thumbnailPlaceholder : this.props.pic}
                     name = {this.props.name}
