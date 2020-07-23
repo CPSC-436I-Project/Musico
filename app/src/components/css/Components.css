@@ -1,0 +1,25 @@
+.center-mid {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.text_input_div {
+    display: flex;
+    outline: none;
+}
+
+.unselectable {
+    user-select: none;
+}
+
+.scrollable-container {
+    overflow: auto;
+}

@@ -3,7 +3,8 @@ import {EnhancedComponent} from ".";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {VoteButtonsContainer} from "./VoteButtonsContainer";
 import {SongInfoContainer} from "./SongInfoContainer";
-import {Image} from "./Image"
+import {Image} from "./Image";
+import "./css/MusicSidebar.css";
 
 class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicPlayerQueueState> {
     public static defaultProps: IMusicPlayerQueueProps = {

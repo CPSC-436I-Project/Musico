@@ -1,7 +1,8 @@
 import * as React from "react";
 import {SidebarTextImageButton} from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
-import "./Sidebar.scss";
+import "./css/Sidebar.css";
+import {bluesIcon, christianIcon, electronicIcon, gamingIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, jazzIcon, rapIcon, classicalIcon, popIcon} from "../icons/genres";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {SearchBar} from "./SearchBar";
 import {IStore} from "../redux/initialStore";
@@ -15,14 +16,18 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [
-        {genre: GenreEnum.ELECTRONIC, icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png"},
-        {genre: GenreEnum.ROCK, icon: "https://img.icons8.com/ios-glyphs/30/000000/rock-music.png"},
-        {genre: GenreEnum.LO_FI, icon: "https://img.icons8.com/ios-glyphs/30/000000/easy-listening.png"},
-        {genre: GenreEnum.REGGAE, icon: "https://img.icons8.com/ios-glyphs/30/000000/reggae.png"},
-        {genre: GenreEnum.COUNTRY, icon: "https://img.icons8.com/ios-glyphs/30/000000/country-music.png"},
-        {genre: GenreEnum.HIP_HOP, icon: "https://img.icons8.com/ios-glyphs/30/000000/hip-hop-music.png"},
-        {genre: GenreEnum.JAZZ, icon: "https://img.icons8.com/ios-glyphs/30/000000/saxophone.png"},
-        {genre: GenreEnum.RAP, icon: "https://img.icons8.com/ios-glyphs/30/000000/rap.png"},
+        {genre: GenreEnum.BLUES, icon: bluesIcon},
+        {genre: GenreEnum.CHRISTIAN, icon: christianIcon},
+        {genre: GenreEnum.CLASSICAL, icon: classicalIcon},
+        {genre: GenreEnum.COUNTRY, icon: countryIcon},
+        {genre: GenreEnum.ELECTRONIC, icon: electronicIcon},
+        {genre: GenreEnum.GAMING, icon: gamingIcon},
+        {genre: GenreEnum.HIP_HOP, icon: hiphopIcon},
+        {genre: GenreEnum.JAZZ, icon: jazzIcon},
+        {genre: GenreEnum.POP, icon: popIcon},
+        {genre: GenreEnum.RAP, icon: rapIcon},
+        {genre: GenreEnum.REGGAE, icon: reggaeIcon},
+        {genre: GenreEnum.ROCK, icon: rockIcon},
     ]
 
     public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
@@ -78,7 +83,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                             key={item.genre}
                             text={item.genre}
                             icon={item.icon}
-                            buttonColour="#E1E1E2"
+                            buttonColour="#212121"
                             onAction={this.sidebarButtonClicked(item.genre)}
                         />
                     )}

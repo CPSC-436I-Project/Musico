@@ -20,6 +20,7 @@ class ExpandableButtonTest extends Container {
 			<div className={"flex-column-center"}>
 				<h2>Expandable Buttons</h2>
 				<ExpandableButton
+					buttonColour={"#6236ff"}
 					text={"Click to expand"}
 					width={400}
 					child={emptyChild}

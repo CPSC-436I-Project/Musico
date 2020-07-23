@@ -1,7 +1,8 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./Components.css";
+import "./css/Components.css";
+import "./css/Dashboard.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
 import {Image} from "./Image"
 import {GenreEnum} from "./index";
@@ -83,7 +84,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     public render(): ReactNode {
         const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
         let nextSongs: any[] = [];
-        this.state.topSongs.forEach(function(song: Song) {
+        this.state.topSongs.forEach(function (song: Song) {
             nextSongs.push(<DashboardSongInfo
                 genre={song.genre}
                 pic={song.albumCover}
@@ -93,7 +94,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         });
 
         return (
-        <div className="inner_dashboard">
+            <div className="inner-dashboard">
                 <div
                     style={{
                         display: "flex",
@@ -108,7 +109,8 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                 <div className="dashboard_trending">
                     {nextSongs}
                 </div>
-            </div>);
+            </div>
+        );
     }
 }
 

@@ -57,9 +57,11 @@
 
 #dashboard_sidebar {
     width: 200px;
+    background-color: #212121;
 }
 
-#dashboard_display {
+#dashboard-display {
+    background-color: #181818;
     flex-grow: 1;
     padding: 15px;
 }
