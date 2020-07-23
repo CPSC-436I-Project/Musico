@@ -4,6 +4,7 @@ import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
+import {PageEnum} from "./index";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -67,6 +68,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 export interface IContainerProps {
 	popupOpen?: boolean;
 	dispatch?: any;
+	changePage?: (page: PageEnum) => void;
 }
 
 export interface IContainerState {
