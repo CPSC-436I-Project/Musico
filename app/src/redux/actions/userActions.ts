@@ -17,18 +17,25 @@ export const setUser = (id: string, username: string, email: string, profilePict
     }
 };
 
+export const updateUser = (url: string) => {
+    return {
+        type: UserEnum.UPDATE_USER,
+        profilePicture: url
+    }
+};
+
 export const resetUser = () => {
     return {
         type: UserEnum.RESET_USER
     }
-}
+};
 
 export const removeUser = () => {
     return (dispatch: any) => {
         deleteCookie('auth-token');
         dispatch(resetUser());
     }
-}
+};
 
 export const createUser = (username: string, email: string, password: string, errorCallback: (message: string) => void) => {
     let newUser = {
@@ -73,7 +80,7 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
     let thisUser = {
         email: email,
         password: password
-    }
+    };
     return (dispatch: any) => {
         // register the user
         return fetch(API_URL+'userprofiles/login', {

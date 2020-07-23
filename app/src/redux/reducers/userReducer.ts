@@ -3,7 +3,8 @@ import initialStore from "../initialStore";
 
 export enum UserEnum {
     SET_USER = "SET_USER",
-    RESET_USER = "RESET_USER"
+    RESET_USER = "RESET_USER",
+    UPDATE_USER = "UPDATE_USER"
 }
 
 const userReducer = (store: IUserStore, action: any) => {
@@ -18,6 +19,11 @@ const userReducer = (store: IUserStore, action: any) => {
                 likedSongs: action.likedSongs,
                 favouriteGenres: action.favouriteGenres,
                 channels: action.channels
+            };
+        case UserEnum.UPDATE_USER:
+            return {
+              ...store,
+              profileImgSrc: action.profilePicture
             };
         case UserEnum.RESET_USER:
             return initialStore.userStore;

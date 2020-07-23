@@ -12,6 +12,7 @@ import {Song} from "./index";
 import {ProfileSongInfo} from "./ProfileSongInfo";
 import {UpdateProfilePicBar} from "./UpdateProfilePicBar";
 
+
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
 
     public static defaultProps: IInnerProfileProps = {
@@ -47,9 +48,9 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         // TODO: route to the <App> so that login screen is shown or refresh the page
     };
 
-    private picUpdateShown = (callback: () => void) => {
+    picUpdateShown = (callback: () => void) => {
         this.setState({updateProfile: !this.state.updateProfile}, callback);
-    }
+    };
 
     private getSongs(idList: string[], stateToUpdate: Song[]): void {
         let that = this;
@@ -105,7 +106,13 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         return (
             <div className="inner_profile">
                 <div className="profile_head">
-                    <Image path={this.props.profileImgSrc} width={170} height={170}/>
+                    {/*<Image path={this.props.profileImgSrc} width={170} height={170}/>*/}
+
+
+                    <Image path={profilePlaceholder} width={170} height={170}/>
+                    {console.log(this.props.profileImgSrc)}
+
+
                     <h2>{this.props.username || "Unknown User"}</h2>
                     <span className="update_profile_pic">
                         <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={100}/>
