@@ -13,6 +13,17 @@ const verifyToken = (req, res, next) => {
     }
 };
 
+const getIdFromToken = (token) => {
+    if (!token) return null;
+
+    try {
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        return verified._id;
+    } catch (err) {
+        return null;
+    }
+};
+
 const createToken = (id) => {
     const token = jwt.sign({_id: id}, process.env.JWT_SECRET, {
         expiresIn: 1008000
@@ -21,4 +32,5 @@ const createToken = (id) => {
 }
 
 module.exports.verifyToken = verifyToken;
+module.exports.getIdFromToken = getIdFromToken;
 module.exports.createToken = createToken;

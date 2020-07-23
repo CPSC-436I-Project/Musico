@@ -47,6 +47,7 @@
 }
 
 #dashboard {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #181818;
@@ -54,6 +55,7 @@
 
 #dashboard_lower {
     display: flex;
+    height: calc(100vh - 74px);
 }
 
 #dashboard_sidebar {

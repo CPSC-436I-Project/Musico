@@ -10,21 +10,36 @@
     position: relative;
 }
 
+.header-left {
+    float: left;
+    display: flex;
+    width: calc(100vw - 54px);
+}
+
+.header .logo-container {
+    display: flex;
+    cursor: pointer;
+}
+
+.header .hamburger {
+    width: 30px;
+    padding: 5px 0;
+}
+
+.header .hamburger .main-button {
+    width: 30px;
+}
+
 .header .logo-icon {
-    position: absolute;
-    top: 25%;
-    padding-left: 70px;
+    padding: 6px 0;
+    margin-left: 40px;
 }
 
 .header .logo {
-    margin: 0 10px;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    margin: 0 5px;
     color: #ffffff;
     text-align: center;
-    padding: 100px;
+    padding: 12px 0;
     text-decoration: none;
     line-height: 25px;
     font-size: 40px;

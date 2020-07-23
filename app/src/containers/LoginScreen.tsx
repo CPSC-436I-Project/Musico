@@ -2,11 +2,11 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {TextButton, Image, ExpandableButton, TextInput} from "../components";
+import {ExpandableButton, Image, TextButton, TextInput} from "../components";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
-import {IAddSongFormProps} from "../components/AddSongForm";
 import {createUser, loginUser} from "../redux/actions";
+import {PageEnum} from "./index";
 
 class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 
@@ -77,7 +77,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.signUpPasswordTextRef = ref; }}
 			/>
-			
+
 			<TextButton text={"Sign Up"} width={70} onAction={this.signUpButtonOnClick}/>
 		</div>;
 

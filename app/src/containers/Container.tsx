@@ -4,6 +4,7 @@ import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
+import {PageEnum} from "./index";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -19,8 +20,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
-			sidebarOpen: state.sidebarStore.sidebarOpen,
-			musicSidebarOpen: state.musicSidebarStore.musicSidebarOpen,
+			selectedGenre: state.chatRoomStore.selectedGenre
 		};
 	}
 
@@ -73,13 +73,14 @@ export interface IContainerProps {
 	sidebarOpen?: boolean;
 	musicSidebarOpen?: boolean;
 	dispatch?: any;
+	changePage?: (page: PageEnum) => void;
+	selectedGenre?: string;
 }
 
 export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
-	sidebarOpen?: boolean;
-	musicSidebarOpen?: boolean;
+	selectedGenre?: string;
 }
 
 export {Container}
