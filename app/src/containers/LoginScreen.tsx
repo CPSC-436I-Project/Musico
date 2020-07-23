@@ -92,6 +92,8 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 				</div>
 				<div className={"flex-column-center"}>
 					<ExpandableButton
+						buttonHoverColour={"#6236ff"}
+						buttonColour={"#6236ff"}
 						text={"Login"}
 						width={350}
 						child={loginButtonChild}

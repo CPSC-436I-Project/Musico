@@ -9,14 +9,19 @@ import Sidebar from "./Sidebar";
 import {TextInput} from "./TextInput";
 
 enum GenreEnum {
+	BLUES = "Blues",
+	CHRISTIAN = "Christian",
 	ELECTRONIC = "Electronic",
+	GAMING = "Gaming",
 	ROCK = "Rock",
 	LO_FI = "Lo-Fi",
 	REGGAE = "Reggae",
 	COUNTRY = "Country",
 	HIP_HOP = "Hip-Hop",
 	JAZZ = "Jazz",
-	RAP = "Rap"
+	POP = "Pop",
+	RAP = "Rap",
+	CLASSICAL = "Classical",
 }
 
 enum ExpansionState {

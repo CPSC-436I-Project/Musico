@@ -1,0 +1,9 @@
+.dashboard-trending {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.dashboard_song {
+    margin: 10px;
+}

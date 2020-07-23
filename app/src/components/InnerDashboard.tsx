@@ -1,11 +1,13 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import "./Components.css";
+import "./css/Components.css";
+import "./css/Dashboard.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
 import {Image} from "./Image"
 import {GenreEnum} from "./index";
 import {Song} from "./index";
+import {getCookie} from "../utility/cookies";
 
 
 class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashboardState> {
@@ -22,8 +24,14 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     }
 
     private getTopSongsOnQueues(): void {
-        // fetch('/queues')                     // use this when deploying app
-        fetch('http://localhost:9000/queues')       // use this for now
+        const token = getCookie('auth-token');
+        // fetch('/queues', {)                     // use this when deploying app
+        fetch('http://localhost:9000/queues', {     // use this for now
+            method: 'GET',
+            headers: {
+                'auth-token': token
+            }
+        })
             .then(response => response.json())
             .then(queues => {
                 return queues.map(function (obj: any) {
@@ -39,6 +47,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
 
     private addTopSong(queue: string[]): Promise<void> {
         let that = this;
+        const token = getCookie('auth-token');
         let topSong: Song = {
             songName: "default",
             artists: ["shouldn't", "see", "this"],
@@ -49,8 +58,11 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             numVotes: 0
         };
         return Promise.all(
-            // queue.map((songID: string) => fetch('/songs/' + songID)            // for deployment
-            queue.map((songID: string) => fetch('http://localhost:9000/songs/' + songID)))
+            // queue.map((songID: string) => fetch('/songs/' + songID, {)            // for deployment
+            queue.map((songID: string) => fetch('http://localhost:9000/songs/' + songID, {
+                method: 'GET',
+                headers: {'auth-token': token}
+            })))
             .then((responses) => {
                 return Promise.all(responses.map(response => response.json()))
             })
@@ -84,7 +96,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     public render(): ReactNode {
         const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
         let nextSongs: any[] = [];
-        this.state.topSongs.forEach(function(song: Song) {
+        this.state.topSongs.forEach(function (song: Song) {
             nextSongs.push(<DashboardSongInfo
                 genre={song.genre}
                 pic={song.albumCover}
@@ -94,7 +106,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         });
 
         return (
-        <div className="inner_dashboard">
+            <div className="inner-dashboard">
                 <div
                     style={{
                         display: "flex",
@@ -109,7 +121,8 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                 <div className="dashboard_trending">
                     {nextSongs}
                 </div>
-            </div>);
+            </div>
+        );
     }
 }
 
