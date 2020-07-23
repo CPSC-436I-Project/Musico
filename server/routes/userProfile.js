@@ -66,3 +66,8 @@ router.post('/login', async (req, res) => {
 })
 
 module.exports = router;
+
+router.get('/getFromToken', verifyToken, async (req, res) => {
+  const user = await UserProfile.findById(req.user._id);
+  res.json({id: user._id, username: user.username, email: user.email, profilePicture: user.profilePicture});
+})
