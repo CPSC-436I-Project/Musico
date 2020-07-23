@@ -6,7 +6,8 @@ import "./css/Dashboard.css";
 import {DashboardSongInfo} from "./DashboardSongInfo";
 import {Image} from "./Image"
 import {GenreEnum} from "./index";
-import {ISidebarProps} from "./Sidebar";
+import {getCookie} from "../utility/cookies";
+
 
 class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashboardState> {
 
@@ -22,8 +23,14 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     }
 
     private getTopSongsOnQueues(): void {
-        // fetch('/queues')                     // use this when deploying app
-        fetch('http://localhost:9000/queues')       // use this for now
+        const token = getCookie('auth-token');
+        // fetch('/queues', {)                     // use this when deploying app
+        fetch('http://localhost:9000/queues', {     // use this for now
+            method: 'GET',
+            headers: {
+                'auth-token': token
+            }
+        })
             .then(response => response.json())
             .then(queues => {
                 return queues.map(function (obj: any) {
@@ -39,6 +46,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
 
     private addTopSong(queue: string[]): Promise<void> {
         let that = this;
+        const token = getCookie('auth-token');
         let topSong: Song = {
             songName: "default",
             artists: ["shouldn't", "see", "this"],
@@ -49,8 +57,11 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             numVotes: 0
         };
         return Promise.all(
-            // queue.map((songID: string) => fetch('/songs/' + songID)            // for deployment
-            queue.map((songID: string) => fetch('http://localhost:9000/songs/' + songID)))
+            // queue.map((songID: string) => fetch('/songs/' + songID, {)            // for deployment
+            queue.map((songID: string) => fetch('http://localhost:9000/songs/' + songID, {
+                method: 'GET',
+                headers: {'auth-token': token}
+            })))
             .then((responses) => {
                 return Promise.all(responses.map(response => response.json()))
             })
