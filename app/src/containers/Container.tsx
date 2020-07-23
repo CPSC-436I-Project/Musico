@@ -14,12 +14,13 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 	private readonly childRender: () => ReactNode;
 
-	public popupRender: () => ReactNode;
+	public popupRender: () => ReactNode; 
 
 	public static mapStateToProps:(state: IStore, props: IContainerProps) => IContainerProps = (state: IStore, props: IContainerProps) => {
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
+			selectedGenre: state.chatRoomStore.selectedGenre
 		};
 	}
 
@@ -69,11 +70,13 @@ export interface IContainerProps {
 	popupOpen?: boolean;
 	dispatch?: any;
 	changePage?: (page: PageEnum) => void;
+	selectedGenre?: string;
 }
 
 export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
+	selectedGenre?: string;
 }
 
 export {Container};

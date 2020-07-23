@@ -49,7 +49,7 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
 	}
 
 	userIsSet = () => {
-		this.setState({isLoggedOut: false})
+		this.setState({isLoggedOut: false, currentPage: PageEnum.Dashboard})
 	}
 
 	componentDidMount = () => {
