@@ -1,6 +1,10 @@
+.enhanced-component-container {
+    max-height: 100%;
+    overflow: scroll;
+}
+
 .inner-profile {
     color: #ffffff;
-    margin: 100px 100px 0px;
 }
 
 .inner-profile .profile-head {
