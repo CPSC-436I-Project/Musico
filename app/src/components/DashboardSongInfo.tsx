@@ -4,24 +4,33 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import "./css/Dashboard.css";
 import {SongInfoContainer} from "./SongInfoContainer";
 import {TextButton} from "./buttons/TextButton";
+import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
 
 class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDashboardSongInfoState> {
 
     public static defaultProps: IDashboardSongInfoProps = {
         ...EnhancedComponent.defaultProps,
-        genre: "default",
+        width: 250,
+        genre: "jazz",
+        pic: thumbnailPlaceholder,
+        name: "default song name",
+        artists: ["artist1", "artist2"],
     };
 
     private constructor(props: IDashboardSongInfoProps) {
         super(props);
-        this.state = {
-        };
     }
 
     public render(): ReactNode {
         return (
-            <div className="dashboard_song">
-                <SongInfoContainer color={"#000000"}/>
+            <div className="dashboard-song">
+                <SongInfoContainer
+                    color={"#ffffff"}
+                    width={this.props.width}
+                    pic = {this.props.pic === "" ? thumbnailPlaceholder : this.props.pic}
+                    name = {this.props.name}
+                    artists = {this.props.artists}
+                />
                 <TextButton text={this.props.genre}
                             fontSize={14} width={100}
                             fontColour={"#ffffff"}
@@ -35,7 +44,11 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
 }
 
 export interface IDashboardSongInfoProps extends IEnhancedComponentProps {
+    width?: number;
     genre: string;
+    pic: string;
+    name: string;
+    artists: string[];
 }
 
 export interface IDashboardSongInfoState extends IEnhancedComponentState {

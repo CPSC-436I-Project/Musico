@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Song = require('./songModel').schema;
 
 const queueSchema = new Schema({
     channel: {
@@ -8,9 +7,10 @@ const queueSchema = new Schema({
         enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
         required: true
     },
-    queue: [{
-        type: Song
-    }]
+    queue: {
+        type: [mongoose.Types.ObjectId],
+        required: true
+    }
 });
 
 let Queue = mongoose.model("Queue", queueSchema);
