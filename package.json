@@ -1,0 +1,11 @@
+{
+    "name": "musico",
+    "version": "1.0.0",
+    "engines": {
+        "node": "12.x"
+    },
+    "scripts": {
+        "heroku-prebuild": "cd app && npm install && npm run build && cd ../server && npm install",
+        "start": "cd ./server && npm start"
+    }
+}
