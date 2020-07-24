@@ -15,24 +15,33 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
     protected constructor(props: IUpdateProfilePicBarProps) {
         super(props);
         this.state = {
-            url: ""
+            url: "",
+            error: ""
         };
         this.updateUrl = this.updateUrl.bind(this);
         this.updateButtonOnClick = this.updateButtonOnClick.bind(this);
+        this.invalidUserError = this.invalidUserError.bind(this);
     };
 
     updateUrl = (url: string) => {
         this.setState({url: url.trim()});
     };
 
-    private updateButtonOnClick(callback: () => void): void { // connect this to mongo !!!
-        this.props.dispatch(updateUser(this.state.url));
+    private invalidUserError(message: string) {
+        this.setState({error: message});
+    }
+
+    private updateButtonOnClick(callback: () => void): void {
+        this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
         this.props.onComplete();
         callback();
     }
 
     public render() {
         return <div className={"update_profile_pic_bar"}>
+            <div className="error-message flex-column-center">
+                {this.state.error}
+            </div>
             <div className={"update_profile_pic_input"}>
                 <TextInput
                     defaultText={"Enter profile picture URL here"}
@@ -56,6 +65,7 @@ export interface IUpdateProfilePicBarProps extends IEnhancedComponentProps {
 
 export interface IUpdateProfilePicBarState extends IEnhancedComponentState {
     url: string;
+    error: string;
 }
 
 // @ts-ignore

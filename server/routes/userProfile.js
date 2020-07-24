@@ -110,7 +110,16 @@ router.get('/username/:id', verifyToken, async (req, res) => {
     } else {
         res.json({id: "invalid", username: "Deleted User"});
     }
+});
 
+router.patch('/updateProfilePic', verifyToken, (req, res) => {
+    UserProfile.findOneAndUpdate({_id: req.user._id}, {profilePicture: req.body.profilePictureURL})
+        .then(() => {
+            return res.send('Updated Profile Picture');
+        })
+        .catch(() => {
+            return res.status(400).send('Invalid user');
+        })
 });
 
 module.exports = router;

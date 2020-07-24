@@ -4,7 +4,7 @@ import initialStore from "../initialStore";
 export enum UserEnum {
     SET_USER = "SET_USER",
     RESET_USER = "RESET_USER",
-    UPDATE_USER = "UPDATE_USER"
+    UPDATE_USER_RECEIVE = "UPDATE_USER_RECEIVE"
 }
 
 const userReducer = (store: IUserStore, action: any) => {
@@ -20,7 +20,7 @@ const userReducer = (store: IUserStore, action: any) => {
                 favouriteGenres: action.favouriteGenres,
                 channels: action.channels
             };
-        case UserEnum.UPDATE_USER:
+        case UserEnum.UPDATE_USER_RECEIVE:
             return {
               ...store,
               profileImgSrc: action.profilePicture
