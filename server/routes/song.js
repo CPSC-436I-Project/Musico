@@ -19,6 +19,21 @@ router.get('/:id', (req, res) => {
         .catch(err => {console.log(err)})
 });
 
+router.patch('/upvote/:id', (req, res) => {
+    Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: 1}})
+        .then(song => {
+            res.json(song)
+        })
+        .catch(err => console.log(err));
+})
+
+router.patch('/downvote/:id', (req, res) => {
+    Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: -1}})
+        .then(song => {
+            res.json(song)
+        })
+        .catch(err => console.log(err));
+})
 
 router.post('/add', verifyToken, async (req, res) => {
     const newSong = new Song({

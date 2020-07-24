@@ -23,7 +23,9 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
         let songsOnQueue: any[] = [];
         this.props.queue.forEach((song: Song) => {
             ratings.push(<VoteButtonsContainer 
-                rating={song.numVotes}/>)
+                rating={song.numVotes}
+                songId={song._id}
+                />)
             songsOnQueue.push(<SongInfoContainer 
                 songName={song.songName} 
                 artists={song.artists}
@@ -53,6 +55,7 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
 }
 
 interface Song {
+    _id: any,
     songName: string,
     artists: string[],
     genre: string,
