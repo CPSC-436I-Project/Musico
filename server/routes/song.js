@@ -11,6 +11,15 @@ router.get('/', verifyToken, (req, res) => {
         .catch(err => {console.log(err)});
 });
 
+router.get('/:id', (req, res) => {
+    Song.findOne({_id: req.params.id})
+        .then(song => {
+            res.json(song)
+        })
+        .catch(err => {console.log(err)})
+});
+
+
 router.post('/add', verifyToken, async (req, res) => {
     const newSong = new Song({
         songName: req.body.songName,

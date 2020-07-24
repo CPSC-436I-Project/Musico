@@ -30,6 +30,7 @@
 .music-sidebar .currently-playing {
     position: relative;
     padding-left: 5px;
+    padding-bottom: 10px;
 }
 
 .music-sidebar .music-player-queue {
@@ -71,7 +72,7 @@
     margin-left: 10px;
 }
 
-.queue-items {
+/* .queue-items {
     display: flex;
     flex-direction: column;
     justify-content: stretch;
@@ -79,6 +80,18 @@
     flex-grow: 1;
     width: 280px;
     margin-left: 10px;
+} */
+
+.queue-items {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 1%;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
 }
 
 .song {

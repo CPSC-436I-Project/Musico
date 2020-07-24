@@ -7,11 +7,15 @@ import {DownvoteButton} from "./buttons/DownvoteButton";
 import "./buttons/VoteButtons.css"
 
 class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps, IVoteButtonsContainerState> {
+    public static defaultProps: IVoteButtonsContainerProps = {
+        ...EnhancedComponent.defaultProps,
+        rating: 1
+    }
 
     protected constructor(props: IVoteButtonsContainerProps) {
         super(props);
         this.state = {
-            rating: 0
+            rating: 1
         }
     }
 
@@ -37,7 +41,7 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
 }
 
 export interface IVoteButtonsContainerProps extends IEnhancedComponentProps {
-
+    rating: number
 }
 
 export interface IVoteButtonsContainerState extends IEnhancedComponentState {

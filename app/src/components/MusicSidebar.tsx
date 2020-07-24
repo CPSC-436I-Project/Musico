@@ -1,21 +1,17 @@
 import * as React from "react";
+import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {IStore} from "../redux/initialStore";
 import closeIcon from "../icons/close.png";
 import {connect} from "react-redux";
 import {GenreEnum} from ".";
 import {hideMusicSidebar} from "../redux/actions/musicSidebarActions";
-import {Image} from "./Image";
 import {ImageButton} from "./buttons/ImageButton";
 import {MusicPlayerQueue} from "./MusicPlayerQueue";
 import {TextButton} from "./buttons/TextButton";
-import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
 import { API_URL } from "src/utility/constants";
 import "./css/MusicSidebar.css";
-import io from "socket.io-client";
-
-const SOCKET_IO_URL = "http://localhost:9000";
-const socket = io(SOCKET_IO_URL);
+import { CurrentlyPlaying } from "./CurrentlyPlaying";
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {
     public static defaultProps: IMusicSidebarProps = {
@@ -35,53 +31,94 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         this.state = {
             musicSidebarOpen: true,
             queue: [],
+            currentlyPlaying: {
+                songName: "default",
+                artists: [],
+                genre: "Pop",
+                src: "",
+                requesterID: 0,
+                albumCover: "",
+                numVotes: 0
+            },
         };
+
+        this.getChannelQueue = this.getChannelQueue.bind(this);
+        this.getSongsFromQueue = this.getSongsFromQueue.bind(this);
     }
 
     componentDidMount = () => {
         if (this.props.selectedGenre === null) {
             console.log("No selected genre!");
-        }
-        socket.emit('join', {genre: this.props.selectedGenre}, () => {
+        } else {
             this.getChannelQueue();
-        });
-        console.log(socket);
+        }
     }
 
-    getChannelQueue = () => {
+    private getChannelQueue = () => {
         console.log("Getting queue");
-        fetch(API_URL+"queues/"+this.props.selectedGenre, {
+        fetch(API_URL + "queues/" + this.props.selectedGenre, {
             method: 'GET',
         })
-        .then(res => res.text())
-        .then(res => {
-            let queue = JSON.parse(res);
-            this.setState({queue: queue});
-        });
+        .then(res => res.json())
+        .then(songIds => {
+            this.getSongsFromQueue(songIds);
+        })
     }
 
+    //@ts-ignore
+    private getSongsFromQueue = ids => {
+        let song: Song = {
+            songName: "default",
+            artists: [],
+            genre: "Pop",
+            src: "",
+            requesterID: 0,
+            albumCover: "",
+            numVotes: 0
+        }
+        
+        return Promise.all(
+            //@ts-ignore
+            ids.map(id => fetch(API_URL + "songs/" + id, {
+                method: 'GET'
+            })))
+            .then((responses) => {
+                //@ts-ignore
+                return Promise.all(responses.map(response => response.json()))
+            })
+            .then((songs: Song[]) => {
+                songs.forEach((item: Song) => {
+                    song = item;
+                    if (song.songName !== "default") {
+                        let queue: Song[] = this.state.queue;
+                        let updatedQueue: Song[] = queue.concat(song);
+                        return this.setState({queue: updatedQueue});
+                    }
+                })
+            })
+            .then(() => {
+                return Promise.resolve();
+            })
+            .catch(() => {
+                return Promise.reject();
+            })
+    }
 
-    closeMusicSidebar = () => {
-		this.props.dispatch(hideMusicSidebar());
-	}
+    // closeMusicSidebar = () => {
+	// 	this.props.dispatch(hideMusicSidebar());
+	// }
 
-    public render() {
+    public render(): ReactNode {
         return (  
             <div className="music-sidebar">
                 {/* <span className="close-button">
 						<ImageButton src={closeIcon} onAction={this.closeMusicSidebar} height={20} width={20} buttonColour="grey"/>
 				</span> */}
                 <div className="currently-playing">
-                    <Image
-                        path={thumbnailPlaceholder}
-                        name={"Album"}
-                        width={204}
-                        height={115}
-                    />
-                    <p>Video title or song name from YouTube - Artist</p>
+                    <CurrentlyPlaying song={this.state.queue[0]}/>
                 </div>
                 <div className="music-player-queue">
-                    <MusicPlayerQueue />
+                    <MusicPlayerQueue queue={this.state.queue}/>
                 </div>
                 <div className="add-music-button">
                     <TextButton
@@ -98,6 +135,16 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     }
 }
 
+interface Song {
+    songName: string,
+    artists: string[],
+    genre: string,
+    src: string,
+    requesterID: any,
+    albumCover: string,
+    numVotes: number
+}
+
 export interface IMusicSidebarProps extends IEnhancedComponentProps {
     width?: number,
     height?: number,
@@ -109,6 +156,7 @@ export interface IMusicSidebarProps extends IEnhancedComponentProps {
 export interface IMusicSidebarState extends IEnhancedComponentState {
     musicSidebarOpen: boolean,
     queue: any[],
+    currentlyPlaying: Song,
 }
 
 // @ts-ignore
