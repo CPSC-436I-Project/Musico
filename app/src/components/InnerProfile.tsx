@@ -26,7 +26,6 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
 
     logOut = () => {
         this.props.dispatch(removeUser());
-        // TODO: route to the <App> so that login screen is shown or refresh the page
     }
 
     public render(): ReactNode {
