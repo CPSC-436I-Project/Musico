@@ -27,15 +27,32 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
         this.props.song.artists.map(artist => artistsString += ", " + artist);
         let artists = artistsString.substring(2);
 
+        console.log(this.props.song)
+
         return (
             <div className="currently-playing">
-                <Image
-                    path={this.props.song.albumCover || thumbnailPlaceholder}
-                    name={"Album"}
-                    width={204}
-                    height={115}
-                />
-                <p>Currently Playing: {this.props.song.songName} by {artists}</p>
+                <div
+                    className="video"
+                    style={{
+                        position: "relative",
+                        paddingBottom: "56.25%" /* 16:9 */,
+                        paddingTop: 25,
+                        height: 0
+                    }}
+                >
+                    <iframe
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            width: "100%",
+                            height: "100%"
+                        }}
+                        src={this.props.song.src.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/") + "?&autoplay=1&mute=1"}
+                        frameBorder={"0"}
+                    />
+                </div>
+                <p>Currently Playing: {this.props.song.songName}</p>
             </div>
         )
     }
