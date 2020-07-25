@@ -102,14 +102,14 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     }
 
     public render(): ReactNode {
-        const queue = this.state.queue;
+        console.log(this.state.queue)
         return (
             <div className="music-sidebar">
                 <div className="currently-playing">
-                    <CurrentlyPlaying song={queue.shift()}/>
+                    <CurrentlyPlaying song={this.state.queue[0]}/>
                 </div>
                 <div className="music-player-queue">
-                    <MusicPlayerQueue queue={queue}/>
+                    <MusicPlayerQueue queue={this.state.queue.slice(1)}/>
                 </div>
                 <div className="add-music-button">
                     <TextButton
