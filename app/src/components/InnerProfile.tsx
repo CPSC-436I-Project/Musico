@@ -12,6 +12,7 @@ import {Song} from "./index";
 import {ProfileSongInfo} from "./ProfileSongInfo";
 import UpdateProfilePicBar from "./UpdateProfilePicBar";
 import {getCookie} from "../utility/cookies";
+import {API_URL} from "../utility/constants";
 
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
@@ -58,8 +59,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         const token = getCookie('auth-token');
         let updatedSongs: Song[] = [];
         Promise.all(
-            // queue.map((songID: string) => fetch('/songs/' + songID)            // for deployment
-            idList.map((songID: string) => fetch('http://localhost:9000/songs/' + songID, {
+            idList.map((songID: string) => fetch(API_URL+'songs/' + songID, {
                 method: 'GET',
                 headers: {'auth-token': token}
             })))

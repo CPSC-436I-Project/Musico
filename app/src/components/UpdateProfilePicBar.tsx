@@ -31,6 +31,7 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         this.updateUrl = this.updateUrl.bind(this);
         this.updateButtonOnClick = this.updateButtonOnClick.bind(this);
         this.invalidUserError = this.invalidUserError.bind(this);
+        this.validateUrl = this.validateUrl.bind(this);
     };
 
     updateUrl = (url: string) => {
@@ -38,6 +39,11 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
     };
 
     private validateUrl(): Promise<boolean> {
+        if (!(this.state.url.includes("http://", 0) || this.state.url.includes("https://"))) {
+            return new Promise<boolean>(function(resolve, reject) {
+                resolve(false);
+            });
+        }
         return fetch(this.state.url)
             .then(res => {
                 return res.status === 200
@@ -51,7 +57,7 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         this.setState({error: message});
     }
 
-    private updateButtonOnClick(callback: () => void): void {
+    updateButtonOnClick = (callback: () => void) => {
         this.validateUrl()
             .then(res => {
                 if (res) {
@@ -62,13 +68,13 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
                     this.props.dispatch(invalidUserUpdate(profilePlaceholder));
                     this.setState({
                         error: "Invalid URL"
-                    })
+                    }, callback)
                 }
             })
             .catch(err => {
                 console.log(err);
             })
-    }
+    };
 
     public render() {
         return <div className={"update_profile_pic_bar"}>
@@ -85,7 +91,7 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
                 <TextButton
                     text={"Update"}
                     width={100}
-                    onAction={this.updateButtonOnClick} // add error handler for invalid urls
+                    onAction={this.updateButtonOnClick}
                 />
             </div>
         </div>
