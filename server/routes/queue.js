@@ -9,4 +9,12 @@ router.get('/', verifyToken, (req, res) => {
         .catch(err => {console.log(err)});
 });
 
+router.get('/:genre', verifyToken, (req, res) => {
+    Queue.findOne({channel: req.params.genre})
+        .then(queue => {
+            res.json(queue["queue"])
+        })
+        .catch(err => {console.log(err)})
+});
+
 module.exports = router;

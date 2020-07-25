@@ -50,6 +50,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #181818;
 }
 
 #dashboard_lower {
@@ -66,6 +67,7 @@
     background-color: #181818;
     flex-grow: 1;
     padding: 15px;
+    overflow: auto;
 }
 
 #generic_background {

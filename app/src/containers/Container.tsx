@@ -14,8 +14,6 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 	private readonly childRender: () => ReactNode;
 
-	public popupRender: () => ReactNode; 
-
 	public static mapStateToProps:(state: IStore, props: IContainerProps) => IContainerProps = (state: IStore, props: IContainerProps) => {
 		return {
 			...props,
@@ -33,18 +31,27 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.state = {
 			popupOpen: false,
 			profileOpen: false,
+			sidebarOpen: true,
+			musicSidebarOpen: true,
 		};
 
 		this.childRender = this.render;
+		this.openPopup = this.openPopup.bind(this);
+		this.closePopup = this.closePopup.bind(this);
+		this.popupRender = this.popupRender.bind(this);
 		this.wrapRender();
 	}
 
-	openPopup = () => {
+	protected openPopup() {
 		this.props.dispatch(showPopUp());
 	};
 
-	closePopup = () => {
+	protected closePopup() {
 		this.props.dispatch(hidePopUp());
+	};
+
+	protected popupRender(): ReactNode {
+		return <div/>;
 	};
 
 	toggleProfile = (callback: () => void) => {
@@ -68,6 +75,8 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 export interface IContainerProps {
 	popupOpen?: boolean;
+	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 	dispatch?: any;
 	changePage?: (page: PageEnum) => void;
 	selectedGenre?: string;
@@ -77,6 +86,8 @@ export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
 	selectedGenre?: string;
+	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 }
 
-export {Container};
+export {Container}

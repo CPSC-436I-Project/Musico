@@ -17,8 +17,21 @@ export interface IUserStore {
 	password: string | null;
 	email: string | null;
 	profileImgSrc: string | null;
+	requests: string[] | null;
+	likedSongs: string[] | null;
+	favouriteGenres: string[] | null;
+	channels: string[] | null;
 }
 
 export interface ISongListStore {
 	songs: ISongListObject
+}
+
+export interface ISidebarStore {
+	sidebarOpen: boolean;
+}
+
+export interface IMusicSidebarStore {
+	musicSidebarOpen: boolean,
+	selectedGenre: GenreEnum | null;
 }

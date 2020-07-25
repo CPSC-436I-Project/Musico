@@ -60,6 +60,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 			<TextInput
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.loginPasswordTextRef = ref; }}
+				textType={"password"}
 			/>
 			<TextButton text={"Log In"} width={70} onAction={this.loginButtonOnClick}/>
 		</div>;
@@ -76,6 +77,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 			<TextInput
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.signUpPasswordTextRef = ref; }}
+				textType={"password"}
 			/>
 
 			<TextButton text={"Sign Up"} width={70} onAction={this.signUpButtonOnClick}/>
