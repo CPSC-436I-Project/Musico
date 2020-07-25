@@ -24,7 +24,6 @@ class Room extends Container {
 	}
 
 	protected popupRender() {
-		console.log(this.sideBarRef)
 		return (
 			<AddSongForm
 				addSong={this.sideBarRef ? this.sideBarRef.addToQueue : () => {/**/}}
