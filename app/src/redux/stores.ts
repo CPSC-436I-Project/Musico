@@ -17,6 +17,10 @@ export interface IUserStore {
 	password: string | null;
 	email: string | null;
 	profileImgSrc: string | null;
+	requests: string[] | null;
+	likedSongs: string[] | null;
+	favouriteGenres: string[] | null;
+	channels: string[] | null;
 }
 
 export interface ISongListStore {
