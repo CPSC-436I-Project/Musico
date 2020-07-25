@@ -35,6 +35,12 @@ router.patch('/downvote/:id', (req, res) => {
         .catch(err => console.log(err));
 })
 
+router.get('/:songID', verifyToken, (req, res) => {
+    Song.findOne({_id: req.params.songID})
+        .then(song => {res.json(song)})
+        .catch(err => {console.log(err)});
+});
+
 router.post('/add', verifyToken, async (req, res) => {
     const newSong = new Song({
         songName: req.body.songName,
@@ -49,8 +55,8 @@ router.post('/add', verifyToken, async (req, res) => {
     newSong.save()
         .then(
             Queue.findOneAndUpdate(
-                {channel: req.body.genre}, 
-                {$push: {queue: newSong}}, 
+                {channel: req.body.genre},
+                {$push: {queue: newSong}},
                 {new: true, useFindAndModify: false},
                 (err, docs) => {
                     if (err) {

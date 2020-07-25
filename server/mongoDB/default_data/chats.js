@@ -20,10 +20,6 @@ db.chats.insertMany([
     "messages": []
   },
   {
-    "channel": "Classical",
-    "messages": []
-  },
-  {
     "channel": "Country",
     "messages": []
   },

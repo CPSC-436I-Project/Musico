@@ -1,9 +1,36 @@
+.enhanced-component-container {
+    max-height: 100%;
+}
+
+.inner-dashboard {
+    color: #ffffff;
+    max-height: calc(100% - 75px);
+    overflow: scroll;
+}
+
 .dashboard-trending {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
 }
 
-.dashboard_song {
+.dashboard-song {
     margin: 10px;
+}
+
+.song-info-container {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.song-description-container {
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+.song-description {
+    font-size: 20px;
+    font-family: "Roboto";
+    font-weight: 500;
+    margin: 10px 0px;
 }
