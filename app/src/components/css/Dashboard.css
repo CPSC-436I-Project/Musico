@@ -5,7 +5,7 @@
 .inner-dashboard {
     color: #ffffff;
     max-height: calc(100% - 75px);
-    overflow: scroll;
+    overflow: auto;
 }
 
 .dashboard-trending {
@@ -24,7 +24,7 @@
 }
 
 .song-description-container {
-    overflow: scroll;
+    overflow: auto;
     white-space: nowrap;
 }
 
