@@ -1,2 +1,3 @@
-export const API_URL = "http://localhost:9000/"
+export const API_URL = "/";
 export const YOUTUBE_API_KEY = process.env.REACT_APP_API_KEY;
+
