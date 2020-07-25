@@ -35,22 +35,23 @@ router.patch('/downvote/:id', verifyToken, (req, res) => {
         .catch(err => console.log(err));
 })
 
+
 router.get('/:songID', verifyToken, (req, res) => {
     Song.findOne({_id: req.params.songID})
         .then(song => {res.json(song)})
         .catch(err => {console.log(err)});
 });
 
-router.post('/add', verifyToken, async (req, res) => {
+router.post('/add', verifyToken, (req, res) => {
     const newSong = new Song({
         songName: req.body.songName,
         artists: req.body.artists,
         genre: req.body.genre,
         src: req.body.src,
-        requesterID: req.body.requesterID,
+        requesterID: req.user._id,
         albumCover: req.body.albumCover,
         numVotes: req.body.numVotes
-    })
+    });
 
     newSong.save()
         .then(
@@ -62,18 +63,19 @@ router.post('/add', verifyToken, async (req, res) => {
                     if (err) {
                         return res.json('Error: ' + err)
                     } else {
-                        Playlist.findOneAndUpdate(
-                            {channel: req.body.genre},
-                            {$push: {playlist: newSong}},
-                            {new: true, useFindAndModify: false},
-                            (err, playlist) => {
-                                if (err) {
-                                    return res.json('Error: ' + err)
-                                } else {
-                                    return res.json(playlist)
-                                }
-                            }
-                        )
+                        return res.json(newSong);
+                        // Playlist.findOneAndUpdate(
+                        //     {channel: req.body.genre},
+                        //     {$push: {playlist: newSong}},
+                        //     {new: true, useFindAndModify: false},
+                        //     (err, playlist) => {
+                        //         if (err) {
+                        //             return res.json('Error: ' + err)
+                        //         } else {
+                        //             return res.json(playlist)
+                        //         }
+                        //     }
+                        // )
                     }
             })
         )

@@ -42,14 +42,22 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
         this.getChannelQueue = this.getChannelQueue.bind(this);
         this.getSongsFromQueue = this.getSongsFromQueue.bind(this);
+        this.showPopup = this.showPopup.bind(this);
+        this.addToQueue = this.addToQueue.bind(this);
     }
 
     componentDidMount = () => {
+        this.props.childRef(this);
         if (this.props.selectedGenre === null) {
             console.log("No selected genre!");
         } else {
             this.getChannelQueue(this.props.selectedGenre);
         }
+    }
+
+
+    componentWillUnmount() {
+        this.props.childRef(undefined);
     }
 
     componentDidUpdate = (previousProps: any) => {
@@ -119,6 +127,15 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
             })
     }
 
+    private showPopup(callback: () => void): void {
+        this.props.showPopup();
+        callback();
+    }
+
+    public addToQueue(song: any): void {
+        this.setState({queue: [...this.state.queue, song]});
+    }
+
     public render(): ReactNode {
         return (
             <div className="music-sidebar">
@@ -136,6 +153,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 					    height={44}
                         width={204}
                         fontSize={20}
+                        onAction={this.showPopup}
 				    />
                 </div>
             </div>
@@ -159,6 +177,8 @@ export interface IMusicSidebarProps extends IEnhancedComponentProps {
     dispatch?: any,
     musicSidebarOpen?: boolean,
     selectedGenre?: GenreEnum | null;
+    showPopup?: () => void;
+    childRef?: (ref: MusicSidebar) => void;
 }
 
 export interface IMusicSidebarState extends IEnhancedComponentState {

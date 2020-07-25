@@ -8,6 +8,12 @@ import {Image} from "./Image";
 import MusicSidebar from "./MusicSidebar";
 import Sidebar from "./Sidebar";
 import {TextInput} from "./TextInput";
+import {YOUTUBE_API_KEY} from "../utility/constants";
+
+enum ExpansionState {
+	EXPANDED = "expanded",
+	COLLAPSED = "collapsed",
+}
 
 enum GenreEnum {
 	ASIAN = "Asian",
@@ -47,17 +53,13 @@ const genreIDMap: { [key: string]: GenreEnum } = {
 	"/m/0gywn": GenreEnum.SOUL,				// Soul music
 }
 
-enum ExpansionState {
-	EXPANDED = "expanded",
-	COLLAPSED = "collapsed",
-}
-
-const API_KEY = "";
 const txt = document.createElement("textarea");
 
 async function youtubeQuery(type: string, options: any): Promise<any> {
-	let optionsString = Object.keys(options).map((k) => `${k}=${options[k]}`).join("&");
-	optionsString += `&key=${API_KEY}`;
+	const optionKeys = Object.keys(options);
+	const optionsString = optionKeys
+		.map((k) => `${k}=${options[k]}`)
+		.join("&") + `${optionKeys.length > 0 ? "&" : ""}key=${YOUTUBE_API_KEY}`;
 	const url = `https://www.googleapis.com/youtube/v3/${type}?${optionsString}`;
 
 	return fetch(url)
@@ -87,4 +89,5 @@ export {
 	Button, TextButton, ExpandableButton,
 	AddSongForm, EnhancedComponent, Header, Image, MusicSidebar, Sidebar, TextInput,
 	youtubeQuery, decodeHTML,
+	genreIDMap,
 };

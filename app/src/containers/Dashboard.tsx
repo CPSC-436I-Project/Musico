@@ -6,7 +6,7 @@ import {Header, Sidebar, MusicSidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
 import { InnerDashboard } from "src/components/InnerDashboard";
-import { Room } from "./Room";
+import Room from "./Room";
 import { IStore } from "src/redux/initialStore";
 import InnerProfile from "../components/InnerProfile";
 
