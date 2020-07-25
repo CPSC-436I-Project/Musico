@@ -1,11 +1,16 @@
 # Musico
 
-### Project Description
+Musico (Music-Collaborate) provides a platform for people with similar tastes in music to meet and interact with one another by integrating genre-based playlists with online chat rooms! Users can join virtual rooms playing a certain genre of music, add/upvote/downvote songs on the upcoming songs queue (more votes means the song plays sooner) and chat with other users in the room.
+
+----
+
+### Project Requirements
+
+#### Detailed Description
 
 Musico (Music-Collaborate) provides a platform for people with similar tastes in music to meet and interact with one another by integrating genre-based playlists with online chat rooms. Users can join virtual rooms, in which each room plays a certain genre of music, and request a song to be played by adding it to a queue of pre-existing requests. If a queue has no requests, music will automatically play from a default playlist selected for the corresponding genre. Each room will have its own chat, where users can meet and talk with one another. In addition, users will have their own profile showing their favourite genres and songs they have previously requested. If time permits, we hope to integrate a voting system to the request queues, allowing users to upvote songs they like to increase their ranking and hence, get those songs to play sooner.
 
-### Project Task Requirements
-
+### Task Requirements
 
 #### Minimal Requirements:
 * Rooms that automatically play a specific genre of music when users join 
