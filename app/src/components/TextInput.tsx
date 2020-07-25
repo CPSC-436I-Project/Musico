@@ -15,6 +15,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 		borderColor: "black",
 		fontSize: 16,
 		onEnterDisabled: true,
+		textType: "text",
 		submit: (text: string) => {
 		},
 	};
@@ -30,7 +31,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 		this.getText = this.getText.bind(this);
 		this.onKeyDownWrapper = this.onKeyDownWrapper.bind(this);
 	}
-	
+
 	protected onKeyDownWrapper(e: any): void {
 		if (e.key === 'Enter' && !this.state.onEnterDisabled && !this.props.onEnterDisabled) {
 			this.setState({onEnterDisabled: true}, () => {
@@ -70,7 +71,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 			>
 				<input
 					className={"text_input unselectable"}
-					type={"text"}
+					type={this.props.textType}
 					name={"text_input"}
 					placeholder={this.props.defaultText}
 					value={this.state.text}
@@ -98,6 +99,7 @@ export interface ITextInputProps extends IEnhancedComponentProps {
 	onEnterDisabled: boolean;
 	submit: (text: string) => void;
 	onEnterKeyDown?: (callback: () => void) => void;
+	textType?: string;
 }
 
 export interface ITextInputState extends IEnhancedComponentState {
