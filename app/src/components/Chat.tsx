@@ -13,7 +13,7 @@ import { downloadMessages } from "src/redux/actions/chatRoomActions";
 import { getCookie } from "src/utility/cookies";
 import "./css/Chat.css";
 
-const SOCKET_IO_URL = "http://localhost:9000";
+const SOCKET_IO_URL = "/";
 const socket = io(SOCKET_IO_URL);
 var Filter = require('bad-words');
 
