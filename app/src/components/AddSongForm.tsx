@@ -3,7 +3,7 @@ import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {TextButton} from "./buttons/TextButton";
 import {TextInput} from "./TextInput";
-import {decodeHTML, GenreEnum, Image, youtubeQuery} from "./index";
+import {decodeHTML, GenreEnum, genreIDMap, Image, youtubeQuery} from "./index";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {ISongListObject} from "../utility/songs";
@@ -24,7 +24,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 		};
 	}
 
-	private static NUM_SEARCH_RESULTS = 15;
+	private static NUM_SEARCH_RESULTS = 5;
 
 	protected constructor(props: IAddSongFormProps) {
 		super(props);
@@ -59,19 +59,25 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 			}).then((res) => {
 				for (let i = 0; i < res.items.length; i++) {
 					if (res.items[i].topicDetails && res.items[i].topicDetails.topicCategories) {
-						videoList[i].genreCategories = res.items[i].topicDetails.topicCategories
-							.map((k: string) => k.replace("https://en.wikipedia.org/wiki/", ""));
+						videoList[i].genreCategories = Array.from(new Set(res.items[i].topicDetails.relevantTopicIds
+							.map((k: string) => genreIDMap[k])
+							.filter((k: string) => !!k)))
+
+						if (!videoList[i].genreCategories || videoList[i].genreCategories.length === 0) {
+							res.items.splice(i, 1);
+							videoList.splice(i, 1);
+							i -= 1;
+						}
 					} else {
 						res.items.splice(i, 1);
 						videoList.splice(i, 1);
 						i -= 1;
 					}
 				}
-				this.setState({videoList: videoList});
+				this.setState({videoList: videoList}, callback);
 			}).catch((err) => {
 				console.error(err);
 			});
-			callback();
 		}
 	};
 

@@ -10,32 +10,64 @@ import Sidebar from "./Sidebar";
 import {TextInput} from "./TextInput";
 import {YOUTUBE_API_KEY} from "../utility/constants";
 
-enum GenreEnum {
-	BLUES = "Blues",
-	CHRISTIAN = "Christian",
-	ELECTRONIC = "Electronic",
-	GAMING = "Gaming",
-	ROCK = "Rock",
-	LO_FI = "Lo-Fi",
-	REGGAE = "Reggae",
-	COUNTRY = "Country",
-	HIP_HOP = "Hip-Hop",
-	JAZZ = "Jazz",
-	POP = "Pop",
-	RAP = "Rap",
-	CLASSICAL = "Classical",
-}
-
 enum ExpansionState {
 	EXPANDED = "expanded",
 	COLLAPSED = "collapsed",
 }
 
+enum GenreEnum {
+	BLUES = "Blues",
+	CHRISTIAN = "Christian",
+	ROCK = "Rock",
+	REGGAE = "Reggae",
+	COUNTRY = "Country",
+	JAZZ = "Jazz",
+	POP = "Pop",
+	CLASSICAL = "Classical",
+
+	// TODO @Breanne: Add these
+	// CHILDREN = "Children",
+	// INDEPENDENT = "Independent",
+	// ASIAN = "Asian",
+	// LATIN_AMERICAN = "Latin American",
+	// SOUL = "Soul",
+	// OTHER = "Other",
+
+	// TODO @Breanne: Remove these
+	ELECTRONIC = "Electronic",
+	GAMING = "Gaming",
+	LO_FI = "Lo-Fi",
+	HIP_HOP = "Hip-Hop",
+	RAP = "Rap",
+}
+
+const genreIDMap: {[key:string]: GenreEnum} = {
+	"/m/02mscn": GenreEnum.CHRISTIAN, 		// Christian music
+	"/m/0ggq0m": GenreEnum.CLASSICAL, 		// Classical music
+	"/m/01lyv": GenreEnum.COUNTRY, 			// Country
+	"/m/02lkt": GenreEnum.ELECTRONIC, 		// Electronic music
+	"/m/0glt670": GenreEnum.HIP_HOP, 		// Hip hop music
+	"/m/03_d0": GenreEnum.JAZZ, 			// Jazz
+	"/m/064t9": GenreEnum.POP, 				// Pop music
+	"/m/06cqb": GenreEnum.REGGAE, 			// Reggae
+	"/m/06j6l": GenreEnum.BLUES, 			// Rhythm and blues
+	"/m/06by7": GenreEnum.ROCK, 			// Rock music
+
+	// TODO: @Breanne: Add these
+	// "/m/0gywn": GenreEnum.SOUL, 			// Soul music
+	// "/m/05fw6t": GenreEnum.CHILDREN, 		// Children's music
+	// "/m/05rwpb": GenreEnum.INDEPENDENT, 	// Independent music
+	// "/m/028sqc": GenreEnum.ASIAN, 			// Music of Asia
+	// "/m/0g293": GenreEnum.LATIN_AMERICAN, 	// Music of Latin America
+	// "/m/04rlf": GenreEnum.OTHER, 			// Music
+}
+
 const txt = document.createElement("textarea");
 
 async function youtubeQuery(type: string, options: any): Promise<any> {
-	let optionsString = Object.keys(options).map((k) => `${k}=${options[k]}`).join("&");
-	optionsString += `&key=${YOUTUBE_API_KEY}`;
+	const optionsString = Object.keys(options)
+		.map((k) => `${k}=${options[k]}`)
+		.join("&") + `&key=${YOUTUBE_API_KEY}`;
 	const url = `https://www.googleapis.com/youtube/v3/${type}?${optionsString}`;
 
 	return fetch(url)
@@ -55,4 +87,5 @@ export {
 	Button, TextButton, ExpandableButton,
 	AddSongForm, EnhancedComponent, Header, Image, MusicSidebar, Sidebar, TextInput,
 	youtubeQuery, decodeHTML,
+	genreIDMap,
 };
