@@ -5,21 +5,15 @@ import './index.css';
 import App from './containers/App';
 import * as serviceWorker from './serviceWorker';
 import {DebugScreen} from "./containers";
-import {createStore, applyMiddleware, compose} from "redux";
+import {createStore, applyMiddleware} from "redux";
 import reducers from "./redux/reducers";
 import initialStore from "./redux/initialStore";
 import thunk from 'redux-thunk';
 
 const prod: boolean = true;
 
-declare global {
-  interface Window {
-    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
-  }
-}
-
 // @ts-ignore
-ReactDOM.render( <React.StrictMode> <Provider store={createStore(reducers, initialStore, compose(applyMiddleware(thunk), (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()))}>
+ReactDOM.render( <React.StrictMode> <Provider store={createStore(reducers, initialStore, applyMiddleware(thunk))}>
       {prod ? <App/> : <DebugScreen/>}
     </Provider>
   </React.StrictMode>,
