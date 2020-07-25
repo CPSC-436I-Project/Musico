@@ -1,38 +1,56 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import "./Components.css";
+import "./css/Header.css";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
+import {Image} from "./Image";
 import {ImageButton} from "./buttons/ImageButton";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
+import musicNoteIcon from "../icons/musicNote.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
+import { unselectGenre } from "src/redux/actions/chatRoomActions";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
     public static defaultProps: IHeaderProps = {
         ...EnhancedComponent.defaultProps,
+        sidebarOpen: true
     }
 
     public static mapStateToProps:(state: IStore, props: IHeaderProps) => IHeaderProps = (state: IStore, props: IHeaderProps) => {
         return {
             ...props,
             profileImgSrc: state.userStore.profileImgSrc,
+            sidebarOpen: state.sidebarStore.sidebarOpen,
         };
     }
-
 
     protected constructor(props: IHeaderProps) {
         super(props);
         this.state = {
+            sidebarOpen: true
         };
+    }
+
+    resetGenre = () => {
+        this.props.dispatch(unselectGenre());
     }
 
     public render(): ReactNode {
         return (
             <div className="header">
-                <ImageButton src={menuIcon} width={40} height={40} buttonColour="transparent" onAction={this.props.onMenuClick}/>
-                <span className="logo">Musico</span>
+                <div className="header-left">
+                    <div className="hamburger">
+                        <ImageButton src={menuIcon} width={30} height={30} buttonColour="transparent" onAction={this.props.onMenuClick}/>
+                    </div>
+                    <div className="logo-container" onClick={this.resetGenre}>
+                        <div className="logo-icon">
+                            <Image width={40} height={40} path={musicNoteIcon} />
+                        </div>
+                        <span className="logo">Musico</span>
+                    </div>
+                </div>
                 <div className="header-right">
                     <ImageButton src={this.props.profileImgSrc || profilePlaceholder} width={40} height={40} buttonColour="white" onAction={this.props.onProfileClick}/>
                 </div>
@@ -43,6 +61,7 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
 export interface IHeaderProps extends IEnhancedComponentProps {
     profileImgSrc?: string,
+    sidebarOpen: boolean,
     onProfileClick?: (callback: () => void) => void;
     onMenuClick?: (callback: () => void) => void;
 }

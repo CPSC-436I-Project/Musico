@@ -1,0 +1,117 @@
+.music-player-queue {
+    background-color: #242424;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 300px;
+}
+
+.music-player-queue .song-info-container {
+    width: 220px;
+}
+
+.music-player-queue .vote-buttons-container {
+    margin: 0px 10px 0px 0px;
+}
+
+.music-sidebar {
+    border-radius: 25px 0px 0px 25px;
+    background-color: #242424;
+    padding: 15px 20px 15px 20px;
+    max-width: 100%;
+    width: 210px;
+    height: 70%;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.music-sidebar .currently-playing {
+    position: relative;
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+.music-sidebar .music-player-queue {
+    position: relative;
+    top: -15px;
+}
+
+.music-sidebar p {
+    color: #ffffff;
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.add-music-button {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+/* .close-button {
+    position: relative;
+    top: -40px;
+    width: 45px;
+    height: 45px;
+    right: 60px;
+    margin-left: 50px;
+} */
+
+.queue-header {
+    background-color: #242424;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: space-around;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+/* .queue-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    flex-grow: 1;
+    width: 280px;
+    margin-left: 10px;
+} */
+
+.queue-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 1%;
+}
+
+.ratings {
+    display: flex;
+    flex-direction: column;
+}
+
+.song {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: stretch;
+    width: 280px;
+    margin-bottom: 20px;
+}
+
+.song-info-container {
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.song-description {
+    font-size: 20px;
+    font-family: "Roboto";
+    font-weight: 500;
+    margin: 10px 0px;
+}

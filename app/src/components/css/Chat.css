@@ -1,0 +1,22 @@
+.chat {
+    height: calc(100vh - 100px);
+    width: calc(100% - 140px);
+}
+
+.chat .scrollable-container {
+    overflow: auto;
+    height: calc(100vh - 140px);
+}
+
+.chat .messageItem {
+    display: block;
+}
+
+.chat .messageItem .main-button .center-mid {
+    margin: 0 10px;
+}
+
+.chat .chat-input .enhanced-component-container {
+    display: inline-block;
+    width: 88%;
+}

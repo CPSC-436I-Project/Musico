@@ -20,20 +20,22 @@ class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
 
     protected constructor(props: IMainContainerProps) {
         super(props);
-        this.state = {};
+        this.state = {
+            ...this.state,
+        };
     }
 
-    popupRender = () => {
+    protected popupRender(): ReactNode {
         return (
             <AddSongForm/>
-            )
+        );
     };
-
 
     public render(): ReactNode {
         return (
             <div className="main">
-                <button id="openPopup" onClick={this.openPopup}>Open Popup</button>
+                <h2>Adding songs from YouTube:</h2>
+                <button id="openPopup" onClick={this.openPopup}>Add a song!</button>
             </div>
         );
     }

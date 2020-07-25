@@ -4,6 +4,7 @@ import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
+import {PageEnum} from "./index";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -13,12 +14,11 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 	private readonly childRender: () => ReactNode;
 
-	public popupRender: () => ReactNode;
-
 	public static mapStateToProps:(state: IStore, props: IContainerProps) => IContainerProps = (state: IStore, props: IContainerProps) => {
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
+			selectedGenre: state.chatRoomStore.selectedGenre
 		};
 	}
 
@@ -31,18 +31,27 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.state = {
 			popupOpen: false,
 			profileOpen: false,
+			sidebarOpen: true,
+			musicSidebarOpen: true,
 		};
 
 		this.childRender = this.render;
+		this.openPopup = this.openPopup.bind(this);
+		this.closePopup = this.closePopup.bind(this);
+		this.popupRender = this.popupRender.bind(this);
 		this.wrapRender();
 	}
 
-	openPopup = () => {
+	protected openPopup() {
 		this.props.dispatch(showPopUp());
 	};
 
-	closePopup = () => {
+	protected closePopup() {
 		this.props.dispatch(hidePopUp());
+	};
+
+	protected popupRender(): ReactNode {
+		return <div/>;
 	};
 
 	toggleProfile = (callback: () => void) => {
@@ -66,12 +75,19 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 export interface IContainerProps {
 	popupOpen?: boolean;
+	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 	dispatch?: any;
+	changePage?: (page: PageEnum) => void;
+	selectedGenre?: string;
 }
 
 export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
+	selectedGenre?: string;
+	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 }
 
-export {Container};
+export {Container}

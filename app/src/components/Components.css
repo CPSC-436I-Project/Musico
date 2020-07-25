@@ -41,6 +41,11 @@
     flex: 1;
 }
 
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
 .add-song-form #message_tb {
     width: 100%;
 }
@@ -85,50 +90,12 @@
     margin-left: 3px;
 }
 
-.dashboard_trending {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.dashboard_song {
-    margin: 10px;
-}
-
 .unselectable {
     user-select: none;
 }
 
-.inner_profile {
-    margin: 100px 100px 0px;
-}
-
-.inner_profile .profile_head {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.inner_profile img {
-    border: 3px solid #6236FF;
-    padding: 0;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.inner_profile h2 {
-    margin-left: 50px;
-}
-
-.song-info-container {
-    display: inline-flex;
-    flex-direction: column;
-}
-
-.song-description {
-    font-size: 20px;
-    font-family: "Roboto";
-    font-weight: 500;
-    margin: 10px 0px;
+.log_out{
+    display: block;
 }
 
 .music-player-queue {
@@ -178,4 +145,8 @@
 
 .music-player-queue .vote-buttons-container {
     margin: 0px 10px 0px 0px;
+}
+
+.scrollable-container {
+    overflow: auto;
 }

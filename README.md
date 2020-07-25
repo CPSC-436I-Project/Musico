@@ -1,11 +1,15 @@
 # Musico
 
 ### Project Description
+Musico (Music-Collaborate) provides a platform for people with similar tastes in music to meet and interact with one another by integrating genre-based playlists with online chat rooms! Users can join virtual rooms playing a certain genre of music, add/upvote/downvote songs on the upcoming songs queue (more votes means the song plays sooner) and chat with other users in the room.
+
+### Project Requirements
+
+#### Detailed Description
 
 Musico (Music-Collaborate) provides a platform for people with similar tastes in music to meet and interact with one another by integrating genre-based playlists with online chat rooms. Users can join virtual rooms, in which each room plays a certain genre of music, and request a song to be played by adding it to a queue of pre-existing requests. If a queue has no requests, music will automatically play from a default playlist selected for the corresponding genre. Each room will have its own chat, where users can meet and talk with one another. In addition, users will have their own profile showing their favourite genres and songs they have previously requested. If time permits, we hope to integrate a voting system to the request queues, allowing users to upvote songs they like to increase their ranking and hence, get those songs to play sooner.
 
-### Project Task Requirements
-
+### Task Requirements
 
 #### Minimal Requirements:
 * Rooms that automatically play a specific genre of music when users join 
@@ -19,13 +23,13 @@ Musico (Music-Collaborate) provides a platform for people with similar tastes in
     * Profile picture
     * Their favourite music genres
     * Songs they have previously requested
-* The song queue will be linked to youtube and be able to filter duplicate requests
-* Users will be able to view other users’ profiles to learn about their favourite genres/songs and find common ground
+* The song queue will be linked to youtube using the YouTube API
+* Develop a system that can check if a song is of a particular genre
 
 #### Stretch Goals:
 * Integrate user voting system on song request queues
 * Add additional sources of music (Soundcloud or Spotify)
-* Develop a system that can check if a song is of a particular genre
+* Users will be able to view other users’ profiles to learn about their favourite genres/songs and find common ground
 
 ----
 
