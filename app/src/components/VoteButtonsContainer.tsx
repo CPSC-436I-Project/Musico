@@ -6,6 +6,7 @@ import {UpvoteButton} from "./buttons/UpvoteButton";
 import {DownvoteButton} from "./buttons/DownvoteButton";
 import "./buttons/VoteButtons.css"
 import { API_URL } from "src/utility/constants";
+import {getCookie} from "../utility/cookies";
 
 class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps, IVoteButtonsContainerState> {
     public static defaultProps: IVoteButtonsContainerProps = {
@@ -22,20 +23,28 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
     }
 
     voteUp = (callback: () => void) => {
+        const token = getCookie('auth-token');
         this.setState({rating: this.state.rating + 1})
         fetch(API_URL + "songs/upvote/" + this.props.songId, {
             method: "PATCH",
-            headers: {"Content-type": "application/json"}
+            headers: {
+                "Content-type": "application/json",
+                "auth-token": token
+            }
         })
         .then(response => response.json())
         .then(callback)
     };
 
     voteDown = (callback: () => void) => {
+        const token = getCookie('auth-token');
         this.setState({rating: this.state.rating - 1})
         fetch(API_URL + "songs/downvote/" + this.props.songId, {
             method: "PATCH",
-            headers: {"Content-type": "application/json"}
+            headers: {
+                "Content-type": "application/json",
+                "auth-token": token
+            }
         })
         .then(response => response.json())
         .then(callback)
