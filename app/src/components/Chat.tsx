@@ -95,7 +95,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
             });
         }
     }
-    
+
 
     gotMessagesCallback = () => {
         this.setInitialized(true);
@@ -115,18 +115,18 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
             return <span key={item._id} className="messageItem">
                 <TextButton disabled={true} buttonColour={"#009AFF"} width="auto" fontColour="white" text={message}/>
             </span>;
-          });
+        });
         return (
             <div className="chat">
                 <div className="scrollable-container">
-                {items}
-                <span ref={this.messagesEndRef}/>
+                    {items}
+                    <span ref={this.messagesEndRef}/>
                 </div>
                 <div className="chat-input">
                     <TextInput defaultText="Enter a message"
-                                submit={this.updateCurrMessage} 
-                                onEnterDisabled={false} 
-                                onEnterKeyDown={this.handleSubmit} 
+                               submit={this.updateCurrMessage}
+                               onEnterDisabled={false}
+                               onEnterKeyDown={this.handleSubmit}
                     />
                     <TextButton text={"Send"}
                                 fontSize={14} width={"10%"}

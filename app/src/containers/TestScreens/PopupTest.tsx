@@ -34,7 +34,8 @@ class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
     public render(): ReactNode {
         return (
             <div className="main">
-                <button id="openPopup" onClick={this.openPopup}>Open Popup</button>
+                <h2>Adding songs from YouTube:</h2>
+                <button id="openPopup" onClick={this.openPopup}>Add a song!</button>
             </div>
         );
     }

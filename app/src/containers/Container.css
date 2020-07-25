@@ -71,7 +71,6 @@
 }
 
 #generic_background {
-    background-image: url("./musicNote.png");
     background-repeat: no-repeat;
     background-position-x: right;
     background-position-y: bottom;

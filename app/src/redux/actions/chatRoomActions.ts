@@ -7,7 +7,8 @@ import { API_URL } from "src/utility/constants";
 export const setSelectedGenre = (genre: GenreEnum) => {
 	return {
 		type: ChatRoomEnum.SET_SELECTED_GENRE,
-		genre: genre
+		genre: genre,
+		getMessages: true
 	}
 }
 
