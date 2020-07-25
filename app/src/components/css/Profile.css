@@ -1,5 +1,10 @@
+.enhanced-component-container {
+    max-height: 100%;
+    overflow: auto;
+}
+
 .inner-profile {
-    margin: 100px 100px 0px;
+    color: #ffffff;
 }
 
 .inner-profile .profile-head {
@@ -8,13 +13,71 @@
     align-items: center;
 }
 
-.inner-profile img {
+.profile-head h2 {
+    margin-left: 50px;
+}
+
+.profile-head img {
+    background: #ffffff;
     border: 3px solid #6236FF;
     padding: 0;
     border-radius: 50%;
     overflow: hidden;
 }
 
-.inner-profile h2 {
-    margin-left: 50px;
+.update-profile-pic-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.update-profile-pic-input {
+    flex-grow: 1;
+}
+
+.update-profile-pic-button {
+    max-width: 100px;
+}
+
+.profile-songs {
+    display: flex;
+}
+
+.profile-requested-songs {
+    flex-grow: 1;
+}
+
+.profile-requested-songs-inner {
+    max-height: 425px;
+    overflow: auto;
+}
+
+.profile-liked-songs {
+    flex-grow: 1;
+}
+
+.profile-liked-songs-inner {
+    max-height: 425px;
+    overflow: auto;
+}
+
+.profile-song-info-container {
+    display: flex;
+}
+
+.profile-song-image {
+    margin: 5px;
+}
+
+.profile-song-description-container {
+    flex-grow: 1;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.profile-song-description{
+    font-size: 20px;
+    font-family: "Roboto";
+    font-weight: 500;
+    margin: 10px 0px;
 }

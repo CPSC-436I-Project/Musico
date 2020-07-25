@@ -21,6 +21,7 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
 
     public render() {
         let artistsString = "";
+
         this.props.artists.map(artist => artistsString += ", " + artist);
         let artists = artistsString.substring(2);
 
