@@ -11,7 +11,7 @@ router.get('/', verifyToken, (req, res) => {
         .catch(err => {console.log(err)});
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', verifyToken, (req, res) => {
     Song.findOne({_id: req.params.id})
         .then(song => {
             res.json(song)
@@ -19,7 +19,7 @@ router.get('/:id', (req, res) => {
         .catch(err => {console.log(err)})
 });
 
-router.patch('/upvote/:id', (req, res) => {
+router.patch('/upvote/:id', verifyToken, (req, res) => {
     Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: 1}})
         .then(song => {
             res.json(song)
@@ -27,7 +27,7 @@ router.patch('/upvote/:id', (req, res) => {
         .catch(err => console.log(err));
 })
 
-router.patch('/downvote/:id', (req, res) => {
+router.patch('/downvote/:id', verifyToken, (req, res) => {
     Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: -1}})
         .then(song => {
             res.json(song)

@@ -9,6 +9,7 @@ import {TextButton} from "./buttons/TextButton";
 import { API_URL } from "src/utility/constants";
 import "./css/MusicSidebar.css";
 import { CurrentlyPlaying } from "./CurrentlyPlaying";
+import {getCookie} from "../utility/cookies";
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {
     public static defaultProps: IMusicSidebarProps = {
@@ -64,9 +65,13 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     }
 
     private getChannelQueue(genre: GenreEnum) {
+        const token = getCookie('auth-token');
         console.log("Getting queue");
         fetch(API_URL + "queues/" + genre, {
             method: 'GET',
+            headers: {
+                'auth-token': token
+            }
         })
         .then(res => res.json())
         .then((songIds: string[]) => {
@@ -75,6 +80,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     }
 
     private getSongsFromQueue(ids: string[]) {
+        const token = getCookie('auth-token');
         let song: Song = {
             songName: "default",
             artists: [],
@@ -87,7 +93,10 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
         return Promise.all(
             ids.map((id: string) => fetch(API_URL + "songs/" + id, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'auth-token': token
+                }
             })))
             .then((responses) => {
                 return Promise.all(responses.map(response => response.json()))

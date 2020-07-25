@@ -2,7 +2,7 @@ import * as React from "react";
 import {SidebarTextImageButton} from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./css/Sidebar.css";
-import {bluesIcon, christianIcon, electronicIcon, gamingIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, jazzIcon, rapIcon, classicalIcon, popIcon} from "../icons/genres";
+import {asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinAmericanIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, jazzIcon, classicalIcon, popIcon, soulIcon} from "../icons/genres";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {SearchBar} from "./SearchBar";
 import {IStore} from "../redux/initialStore";
@@ -16,9 +16,9 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [
-        {genre: GenreEnum.ASIAN, icon: bluesIcon},
+        {genre: GenreEnum.ASIAN, icon: asianIcon},
         {genre: GenreEnum.BLUES, icon: bluesIcon},
-        {genre: GenreEnum.CHILDREN, icon: bluesIcon},
+        {genre: GenreEnum.CHILDREN, icon: childrenIcon},
         {genre: GenreEnum.CHRISTIAN, icon: christianIcon},
         {genre: GenreEnum.CLASSICAL, icon: classicalIcon},
         {genre: GenreEnum.COUNTRY, icon: countryIcon},
@@ -26,12 +26,12 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.HIP_HOP, icon: hiphopIcon},
         {genre: GenreEnum.INDEPENDENT, icon: bluesIcon},
         {genre: GenreEnum.JAZZ, icon: jazzIcon},
-        {genre: GenreEnum.LATIN_AMERICAN, icon: bluesIcon},
+        {genre: GenreEnum.LATIN_AMERICAN, icon: latinAmericanIcon},
         {genre: GenreEnum.OTHER, icon: bluesIcon},
         {genre: GenreEnum.POP, icon: popIcon},
         {genre: GenreEnum.REGGAE, icon: reggaeIcon},
         {genre: GenreEnum.ROCK, icon: rockIcon},
-        {genre: GenreEnum.SOUL, icon: bluesIcon},
+        {genre: GenreEnum.SOUL, icon: soulIcon},
     ]
 
     public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
