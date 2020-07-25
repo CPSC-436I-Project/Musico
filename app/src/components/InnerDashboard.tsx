@@ -24,7 +24,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
 
     private getTopSongsOnQueues(): void {
         const token = getCookie('auth-token');
-        fetch(API_URL+'queues', {
+        fetch(API_URL + 'queues', {
             method: 'GET',
             headers: {
                 'auth-token': token
@@ -56,7 +56,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             numVotes: 0
         };
         return Promise.all(
-            queue.map((songID: string) => fetch(API_URL+'songs/' + songID, {
+            queue.map((songID: string) => fetch(API_URL + 'songs/' + songID, {
                 method: 'GET',
                 headers: {'auth-token': token}
             })))
