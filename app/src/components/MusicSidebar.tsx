@@ -54,19 +54,18 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         }
     }
 
-    private getChannelQueue = () => {
+    private getChannelQueue() {
         console.log("Getting queue");
         fetch(API_URL + "queues/" + this.props.selectedGenre, {
             method: 'GET',
         })
         .then(res => res.json())
-        .then(songIds => {
+        .then((songIds: string[]) => {
             this.getSongsFromQueue(songIds);
         })
     }
 
-    //@ts-ignore
-    private getSongsFromQueue = ids => {
+    private getSongsFromQueue(ids: string[]) {
         let song: Song = {
             songName: "default",
             artists: [],
@@ -76,14 +75,12 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
             albumCover: "",
             numVotes: 0
         }
-        
+
         return Promise.all(
-            //@ts-ignore
-            ids.map(id => fetch(API_URL + "songs/" + id, {
+            ids.map((id: string) => fetch(API_URL + "songs/" + id, {
                 method: 'GET'
             })))
             .then((responses) => {
-                //@ts-ignore
                 return Promise.all(responses.map(response => response.json()))
             })
             .then((songs: Song[]) => {
@@ -104,21 +101,15 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
             })
     }
 
-    // closeMusicSidebar = () => {
-	// 	this.props.dispatch(hideMusicSidebar());
-	// }
-
     public render(): ReactNode {
-        return (  
+        console.log(this.state.queue)
+        return (
             <div className="music-sidebar">
-                {/* <span className="close-button">
-						<ImageButton src={closeIcon} onAction={this.closeMusicSidebar} height={20} width={20} buttonColour="grey"/>
-				</span> */}
                 <div className="currently-playing">
                     <CurrentlyPlaying song={this.state.queue[0]}/>
                 </div>
                 <div className="music-player-queue">
-                    <MusicPlayerQueue queue={this.state.queue}/>
+                    <MusicPlayerQueue queue={this.state.queue.slice(1)}/>
                 </div>
                 <div className="add-music-button">
                     <TextButton

@@ -5,6 +5,7 @@ import {VoteButtonsContainer} from "./VoteButtonsContainer";
 import {SongInfoContainer} from "./SongInfoContainer";
 import {Image} from "./Image";
 import "./css/MusicSidebar.css";
+import {ReactNode} from "react";
 
 class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicPlayerQueueState> {
     public static defaultProps: IMusicPlayerQueueProps = {
@@ -16,24 +17,28 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
         super(props);
     }
 
+    private static createSongElement(song: any): ReactNode {
+        return(
+            <div key={song._id} className={"flex-row"}>
+                <VoteButtonsContainer
+                    rating={song.numVotes}
+                    songId={song._id}
+                />
+                <SongInfoContainer
+                    songName={song.songName}
+                    artists={song.artists}
+                    albumCover={song.albumCover}
+                    width={132}
+                    height={74}
+                />
+            </div>
+        )
+    }
+
     public render() {
         const playlistIcon = "https://img.icons8.com/color/48/000000/smart-playlist.png";
 
-        let ratings: any[] = [];
-        let songsOnQueue: any[] = [];
-        this.props.queue.forEach((song: Song) => {
-            ratings.push(<VoteButtonsContainer 
-                rating={song.numVotes}
-                songId={song._id}
-                />)
-            songsOnQueue.push(<SongInfoContainer 
-                songName={song.songName} 
-                artists={song.artists}
-                albumCover={song.albumCover}
-                width={132}
-                height={74}
-                />)
-        })
+        console.log(this.props.queue);
 
         return (
             <div className="music-player-queue">
@@ -41,13 +46,8 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
                     <Image width={30} height={30} path={playlistIcon}/>
                     <h2>Queue</h2>
                 </div>
-                <div className={"queue-items"}>             
-                    <div className="ratings">
-                        {ratings.slice(1)}
-                    </div>
-                    <div className="songs">
-                        {songsOnQueue.slice(1)}  
-                    </div> 
+                <div className={"queue-items center-mid"}>
+                    {this.props.queue.map(MusicPlayerQueue.createSongElement)}
                 </div>
             </div>
         )
