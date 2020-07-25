@@ -4,11 +4,11 @@ import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
 import {Header, Sidebar, MusicSidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
-import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import { InnerDashboard } from "src/components/InnerDashboard";
 import Room from "./Room";
 import { IStore } from "src/redux/initialStore";
+import InnerProfile from "../components/InnerProfile";
 
 class Dashboard extends Container<IDashboardProps, IDashboardState> {
 
@@ -34,7 +34,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 
 	public render(): ReactNode {
 		let renderRoom = this.props.selectedGenre ? <Room/> : <InnerDashboard/>
-		let renderer = this.state.profileOpen ? <Profile/> : renderRoom;
+		let renderer = this.state.profileOpen ? <InnerProfile/> : renderRoom;
 		let sidebarRenderer = this.state.sidebarOpen &&  <div id={"dashboard_sidebar"}><Sidebar/></div>;
 		return (
 			<div id={"dashboard"}>

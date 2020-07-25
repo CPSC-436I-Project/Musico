@@ -74,6 +74,16 @@ function decodeHTML(snippet: string) {
 	return txt.value;
 }
 
+export interface Song {
+	songName: string,
+	artists: string[],
+	genre: string,
+	src: string,
+	requesterID: any,
+	albumCover: string,
+	numVotes: number
+}
+
 export {
 	GenreEnum, ExpansionState,
 	Button, TextButton, ExpandableButton,
