@@ -38,8 +38,6 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
     public render() {
         const playlistIcon = "https://img.icons8.com/color/48/000000/smart-playlist.png";
 
-        console.log(this.props.queue);
-
         return (
             <div className="music-player-queue">
                 <div className="queue-header">

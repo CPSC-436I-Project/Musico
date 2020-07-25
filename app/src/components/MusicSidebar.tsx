@@ -2,11 +2,8 @@ import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {IStore} from "../redux/initialStore";
-import closeIcon from "../icons/close.png";
 import {connect} from "react-redux";
 import {GenreEnum} from ".";
-import {hideMusicSidebar} from "../redux/actions/musicSidebarActions";
-import {ImageButton} from "./buttons/ImageButton";
 import {MusicPlayerQueue} from "./MusicPlayerQueue";
 import {TextButton} from "./buttons/TextButton";
 import { API_URL } from "src/utility/constants";
@@ -50,13 +47,25 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         if (this.props.selectedGenre === null) {
             console.log("No selected genre!");
         } else {
-            this.getChannelQueue();
+            this.getChannelQueue(this.props.selectedGenre);
         }
     }
 
-    private getChannelQueue() {
+    componentDidUpdate = (previousProps: any) => {
+        if (this.props.selectedGenre !== previousProps.selectedGenre) {
+            if (this.props.selectedGenre === null) {
+                console.log("No selected genre!");
+                return;
+            } else {
+                this.setState({queue: []});
+                this.getChannelQueue(this.props.selectedGenre);
+            }
+        }
+    }
+
+    private getChannelQueue(genre: GenreEnum) {
         console.log("Getting queue");
-        fetch(API_URL + "queues/" + this.props.selectedGenre, {
+        fetch(API_URL + "queues/" + genre, {
             method: 'GET',
         })
         .then(res => res.json())
@@ -102,7 +111,6 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     }
 
     public render(): ReactNode {
-        console.log(this.state.queue)
         return (
             <div className="music-sidebar">
                 <div className="currently-playing">
