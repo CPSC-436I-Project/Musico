@@ -50,6 +50,7 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: #181818;
 }
 
 #dashboard_lower {

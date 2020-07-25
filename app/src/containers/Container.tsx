@@ -14,7 +14,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 	private readonly childRender: () => ReactNode;
 
-	public popupRender: () => ReactNode; 
+	public popupRender: () => ReactNode;
 
 	public static mapStateToProps:(state: IStore, props: IContainerProps) => IContainerProps = (state: IStore, props: IContainerProps) => {
 		return {
@@ -33,6 +33,8 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.state = {
 			popupOpen: false,
 			profileOpen: false,
+			sidebarOpen: true,
+			musicSidebarOpen: true,
 		};
 
 		this.childRender = this.render;
@@ -68,6 +70,8 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 
 export interface IContainerProps {
 	popupOpen?: boolean;
+	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 	dispatch?: any;
 	changePage?: (page: PageEnum) => void;
 	selectedGenre?: string;
@@ -77,6 +81,8 @@ export interface IContainerState {
 	popupOpen?: boolean;
 	profileOpen?: boolean;
 	selectedGenre?: string;
+	sidebarOpen?: boolean;
+	musicSidebarOpen?: boolean;
 }
 
-export {Container};
+export {Container}

@@ -11,6 +11,30 @@ router.get('/', verifyToken, (req, res) => {
         .catch(err => {console.log(err)});
 });
 
+router.get('/:id', verifyToken, (req, res) => {
+    Song.findOne({_id: req.params.id})
+        .then(song => {
+            res.json(song)
+        })
+        .catch(err => {console.log(err)})
+});
+
+router.patch('/upvote/:id', verifyToken, (req, res) => {
+    Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: 1}})
+        .then(song => {
+            res.json(song)
+        })
+        .catch(err => console.log(err));
+})
+
+router.patch('/downvote/:id', verifyToken, (req, res) => {
+    Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: -1}})
+        .then(song => {
+            res.json(song)
+        })
+        .catch(err => console.log(err));
+})
+
 router.get('/:songID', verifyToken, (req, res) => {
     Song.findOne({_id: req.params.songID})
         .then(song => {res.json(song)})
@@ -31,8 +55,8 @@ router.post('/add', verifyToken, async (req, res) => {
     newSong.save()
         .then(
             Queue.findOneAndUpdate(
-                {channel: req.body.genre}, 
-                {$push: {queue: newSong}}, 
+                {channel: req.body.genre},
+                {$push: {queue: newSong}},
                 {new: true, useFindAndModify: false},
                 (err, docs) => {
                     if (err) {

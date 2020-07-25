@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {Header, Sidebar} from "../components";
+import {Header, Sidebar, MusicSidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
 import { InnerDashboard } from "src/components/InnerDashboard";

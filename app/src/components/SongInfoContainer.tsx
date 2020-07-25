@@ -10,9 +10,9 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
     public static defaultProps: ISongInfoContainerProps = {
         ...EnhancedComponent.defaultProps,
         color: "#ffffff",
-        pic: thumbnailPlaceholder,
-        name: "default song name",
-        artists: ["artist1", "artist2"]
+        songName: "default",
+        artists: ["artist1", "artist2"],
+        albumCover: thumbnailPlaceholder,
     };
 
     protected constructor(props: ISongInfoContainerProps) {
@@ -21,23 +21,20 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
 
     public render() {
         let artistsString = "";
-        this.props.artists.forEach(function(a) {
-            artistsString += ", " + a;
-        });
+
+        this.props.artists.map(artist => artistsString += ", " + artist);
         let artists = artistsString.substring(2);
+
         return (
-            <div className={"song-info-container"} style={{
-                color: this.props.color,
-                width: this.props.width
-            }} >
+            <div className={"song-info-container"} style={{color: this.props.color, width: this.props.width}} >
                 <Image
-                    path={this.props.pic}
+                    path={this.props.albumCover || thumbnailPlaceholder}
                     name={"Album"}
                     width={this.props.width}
                     height={this.props.height}
                 />
                 <div className={"song-description-container"}>
-                    <p className={"song-description"}>{this.props.name} <br/> {artists}</p>
+                    <p className={"song-description"}>{this.props.songName} <br/> {artists}</p>
                 </div>
             </div>
         )
@@ -48,9 +45,9 @@ export interface ISongInfoContainerProps extends IEnhancedComponentProps {
     color?: string,
     width?: number,
     height?: number,
-    pic?: string,
-    name?: string,
-    artists?: string[]
+    songName?: string,
+    artists?: string[],
+    albumCover?: string,
 }
 
 export interface ISongInfoContainerState extends IEnhancedComponentState {

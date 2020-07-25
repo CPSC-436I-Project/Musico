@@ -97,8 +97,8 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         this.state.topSongs.forEach(function (song: Song) {
             nextSongs.push(<DashboardSongInfo
                 genre={song.genre}
-                pic={song.albumCover}
-                name={song.songName}
+                albumCover={song.albumCover}
+                songName={song.songName}
                 artists={song.artists}
             />);
         });

@@ -1,0 +1,9 @@
+.room {
+    display: flex; 
+    flex-direction: row; 
+}
+
+.room .music-sidebar {
+    position: fixed;
+    right: 0;
+}
