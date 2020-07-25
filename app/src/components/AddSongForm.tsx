@@ -125,16 +125,18 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
 				}),
 			})
-				.then(async res => { return {text: await res.text(), status: res.status}})
+				.then(async res => {
+					return {text: await res.text(), status: res.status}
+				})
 				.then((res) => {
 					if (res.status !== 200) {
 						console.log(res);
 					} else {
-						const playlist = JSON.parse(res.text).playlist;
-						console.log("added song:", playlist.pop())
+						const newSong = JSON.parse(res.text).playlist.pop();
+						this.props.addSong(newSong);
 					}
-				})
-			callback();
+					callback();
+				});
 		}
 	}
 
@@ -162,7 +164,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 }
 
 export interface IAddSongFormProps extends IEnhancedComponentProps {
-	addSong?: (callback: () => void) => void;
+	addSong?: (song: any) => void;
 	selectedGenre?: GenreEnum | null;
 	username?: string | null;
 	songList?: ISongListObject;

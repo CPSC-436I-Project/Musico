@@ -1,7 +1,7 @@
 import * as React from "react";
-import {ReactNode} from "react";
+import {ReactNode, useRef} from "react";
 import "../components/css/Room.css";
-import {Container} from "./Container";
+import {Container, IContainerProps} from "./Container";
 import Chat from "src/components/Chat";
 import {AddSongForm, MusicSidebar} from "src/components";
 import {IStore} from "../redux/initialStore";
@@ -15,10 +15,20 @@ class Room extends Container {
 			...Container.mapStateToProps(state, props),
 		};
 	}
+	private sideBarRef: any;
+
+	protected constructor(props: IContainerProps) {
+		super(props);
+
+		this.popupRender = this.popupRender.bind(this);
+	}
 
 	protected popupRender() {
+		console.log(this.sideBarRef)
 		return (
-			<AddSongForm/>
+			<AddSongForm
+				addSong={this.sideBarRef ? this.sideBarRef.addToQueue : () => {/**/}}
+			/>
 		);
 	};
 
@@ -29,7 +39,10 @@ class Room extends Container {
 					<Chat/>
 				</div>
 				<div className="music-sidebar">
-					<MusicSidebar showPopup={this.openPopup}/>
+					<MusicSidebar
+						showPopup={this.openPopup}
+						childRef={(ref: any) => {this.sideBarRef = ref; }}
+					/>
 				</div>
 			</div>
 		);
