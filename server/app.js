@@ -35,12 +35,16 @@ connection.once('open', () => {
   console.log("MongoDB database connection established successfully!");
 })
 
-app.use('/', indexRouter);
 app.use('/chats', chatsRouter);
 app.use('/playlists', playlistsRouter);
 app.use('/queues', queuesRouter);
 app.use('/userProfiles', usersRouter);
 app.use('/songs', songsRouter);
+app.use(express.static(path.join(__dirname, '../app/build')))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '../app/build/index.html'))
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

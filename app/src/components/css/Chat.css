@@ -1,10 +1,10 @@
 .chat {
-    height: 400px;
+    height: calc(100vh - 100px);
 }
 
 .chat .scrollable-container {
     overflow: auto;
-    height: 400px;
+    height: calc(100vh - 140px);
 }
 
 .chat .messageItem {

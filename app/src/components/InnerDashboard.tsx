@@ -7,6 +7,7 @@ import {Image} from "./Image"
 import {GenreEnum} from "./index";
 import {Song} from "./index";
 import {getCookie} from "../utility/cookies";
+import {API_URL} from "../utility/constants";
 
 
 class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashboardState> {
@@ -24,8 +25,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
 
     private getTopSongsOnQueues(): void {
         const token = getCookie('auth-token');
-        // fetch('/queues', {)                     // use this when deploying app
-        fetch('http://localhost:9000/queues', {     // use this for now
+        fetch(API_URL + 'queues', {
             method: 'GET',
             headers: {
                 'auth-token': token
@@ -57,8 +57,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             numVotes: 0
         };
         return Promise.all(
-            // queue.map((songID: string) => fetch('/songs/' + songID, {)            // for deployment
-            queue.map((songID: string) => fetch('http://localhost:9000/songs/' + songID, {
+            queue.map((songID: string) => fetch(API_URL + 'songs/' + songID, {
                 method: 'GET',
                 headers: {'auth-token': token}
             })))
