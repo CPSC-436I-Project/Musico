@@ -1,6 +1,6 @@
 .enhanced-component-container {
     max-height: 100%;
-    scroll: auto;
+    overflow: auto;
 }
 
 .inner-profile {
@@ -49,7 +49,7 @@
 
 .profile-requested-songs-inner {
     max-height: 425px;
-    scroll: auto;
+    overflow: auto;
 }
 
 .profile-liked-songs {
@@ -58,7 +58,7 @@
 
 .profile-liked-songs-inner {
     max-height: 425px;
-    scroll: auto;
+    overflow: auto;
 }
 
 .profile-song-info-container {
@@ -71,7 +71,7 @@
 
 .profile-song-description-container {
     flex-grow: 1;
-    scroll: auto;
+    overflow: auto;
     white-space: nowrap;
 }
 
