@@ -7,7 +7,7 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import { InnerDashboard } from "src/components/InnerDashboard";
-import { Room } from "./Room";
+import Room from "./Room";
 import { IStore } from "src/redux/initialStore";
 
 class Dashboard extends Container<IDashboardProps, IDashboardState> {

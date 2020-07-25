@@ -8,6 +8,7 @@ import {Image} from "./Image";
 import MusicSidebar from "./MusicSidebar";
 import Sidebar from "./Sidebar";
 import {TextInput} from "./TextInput";
+import {YOUTUBE_API_KEY} from "../utility/constants";
 
 enum GenreEnum {
 	BLUES = "Blues",
@@ -30,12 +31,11 @@ enum ExpansionState {
 	COLLAPSED = "collapsed",
 }
 
-const API_KEY = "";
 const txt = document.createElement("textarea");
 
 async function youtubeQuery(type: string, options: any): Promise<any> {
 	let optionsString = Object.keys(options).map((k) => `${k}=${options[k]}`).join("&");
-	optionsString += `&key=${API_KEY}`;
+	optionsString += `&key=${YOUTUBE_API_KEY}`;
 	const url = `https://www.googleapis.com/youtube/v3/${type}?${optionsString}`;
 
 	return fetch(url)

@@ -20,15 +20,16 @@ class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
 
     protected constructor(props: IMainContainerProps) {
         super(props);
-        this.state = {};
+        this.state = {
+            ...this.state,
+        };
     }
 
-    popupRender = () => {
+    protected popupRender(): ReactNode {
         return (
             <AddSongForm/>
-            )
+        );
     };
-
 
     public render(): ReactNode {
         return (

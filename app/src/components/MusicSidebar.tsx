@@ -44,6 +44,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
         this.getChannelQueue = this.getChannelQueue.bind(this);
         this.getSongsFromQueue = this.getSongsFromQueue.bind(this);
+        this.showPopup = this.showPopup.bind(this);
     }
 
     componentDidMount = () => {
@@ -101,8 +102,12 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
             })
     }
 
+    private showPopup(callback: () => void): void {
+        this.props.showPopup();
+        callback();
+    }
+
     public render(): ReactNode {
-        console.log(this.state.queue)
         return (
             <div className="music-sidebar">
                 <div className="currently-playing">
@@ -119,6 +124,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 					    height={44}
                         width={204}
                         fontSize={20}
+                        onAction={this.showPopup}
 				    />
                 </div>
             </div>
@@ -142,6 +148,7 @@ export interface IMusicSidebarProps extends IEnhancedComponentProps {
     dispatch?: any,
     musicSidebarOpen?: boolean,
     selectedGenre?: GenreEnum | null;
+    showPopup?: () => void;
 }
 
 export interface IMusicSidebarState extends IEnhancedComponentState {
