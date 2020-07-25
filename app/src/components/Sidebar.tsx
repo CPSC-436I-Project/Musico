@@ -16,18 +16,22 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [
+        {genre: GenreEnum.ASIAN, icon: bluesIcon},
         {genre: GenreEnum.BLUES, icon: bluesIcon},
+        {genre: GenreEnum.CHILDREN, icon: bluesIcon},
         {genre: GenreEnum.CHRISTIAN, icon: christianIcon},
         {genre: GenreEnum.CLASSICAL, icon: classicalIcon},
         {genre: GenreEnum.COUNTRY, icon: countryIcon},
         {genre: GenreEnum.ELECTRONIC, icon: electronicIcon},
-        {genre: GenreEnum.GAMING, icon: gamingIcon},
         {genre: GenreEnum.HIP_HOP, icon: hiphopIcon},
+        {genre: GenreEnum.INDEPENDENT, icon: bluesIcon},
         {genre: GenreEnum.JAZZ, icon: jazzIcon},
+        {genre: GenreEnum.LATIN_AMERICAN, icon: bluesIcon},
+        {genre: GenreEnum.OTHER, icon: bluesIcon},
         {genre: GenreEnum.POP, icon: popIcon},
-        {genre: GenreEnum.RAP, icon: rapIcon},
         {genre: GenreEnum.REGGAE, icon: reggaeIcon},
         {genre: GenreEnum.ROCK, icon: rockIcon},
+        {genre: GenreEnum.SOUL, icon: bluesIcon},
     ]
 
     public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
