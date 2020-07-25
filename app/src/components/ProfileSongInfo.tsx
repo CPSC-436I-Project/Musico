@@ -20,7 +20,7 @@ class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileS
 
     public render() {
         let artistsString = "";
-        this.props.artists.map(function (a) {
+        this.props.artists.forEach(function (a) {
             artistsString += ", " + a;
         });
         let artists = artistsString.substring(2);
