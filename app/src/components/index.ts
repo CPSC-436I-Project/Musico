@@ -41,7 +41,7 @@ enum GenreEnum {
 	RAP = "Rap",
 }
 
-const genreIDMap: {[key:string]: GenreEnum} = {
+const genreIDMap: { [key: string]: GenreEnum } = {
 	"/m/02mscn": GenreEnum.CHRISTIAN, 		// Christian music
 	"/m/0ggq0m": GenreEnum.CLASSICAL, 		// Classical music
 	"/m/01lyv": GenreEnum.COUNTRY, 			// Country
@@ -65,9 +65,10 @@ const genreIDMap: {[key:string]: GenreEnum} = {
 const txt = document.createElement("textarea");
 
 async function youtubeQuery(type: string, options: any): Promise<any> {
-	const optionsString = Object.keys(options)
+	const optionKeys = Object.keys(options);
+	const optionsString = optionKeys
 		.map((k) => `${k}=${options[k]}`)
-		.join("&") + `&key=${YOUTUBE_API_KEY}`;
+		.join("&") + `${optionKeys.length > 0 ? "&" : ""}key=${YOUTUBE_API_KEY}`;
 	const url = `https://www.googleapis.com/youtube/v3/${type}?${optionsString}`;
 
 	return fetch(url)

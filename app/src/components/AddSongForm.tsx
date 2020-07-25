@@ -33,53 +33,55 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 			songTitle: "",
 			videoList: [],
 		};
+
+		this.updateSongLink = this.updateSongLink.bind(this);
+		this.addSongSender = this.addSongSender.bind(this);
 	}
 
-	updateSongLink = (text: string) => {
+	private updateSongLink(text: string) {
 		this.setState({songTitle: text.trim()});
 	};
 
-	addSongSender = (link: string) => {
-		return (callback: () => void) => {
-			let videoList: any[] = [];
-			youtubeQuery("search", {
-				part: "snippet",
-				maxResults: AddSongForm.NUM_SEARCH_RESULTS,
-				q: this.state.songTitle.replace(/ /g, "%20"),
-				type: "video",
-				videoCategoryId: 10,
-				safeSearch: "strict",
-				// videoDuration: "short",
-			}).then((res) => {
-				videoList = res.items || [];
-				return youtubeQuery("videos", {
-					part: "topicDetails",
-					id: res.items.map((k: any) => k.id.videoId).join(","),
-				});
-			}).then((res) => {
-				for (let i = 0; i < res.items.length; i++) {
-					if (res.items[i].topicDetails && res.items[i].topicDetails.topicCategories) {
-						videoList[i].genreCategories = Array.from(new Set(res.items[i].topicDetails.relevantTopicIds
-							.map((k: string) => genreIDMap[k])
-							.filter((k: string) => !!k)))
+	private addSongSender(callback: () => void) {
+		let videoList: any[] = [];
+		youtubeQuery("search", {
+			part: "snippet",
+			maxResults: AddSongForm.NUM_SEARCH_RESULTS,
+			q: this.state.songTitle.replace(/ /g, "%20"),
+			type: "video",
+			videoCategoryId: 10,
+			safeSearch: "strict",
+			topicId: Object.keys(genreIDMap).filter((k: string) => genreIDMap[k] === this.props.selectedGenre)[0],
+			// videoDuration: "short",
+		}).then((res) => {
+			videoList = res.items || [];
+			return youtubeQuery("videos", {
+				part: "topicDetails",
+				id: res.items.map((k: any) => k.id.videoId).join(","),
+			});
+		}).then((res) => {
+			for (let i = 0; i < res.items.length; i++) {
+				if (res.items[i].topicDetails && res.items[i].topicDetails.topicCategories) {
+					videoList[i].genreCategories = Array.from(new Set(res.items[i].topicDetails.relevantTopicIds
+						.map((k: string) => genreIDMap[k])
+						.filter((k: string) => !!k)))
 
-						if (!videoList[i].genreCategories || videoList[i].genreCategories.length === 0) {
-							res.items.splice(i, 1);
-							videoList.splice(i, 1);
-							i -= 1;
-						}
-					} else {
+					if (!videoList[i].genreCategories || videoList[i].genreCategories.length === 0) {
 						res.items.splice(i, 1);
 						videoList.splice(i, 1);
 						i -= 1;
 					}
+				} else {
+					res.items.splice(i, 1);
+					videoList.splice(i, 1);
+					i -= 1;
 				}
-				this.setState({videoList: videoList}, callback);
-			}).catch((err) => {
-				console.error(err);
-			});
-		}
-	};
+			}
+			this.setState({videoList: videoList}, callback);
+		}).catch((err) => {
+			console.error(err);
+		});
+	}
 
 	private static renderVideoObject(video: any): ReactNode {
 		return (
@@ -110,7 +112,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					buttonColour="#6236FF"
 					height={30}
 					width={90}
-					onAction={this.addSongSender(this.state.songTitle)}
+					onAction={this.addSongSender}
 				/>
 				<div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
 					{this.state.videoList.map(AddSongForm.renderVideoObject)}
