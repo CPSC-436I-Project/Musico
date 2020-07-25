@@ -6,4 +6,5 @@
 .room .music-sidebar {
     position: fixed;
     right: 0;
+    height: calc(100vh - 155px);
 }

@@ -131,8 +131,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
                     <TextButton text={"Send"}
                                 fontSize={14} width={"10%"}
                                 fontColour={"#ffffff"}
-                                buttonColour={"#000000"}
-                                buttonHoverColour={"#000000"}
+                                buttonColour={"#6236FF"}
                                 height={20}
                                 onAction = {this.handleSubmit}
                     />

@@ -46,8 +46,9 @@
 }
 
 .add-music-button {
-    position: sticky;
+    position: absolute;
     bottom: 0;
+    margin-bottom: 20px;
 }
 
 /* .close-button {
