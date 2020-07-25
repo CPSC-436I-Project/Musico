@@ -15,6 +15,7 @@ import "./css/Chat.css";
 
 const SOCKET_IO_URL = "http://localhost:9000";
 const socket = io(SOCKET_IO_URL);
+var Filter = require('bad-words');
 
 class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
@@ -47,11 +48,14 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
     }
 
     handleSubmit = (callback: () => void) => {
+        let thismessage = this.state.currentMessage
+        let filter = new Filter();
+        thismessage = filter.clean(thismessage)
         let data = {
             token: getCookie('auth-token'),
             username: this.props.username,
             userId: this.props.userId,
-            message: this.state.currentMessage
+            message: thismessage
         };
         socket.emit("message", data, () => {
             this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
