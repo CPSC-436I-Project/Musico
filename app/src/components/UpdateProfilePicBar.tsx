@@ -3,13 +3,23 @@ import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {TextInput} from "./TextInput";
 import {TextButton} from "./buttons/TextButton";
-import {updateUser} from "../redux/actions/userActions";
+import {invalidUserUpdate, updateUser} from "../redux/actions/userActions";
 import {connect} from "react-redux";
+import profilePlaceholder from "../icons/profile-placeholder.png";
+import {IStore} from "../redux/initialStore";
 
 
 class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, IUpdateProfilePicBarState> {
     public static defaultProps: IUpdateProfilePicBarProps = {
         ...EnhancedComponent.defaultProps
+    };
+
+    public static mapStateToProps: (state: IStore, props: IUpdateProfilePicBarProps) =>
+        IUpdateProfilePicBarProps = (state: IStore, props: IUpdateProfilePicBarProps) => {
+        return {
+            ...props,
+            profileImgSrc: state.userStore.profileImgSrc
+        };
     };
 
     protected constructor(props: IUpdateProfilePicBarProps) {
@@ -27,14 +37,37 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         this.setState({url: url.trim()});
     };
 
+    private validateUrl(): Promise<boolean> {
+        return fetch(this.state.url)
+            .then(res => {
+                return res.status === 200
+            })
+            .catch(() => {
+                return false;
+            })
+    }
+
     private invalidUserError(message: string) {
         this.setState({error: message});
     }
 
     private updateButtonOnClick(callback: () => void): void {
-        this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
-        this.props.onComplete();
-        callback();
+        this.validateUrl()
+            .then(res => {
+                if (res) {
+                    this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
+                    this.props.onComplete();
+                    callback();
+                } else {
+                    this.props.dispatch(invalidUserUpdate(profilePlaceholder));
+                    this.setState({
+                        error: "Invalid URL"
+                    })
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     public render() {
@@ -69,4 +102,4 @@ export interface IUpdateProfilePicBarState extends IEnhancedComponentState {
 }
 
 // @ts-ignore
-export default connect()(UpdateProfilePicBar);
+export default connect(UpdateProfilePicBar.mapStateToProps)(UpdateProfilePicBar);
