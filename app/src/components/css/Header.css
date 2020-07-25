@@ -1,0 +1,57 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 0 auto;
+    overflow: hidden;
+    background-color: #202020;
+    padding: 10px 10px;
+    height: 54px;
+    position: relative;
+}
+
+.header-left {
+    float: left;
+    display: flex;
+    width: calc(100vw - 54px);
+}
+
+.header .logo-container {
+    display: flex;
+    cursor: pointer;
+}
+
+.header .hamburger {
+    width: 30px;
+    padding: 5px 0;
+}
+
+.header .hamburger .main-button {
+    width: 30px;
+}
+
+.header .logo-icon {
+    padding: 6px 0;
+    margin-left: 40px;
+}
+
+.header .logo {
+    margin: 0 5px;
+    color: #ffffff;
+    text-align: center;
+    padding: 12px 0;
+    text-decoration: none;
+    line-height: 25px;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.header-right {
+    float: right;
+}
+
+.header-right .main-button {
+    border: 3px solid #6236FF;
+    padding: 0;
+    overflow: hidden;
+}

@@ -13,7 +13,16 @@ export type ISongListObject = {
 }
 
 export const defaultSongs: ISongListObject = {
+    [GenreEnum.BLUES]: [
+        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
+    ],
+    [GenreEnum.CHRISTIAN]: [
+        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
+    ],
     [GenreEnum.ELECTRONIC]: [
+        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
+    ],
+    [GenreEnum.GAMING]: [
         {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
     ],
     [GenreEnum.ROCK]: [
@@ -35,6 +44,12 @@ export const defaultSongs: ISongListObject = {
         {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
     ],
     [GenreEnum.RAP]: [
+        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
+    ],
+    [GenreEnum.CLASSICAL]: [
+        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
+    ],
+    [GenreEnum.POP]: [
         {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
     ]
 };

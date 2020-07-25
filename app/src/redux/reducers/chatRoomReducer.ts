@@ -4,7 +4,7 @@ import initialStore from "../initialStore";
 export enum ChatRoomEnum {
 	SET_SELECTED_GENRE = "SET_SELECTED_GENRE",
 	UNSELECT_GENRE = "UNSELECT_GENRE",
-	SET_UPDATE_MESSAGES = "SET_UPDATE_MESSAGES",
+	UPDATE_MESSAGES = "UPDATE_MESSAGES",
 }
 
 const chatRoomReducer = (store: IChatRoomStore, action: any) => {
@@ -12,19 +12,18 @@ const chatRoomReducer = (store: IChatRoomStore, action: any) => {
 		case ChatRoomEnum.SET_SELECTED_GENRE:
 			return {
 				selectedGenre: action.genre,
-				getMessages: true
+				messages: []
 			};
 		case ChatRoomEnum.UNSELECT_GENRE:
 			return {
 				selectedGenre: null,
-				getMessages: false
+				messages: []
 			};
-		case ChatRoomEnum.SET_UPDATE_MESSAGES:
-			let curr = store.getMessages
+		case ChatRoomEnum.UPDATE_MESSAGES:
 			return {
 				selectedGenre: store.selectedGenre,
-				getMessages: !curr
-			};
+				messages: action.messages
+			}
 		default:
 			return store || initialStore.chatRoomStore;
 	}

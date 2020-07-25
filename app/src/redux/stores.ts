@@ -1,5 +1,6 @@
 import {GenreEnum} from "../components/";
 import {ISongListObject} from "../utility/songs";
+import { IMessageInterface } from "src/utility/messages";
 
 export interface IPopUpStore {
 	popupOpen: boolean;
@@ -7,7 +8,7 @@ export interface IPopUpStore {
 
 export interface IChatRoomStore {
 	selectedGenre: GenreEnum | null;
-	getMessages: boolean;
+	messages: IMessageInterface[];
 }
 
 export interface IUserStore {

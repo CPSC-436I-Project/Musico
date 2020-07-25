@@ -1,6 +1,6 @@
 import * as React from "react";
 import {ReactNode} from "react";
-import "./Components.css";
+import "./css/Components.css";
 
 abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedComponentProps,
 	S extends IEnhancedComponentState = IEnhancedComponentState> extends React.PureComponent<P, S> {
@@ -24,7 +24,7 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 	private wrapRender(): void {
 		this.render = (): ReactNode => {
 			return(
-				<div>
+				<div className="enhanced-component-container" >
 					{this.childRender()}
 				</div>
 			);

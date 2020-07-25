@@ -1,7 +1,8 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
-import "./Components.css";
+import "./css/Sidebar.css";
+import searchIcon from "../icons/search.png";
 import {ITextInputProps, ITextInputState, TextInput} from "./TextInput";
 import {Image} from "./Image";
 
@@ -16,6 +17,7 @@ class SearchBar extends TextInput {
         border: false,
         borderColor: "black",
         fontSize: 18,
+        onEnterDisabled: false,
         submit: () => {},
     };
 
@@ -23,16 +25,16 @@ class SearchBar extends TextInput {
         let input_width = 2 * this.props.colorMargin + 5;
         return (
             <div
-                className="search_bar_div"
+                className="search-bar-div"
                 style={{
                     backgroundColor: this.props.color,
                     border: Number(this.props.border),
                     width: this.props.width,
                 }}
             >
-                <Image width={30} height={30} path={"https://img.icons8.com/ios-filled/25/000000/search.png"}/>
+                <Image width={22} height={22} path={searchIcon}/>
                     <input
-                        className="search_input"
+                        className="search-input"
                         type="text"
                         name="search_input"
                         placeholder={this.props.defaultText}
