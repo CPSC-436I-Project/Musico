@@ -30,7 +30,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
         return (
             <div className="currently-playing">
                 <Image
-                    path={thumbnailPlaceholder}
+                    path={this.props.song.albumCover || thumbnailPlaceholder}
                     name={"Album"}
                     width={204}
                     height={115}

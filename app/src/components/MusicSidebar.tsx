@@ -2,16 +2,14 @@ import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {IStore} from "../redux/initialStore";
-import closeIcon from "../icons/close.png";
 import {connect} from "react-redux";
 import {GenreEnum} from ".";
-import {hideMusicSidebar} from "../redux/actions/musicSidebarActions";
-import {ImageButton} from "./buttons/ImageButton";
 import {MusicPlayerQueue} from "./MusicPlayerQueue";
 import {TextButton} from "./buttons/TextButton";
 import { API_URL } from "src/utility/constants";
 import "./css/MusicSidebar.css";
 import { CurrentlyPlaying } from "./CurrentlyPlaying";
+import {getCookie} from "../utility/cookies";
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {
     public static defaultProps: IMusicSidebarProps = {
@@ -53,18 +51,35 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         if (this.props.selectedGenre === null) {
             console.log("No selected genre!");
         } else {
-            this.getChannelQueue();
+            this.getChannelQueue(this.props.selectedGenre);
         }
     }
+
 
     componentWillUnmount() {
         this.props.childRef(undefined);
     }
 
-    private getChannelQueue() {
+    componentDidUpdate = (previousProps: any) => {
+        if (this.props.selectedGenre !== previousProps.selectedGenre) {
+            if (this.props.selectedGenre === null) {
+                console.log("No selected genre!");
+                return;
+            } else {
+                this.setState({queue: []});
+                this.getChannelQueue(this.props.selectedGenre);
+            }
+        }
+    }
+
+    private getChannelQueue(genre: GenreEnum) {
+        const token = getCookie('auth-token');
         console.log("Getting queue");
-        fetch(API_URL + "queues/" + this.props.selectedGenre, {
+        fetch(API_URL + "queues/" + genre, {
             method: 'GET',
+            headers: {
+                'auth-token': token
+            }
         })
         .then(res => res.json())
         .then((songIds: string[]) => {
@@ -73,6 +88,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
     }
 
     private getSongsFromQueue(ids: string[]) {
+        const token = getCookie('auth-token');
         let song: Song = {
             songName: "default",
             artists: [],
@@ -85,7 +101,10 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
         return Promise.all(
             ids.map((id: string) => fetch(API_URL + "songs/" + id, {
-                method: 'GET'
+                method: 'GET',
+                headers: {
+                    'auth-token': token
+                }
             })))
             .then((responses) => {
                 return Promise.all(responses.map(response => response.json()))

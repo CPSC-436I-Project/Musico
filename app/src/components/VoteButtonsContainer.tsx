@@ -17,11 +17,12 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
     protected constructor(props: IVoteButtonsContainerProps) {
         super(props);
         this.state = {
-            rating: 1,
+            rating: this.props.rating,
         }
     }
 
     voteUp = (callback: () => void) => {
+        this.setState({rating: this.state.rating + 1})
         fetch(API_URL + "songs/upvote/" + this.props.songId, {
             method: "PATCH",
             headers: {"Content-type": "application/json"}
@@ -31,6 +32,7 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
     };
 
     voteDown = (callback: () => void) => {
+        this.setState({rating: this.state.rating - 1})
         fetch(API_URL + "songs/downvote/" + this.props.songId, {
             method: "PATCH",
             headers: {"Content-type": "application/json"}
@@ -44,7 +46,7 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
             <div className={"vote-buttons-container"}>
                 <UpvoteButton onAction={this.voteUp}/>
                 <div className={"rating"}>
-                    {this.props.rating}
+                    {this.state.rating}
                 </div>
                 <DownvoteButton onAction={this.voteDown}/>
             </div>

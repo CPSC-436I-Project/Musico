@@ -16,50 +16,41 @@ enum ExpansionState {
 }
 
 enum GenreEnum {
+	ASIAN = "Asian",
 	BLUES = "Blues",
+	CHILDREN = "Children",
 	CHRISTIAN = "Christian",
-	ROCK = "Rock",
-	REGGAE = "Reggae",
-	COUNTRY = "Country",
-	JAZZ = "Jazz",
-	POP = "Pop",
 	CLASSICAL = "Classical",
-
-	// TODO @Breanne: Add these
-	// CHILDREN = "Children",
-	// INDEPENDENT = "Independent",
-	// ASIAN = "Asian",
-	// LATIN_AMERICAN = "Latin American",
-	// SOUL = "Soul",
-	// OTHER = "Other",
-
-	// TODO @Breanne: Remove these
+	COUNTRY = "Country",
 	ELECTRONIC = "Electronic",
-	GAMING = "Gaming",
-	LO_FI = "Lo-Fi",
 	HIP_HOP = "Hip-Hop",
-	RAP = "Rap",
+	INDEPENDENT = "Independent",
+	JAZZ = "Jazz",
+	LATIN_AMERICAN = "Latin American",
+	OTHER = "Other",
+	POP = "Pop",
+	REGGAE = "Reggae",
+	ROCK = "Rock",
+	SOUL = "Soul",
 }
 
 const genreIDMap: { [key: string]: GenreEnum } = {
-	"/m/02mscn": GenreEnum.CHRISTIAN, 		// Christian music
-	"/m/0ggq0m": GenreEnum.CLASSICAL, 		// Classical music
-	"/m/01lyv": GenreEnum.COUNTRY, 			// Country
-	"/m/02lkt": GenreEnum.ELECTRONIC, 		// Electronic music
-	"/m/0glt670": GenreEnum.HIP_HOP, 		// Hip hop music
-	"/m/03_d0": GenreEnum.JAZZ, 			// Jazz
-	"/m/064t9": GenreEnum.POP, 				// Pop music
-	"/m/06cqb": GenreEnum.REGGAE, 			// Reggae
-	"/m/06j6l": GenreEnum.BLUES, 			// Rhythm and blues
-	"/m/06by7": GenreEnum.ROCK, 			// Rock music
-
-	// TODO: @Breanne: Add these
-	// "/m/0gywn": GenreEnum.SOUL, 			// Soul music
-	// "/m/05fw6t": GenreEnum.CHILDREN, 		// Children's music
-	// "/m/05rwpb": GenreEnum.INDEPENDENT, 	// Independent music
-	// "/m/028sqc": GenreEnum.ASIAN, 			// Music of Asia
-	// "/m/0g293": GenreEnum.LATIN_AMERICAN, 	// Music of Latin America
-	// "/m/04rlf": GenreEnum.OTHER, 			// Music
+	"/m/028sqc": GenreEnum.ASIAN,			// Asian music
+	"/m/06j6l": GenreEnum.BLUES,			// Blues music
+	"/m/05fw6t": GenreEnum.CHILDREN,		// Children's music
+	"/m/02mscn": GenreEnum.CHRISTIAN,		// Christian music
+	"/m/0ggq0m": GenreEnum.CLASSICAL,		// Classical music
+	"/m/01lyv": GenreEnum.COUNTRY,			// Country music
+	"/m/02lkt": GenreEnum.ELECTRONIC,		// Electronic music
+	"/m/0glt670": GenreEnum.HIP_HOP,		// Hip Hop music
+	"/m/05rwpb": GenreEnum.INDEPENDENT,		// Independent music
+	"/m/03_d0": GenreEnum.JAZZ,				// Jazz music
+	"/m/0g293": GenreEnum.LATIN_AMERICAN,	// Latin American music
+	"/m/04rlf": GenreEnum.OTHER,			// Other music
+	"/m/064t9": GenreEnum.POP,				// Pop music
+	"/m/06cqb": GenreEnum.REGGAE,			// Reggae music
+	"/m/06by7": GenreEnum.ROCK,				// Rock music
+	"/m/0gywn": GenreEnum.SOUL,				// Soul music
 }
 
 const txt = document.createElement("textarea");
