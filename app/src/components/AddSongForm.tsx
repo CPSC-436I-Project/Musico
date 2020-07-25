@@ -8,6 +8,8 @@ import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {ISongListObject} from "../utility/songs";
 import "./css/AddSongForm.css";
+import {API_URL} from "../utility/constants";
+import {getCookie} from "../utility/cookies";
 
 class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState> {
 
@@ -36,6 +38,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 
 		this.updateSongLink = this.updateSongLink.bind(this);
 		this.addSongSender = this.addSongSender.bind(this);
+		this.renderVideoObject = this.renderVideoObject.bind(this);
+		this.addSongToQueue = this.addSongToQueue.bind(this);
 	}
 
 	private updateSongLink(text: string) {
@@ -83,7 +87,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 		});
 	}
 
-	private static renderVideoObject(video: any): ReactNode {
+	private renderVideoObject(video: any): ReactNode {
 		return (
 			<div key={video.id.videoId} className={"flex-row"}>
 				<Image
@@ -93,10 +97,45 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
 						<h2>{decodeHTML(video.snippet.title)}</h2></a>
 					<p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
+					<TextButton
+						text={"Add to Queue"}
+						onAction={this.addSongToQueue(video)}
+					/>
 				</div>
 			</div>
 		);
+	}
 
+	private addSongToQueue(video: any): (callback: () => void) => void {
+		return (callback: () => void) => {
+			console.log(video);
+			const token = getCookie('auth-token');
+			fetch(API_URL + "songs/add", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'auth-token': token,
+				},
+				body: JSON.stringify({
+					artists: [],
+					albumCover: video.snippet.thumbnails.default.url,
+					numVotes: 1,
+					songName: video.snippet.title,
+					genre: this.props.selectedGenre,
+					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
+				}),
+			})
+				.then(async res => { return {text: await res.text(), status: res.status}})
+				.then((res) => {
+					if (res.status !== 200) {
+						console.log(res);
+					} else {
+						const playlist = JSON.parse(res.text).playlist;
+						console.log("added song:", playlist.pop())
+					}
+				})
+			callback();
+		}
 	}
 
 	public render(): ReactNode {
@@ -115,7 +154,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					onAction={this.addSongSender}
 				/>
 				<div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
-					{this.state.videoList.map(AddSongForm.renderVideoObject)}
+					{this.state.videoList.map(this.renderVideoObject)}
 				</div>
 			</div>
 		);
