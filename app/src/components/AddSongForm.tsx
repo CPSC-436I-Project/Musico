@@ -132,7 +132,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					if (res.status !== 200) {
 						console.log(res);
 					} else {
-						const newSong = JSON.parse(res.text).playlist.pop();
+						const newSong = JSON.parse(res.text);
 						this.props.addSong(newSong);
 					}
 					callback();

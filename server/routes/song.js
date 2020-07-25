@@ -63,18 +63,19 @@ router.post('/add', verifyToken, (req, res) => {
                     if (err) {
                         return res.json('Error: ' + err)
                     } else {
-                        Playlist.findOneAndUpdate(
-                            {channel: req.body.genre},
-                            {$push: {playlist: newSong}},
-                            {new: true, useFindAndModify: false},
-                            (err, playlist) => {
-                                if (err) {
-                                    return res.json('Error: ' + err)
-                                } else {
-                                    return res.json(playlist)
-                                }
-                            }
-                        )
+                        return res.json(newSong);
+                        // Playlist.findOneAndUpdate(
+                        //     {channel: req.body.genre},
+                        //     {$push: {playlist: newSong}},
+                        //     {new: true, useFindAndModify: false},
+                        //     (err, playlist) => {
+                        //         if (err) {
+                        //             return res.json('Error: ' + err)
+                        //         } else {
+                        //             return res.json(playlist)
+                        //         }
+                        //     }
+                        // )
                     }
             })
         )
