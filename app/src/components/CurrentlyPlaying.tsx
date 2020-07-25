@@ -46,9 +46,10 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                             top: 0,
                             left: 0,
                             width: "100%",
-                            height: "100%"
+                            height: "100%",
+                            pointerEvents: "none",
                         }}
-                        src={this.props.song.src.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/") + "?&autoplay=1&mute=1"}
+                        src={this.props.song.src.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/") + "?rel=0&autoplay=1&modestbranding=1&autohide=1&showinfo=0&controls=0"}
                         frameBorder={"0"}
                     />
                 </div>
