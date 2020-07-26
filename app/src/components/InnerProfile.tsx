@@ -111,13 +111,19 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             <div className="inner-profile">
                 <div className="profile-head">
                     <Image path={this.props.profileImgSrc} width={170} height={170}/>
-                    <h2>{this.props.username || "Unknown User"}</h2>
-                    <span className="update-profile-pic">
-                        <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={100}/>
-                    </span>
-                    <span className="log-out">
-                        <TextButton text="Log out" onAction={this.logOut} width={100}/>
-                    </span>
+                    <div className="profile-info">
+                        <span className="username">
+                            <h2>{this.props.username || "Unknown User"}</h2>
+                            <div className="update-profile-buttons">
+                                <span className="update-profile-pic">
+                                    <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={250} buttonColour={"#6236FF"}/>
+                                </span>
+                                <span className="log-out">
+                                    <TextButton text="Log out" onAction={this.logOut} width={100}/>
+                                </span>
+                            </div>
+                        </span>
+                    </div>
                 </div>
                 <div>
                     {this.state.updateProfile && <UpdateProfilePicBar onComplete={this.picUpdateShown}/>}
