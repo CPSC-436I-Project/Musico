@@ -89,6 +89,9 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         this.props.favouriteGenres.forEach(function (genre: string) {
             favGenreList.push(<TextButton
                 text={genre}
+                fontSize={14} 
+                width={100}
+                buttonColour={"#6236FF"}
             />)
         });
         let requestedSongsList: any[] = [];
