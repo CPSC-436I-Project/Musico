@@ -55,7 +55,8 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 	};
 
 	toggleProfile = (callback: () => void) => {
-		this.setState({profileOpen: !this.state.profileOpen}, callback)
+		//this.setState({profileOpen: !this.state.profileOpen}, callback)
+		this.props.changePage(PageEnum.Profile)
 	};
 
 	private wrapRender(): void {

@@ -27,8 +27,6 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
         this.props.song.artists.map(artist => artistsString += ", " + artist);
         let artists = artistsString.substring(2);
 
-        console.log(this.props.song)
-
         return (
             <div className="currently-playing">
                 <div

@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {Header, Sidebar, MusicSidebar} from "../components";
+import {Header, Sidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
 import { InnerDashboard } from "src/components/InnerDashboard";
@@ -33,6 +33,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 	}
 
 	public render(): ReactNode {
+		// TODO: Remove the fake navigation here.
 		let renderRoom = this.props.selectedGenre ? <Room/> : <InnerDashboard/>
 		let renderer = this.state.profileOpen ? <InnerProfile/> : renderRoom;
 		let sidebarRenderer = this.state.sidebarOpen &&  <div id={"dashboard_sidebar"}><Sidebar/></div>;
