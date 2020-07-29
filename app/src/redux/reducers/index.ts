@@ -5,6 +5,7 @@ import userReducer from "./userReducer";
 import songListReducer from "./songListReducer";
 import sidebarReducer from "./sidebarReducer";
 import musicSidebarReducer from "./musicSidebarReducer";
+import roomReducer from "./roomReducer";
 
 export default combineReducers({
 	popupStore: popupReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
 	songListStore: songListReducer,
 	sidebarStore: sidebarReducer,
 	musicSidebarStore: musicSidebarReducer,
+	roomStore: roomReducer,
 })

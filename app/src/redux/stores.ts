@@ -35,3 +35,7 @@ export interface IMusicSidebarStore {
 	musicSidebarOpen: boolean,
 	selectedGenre: GenreEnum | null;
 }
+
+export interface IRoomStore {
+	selectedGenre: GenreEnum | null;
+}
