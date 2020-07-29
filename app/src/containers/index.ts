@@ -2,7 +2,7 @@ import LoginScreen from "./LoginScreen";
 import {Container} from "./Container";
 import Dashboard from "./Dashboard";
 import {DebugScreen} from "./TestScreens/DebugScreen";
-import { Room } from "./Room";
+import Room from "./Room";
 import Profile from "./Profile";
 
 enum PageEnum {

@@ -11,6 +11,7 @@ class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISideb
 		...Button.defaultProps,
 		text: "Electronic",
 		icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png",
+		fontSize: 18,
 	};
 
 	protected constructor(props: ISidebarTextImageButtonProps) {
@@ -28,7 +29,14 @@ class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISideb
 					alt={this.props.text.concat(" icon")}
 					className="sidebar-text-image-button-icon"
 				/>
-				<p>{this.props.text}</p>
+				<p
+					style={{
+						fontSize: this.props.fontSize * (this.props.text.length > 10 ? 0.75 : 1),
+						textAlign: "left",
+					}}
+				>
+					{this.props.text}
+				</p>
 			</div>
 		);
 	}
@@ -36,6 +44,7 @@ class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISideb
 
 export interface ISidebarTextImageButtonProps extends IButtonProps, ITextButtonProps {
 	icon: string;
+	fontSize?: number;
 }
 
 export interface ISidebarTextImageButtonState extends IButtonState {

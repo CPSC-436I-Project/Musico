@@ -1,6 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
+import "../components/css/Profile.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
 import { IStore } from "src/redux/initialStore";
 import { TextButton, Image } from "src/components";
