@@ -85,7 +85,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 
 		return (
 			<div
-				className={"fill-container center-mid"}
+				className={"login-screen fill-container center-mid"}
 			>
 				<div style={{
 					marginBottom: 180,

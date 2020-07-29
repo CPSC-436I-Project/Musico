@@ -64,7 +64,6 @@
 }
 
 #dashboard-display {
-    background-color: #181818;
     flex-grow: 1;
     padding: 15px;
     overflow: auto;
@@ -80,4 +79,8 @@
 
 .room {
     height: calc(100vh - 100px);
+}
+
+.login-screen {
+    background: linear-gradient(180deg, rgb(186, 186, 186) 0%, rgb(255, 255, 255) 100%);
 }

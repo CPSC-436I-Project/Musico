@@ -1,5 +1,5 @@
 import LoginScreen from "./LoginScreen";
-import {Container} from "./Container";
+import {Container, IContainerProps} from "./Container";
 import Dashboard from "./Dashboard";
 import {DebugScreen} from "./TestScreens/DebugScreen";
 import Room from "./Room";
@@ -12,11 +12,11 @@ enum PageEnum {
 	Profile,
 }
 
-const pageMap: {[key: string]: { pointer: any, name: string}} = {
-	[PageEnum.LoginScreen]: {pointer: LoginScreen, name: "Login Screen"},
-	[PageEnum.Dashboard]: {pointer: Dashboard, name: "Dashboard"},
-	[PageEnum.Room]: {pointer: Room, name: "Room"},
-	[PageEnum.Profile]: {pointer: Profile, name: "Profile"}
+const pageMap: {[key: string]: { pointer: any, props: IContainerProps}} = {
+	[PageEnum.LoginScreen]: {pointer: LoginScreen, props: {showSidebar: false, showHeader: false}},
+	[PageEnum.Dashboard]: {pointer: Dashboard, props: {showSidebar: true, showHeader: true}},
+	[PageEnum.Room]: {pointer: Room, props: {showSidebar: true, showHeader: true}},
+	[PageEnum.Profile]: {pointer: Profile, props: {showSidebar: true, showHeader: true}},
 };
 
 export {
