@@ -2,13 +2,14 @@ import * as React from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {Image} from "./Image";
-import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
+import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
+import "./css/Profile.css";
 
 class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileSongInfoState> {
     public static defaultProps: IProfileSongInfoProps = {
         ...EnhancedComponent.defaultProps,
-        width: 125,
-        height: 75,
+        width: 200,
+        height: 130,
         pic: thumbnailPlaceholder,
         name: "default song name",
         artists: ["artist1", "artist2"]
