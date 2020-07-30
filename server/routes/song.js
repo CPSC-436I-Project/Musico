@@ -48,6 +48,7 @@ router.post('/add', verifyToken, (req, res) => {
         artists: req.body.artists,
         genre: req.body.genre,
         src: req.body.src,
+        duration: req.body.duration,
         requesterID: req.user._id,
         albumCover: req.body.albumCover,
         numVotes: req.body.numVotes

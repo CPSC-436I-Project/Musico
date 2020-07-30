@@ -20,6 +20,11 @@ const songSchema = new Schema({
         required: true,
         index: {unique: true}
     },
+    duration: {
+        type: Number,
+        required: true,
+        default: 100
+    },
     requesterID: {
         type: mongoose.Types.ObjectId,
         required: true
