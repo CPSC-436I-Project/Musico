@@ -55,7 +55,6 @@ io.on("connection", socket => {
     const id = getIdFromToken(data.token);
 
     if (id !== null && id === data.userId) {
-      console.log(data.username);
       const newMessage = {
         user: data.userId,
         username: data.username,
@@ -81,7 +80,6 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", (data, callback) => {
-    // console.log("disconnect called", socket.id);
     // remove socket from socketmap
     delete socketmap[socket.id];
     // call the callback
