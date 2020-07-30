@@ -5,7 +5,7 @@ import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 import {PageEnum} from "./index";
-import {Header} from "../components";
+import {Header, Sidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
@@ -88,7 +88,12 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 							onLogoClick={this.logoClick}
 						/>
 					</div>}
-					{this.childRender()}
+					<div style={{flexDirection: "row"}}>
+						{(this.props.showSidebar && this.state.sidebarOpen) &&  <div id={"dashboard_sidebar"}><Sidebar/></div>}
+						<div style={{flexGrow: 1}}>
+							{this.childRender()}
+						</div>
+					</div>
 					{this.props.popupOpen &&
 					<PopupContainer closeFn={this.closePopup}>
 						{this.popupRender()}

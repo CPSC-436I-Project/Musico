@@ -27,18 +27,9 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 	}
 
 	public render(): ReactNode {
-		// TODO: Remove the fake navigation here.
-		let renderRoom = this.props.selectedGenre ? <Room/> : <InnerDashboard/>
-		let renderer = this.state.profileOpen ? <InnerProfile/> : renderRoom;
-		let sidebarRenderer = this.state.sidebarOpen &&  <div id={"dashboard_sidebar"}><Sidebar/></div>;
 		return (
-			<div id={"dashboard"}>
-				<div id={"dashboard_lower"}>
-					{sidebarRenderer}
-					<div id={"dashboard-display"}>
-						<InnerDashboard/>
-					</div>
-				</div>
+			<div id={"dashboard dashboard_lower dashboard-display"}>
+				<InnerDashboard/>
 			</div>
 		);
 	}
