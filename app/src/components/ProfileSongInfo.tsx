@@ -11,7 +11,6 @@ class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileS
         height: 75,
         pic: thumbnailPlaceholder,
         name: "default song name",
-        artists: ["artist1", "artist2"]
     };
 
     protected constructor(props: IProfileSongInfoProps) {
@@ -19,11 +18,6 @@ class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileS
     }
 
     public render() {
-        let artistsString = "";
-        this.props.artists.forEach(function (a) {
-            artistsString += ", " + a;
-        });
-        let artists = artistsString.substring(2);
         return (
             <div className={"profile_song_info_container"}>
                 <div className={"profile_song_image"}>
@@ -35,7 +29,7 @@ class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileS
                     />
                 </div>
                 <div className={"profile_song_description_container"}>
-                    <p className={"profile_song_description"}>{this.props.name} <br/> {artists}</p>
+                    <p className={"profile_song_description"}>{this.props.name}</p>
                 </div>
             </div>
         )
@@ -47,7 +41,6 @@ export interface IProfileSongInfoProps extends IEnhancedComponentProps {
     height?: number,
     pic?: string,
     name?: string,
-    artists?: string[]
 }
 
 export interface IProfileSongInfoState extends IEnhancedComponentState {

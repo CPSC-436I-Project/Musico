@@ -76,7 +76,6 @@ function decodeHTML(snippet: string) {
 
 export interface Song {
 	songName: string,
-	artists: string[],
 	genre: string,
 	src: string,
 	requesterID: any,

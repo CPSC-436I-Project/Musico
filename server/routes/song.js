@@ -45,7 +45,6 @@ router.get('/:songID', verifyToken, (req, res) => {
 router.post('/add', verifyToken, (req, res) => {
     const newSong = new Song({
         songName: req.body.songName,
-        artists: req.body.artists,
         genre: req.body.genre,
         src: req.body.src,
         requesterID: req.user._id,
