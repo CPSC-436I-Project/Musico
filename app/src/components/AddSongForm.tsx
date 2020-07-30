@@ -106,26 +106,45 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 		);
 	}
 
+	private static getDurationFromRegex(text: string, timeType: "H" | "M" | "S"): number {
+		const regex: RegExp = RegExp("[0-9]+?" + timeType, "g");
+		const test: RegExpExecArray | null = regex.exec(text);
+		if (test) {
+			return parseInt(test[0]);
+		}
+		return 0;
+	}
+
 	private addSongToQueue(video: any): (callback: () => void) => void {
 		return (callback: () => void) => {
-			console.log(video);
 			const token = getCookie('auth-token');
-			fetch(API_URL + "songs/add", {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					'auth-token': token,
-				},
-				body: JSON.stringify({
-					artists: [],
-					albumCover: video.snippet.thumbnails.default.url,
-					numVotes: 1,
-					songName: video.snippet.title,
-					genre: this.props.selectedGenre,
-					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
-				}),
-			})
-				.then(async res => {
+			youtubeQuery("videos", {
+				part: "contentDetails",
+				id: video.id.videoId,
+			}).then((res) => {
+				const times: string = res.items[0].contentDetails.duration; // PT{hrs}H{mins}M{secs}S
+				const duration: number = AddSongForm.getDurationFromRegex(times, "H") * 3600 +
+					AddSongForm.getDurationFromRegex(times, "M") * 60 +
+					AddSongForm.getDurationFromRegex(times, "S");
+
+				return fetch(API_URL + "songs/add", {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						'auth-token': token,
+					},
+					body: JSON.stringify({
+						artists: [],
+						albumCover: video.snippet.thumbnails.default.url,
+						numVotes: 1,
+						songName: video.snippet.title,
+						genre: this.props.selectedGenre,
+						src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
+						// TODO: @Breanne: uncomment the following line and make sure duration field is pushed to mongo
+						// duration: duration,
+					}),
+				});
+			}).then(async res => {
 					return {text: await res.text(), status: res.status}
 				})
 				.then((res) => {
