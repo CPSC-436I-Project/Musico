@@ -57,25 +57,25 @@ router.post('/add', verifyToken, (req, res) => {
         .then(
             Queue.findOneAndUpdate(
                 {channel: req.body.genre},
-                {$push: {queue: newSong}},
+                {$push: {queue: newSong._id}},
                 {new: true, useFindAndModify: false},
                 (err, docs) => {
                     if (err) {
                         return res.json('Error: ' + err)
-                    } else {
-                        return res.json(newSong);
-                        // Playlist.findOneAndUpdate(
-                        //     {channel: req.body.genre},
-                        //     {$push: {playlist: newSong}},
-                        //     {new: true, useFindAndModify: false},
-                        //     (err, playlist) => {
-                        //         if (err) {
-                        //             return res.json('Error: ' + err)
-                        //         } else {
-                        //             return res.json(playlist)
-                        //         }
-                        //     }
-                        // )
+                    } 
+                    else {
+                        Playlist.findOneAndUpdate(
+                            {channel: req.body.genre},
+                            {$push: {playlist: newSong}},
+                            {new: true, useFindAndModify: false},
+                            (err, playlist) => {
+                                if (err) {
+                                    return res.json('Error: ' + err)
+                                } else {
+                                    return res.json(playlist)
+                                }
+                            }
+                        )
                     }
             })
         )
