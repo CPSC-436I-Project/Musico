@@ -39,6 +39,8 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
     };
 
     private validateUrl(): Promise<boolean> {
+        // potentially change this to allow loads from local storage
+        // https://apidocs.imgur.com/?version=latest#c85c9dfc-7487-4de2-9ecd-66f727cf3139
         if (!(this.state.url.includes("http://", 0) || this.state.url.includes("https://"))) {
             return new Promise<boolean>(function(resolve, reject) {
                 resolve(false);
@@ -46,6 +48,9 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         }
         return fetch(this.state.url)
             .then(res => {
+
+                console.log(res);
+
                 return res.status === 200
             })
             .catch(() => {
@@ -61,10 +66,17 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         this.validateUrl()
             .then(res => {
                 if (res) {
+
+                    console.log("valid URL");
+                    console.log(this.state.url);
+
                     this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
                     this.props.onComplete();
                     callback();
                 } else {
+
+                    console.log("invalid URL");
+
                     this.props.dispatch(invalidUserUpdate(profilePlaceholder));
                     this.setState({
                         error: "Invalid URL"
