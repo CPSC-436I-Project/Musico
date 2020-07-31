@@ -6,7 +6,6 @@ import {TextInput} from "./TextInput";
 import {decodeHTML, GenreEnum, genreIDMap, Image, youtubeQuery} from "./index";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
-import {ISongListObject} from "../utility/songs";
 import "./css/AddSongForm.css";
 import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
@@ -20,9 +19,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	public static mapStateToProps: (state: IStore, props: IAddSongFormProps) => IAddSongFormProps = (state: IStore, props: IAddSongFormProps) => {
 		return {
 			...props,
-			selectedGenre: state.chatRoomStore.selectedGenre,
-			username: state.userStore.username,
-			songList: state.songListStore.songs
+			selectedGenre: state.roomStore.selectedGenre,
+			username: state.userStore.username
 		};
 	}
 
@@ -167,7 +165,6 @@ export interface IAddSongFormProps extends IEnhancedComponentProps {
 	addSong?: (song: any) => void;
 	selectedGenre?: GenreEnum | null;
 	username?: string | null;
-	songList?: ISongListObject;
 }
 
 export interface IAddSongFormState extends IEnhancedComponentState {

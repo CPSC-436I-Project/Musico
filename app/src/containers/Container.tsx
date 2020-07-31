@@ -5,6 +5,7 @@ import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, showPopUp} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 import {PageEnum} from "./index";
+import { GenreEnum } from "src/components";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -18,7 +19,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
-			selectedGenre: state.chatRoomStore.selectedGenre
+			selectedGenre: state.roomStore.selectedGenre
 		};
 	}
 
@@ -79,7 +80,7 @@ export interface IContainerProps {
 	musicSidebarOpen?: boolean;
 	dispatch?: any;
 	changePage?: (page: PageEnum) => void;
-	selectedGenre?: string;
+	selectedGenre?: GenreEnum | null;
 }
 
 export interface IContainerState {

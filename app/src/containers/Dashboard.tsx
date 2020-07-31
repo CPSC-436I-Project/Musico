@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {Header, Sidebar, MusicSidebar} from "../components";
+import {Header, Sidebar, MusicSidebar, GenreEnum} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
 import { InnerDashboard } from "src/components/InnerDashboard";
@@ -15,7 +15,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 	public static mapStateToProps:(state: IStore, props: IDashboardProps) => IDashboardProps = (state: IStore, props: IDashboardProps) => {
 		return {
 			...props,
-			selectedGenre: state.chatRoomStore.selectedGenre
+			selectedGenre: state.roomStore.selectedGenre
 		};
 	}
 
@@ -53,7 +53,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 }
 
 export interface IDashboardProps extends IContainerProps {
-	selectedGenre?: string;
+	selectedGenre?: GenreEnum | null;
 }
 
 export interface IDashboardState extends IContainerState {

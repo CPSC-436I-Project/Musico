@@ -1,14 +1,16 @@
 import {GenreEnum} from "../components/";
-import {ISongListObject} from "../utility/songs";
+import {ISongInterface} from "../utility/songs";
 import { IMessageInterface } from "src/utility/messages";
 
 export interface IPopUpStore {
 	popupOpen: boolean;
 }
 
-export interface IChatRoomStore {
+export interface IRoomStore {
 	selectedGenre: GenreEnum | null;
 	messages: IMessageInterface[];
+	queue: ISongInterface[];
+	currentlyPlaying: ISongInterface;
 }
 
 export interface IUserStore {
@@ -21,10 +23,6 @@ export interface IUserStore {
 	likedSongs: string[] | null;
 	favouriteGenres: string[] | null;
 	channels: string[] | null;
-}
-
-export interface ISongListStore {
-	songs: ISongListObject
 }
 
 export interface ISidebarStore {
