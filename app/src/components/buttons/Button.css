@@ -23,20 +23,23 @@
 }
 
 .sidebar-text-image-button {
-    align-items: center;
-    background-color: transparent;
-    border: none;
+/*    align-items: center;*/
+    background-color: #a8a8a8;
+/*    border: none;*/
     display: flex;
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: bold;
+    border-radius: 500px;
+    margin: 5px;
+    align-items: center;
+/*    font-family: "Roboto", sans-serif;*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
 }
 
-.sidebar-text-image-button p {
-    margin: 5px 10px;
-    color: #ffffff;
-}
+/*.sidebar-text-image-button p {*/
+/*    margin: 5px 10px;*/
+/*    color: #ffffff;*/
+/*}*/
 
-.sidebar-text-image-button-icon {
-    padding-right: 10px;
-}
+/*.sidebar-text-image-button-icon {*/
+/*    padding-right: 10px;*/
+/*}*/
