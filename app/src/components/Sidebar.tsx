@@ -87,8 +87,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                             key={item.genre}
                             text={item.genre}
                             icon={item.icon}
-                            buttonColour="#212121"
-                            onAction={this.sidebarButtonClicked(item.genre)}
+                            onTextAction={this.sidebarButtonClicked(item.genre)}
                         />
                     )}
                 </div>

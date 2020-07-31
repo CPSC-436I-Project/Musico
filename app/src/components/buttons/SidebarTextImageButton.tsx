@@ -17,7 +17,6 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
 
     protected constructor(props: ISidebarTextImageButtonProps) {
         super(props);
-        // this.state = {};
     }
 
     public render(): ReactNode {
@@ -29,18 +28,15 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
 						buttonColour={"#00000000"}
 						buttonHoverColour={"#00000000"}
 						src={this.props.icon}
-                        // alt={this.props.text.concat(" icon")}
-                        // className="sidebar-text-image-button-icon"
+						onAction={this.props.onImageAction}
                     />
                 </div>
-                {/*<div>*/}
                     <TextButton
-                        // width={140}
 						buttonColour={"#00000000"}
 						buttonHoverColour={"#00000000"}
 						text={this.props.text}
+						onAction={this.props.onTextAction}
                     />
-                {/*</div>*/}
             </div>
         );
     }
@@ -49,10 +45,11 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
 export interface ISidebarTextImageButtonProps extends IButtonProps, ITextButtonProps {
     text: string;
     icon: string;
+    onTextAction?: (callback: () => void) => void;
+    onImageAction?: (callback: () => void) => void;
 }
 
 export interface ISidebarTextImageButtonState extends IButtonState {
-
 }
 
 export {SidebarTextImageButton};
