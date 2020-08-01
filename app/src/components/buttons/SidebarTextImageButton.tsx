@@ -13,6 +13,7 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
         ...EnhancedComponent.defaultProps,
         text: "Electronic",
         icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png",
+		liked: false
     };
 
     protected constructor(props: ISidebarTextImageButtonProps) {
@@ -25,7 +26,8 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
                 <div>
                     <ImageButton
                         width={30}
-						buttonColour={"#00000000"}
+						buttonColour={this.props.liked ? "#6236FF" : "#00000000"}
+						// buttonColour={"#00000000"}
 						buttonHoverColour={"#00000000"}
 						src={this.props.icon}
 						onAction={this.props.onImageAction}
@@ -47,6 +49,7 @@ export interface ISidebarTextImageButtonProps extends IButtonProps, ITextButtonP
     icon: string;
     onTextAction?: (callback: () => void) => void;
     onImageAction?: (callback: () => void) => void;
+    liked: boolean;
 }
 
 export interface ISidebarTextImageButtonState extends IButtonState {
