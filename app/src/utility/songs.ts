@@ -43,7 +43,7 @@ export const defaultSongs: ISongListObject = {
     [GenreEnum.JAZZ]: [
         {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
     ],
-    [GenreEnum.LATIN_AMERICAN]: [
+    [GenreEnum.LATIN]: [
         {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
     ],
     [GenreEnum.OTHER]: [
