@@ -13,12 +13,20 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
         ...EnhancedComponent.defaultProps,
         text: "Electronic",
         icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png",
-		liked: false
     };
 
     protected constructor(props: ISidebarTextImageButtonProps) {
         super(props);
+        this.state = {
+			...this.state,
+        	liked: false
+        };
+        this.genreLiked = this.genreLiked.bind(this);
     }
+
+    genreLiked = (callback: () => void) => {
+    	this.setState({liked: !this.state.liked}, callback);
+	};
 
     public render(): ReactNode {
         return (
@@ -26,11 +34,10 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
                 <div>
                     <ImageButton
                         width={30}
-						buttonColour={this.props.liked ? "#6236FF" : "#00000000"}
-						// buttonColour={"#00000000"}
-						buttonHoverColour={"#00000000"}
+						buttonColour={this.state.liked ? "#6236FF" : "#00000000"}
+						buttonHoverColour={this.state.liked ? "#6236FF" : "#00000000"}
 						src={this.props.icon}
-						onAction={this.props.onImageAction}
+						onAction={this.genreLiked}
                     />
                 </div>
                     <TextButton
@@ -48,11 +55,10 @@ export interface ISidebarTextImageButtonProps extends IButtonProps, ITextButtonP
     text: string;
     icon: string;
     onTextAction?: (callback: () => void) => void;
-    onImageAction?: (callback: () => void) => void;
-    liked: boolean;
 }
 
 export interface ISidebarTextImageButtonState extends IButtonState {
+	liked: boolean;
 }
 
 export {SidebarTextImageButton};

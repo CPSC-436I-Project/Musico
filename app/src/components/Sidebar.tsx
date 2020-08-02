@@ -32,14 +32,14 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.REGGAE, icon: reggaeIcon, liked: false},
         {genre: GenreEnum.ROCK, icon: rockIcon, liked: false},
         {genre: GenreEnum.SOUL, icon: soulIcon, liked: false},
-    ]
+    ];
 
     public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
         return {
             ...props,
             selectedGenre: state.chatRoomStore.selectedGenre,
         };
-    }
+    };
 
     protected constructor(props: ISidebarProps) {
         super(props);
@@ -49,7 +49,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         };
         this.onSearch = this.onSearch.bind(this);
         this.sidebarButtonClicked = this.sidebarButtonClicked.bind(this);
-        this.sidebarIconClicked = this.sidebarIconClicked.bind(this);
     }
 
     private onSearch(searchValue: string) {
@@ -71,35 +70,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         }
     }
 
-    private sidebarIconClicked(item: ISidebarGenreChannel): (callback: () => void) => void {
-
-        // console.log("icon clicked");
-
-        return (callback: () => void): void => {
-
-            // console.log("liked = " + item.liked);
-
-            this.musicGenres.forEach(function (genreItem) {
-                if (genreItem.genre === item.genre) {
-                    genreItem.liked = !genreItem.liked;
-                }
-            });
-
-            this.setState((state) => ({
-                shownGenres: this.musicGenres
-            }), callback);
-
-
-            // console.log("liked = " + item.liked);
-
-
-            // callback();
-        }
-    }
-
-
-
-
     public render() {
         let placeholder = "Search...";
         return (
@@ -118,8 +88,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                             text={item.genre}
                             icon={item.icon}
                             onTextAction={this.sidebarButtonClicked(item.genre)}
-                            onImageAction={this.sidebarIconClicked(item)}
-                            liked={item.liked}
                         />
                     )}
                 </div>
