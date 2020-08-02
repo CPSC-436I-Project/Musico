@@ -122,16 +122,37 @@ router.patch('/updateProfilePic', verifyToken, (req, res) => {
 });
 
 router.patch('/updateLikedGenres', verifyToken, (req, res) => {
-    UserProfile.findOneAndUpdate({_id: req.user._id},
-        {$push: {favouriteGenres: req.body.genre}},
-        {new: true, useFindAndModify: false},
-    )
-        .then(() => {
-            return res.send('Updated Profile Picture');
+    UserProfile.findById(req.user._id)
+        .then(user => user.favouriteGenres)
+        .then((likedGenres) => {
+            let origLen = likedGenres.length;
+            let modGenres = likedGenres.filter(genre => genre !== req.body.genre);
+            let modLen = modGenres.length;
+            if (origLen === modLen) {
+                return UserProfile.findOneAndUpdate({_id: req.user._id},
+                    {$push: {favouriteGenres: req.body.genre}},
+                    {new: true, useFindAndModify: false})
+                    .then((response) => {
+                        return res.send(response.favouriteGenres);
+                    })
+                    .catch((err) => {
+                        return res.status(400).send('Invalid user');
+                    })
+            } else {
+                return UserProfile.findOneAndUpdate({_id: req.user._id},
+                    {favouriteGenres: modGenres},
+                    {new: true, useFindAndModify: false})
+                    .then((response) => {
+                        return res.send(response.favouriteGenres);
+                    })
+                    .catch((err) => {
+                        return res.status(400).send('Invalid user');
+                    })
+            }
         })
-        .catch(() => {
-            return res.status(400).send('Invalid user');
-        })
+        .catch(err => {
+            console.log(err)
+        });
 });
 
 module.exports = router;

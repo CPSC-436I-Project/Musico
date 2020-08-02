@@ -2,10 +2,13 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Button.css";
 import "../css/Sidebar.css";
-import {Button, IButtonProps, IButtonState} from "./Button";
-import {ITextButtonProps, TextButton} from "./TextButton";
-import {EnhancedComponent} from "../EnhancedComponent";
+import {TextButton} from "./TextButton";
+import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "../EnhancedComponent";
 import {ImageButton} from "./ImageButton";
+import {likeGenre} from "../../redux/actions/userActions";
+import {connect} from "react-redux";
+import {IStore} from "../../redux/initialStore";
+import {IUpdateProfilePicBarProps} from "../UpdateProfilePicBar";
 
 class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonProps, ISidebarTextImageButtonState> {
 
@@ -13,6 +16,14 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
         ...EnhancedComponent.defaultProps,
         text: "Electronic",
         icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png",
+    };
+
+    public static mapStateToProps: (state: IStore, props: ISidebarTextImageButtonProps) =>
+        IUpdateProfilePicBarProps = (state: IStore, props: ISidebarTextImageButtonProps) => {
+        return {
+            ...props,
+            favouriteGenres: state.userStore.favouriteGenres
+        };
     };
 
     protected constructor(props: ISidebarTextImageButtonProps) {
@@ -25,6 +36,7 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
     }
 
     genreLiked = (callback: () => void) => {
+        this.props.dispatch(likeGenre(this.props.text));
     	this.setState({liked: !this.state.liked}, callback);
 	};
 
@@ -51,14 +63,15 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
     }
 }
 
-export interface ISidebarTextImageButtonProps extends IButtonProps, ITextButtonProps {
+export interface ISidebarTextImageButtonProps extends IEnhancedComponentProps {
     text: string;
     icon: string;
     onTextAction?: (callback: () => void) => void;
 }
 
-export interface ISidebarTextImageButtonState extends IButtonState {
+export interface ISidebarTextImageButtonState extends IEnhancedComponentState {
 	liked: boolean;
 }
 
-export {SidebarTextImageButton};
+// @ts-ignore
+export default connect(SidebarTextImageButton.mapStateToProps)(SidebarTextImageButton);

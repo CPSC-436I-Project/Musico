@@ -1,5 +1,5 @@
 import * as React from "react";
-import {SidebarTextImageButton} from "./buttons/SidebarTextImageButton";
+import SidebarTextImageButton from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./css/Sidebar.css";
 import {asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinAmericanIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, jazzIcon, classicalIcon, popIcon, soulIcon} from "../icons/genres";
