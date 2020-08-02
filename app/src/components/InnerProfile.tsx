@@ -85,8 +85,17 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
     };
 
     public render(): ReactNode {
+
+        console.log("profile");
+        console.log(this.props.favouriteGenres);
+
+
         let favGenreList: any[] = [];
         this.props.favouriteGenres.forEach(function (genre: string) {
+
+            console.log("profile fav genre loop");
+            console.log(genre);
+
             favGenreList.push(<TextButton
                 text={genre}
             />)

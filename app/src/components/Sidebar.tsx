@@ -15,26 +15,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         ...EnhancedComponent.defaultProps,
     };
 
-    // private musicGenres: ISidebarGenreChannel[] = [
-    //     {genre: GenreEnum.ASIAN, icon: asianIcon, liked: false},
-    //     {genre: GenreEnum.BLUES, icon: bluesIcon, liked: false},
-    //     {genre: GenreEnum.CHILDREN, icon: childrenIcon, liked: false},
-    //     {genre: GenreEnum.CHRISTIAN, icon: christianIcon, liked: false},
-    //     {genre: GenreEnum.CLASSICAL, icon: classicalIcon, liked: false},
-    //     {genre: GenreEnum.COUNTRY, icon: countryIcon, liked: false},
-    //     {genre: GenreEnum.ELECTRONIC, icon: electronicIcon, liked: false},
-    //     {genre: GenreEnum.HIP_HOP, icon: hiphopIcon, liked: false},
-    //     {genre: GenreEnum.INDEPENDENT, icon: bluesIcon, liked: false},
-    //     {genre: GenreEnum.JAZZ, icon: jazzIcon, liked: false},
-    //     {genre: GenreEnum.LATIN_AMERICAN, icon: latinAmericanIcon, liked: false},
-    //     {genre: GenreEnum.OTHER, icon: bluesIcon, liked: false},
-    //     {genre: GenreEnum.POP, icon: popIcon, liked: false},
-    //     {genre: GenreEnum.REGGAE, icon: reggaeIcon, liked: false},
-    //     {genre: GenreEnum.ROCK, icon: rockIcon, liked: false},
-    //     {genre: GenreEnum.SOUL, icon: soulIcon, liked: false},
-    // ];
-
-    private musicGenres: ISidebarGenreChannel[] = [
+    private readonly musicGenres: ISidebarGenreChannel[] = [
         {genre: GenreEnum.ASIAN, icon: asianIcon},
         {genre: GenreEnum.BLUES, icon: bluesIcon},
         {genre: GenreEnum.CHILDREN, icon: childrenIcon},
@@ -91,6 +72,10 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     }
 
     public render() {
+
+        console.log("sidebar");
+        console.log(this.props.favouriteGenres);
+
         let placeholder = "Search...";
         return (
             <div className="sidebar">
@@ -120,7 +105,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 interface ISidebarGenreChannel {
     genre: GenreEnum;
     icon: string;
-    // liked: boolean; // don't need this here???
 }
 
 export interface ISidebarProps extends IEnhancedComponentProps {
