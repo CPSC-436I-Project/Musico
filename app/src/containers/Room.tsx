@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReactNode, useRef} from "react";
+import {ReactNode} from "react";
 import "../components/css/Room.css";
 import {Container, IContainerProps} from "./Container";
 import Chat from "src/components/Chat";

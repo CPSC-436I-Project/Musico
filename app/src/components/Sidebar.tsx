@@ -9,10 +9,12 @@ import {IStore} from "../redux/initialStore";
 import {setSelectedGenre} from "../redux/actions";
 import {connect} from "react-redux";
 import {GenreEnum} from "./";
+import {PageEnum} from "../containers";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     public static defaultProps: ISidebarProps = {
         ...EnhancedComponent.defaultProps,
+        changePage: () => {/**/},
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [
@@ -66,6 +68,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     private sidebarButtonClicked(genre: GenreEnum): (callback: () => void) => void {
         return (callback: () => void): void => {
             this.props.dispatch(setSelectedGenre(genre));
+            this.props.changePage(PageEnum.Room);
             callback();
         }
     }
@@ -106,6 +109,7 @@ export interface ISidebarProps extends IEnhancedComponentProps {
     className?: string;
     hasSearch?: boolean;
     selectedGenre?: GenreEnum | null;
+    changePage: (page: PageEnum) => void;
 }
 
 export interface ISidebarState extends IEnhancedComponentState {

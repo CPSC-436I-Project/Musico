@@ -2,12 +2,9 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {Sidebar} from "../components";
 import {connect} from "react-redux";
 import { InnerDashboard } from "src/components/InnerDashboard";
-import Room from "./Room";
 import { IStore } from "src/redux/initialStore";
-import InnerProfile from "../components/InnerProfile";
 
 class Dashboard extends Container<IDashboardProps, IDashboardState> {
 

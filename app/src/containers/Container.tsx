@@ -89,7 +89,10 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 						/>
 					</div>}
 					<div className={"container-contents"}>
-						{(this.props.showSidebar && this.state.sidebarOpen) &&  <div id={"dashboard_sidebar"}><Sidebar/></div>}
+						{(this.props.showSidebar && this.state.sidebarOpen) &&
+						<div id={"dashboard_sidebar"}>
+							<Sidebar changePage={this.props.changePage}/>
+						</div>}
 						<div style={{height: "100%"}}>
 							{this.childRender()}
 						</div>
