@@ -14,7 +14,6 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
         genre: "jazz",
         albumCover: thumbnailPlaceholder,
         songName: "default song name",
-        artists: ["artist1", "artist2"],
     };
 
     private constructor(props: IDashboardSongInfoProps) {
@@ -29,7 +28,6 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
                     width={this.props.width}
                     albumCover = {this.props.albumCover === "" ? thumbnailPlaceholder : this.props.albumCover}
                     songName = {this.props.songName}
-                    artists = {this.props.artists}
                 />
                 <TextButton text={this.props.genre}
                             fontSize={14} width={100}
@@ -48,7 +46,6 @@ export interface IDashboardSongInfoProps extends IEnhancedComponentProps {
     genre: string;
     albumCover: string;
     songName: string;
-    artists: string[];
 }
 
 export interface IDashboardSongInfoState extends IEnhancedComponentState {

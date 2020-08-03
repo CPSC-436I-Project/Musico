@@ -99,7 +99,6 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             requestedSongsList.push(<ProfileSongInfo
                 pic={song.albumCover}
                 name={song.songName}
-                artists={song.artists}
             />);
         });
         let likedSongsList: any[] = [];
@@ -107,7 +106,6 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             likedSongsList.push(<ProfileSongInfo
                 pic={song.albumCover}
                 name={song.songName}
-                artists={song.artists}
             />);
         });
         return (
