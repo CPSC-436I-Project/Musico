@@ -88,7 +88,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                             key={item.genre}
                             text={item.genre}
                             icon={item.icon}
-                            liked={this.props.favouriteGenres.includes(item.genre)}     // check this!!!
+                            liked={this.props.favouriteGenres.includes(item.genre)}
                             onTextAction={this.sidebarButtonClicked(item.genre)}
                         />
                     )}
