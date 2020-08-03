@@ -19,3 +19,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: hsla(0,0%,100%,.025);
+  -webkit-border-radius: 100px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsla(0,0%,100%,.5);
+  -webkit-border-radius: 100px;
+  background-clip: padding-box;
+  border: 2px solid hsla(0,0%,100%,0);
+  min-height: 10px;
+}
