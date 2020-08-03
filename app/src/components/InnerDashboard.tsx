@@ -100,15 +100,6 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
 
     public render(): ReactNode {
         const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
-        // let nextSongs: any[] = [];
-        // this.state.topSongs.forEach(function (song: Song) {
-        //     nextSongs.push(<DashboardSongInfo
-        //         genre={song.genre}
-        //         albumCover={song.albumCover}
-        //         songName={song.songName}
-        //     />);
-        // });
-
         return (
             <div className="inner-dashboard">
                 <div
