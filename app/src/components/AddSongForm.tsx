@@ -106,7 +106,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 
 	private addSongToQueue(video: any): (callback: () => void) => void {
 		return (callback: () => void) => {
-			console.log(video);
 			const token = getCookie('auth-token');
 			fetch(API_URL + "songs/add", {
 				method: 'POST',
@@ -122,8 +121,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					genre: this.props.selectedGenre,
 					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
 				}),
-			})
-				.then(async res => {
+			}).then(async res => {
 					return {text: await res.text(), status: res.status}
 				})
 				.then((res) => {

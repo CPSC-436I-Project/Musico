@@ -9,6 +9,7 @@ import {connect} from "react-redux";
 import { downloadMessages, getChannelQueue } from "src/redux/actions/roomActions";
 import { API_URL } from "src/utility/constants";
 import io from "socket.io-client";
+import { getCookie } from "src/utility/cookies";
 
 const socket = io(API_URL);
 
@@ -55,7 +56,17 @@ class Room extends Container<IRoomProps, IRoomState> {
 	// QUEUE
 	// -----------------------------
 
+	addSongCompletion = () => {
+		socket.emit("addToQueue", {token: getCookie('auth-token'), userId: this.props.userId}, () => {
+            this.props.dispatch(getChannelQueue(this.props.selectedGenre));
+        });
+	}
 
+	voteCompletion = () => {
+		socket.emit("updateVote", {token: getCookie('auth-token'), userId: this.props.userId}, () => {
+            this.props.dispatch(getChannelQueue(this.props.selectedGenre));
+        });
+	}
 
 	// -----------------------------
 	// MUSIC SYNC
@@ -69,7 +80,7 @@ class Room extends Container<IRoomProps, IRoomState> {
 	protected popupRender() {
 		return (
 			<AddSongForm
-				addSong={this.sideBarRef ? this.sideBarRef.addToQueue : () => {/**/}}
+				addSong={this.addSongCompletion}
 			/>
 		);
 	};
@@ -127,6 +138,7 @@ class Room extends Container<IRoomProps, IRoomState> {
 					<MusicSidebar
 						showPopup={this.openPopup}
 						childRef={(ref: any) => {this.sideBarRef = ref; }}
+						voteCompletionHandler={this.voteCompletion}
 					/>
 				</div>
 			</div>
@@ -144,4 +156,4 @@ export interface IRoomState extends IContainerState {
 }
 
 // @ts-ignore
-export default connect(Container.mapStateToProps)(Room);
+export default connect(Room.mapStateToProps)(Room);

@@ -24,15 +24,21 @@ router.patch('/upvote/:id', verifyToken, (req, res) => {
         .then(song => {
             res.json(song)
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            res.status(400).json(err);
+            console.log(err);
+        });
 })
 
 router.patch('/downvote/:id', verifyToken, (req, res) => {
     Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: -1}})
         .then(song => {
-            res.json(song)
+            res.json(song);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            res.status(400).json(err);
+            console.log(err);
+        });
 })
 
 
@@ -54,32 +60,32 @@ router.post('/add', verifyToken, (req, res) => {
     });
 
     newSong.save()
-        .then(
-            Queue.findOneAndUpdate(
+        .then((song) => {
+            console.log(song)
+            return Queue.findOneAndUpdate(
                 {channel: req.body.genre},
-                {$push: {queue: newSong}},
-                {new: true, useFindAndModify: false},
-                (err, docs) => {
-                    if (err) {
-                        return res.json('Error: ' + err)
-                    } else {
-                        return res.json(newSong);
-                        // Playlist.findOneAndUpdate(
-                        //     {channel: req.body.genre},
-                        //     {$push: {playlist: newSong}},
-                        //     {new: true, useFindAndModify: false},
-                        //     (err, playlist) => {
-                        //         if (err) {
-                        //             return res.json('Error: ' + err)
-                        //         } else {
-                        //             return res.json(playlist)
-                        //         }
-                        //     }
-                        // )
-                    }
-            })
-        )
-        .catch(err => res.json('Error: ' + err));
+                {$push: {queue: song._id}})
+        })
+        .then(() => {
+            console.log("done");
+            // return Playlist.findOneAndUpdate(
+            //     {channel: req.body.genre},
+            //     {$push: {playlist: song}},
+            //                 {new: true, useFindAndModify: false},
+            //                 (err, playlist) => {
+            //                     if (err) {
+            //                         return res.json('Error: ' + err)
+            //                     } else {
+            //                         return res.json(playlist)
+            //                     }
+            //                 }
+            //             )
+            return res.json(newSong);
+        })
+        .catch((err) => {
+            console.log(err);
+            return res.json('Error: ' + err);
+        });
 })
 
 module.exports = router;

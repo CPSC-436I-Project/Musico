@@ -3,25 +3,23 @@ const { getIdFromToken } = require('../authenticate');
 
 module.exports = function(socket, io) {
 
-    socket.on("addToQueue", async (data, callback) => {
+    socket.on("addToQueue", async (data) => {
         const id = getIdFromToken(data.token);
 
         if (id !== null && id === data.userId) {
-            // TODO: do the job of adding the song to the genre
-            
+            console.log("sending update");
             // TODO: send an event to all clients to update their queues
-            io.to(socketmap[socket.id]).emit("updateQueue");
+            io.to(socketmap[socket.id]).emit("updateQueue", {});
         }
     });
 
-    socket.on("updateVote", async (data, callback) => {
+    socket.on("updateVote", async (data) => {
         const id = getIdFromToken(data.token);
 
         if (id !== null && id === data.userId) {
-            // TODO: update the vote count of a song
-
+            console.log("sending update");
             // TODO: send an event to all clients to update their queues
-            io.to(socketmap[socket.id]).emit("updateQueue");
+            io.to(socketmap[socket.id]).emit("updateQueue", {});
         }
     });
 }

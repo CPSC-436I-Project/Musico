@@ -17,14 +17,10 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
 
     protected constructor(props: IVoteButtonsContainerProps) {
         super(props);
-        this.state = {
-            rating: this.props.rating,
-        }
     }
 
     voteUp = (callback: () => void) => {
         const token = getCookie('auth-token');
-        this.setState({rating: this.state.rating + 1})
         fetch(API_URL + "songs/upvote/" + this.props.songId, {
             method: "PATCH",
             headers: {
@@ -32,13 +28,18 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            if(response.status === 200) {
+                console.log(response);
+                this.props.voteCompletionHandler();
+            }
+            response.json()
+        })
         .then(callback)
     };
 
     voteDown = (callback: () => void) => {
         const token = getCookie('auth-token');
-        this.setState({rating: this.state.rating - 1})
         fetch(API_URL + "songs/downvote/" + this.props.songId, {
             method: "PATCH",
             headers: {
@@ -46,7 +47,10 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            this.props.voteCompletionHandler();
+            response.json()
+        })
         .then(callback)
     };
 
@@ -55,7 +59,7 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
             <div className={"vote-buttons-container"}>
                 <UpvoteButton onAction={this.voteUp}/>
                 <div className={"rating"}>
-                    {this.state.rating}
+                    {this.props.rating}
                 </div>
                 <DownvoteButton onAction={this.voteDown}/>
             </div>
@@ -66,10 +70,11 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
 export interface IVoteButtonsContainerProps extends IEnhancedComponentProps {
     rating: number,
     songId: any,
+    voteCompletionHandler?: () => void,
 }
 
 export interface IVoteButtonsContainerState extends IEnhancedComponentState {
-    rating: number;
+
 }
 
 export {VoteButtonsContainer}

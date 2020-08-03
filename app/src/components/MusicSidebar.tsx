@@ -38,28 +38,12 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
     componentDidMount = () => {
         this.props.childRef(this);
-        // if (this.props.selectedGenre === null) {
-        //     console.log("No selected genre!");
-        // } else {
-        //     this.getChannelQueue(this.props.selectedGenre);
-        // }
     }
 
 
     componentWillUnmount() {
         this.props.childRef(undefined);
     }
-
-    // componentDidUpdate = (previousProps: any) => {
-    //     if (this.props.selectedGenre !== previousProps.selectedGenre) {
-    //         if (this.props.selectedGenre === null) {
-    //             console.log("No selected genre!");
-    //             return;
-    //         } else {
-    //             this.getChannelQueue(this.props.selectedGenre);
-    //         }
-    //     }
-    // }
 
     private showPopup(callback: () => void): void {
         this.props.showPopup();
@@ -73,7 +57,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
                     <CurrentlyPlaying song={this.props.queue[0]}/>
                 </div>
                 <div className="music-player-queue">
-                    <MusicPlayerQueue queue={this.props.queue}/>
+                    <MusicPlayerQueue queue={this.props.queue} voteCompletionHandler={this.props.voteCompletionHandler}/>
                 </div>
                 <div className="add-music-button">
                     <TextButton
@@ -101,6 +85,7 @@ export interface IMusicSidebarProps extends IEnhancedComponentProps {
     currentlyPlaying?: ISongInterface;
     showPopup?: () => void;
     childRef?: (ref: MusicSidebar) => void;
+    voteCompletionHandler?: () => void;
 }
 
 export interface IMusicSidebarState extends IEnhancedComponentState {
