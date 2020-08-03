@@ -6,7 +6,6 @@ import {TextInput} from "./TextInput";
 import {decodeHTML, GenreEnum, genreIDMap, Image, youtubeQuery} from "./index";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
-import {ISongListObject} from "../utility/songs";
 import "./css/AddSongForm.css";
 import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
@@ -20,9 +19,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	public static mapStateToProps: (state: IStore, props: IAddSongFormProps) => IAddSongFormProps = (state: IStore, props: IAddSongFormProps) => {
 		return {
 			...props,
-			selectedGenre: state.chatRoomStore.selectedGenre,
-			username: state.userStore.username,
-			songList: state.songListStore.songs
+			selectedGenre: state.roomStore.selectedGenre,
+			username: state.userStore.username
 		};
 	}
 
@@ -108,7 +106,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 
 	private addSongToQueue(video: any): (callback: () => void) => void {
 		return (callback: () => void) => {
-			console.log(video);
 			const token = getCookie('auth-token');
 			fetch(API_URL + "songs/add", {
 				method: 'POST',
@@ -117,15 +114,13 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					'auth-token': token,
 				},
 				body: JSON.stringify({
-					artists: [],
 					albumCover: video.snippet.thumbnails.default.url,
 					numVotes: 1,
 					songName: video.snippet.title,
 					genre: this.props.selectedGenre,
 					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
 				}),
-			})
-				.then(async res => {
+			}).then(async res => {
 					return {text: await res.text(), status: res.status}
 				})
 				.then((res) => {
@@ -167,7 +162,6 @@ export interface IAddSongFormProps extends IEnhancedComponentProps {
 	addSong?: (song: any) => void;
 	selectedGenre?: GenreEnum | null;
 	username?: string | null;
-	songList?: ISongListObject;
 }
 
 export interface IAddSongFormState extends IEnhancedComponentState {

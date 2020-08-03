@@ -9,7 +9,7 @@ import menuIcon from "../icons/menu.png";
 import musicNoteIcon from "../icons/musicNote.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
-import { unselectGenre } from "src/redux/actions/chatRoomActions";
+import { unselectGenre } from "src/redux/actions/roomActions";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 

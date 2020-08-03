@@ -7,11 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
-const Chat = require('../mongoDB/models/chatModel');
-const { getIdFromToken } = require('../authenticate');
-const Queue = require('../mongoDB/models/queueModel');
-const { query } = require('express');
-const Song = require('../mongoDB/models/songModel');
+const { socketmap } = require('../socket/utility');
 
 /**
  * Get port from environment and store in Express.
@@ -26,14 +22,11 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-var socketmap = {};
-
-var genreMap = {};
-
 /**
  * Setup Socket
  */
 const io = require("socket.io")(server);
+
 io.on("connection", socket => {
 
   // join a room, a room is available for every genre.
@@ -51,33 +44,8 @@ io.on("connection", socket => {
     }
   });
 
-  socket.on("message", async (data, callback) => {
-    const id = getIdFromToken(data.token);
-
-    if (id !== null && id === data.userId) {
-      const newMessage = {
-        user: data.userId,
-        username: data.username,
-        message: data.message
-      };
-      // store the message in Mongodb
-      var messages = await Chat.findOne({channel: socketmap[socket.id]})
-        .then(chats => chats["messages"])
-        .catch(err => {console.log(err)});
-
-      messages.push(newMessage);
-
-      Chat.findOneAndUpdate({channel: socketmap[socket.id]}, {messages: messages})
-        .then(chatMessages => {
-          // use the socketmap to get the genre for that socket, 
-          // and post message to that genre
-          io.to(socketmap[socket.id]).emit("newMessage", newMessage);
-          // callback
-          callback();
-        })
-        .catch(err => console.log('Error: ' + err));
-    }
-  });
+  require('../socket/chat')(socket, io);
+  require('../socket/queue')(socket, io);
 
   socket.on("disconnect", (data, callback) => {
     // remove socket from socketmap
@@ -85,6 +53,9 @@ io.on("connection", socket => {
     // call the callback
     //callback();
   });
+
+  return io;
+
 });
 
 /**

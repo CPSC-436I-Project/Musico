@@ -7,14 +7,10 @@ import { TextInput } from "./TextInput";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import { GenreEnum } from ".";
-import io from "socket.io-client";
 import { IMessageInterface } from "src/utility/messages";
-import { downloadMessages } from "src/redux/actions/chatRoomActions";
 import { getCookie } from "src/utility/cookies";
 import "./css/Chat.css";
 
-const SOCKET_IO_URL = "/";
-const socket = io(SOCKET_IO_URL);
 var Filter = require('bad-words');
 
 class Chat extends EnhancedComponent<IChatProps, IChatState> {
@@ -23,13 +19,14 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
     public static defaultProps: IChatProps = {
         ...EnhancedComponent.defaultProps,
+        sendMessage: (data) => {}
     };
 
     public static mapStateToProps:(state: IStore, props: IChatProps) => IChatProps = (state: IStore, props: IChatProps) => {
         return {
             ...props,
-            selectedGenre: state.chatRoomStore.selectedGenre,
-            messages: state.chatRoomStore.messages,
+            selectedGenre: state.roomStore.selectedGenre,
+            messages: state.roomStore.messages,
             userId: state.userStore.userId,
             username: state.userStore.username,
         };
@@ -39,12 +36,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         super(props);
         this.state = {
             currentMessage: "",
-            isInitialized: false
         };
-    }
-
-    setInitialized = (s: boolean) => {
-        this.setState({isInitialized: s});
     }
 
     handleSubmit = (callback: () => void) => {
@@ -57,48 +49,16 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
             userId: this.props.userId,
             message: thismessage
         };
-        socket.emit("message", data, () => {
-            this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
-        });
+        this.props.sendMessage(data)
         callback();
     };
 
     componentDidMount = () => {
         this.scrollToBottom();
-        if (!this.state.isInitialized) {
-            if (this.props.selectedGenre === null) {
-                console.log("No selected genre!");
-                return;
-            }
-            socket.emit('join', {genre: this.props.selectedGenre}, () => {
-                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
-            });
-            socket.on("newMessage", (data: any) => {
-                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
-            });
-        }
     }
 
-    componentDidUpdate = (previousProps: any) => {
+    componentDidUpdate = () => {
         this.scrollToBottom();
-        if (this.props.selectedGenre !== previousProps.selectedGenre) {
-            socket.emit('disconnect');
-            if (this.props.selectedGenre === null) {
-                console.log("No selected genre!");
-                return;
-            }
-            socket.emit('join', {genre: this.props.selectedGenre}, () => {
-                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
-            });
-            socket.on("newMessage", (data: any) => {
-                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
-            });
-        }
-    }
-
-
-    gotMessagesCallback = () => {
-        this.setInitialized(true);
     }
 
     updateCurrMessage = (text: string) => {
@@ -146,11 +106,11 @@ export interface IChatProps extends IEnhancedComponentProps {
     messages?: IMessageInterface[];
     userId?: string | null;
     username?: string;
+    sendMessage: (data: any) => void;
 }
 
 export interface IChatState extends IEnhancedComponentState {
-    currentMessage: string,
-    isInitialized: boolean
+    currentMessage: string
 }
 
 // @ts-ignore

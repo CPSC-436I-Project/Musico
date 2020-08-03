@@ -11,7 +11,6 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
         ...EnhancedComponent.defaultProps,
         color: "#ffffff",
         songName: "default",
-        artists: ["artist1", "artist2"],
         albumCover: thumbnailPlaceholder,
     };
 
@@ -20,11 +19,6 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
     }
 
     public render() {
-        let artistsString = "";
-
-        this.props.artists.map(artist => artistsString += ", " + artist);
-        let artists = artistsString.substring(2);
-
         return (
             <div className={"song-info-container"} style={{color: this.props.color, width: this.props.width}} >
                 <Image
@@ -34,7 +28,7 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
                     height={this.props.height}
                 />
                 <div className={"song-description-container"}>
-                    <p className={"song-description"}>{this.props.songName} <br/> {artists}</p>
+                    <p className={"song-description"}>{this.props.songName}</p>
                 </div>
             </div>
         )
@@ -46,7 +40,6 @@ export interface ISongInfoContainerProps extends IEnhancedComponentProps {
     width?: number,
     height?: number,
     songName?: string,
-    artists?: string[],
     albumCover?: string,
 }
 

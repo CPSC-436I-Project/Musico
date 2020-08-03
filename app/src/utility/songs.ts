@@ -1,64 +1,45 @@
 import {GenreEnum} from "../components";
 
 export interface ISongInterface {
-    link: string;
-    voteCount: number;
-    submittor: string;
+    songName: string,
+    artists: string[],
+    genre: GenreEnum,
+    src: string,
+    requesterID: any,
+    albumCover: string,
+    numVotes: number
 }
 
-// export type ISongListMap<GenreEnum, ISongInterface[]>;
 
-export type ISongListObject = {
-    [key in GenreEnum]: ISongInterface[];
+export const defaultSong: ISongInterface = {
+    songName: "default",
+    artists: [],
+    genre: GenreEnum.POP,
+    src: "",
+    requesterID: "",
+    albumCover: "",
+    numVotes: 0
 }
 
-export const defaultSongs: ISongListObject = {
-    [GenreEnum.ASIAN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.BLUES]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.CHILDREN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ], 
-    [GenreEnum.CHRISTIAN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.CLASSICAL]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.COUNTRY]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.ELECTRONIC]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.HIP_HOP]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.INDEPENDENT]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.JAZZ]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.LATIN_AMERICAN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.OTHER]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.POP]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.REGGAE]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.ROCK]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ], 
-    [GenreEnum.SOUL]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ], 
-};
+// export type ISongListObject = {
+//     [key in GenreEnum]: ISongInterface[];
+// }
+
+// export const defaultSongs: ISongListObject = {
+//     [GenreEnum.ASIAN]: [defaultSong],
+//     [GenreEnum.BLUES]: [defaultSong],
+//     [GenreEnum.CHILDREN]: [defaultSong],
+//     [GenreEnum.CHRISTIAN]: [defaultSong],
+//     [GenreEnum.CLASSICAL]: [defaultSong],
+//     [GenreEnum.COUNTRY]: [defaultSong],
+//     [GenreEnum.ELECTRONIC]: [defaultSong],
+//     [GenreEnum.HIP_HOP]: [defaultSong],
+//     [GenreEnum.INDEPENDENT]: [defaultSong],
+//     [GenreEnum.JAZZ]: [defaultSong],
+//     [GenreEnum.LATIN_AMERICAN]: [defaultSong],
+//     [GenreEnum.OTHER]: [defaultSong],
+//     [GenreEnum.POP]: [defaultSong],
+//     [GenreEnum.REGGAE]: [defaultSong],
+//     [GenreEnum.ROCK]: [defaultSong],
+//     [GenreEnum.SOUL]: [defaultSong],
+// };

@@ -37,7 +37,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
         return {
             ...props,
-            selectedGenre: state.chatRoomStore.selectedGenre,
+            selectedGenre: state.roomStore.selectedGenre,
         };
     }
 

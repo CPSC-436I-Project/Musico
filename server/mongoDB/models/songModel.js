@@ -7,10 +7,6 @@ const songSchema = new Schema({
         type: String,
         required: true
     },
-    artists: {
-        type: [String],
-        required: true
-    },
     genre: {
         type: String,
         required: true
