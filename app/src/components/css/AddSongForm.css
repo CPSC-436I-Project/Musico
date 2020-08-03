@@ -46,10 +46,18 @@ p {
     display: flex;
     flex-direction: row;
     align-items: baseline;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.search-input {
+    width: 100%;
 }
 
 .song-info {
     display: inline-block;
     vertical-align: baseline;
+}
+
+.submit-button {
+    margin-left: 5px;
 }
