@@ -72,10 +72,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
     }
 
     public render() {
-
-        console.log("sidebar");
-        console.log(this.props.favouriteGenres);
-
         let placeholder = "Search...";
         return (
             <div className="sidebar">
