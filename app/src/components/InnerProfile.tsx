@@ -77,7 +77,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                     return that.setState({likedSongDetails: updatedSongs});
                 }
             })
-    }
+    };
 
     private static inflateFavGenres(genre: string): ReactNode {
         return (<TextButton
@@ -87,7 +87,15 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             width={100}
             buttonColour={"#6236FF"}
         />)
-    }
+    };
+
+    private static inflateSongs(song: Song): ReactNode {
+        return (<ProfileSongInfo
+            key={song.songName}
+            pic={song.albumCover}
+            name={song.songName}
+        />)
+    };
 
     public componentDidMount(): void {
         this.getSongs(this.props.requests, this.state.requestsDetails);
@@ -95,38 +103,6 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
     };
 
     public render(): ReactNode {
-
-        console.log("profile");
-        console.log(this.props.favouriteGenres);
-
-        //
-        // let favGenreList: any[] = [];
-        // this.props.favouriteGenres.forEach(function (genre: string) {
-        //
-        //     console.log("profile fav genre loop");
-        //     console.log(genre);
-        //
-        //     favGenreList.push(<TextButton
-        //         text={genre}
-        //         fontSize={14}
-        //         width={100}
-        //         buttonColour={"#6236FF"}
-        //     />)
-        // });
-        let requestedSongsList: any[] = [];
-        this.state.requestsDetails.forEach(function (song: Song) {
-            requestedSongsList.push(<ProfileSongInfo
-                pic={song.albumCover}
-                name={song.songName}
-            />);
-        });
-        let likedSongsList: any[] = [];
-        this.state.likedSongDetails.forEach(function (song: Song) {
-            likedSongsList.push(<ProfileSongInfo
-                pic={song.albumCover}
-                name={song.songName}
-            />);
-        });
         return (
             <div className="inner-profile">
                 <div className="profile-head">
@@ -157,13 +133,13 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                     <div className="profile-requested-songs">
                         <h2> Requested Songs </h2>
                         <div className="profile-requested-songs-inner">
-                            {requestedSongsList}
+                            {this.state.requestsDetails.map(InnerProfile.inflateSongs)}
                         </div>
                     </div>
                     <div className="profile-liked-songs">
                         <h2> Liked Songs </h2>
                         <div className="profile-liked-songs-inner">
-                            {likedSongsList}
+                            {this.state.likedSongDetails.map(InnerProfile.inflateSongs)}
                         </div>
                     </div>
                 </div>
