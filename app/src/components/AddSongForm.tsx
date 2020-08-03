@@ -114,7 +114,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					'auth-token': token,
 				},
 				body: JSON.stringify({
-					artists: [],
 					albumCover: video.snippet.thumbnails.default.url,
 					numVotes: 1,
 					songName: video.snippet.title,

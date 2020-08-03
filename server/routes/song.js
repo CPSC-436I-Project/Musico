@@ -51,7 +51,6 @@ router.get('/:songID', verifyToken, (req, res) => {
 router.post('/add', verifyToken, (req, res) => {
     const newSong = new Song({
         songName: req.body.songName,
-        artists: req.body.artists,
         genre: req.body.genre,
         src: req.body.src,
         requesterID: req.user._id,
@@ -68,18 +67,18 @@ router.post('/add', verifyToken, (req, res) => {
         })
         .then(() => {
             console.log("done");
-            // return Playlist.findOneAndUpdate(
-            //     {channel: req.body.genre},
-            //     {$push: {playlist: song}},
-            //                 {new: true, useFindAndModify: false},
-            //                 (err, playlist) => {
-            //                     if (err) {
-            //                         return res.json('Error: ' + err)
-            //                     } else {
-            //                         return res.json(playlist)
-            //                     }
-            //                 }
-            //             )
+            Playlist.findOneAndUpdate(
+                {channel: req.body.genre},
+                {$push: {playlist: newSong}},
+                {new: true, useFindAndModify: false},
+                (err, playlist) => {
+                    if (err) {
+                        return res.json('Error: ' + err)
+                    } else {
+                        return res.json(playlist)
+                    }
+                }
+            )
             return res.json(newSong);
         })
         .catch((err) => {

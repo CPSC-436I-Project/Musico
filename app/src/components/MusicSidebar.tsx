@@ -45,6 +45,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         this.props.childRef(undefined);
     }
 
+
     private showPopup(callback: () => void): void {
         this.props.showPopup();
         callback();

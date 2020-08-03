@@ -9,7 +9,6 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
         ...EnhancedComponent.defaultProps,
         song: {
             songName: "default",
-            artists: [],
             genre: "Pop",
             src: "",
             requesterID: 0,
@@ -23,9 +22,6 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
     }
 
     public render() {
-        let artistsString = "";
-        this.props.song.artists.map(artist => artistsString += ", " + artist);
-        let artists = artistsString.substring(2);
         return (
             <div className="currently-playing">
                 <div
@@ -58,7 +54,6 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
 
 interface Song {
     songName: string,
-    artists: string[],
     genre: string,
     src: string,
     requesterID: any,
