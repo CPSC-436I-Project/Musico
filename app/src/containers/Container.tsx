@@ -88,9 +88,9 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 							onLogoClick={this.logoClick}
 						/>
 					</div>}
-					<div style={{flexDirection: "row"}}>
+					<div className={"container-contents"}>
 						{(this.props.showSidebar && this.state.sidebarOpen) &&  <div id={"dashboard_sidebar"}><Sidebar/></div>}
-						<div style={{flexGrow: 1}}>
+						<div style={{height: "100%"}}>
 							{this.childRender()}
 						</div>
 					</div>

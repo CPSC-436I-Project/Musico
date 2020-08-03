@@ -46,14 +46,14 @@
     padding: 5px 2px;
 }
 
-#dashboard {
+.dashboard {
     height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #181818;
 }
 
-#dashboard_lower {
+.dashboard_lower {
     display: flex;
     height: calc(100vh - 74px);
 }
@@ -63,7 +63,7 @@
     background-color: #212121;
 }
 
-#dashboard-display {
+.dashboard-display {
     flex-grow: 1;
     padding: 15px;
     overflow: auto;
@@ -83,4 +83,9 @@
 
 .login-screen {
     background: linear-gradient(180deg, rgb(186, 186, 186) 0%, rgb(255, 255, 255) 100%);
+}
+
+.container-contents {
+    flex-direction: row;
+    display: flex;
 }

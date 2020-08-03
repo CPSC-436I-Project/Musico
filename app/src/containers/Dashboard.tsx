@@ -28,7 +28,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 
 	public render(): ReactNode {
 		return (
-			<div id={"dashboard dashboard_lower dashboard-display"}>
+			<div className={"dashboard dashboard_lower dashboard-display"}>
 				<InnerDashboard/>
 			</div>
 		);
