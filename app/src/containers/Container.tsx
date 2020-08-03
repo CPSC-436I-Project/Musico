@@ -93,7 +93,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 						<div id={"dashboard_sidebar"}>
 							<Sidebar changePage={this.props.changePage}/>
 						</div>}
-						<div style={{height: "100%"}}>
+						<div className={"fill-container"}>
 							{this.childRender()}
 						</div>
 					</div>

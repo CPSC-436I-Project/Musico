@@ -59,7 +59,6 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 	}
 
 	public render(): ReactNode {
-		let input_width = 2 * this.props.colorMargin + 5;
 		return (
 			<div
 				className="text_input_div"
@@ -79,7 +78,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 					onKeyDown={this.onKeyDownWrapper}
 					style={{
 						margin: this.props.colorMargin,
-						width: `calc(100% - ${input_width}px)`,
+						width: `calc(100% - ${2 * this.props.colorMargin + 5}px)`,
 						fontSize: this.props.fontSize,
 					}}
 				/>

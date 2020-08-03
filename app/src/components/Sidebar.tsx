@@ -67,9 +67,12 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 
     private sidebarButtonClicked(genre: GenreEnum): (callback: () => void) => void {
         return (callback: () => void): void => {
-            this.props.dispatch(setSelectedGenre(genre));
-            this.props.changePage(PageEnum.Room);
+            if (this.props.selectedGenre !== genre) {
+                this.props.dispatch(setSelectedGenre(genre));
+                this.props.changePage(PageEnum.Room);
+            }
             callback();
+
         }
     }
 
