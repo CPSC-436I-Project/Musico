@@ -58,7 +58,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         const token = getCookie('auth-token');
         let updatedSongs: Song[] = [];
         Promise.all(
-            idList.map((songID: string) => fetch(API_URL+'songs/' + songID, {
+            idList.map((songID: string) => fetch(API_URL + 'songs/' + songID, {
                 method: 'GET',
                 headers: {'auth-token': token}
             })))
@@ -79,6 +79,16 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             })
     }
 
+    private static inflateFavGenres(genre: string): ReactNode {
+        return (<TextButton
+            key={genre}
+            text={genre}
+            fontSize={14}
+            width={100}
+            buttonColour={"#6236FF"}
+        />)
+    }
+
     public componentDidMount(): void {
         this.getSongs(this.props.requests, this.state.requestsDetails);
         this.getSongs(this.props.likedSongs, this.state.likedSongDetails);
@@ -89,20 +99,20 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         console.log("profile");
         console.log(this.props.favouriteGenres);
 
-
-        let favGenreList: any[] = [];
-        this.props.favouriteGenres.forEach(function (genre: string) {
-
-            console.log("profile fav genre loop");
-            console.log(genre);
-
-            favGenreList.push(<TextButton
-                text={genre}
-                fontSize={14} 
-                width={100}
-                buttonColour={"#6236FF"}
-            />)
-        });
+        //
+        // let favGenreList: any[] = [];
+        // this.props.favouriteGenres.forEach(function (genre: string) {
+        //
+        //     console.log("profile fav genre loop");
+        //     console.log(genre);
+        //
+        //     favGenreList.push(<TextButton
+        //         text={genre}
+        //         fontSize={14}
+        //         width={100}
+        //         buttonColour={"#6236FF"}
+        //     />)
+        // });
         let requestedSongsList: any[] = [];
         this.state.requestsDetails.forEach(function (song: Song) {
             requestedSongsList.push(<ProfileSongInfo
@@ -126,7 +136,8 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                             <h2>{this.props.username || "Unknown User"}</h2>
                             <div className="update-profile-buttons">
                                 <span className="update-profile-pic">
-                                    <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={250} buttonColour={"#6236FF"}/>
+                                    <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={250}
+                                                buttonColour={"#6236FF"}/>
                                 </span>
                                 <span className="log-out">
                                     <TextButton text="Log out" onAction={this.logOut} width={100}/>
@@ -140,7 +151,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
                 </div>
                 <div className="profile-fav-genres">
                     <h2> Favourite Genres </h2>
-                    {favGenreList}
+                    {this.props.favouriteGenres.map(InnerProfile.inflateFavGenres)}
                 </div>
                 <div className="profile-songs">
                     <div className="profile-requested-songs">
