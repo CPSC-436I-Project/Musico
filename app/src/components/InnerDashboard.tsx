@@ -33,19 +33,13 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         })
             .then(response => response.json())
             .then(queues => {
-
-                console.log(queues);
-
-                return queues.map((obj: any) => obj.queue);
+                return queues.map(function (obj: any) {
+                    return obj.queue;
+                });
             })
             .then(queueList => {
-
-                console.log(queueList);
-
-                let queueRequests = queueList.map((queue: string[]) => this.addTopSong(queue));
-
-                console.log(queueRequests);
-
+                let queueRequests = queueList.map((queue: string[]) =>
+                    this.addTopSong(queue));
                 Promise.all(queueRequests);
             });
     }
@@ -70,13 +64,12 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                 return Promise.all(responses.map(response => response.json()))
             })
             .then((songs: Song[]) => {
-                songs.reduce((prev, curr) => {return curr.numVotes > prev.numVotes? curr : prev});
-                // songs.forEach(function (song: Song) {
-                //     // @ts-ignore //lint error for string enums because they can't be reverse mapped
-                //     if (song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
-                //         topSong = song;
-                //     }
-                // });
+                songs.forEach(function (song: Song) {
+                    // @ts-ignore //lint error for string enums because they can't be reverse mapped
+                    if (song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
+                        topSong = song;
+                    }
+                });
             })
             .then(() => {
                 if (topSong.songName !== "default") {
@@ -93,29 +86,20 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             });
     }
 
-    private static inflateSongs(song: Song): ReactNode {
-        return (<DashboardSongInfo
-            key={song.songName}
-            genre={song.genre}
-            albumCover={song.albumCover}
-            songName={song.songName}
-        />)
-    }
-
     public componentDidMount(): void {
         this.getTopSongsOnQueues();
     };
 
     public render(): ReactNode {
         const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
-        // let nextSongs: any[] = [];
-        // this.state.topSongs.forEach(function (song: Song) {
-        //     nextSongs.push(<DashboardSongInfo
-        //         genre={song.genre}
-        //         albumCover={song.albumCover}
-        //         songName={song.songName}
-        //     />);
-        // });
+        let nextSongs: any[] = [];
+        this.state.topSongs.forEach(function (song: Song) {
+            nextSongs.push(<DashboardSongInfo
+                genre={song.genre}
+                albumCover={song.albumCover}
+                songName={song.songName}
+            />);
+        });
 
         return (
             <div className="inner-dashboard">
@@ -131,7 +115,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                     <h2> Playing next </h2>
                 </div>
                 <div className="dashboard-trending">
-                    {this.state.topSongs.map(InnerDashboard.inflateSongs)}
+                    {nextSongs}
                 </div>
             </div>
         );
