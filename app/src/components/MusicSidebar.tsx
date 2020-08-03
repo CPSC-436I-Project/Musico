@@ -31,7 +31,6 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
             queue: [],
             currentlyPlaying: {
                 songName: "default",
-                artists: [],
                 genre: "Pop",
                 src: "",
                 requesterID: 0,
@@ -91,7 +90,6 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         const token = getCookie('auth-token');
         let song: Song = {
             songName: "default",
-            artists: [],
             genre: "Pop",
             src: "",
             requesterID: 0,
@@ -163,7 +161,6 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
 interface Song {
     songName: string,
-    artists: string[],
     genre: string,
     src: string,
     requesterID: any,
