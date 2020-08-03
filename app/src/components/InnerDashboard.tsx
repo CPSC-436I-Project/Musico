@@ -86,29 +86,20 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             });
     }
 
-    private static inflateSongs(song: Song): ReactNode {
-        return (<DashboardSongInfo
-            key={song.songName}
-            genre={song.genre}
-            albumCover={song.albumCover}
-            songName={song.songName}
-        />)
-    }
-
     public componentDidMount(): void {
         this.getTopSongsOnQueues();
     };
 
     public render(): ReactNode {
         const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
-        // let nextSongs: any[] = [];
-        // this.state.topSongs.forEach(function (song: Song) {
-        //     nextSongs.push(<DashboardSongInfo
-        //         genre={song.genre}
-        //         albumCover={song.albumCover}
-        //         songName={song.songName}
-        //     />);
-        // });
+        let nextSongs: any[] = [];
+        this.state.topSongs.forEach(function (song: Song) {
+            nextSongs.push(<DashboardSongInfo
+                genre={song.genre}
+                albumCover={song.albumCover}
+                songName={song.songName}
+            />);
+        });
 
         return (
             <div className="inner-dashboard">
@@ -124,7 +115,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                     <h2> Playing next </h2>
                 </div>
                 <div className="dashboard-trending">
-                    {this.state.topSongs.map(InnerDashboard.inflateSongs)}
+                    {nextSongs}
                 </div>
             </div>
         );
