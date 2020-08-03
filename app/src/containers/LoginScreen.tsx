@@ -62,7 +62,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 				ref={(ref: TextInput) => {this.loginPasswordTextRef = ref; }}
 				textType={"password"}
 			/>
-			<TextButton text={"Log In"} width={70} onAction={this.loginButtonOnClick}/>
+			<TextButton buttonColour={"#ffffff"} buttonHoverColour={"#ffffff"} fontColour={"#242424"} text={"Log In"} width={70} onAction={this.loginButtonOnClick}/>
 		</div>;
 
 		const signUpButtonChild: ReactNode = <div className={"flex-column-center"}>
@@ -80,7 +80,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 				textType={"password"}
 			/>
 
-			<TextButton text={"Sign Up"} width={70} onAction={this.signUpButtonOnClick}/>
+			<TextButton buttonColour={"#6236ff"} buttonHoverColour={"#6236ff"} text={"Sign Up"} width={80} onAction={this.signUpButtonOnClick}/>
 		</div>;
 
 		return (
@@ -88,20 +88,24 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 				className={"fill-container center-mid"}
 			>
 				<div style={{
-					marginBottom: 180,
+					marginBottom: 15,
+					marginRight: 100
 				}}>
-					<Image path={"/logo.png"} width={600} height={140}/>
+					<img src={"/musico.svg"} alt="Logo" width={800} height={500} />
 				</div>
 				<div className={"flex-column-center"}>
 					<ExpandableButton
-						buttonHoverColour={"#6236ff"}
 						buttonColour={"#6236ff"}
+						buttonHoverColour={"#6236ff"}
+						fontColour={"#ffffff"}
 						text={"Login"}
 						width={350}
 						child={loginButtonChild}
 					/>
 					<div style={{height: 10}}/>
 					<ExpandableButton
+						buttonColour={"#ffffff"}
+						buttonHoverColour={"#ffffff"}
 						text={"Sign Up"}
 						width={350}
 						child={signUpButtonChild}
