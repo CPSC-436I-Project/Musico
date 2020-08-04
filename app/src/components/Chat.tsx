@@ -70,7 +70,6 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	};
 
 	componentDidMount = () => {
-		this.scrollToBottom();
 		if (!this.state.isInitialized) {
 			if (this.props.selectedGenre === null) {
 				console.log("No selected genre!");
@@ -86,7 +85,6 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	}
 
 	componentDidUpdate = (previousProps: any) => {
-		this.scrollToBottom();
 		if (this.props.selectedGenre !== previousProps.selectedGenre) {
 			socket.emit('disconnect');
 			if (this.props.selectedGenre === null) {
@@ -110,10 +108,6 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	updateCurrMessage = (text: string) => {
 		this.setState({currentMessage: text});
 	};
-
-	scrollToBottom = () => {
-		// this.messagesEndRef.current.scrollIntoView({behavior: 'smooth'})
-	}
 
 	private saveTextInputRef(ref: TextInput): void {
 		this.textInputRef = ref;
