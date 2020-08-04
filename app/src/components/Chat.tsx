@@ -29,6 +29,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	public static mapStateToProps: (state: IStore, props: IChatProps) => IChatProps = (state: IStore, props: IChatProps) => {
 		return {
 			...props,
+			sidebarOpen: state.sidebarStore.sidebarOpen,
 			selectedGenre: state.chatRoomStore.selectedGenre,
 			messages: state.chatRoomStore.messages,
 			userId: state.userStore.userId,
@@ -46,21 +47,23 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 		};
 
 		this.saveTextInputRef = this.saveTextInputRef.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	setInitialized = (s: boolean) => {
 		this.setState({isInitialized: s});
 	}
 
-	handleSubmit = (callback: () => void) => {
-		let thismessage = this.state.currentMessage
+	private handleSubmit(callback: () => void) {
+		console.log("SUBMIT", this);
+		let thisMessage = this.state.currentMessage
 		let filter = new Filter();
-		thismessage = filter.clean(thismessage)
+		thisMessage = filter.clean(thisMessage)
 		let data = {
 			token: getCookie('auth-token'),
 			username: this.props.username,
 			userId: this.props.userId,
-			message: thismessage
+			message: thisMessage
 		};
 		socket.emit("message", data, () => {
 			this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
@@ -119,7 +122,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 				message={item}
 				key={item._id}
 			/>
-		)
+		);
 	}
 
 	public render(): ReactNode {
@@ -129,7 +132,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 					<div className={"chat-hidden-component"}/>
 					{this.props.messages.reverse().map(Chat.renderMessageObject)}
 				</div>
-				<div className="chat-input">
+				<div className="chat-input" style={{width: `calc(100% - ${this.props.sidebarOpen ? 210 + 250 : 250}px)`}}>
 					<TextInput
 						defaultText="Enter a message"
 						submit={this.updateCurrMessage}
@@ -164,6 +167,7 @@ export interface IChatProps extends IEnhancedComponentProps {
 	messages?: IMessageInterface[];
 	userId?: string | null;
 	username?: string;
+	sidebarOpen?: boolean;
 }
 
 export interface IChatState extends IEnhancedComponentState {

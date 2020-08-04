@@ -12,6 +12,27 @@
     justify-content: center;
 }
 
+.chat-message-user-info .chat-message-user-info-detailed {
+    visibility: hidden;
+    width: 120px;
+    background-color: white;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.chat-message-user-info:hover .chat-message-user-info-detailed {
+    visibility: visible;
+    opacity: 1;
+}
+
 .chat-message-username {
     margin-top: 5px;
     margin-bottom: 5px;
