@@ -95,7 +95,7 @@ module.exports = function(socket, io) {
 
     socket.on("disconnect", (data, callback) => {
         // remove socket from socketmap
-        socket.leave(socketmap[socket.id]);
+        // socket.leave(socketmap[socket.id]);
         delete socketmap[socket.id];
         // call the callback
         //callback();
