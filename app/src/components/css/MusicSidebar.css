@@ -22,7 +22,6 @@
     max-width: 100%;
     width: 210px;
     height: 70%;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -38,6 +37,10 @@
     top: -15px;
 }
 
+.music-sidebar .music-player-queue-hidden-component {
+    min-height: 40px;
+}
+
 .music-sidebar p {
     color: #ffffff;
     font-family: "Roboto", sans-serif;
@@ -46,9 +49,11 @@
 }
 
 .add-music-button {
-    position: fixed;
-    bottom: 2%;
-    margin-bottom: 20px;
+    position: absolute;
+    bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    background: linear-gradient(180deg,hsla(0, 0%, 14.1%,0),hsla(0, 0%, 14.1%,.95) 30%,hsla(0, 0%, 14.1%,1))
 }
 
 /* .close-button {
