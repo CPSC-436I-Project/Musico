@@ -13,6 +13,7 @@ import {downloadMessages} from "src/redux/actions/chatRoomActions";
 import {getCookie} from "src/utility/cookies";
 import "./css/Chat.css";
 import {API_URL} from "../utility/constants";
+import {ChatMessage} from "./ChatMessage";
 
 const socket = io(API_URL);
 var Filter = require('bad-words');
@@ -119,17 +120,11 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	}
 
 	private static renderMessageObject(item: IMessageInterface): ReactNode {
-		let message = item.username + " says: " + item.message;
 		return (
-			<div key={item._id} className="messageItem">
-                <TextButton
-					disabled={true}
-					buttonColour={"#009AFF"}
-					width="auto"
-					fontColour="white"
-					text={message}
-				/>
-            </div>
+			<ChatMessage
+				message={item}
+				key={item._id}
+			/>
 		)
 	}
 

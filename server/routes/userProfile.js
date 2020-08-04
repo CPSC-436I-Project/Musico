@@ -104,8 +104,10 @@ router.get('/getFromToken', verifyToken, async (req, res) => {
 
 router.get('/username/:id', verifyToken, async (req, res) => {
     const user = await UserProfile.findById(req.params.id);
+    console.log("IM HERE")
+    console.log(user);
     if (user !== undefined && user !== null) {
-        res.json({id: user._id, username: user.username});
+        res.json({id: user._id, username: user.username, profilePicture: user.profilePicture});
     } else {
         res.json({id: "invalid", username: "Deleted User"});
     }
