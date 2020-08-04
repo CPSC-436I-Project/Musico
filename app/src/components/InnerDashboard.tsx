@@ -49,7 +49,6 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
         const token = getCookie('auth-token');
         let topSong: Song = {
             songName: "default",
-            artists: ["shouldn't", "see", "this"],
             genre: "Jazz",
             src: "",
             requesterID: 0,
@@ -99,7 +98,6 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                 genre={song.genre}
                 albumCover={song.albumCover}
                 songName={song.songName}
-                artists={song.artists}
             />);
         });
 
