@@ -28,6 +28,7 @@
     position: absolute;
     width: calc(100% - 210px - 250px);
     bottom: 0;
+    padding-top: 15px;
     padding-bottom: 10px;
     background: linear-gradient(180deg,hsla(0, 0%, 9.4%,0),hsla(0, 0%, 9.4%,.5) 40%,hsla(0, 0%, 9.4%,1))
 }

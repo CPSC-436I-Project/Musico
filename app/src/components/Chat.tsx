@@ -13,7 +13,7 @@ import {downloadMessages} from "src/redux/actions/chatRoomActions";
 import {getCookie} from "src/utility/cookies";
 import "./css/Chat.css";
 import {API_URL} from "../utility/constants";
-import {ChatMessage} from "./ChatMessage";
+import ChatMessage from "./ChatMessage";
 
 const socket = io(API_URL);
 var Filter = require('bad-words');

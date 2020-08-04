@@ -2,7 +2,6 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./css/Header.css";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import {Image} from "./Image";
 import {ImageButton} from "./buttons/ImageButton";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
