@@ -88,4 +88,5 @@
 .container-contents {
     flex-direction: row;
     display: flex;
+    height: 100%;
 }

@@ -111,25 +111,34 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	};
 
 	scrollToBottom = () => {
-		this.messagesEndRef.current.scrollIntoView({behavior: 'smooth'})
+		// this.messagesEndRef.current.scrollIntoView({behavior: 'smooth'})
 	}
 
 	private saveTextInputRef(ref: TextInput): void {
 		this.textInputRef = ref;
 	}
 
+	private static renderMessageObject(item: IMessageInterface): ReactNode {
+		let message = item.username + " says: " + item.message;
+		return (
+			<div key={item._id} className="messageItem">
+                <TextButton
+					disabled={true}
+					buttonColour={"#009AFF"}
+					width="auto"
+					fontColour="white"
+					text={message}
+				/>
+            </div>
+		)
+	}
+
 	public render(): ReactNode {
-		const items = this.props.messages.map(function (item) {
-			let message = item.username + " says: " + item.message;
-			return <span key={item._id} className="messageItem">
-                <TextButton disabled={true} buttonColour={"#009AFF"} width="auto" fontColour="white" text={message}/>
-            </span>;
-		});
 		return (
 			<div className="chat">
 				<div className="scrollable-container">
-					{items}
-					<span ref={this.messagesEndRef}/>
+					<div className={"chat-hidden-component"}/>
+					{this.props.messages.reverse().map(Chat.renderMessageObject)}
 				</div>
 				<div className="chat-input">
 					<TextInput
@@ -139,7 +148,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 						onEnterKeyDown={this.handleSubmit}
 						width={"95%"}
 						parentStyle={{
-							width: "90%",
+							width: "85%",
 							display: "flex",
 							justifyContent: "center",
 							alignItems: "center"
