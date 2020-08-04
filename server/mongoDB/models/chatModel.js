@@ -14,17 +14,24 @@ const messageObject = {
     message: {
         type: String,
         required: true
-    }
+    },
+    time: {
+        type: Date,
+        default: Date.now,
+        required: false,
+    },
 }
 
-const chatSchema = new Schema({
-    channel: {
-        type: String,
-        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
-        required: true
-    },
-    messages: [messageObject]
-});
+const chatSchema = new Schema(
+    {
+        channel: {
+            type: String,
+            enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
+            required: true
+        },
+        messages: [messageObject]
+    }
+);
 
 let Chat = mongoose.model("Chat", chatSchema);
 module.exports = Chat;
