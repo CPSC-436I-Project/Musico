@@ -9,6 +9,7 @@ import { removeUser } from "src/redux/actions/userActions";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import { PageEnum } from ".";
 import {connect} from "react-redux";
+import InnerProfile from "../components/InnerProfile";
 
 class Profile extends Container<IProfileProps, IProfileState> {
 
@@ -31,15 +32,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
 
     public render(): ReactNode {
         return (
-            <div className="inner-profile">
-                <div className="profile-head">
-                    <Image path={this.props.profileImgUrl} width={170} height={170}/>
-                    <h2>{this.props.username || "Unknown User"}</h2>
-                    <span className="log_out">
-                        <TextButton text="Log out" onAction={this.logOut} width={100}/>
-                    </span>
-                </div>
-            </div>
+            <InnerProfile/>
         );
     }
 }
