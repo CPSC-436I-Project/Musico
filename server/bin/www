@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
-const { socketmap } = require('../socket/utility');
 
 /**
  * Get port from environment and store in Express.
@@ -27,32 +26,11 @@ var server = http.createServer(app);
  */
 const io = require("socket.io")(server);
 
-io.on("connection", socket => {
-
-  // join a room, a room is available for every genre.
-  // The chat component connects the socket to the genre's room
-  socket.on("join", ({genre}, callback) => {
-    // join the room
-    socket.join(genre);
-    // store the socketid mapped to the userid
-    socketmap[socket.id] = genre;
-    // TODO: send current playing song info
-
-    // call the callback
-    if (typeof(callback) === "function") {
-      callback();
-    }
-  });
+io.on("connect", socket => {
 
   require('../socket/chat')(socket, io);
   require('../socket/queue')(socket, io);
-
-  socket.on("disconnect", (data, callback) => {
-    // remove socket from socketmap
-    delete socketmap[socket.id];
-    // call the callback
-    //callback();
-  });
+  require('../socket/room')(socket, io);
 
   return io;
 
@@ -124,28 +102,4 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
-}
-
-var duration = 1
-
-function queueSocketManager(genre) {
-
-  setTimeout(async () => {
-    // get a song from the queue of that genre, remove it from the queue
-    let songId = await Queue.findOne({channel: req.params.genre})
-    .then(queue => queue["queue"])
-    .then(queue => query[0])
-    .catch(err => {console.log(err)})
-    let song = await Song.findById(songId)
-    // send a socket event to update the frontend queue
-
-    // send a socket message to play the song
-
-    // set the duration to the duration of the current song
-    duration = song.duration
-    // call the function again
-    queueSocketManager(genre)
-
-  }, duration*1000)
-
 }

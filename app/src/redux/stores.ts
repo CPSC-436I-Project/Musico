@@ -11,6 +11,7 @@ export interface IRoomStore {
 	messages: IMessageInterface[];
 	queue: ISongInterface[];
 	currentlyPlaying: ISongInterface;
+	startTime: string | null;
 }
 
 export interface IUserStore {

@@ -3,25 +3,29 @@ import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {Image} from "./Image";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
+import { ISongInterface, defaultSong } from "src/utility/songs";
+import { GenreEnum } from ".";
 
 class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurrentlyPlayingState> {
     public static defaultProps: ICurrentlyPlayingProps = {
         ...EnhancedComponent.defaultProps,
-        song: {
-            songName: "default",
-            genre: "Pop",
-            src: "",
-            requesterID: 0,
-            albumCover: "",
-            numVotes: 0
-        }
     };
 
     protected constructor(props: ICurrentlyPlayingProps) {
         super(props);
     }
 
+    getStartSeconds = (time: string) => {
+        if (time === undefined || time === null) {
+            return 0;
+        }
+        let startTime = new Date(time);
+        let currentTime = new Date();
+        return Math.floor((currentTime.getTime() - startTime.getTime()) / 1000); 
+    }
+
     public render() {
+        let start = this.getStartSeconds(this.props.startTime)
         return (
             <div className="currently-playing">
                 <div
@@ -42,7 +46,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                             height: "100%",
                             pointerEvents: "none",
                         }}
-                        src={this.props.song.src.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/") + "?rel=0&autoplay=1&modestbranding=1&autohide=1&showinfo=0&controls=0"}
+                        src={this.props.song.src.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/") + "?rel=0&autoplay=1&modestbranding=1&autohide=1&showinfo=0&controls=0&start="+start}
                         frameBorder={"0"}
                     />
                 </div>
@@ -52,17 +56,9 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
     }
 }
 
-interface Song {
-    songName: string,
-    genre: string,
-    src: string,
-    requesterID: any,
-    albumCover: string,
-    numVotes: number
-}
-
 export interface ICurrentlyPlayingProps extends IEnhancedComponentProps {
-    song?: Song;
+    song?: ISongInterface;
+    startTime?: string;
 }
 
 export interface ICurrentlyPlayingState extends IEnhancedComponentState {
