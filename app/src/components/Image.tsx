@@ -6,8 +6,6 @@ class Image extends EnhancedComponent<IImageProps, IImageState> {
 	public static defaultProps: IImageProps = {
 		...EnhancedComponent.defaultProps,
 		path: "/logo.png",
-		width: 250,
-		height: 150,
 	};
 
 	protected constructor(props: IImageProps) {
@@ -22,7 +20,7 @@ class Image extends EnhancedComponent<IImageProps, IImageState> {
 			<img
 				src={this.props.path}
 				alt={this.props.name}
-				className={"unselectable"}
+				className={("unselectable " + this.props.className || "")}
 				style={{objectFit: "cover",
 						verticalAlign: "middle",
 						width: this.props.width,
@@ -37,6 +35,7 @@ export interface IImageProps extends IEnhancedComponentProps{
 	path: string;
 	width?: number;
 	height?: number;
+	className?: string;
 }
 
 export interface IImageState extends IEnhancedComponentState {

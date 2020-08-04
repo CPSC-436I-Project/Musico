@@ -4,6 +4,7 @@ import "./Button.css";
 import "../css/Sidebar.css";
 import {Button, IButtonProps, IButtonState} from "./Button";
 import {ITextButtonProps} from "./TextButton";
+import {Image} from "../";
 
 class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISidebarTextImageButtonState> {
 
@@ -24,12 +25,9 @@ class SidebarTextImageButton extends Button<ISidebarTextImageButtonProps, ISideb
 	public render(): ReactNode {
 		return (
 			<div className="sidebar-text-image-button">
-				<img
-					src={this.props.icon}
-					alt={this.props.text.concat(" icon")}
-					className="sidebar-text-image-button-icon"
-				/>
+				<Image path={this.props.icon} className={"sidebar-text-image-button-icon"}/>
 				<p
+					className={"unselectable"}
 					style={{
 						fontSize: this.props.fontSize * (this.props.text.length > 10 ? 0.75 : 1),
 						textAlign: "left",
