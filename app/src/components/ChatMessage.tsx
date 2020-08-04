@@ -52,7 +52,22 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 	public render(): ReactNode {
 		return (
 			<div className={"chat-message-container"}>
-				<Image path={this.state.avatarURL}/>
+				<div className={"chat-message-user-info"}>
+					<Image
+						path={this.state.avatarURL}
+						width={40}
+						height={40}
+						rounded={true}
+						backgroundColour={"white"}
+					/>
+				</div>
+				<div className={"chat-message-block"} style={{alignItems: "flex-start"}}>
+					<p className={"chat-message-username"}>{this.state.name}</p>
+					<div className={"chat-message-bubble"}>
+						<p id={"chat-message-content"}>{this.state.message}</p>
+						<p id={"chat-message-time"}>{this.state.time}</p>
+					</div>
+				</div>
 			</div>
 		);
 	}

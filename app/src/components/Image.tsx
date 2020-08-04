@@ -6,6 +6,8 @@ class Image extends EnhancedComponent<IImageProps, IImageState> {
 	public static defaultProps: IImageProps = {
 		...EnhancedComponent.defaultProps,
 		path: "/logo.png",
+		rounded: false,
+		backgroundColour: "transparent",
 	};
 
 	protected constructor(props: IImageProps) {
@@ -21,10 +23,14 @@ class Image extends EnhancedComponent<IImageProps, IImageState> {
 				src={this.props.path}
 				alt={this.props.name}
 				className={("unselectable " + this.props.className || "")}
-				style={{objectFit: "cover",
-						verticalAlign: "middle",
-						width: this.props.width,
-						height: this.props.height}}
+				style={{
+					objectFit: "cover",
+					verticalAlign: "middle",
+					width: this.props.width,
+					height: this.props.height,
+					borderRadius: this.props.rounded ? 500 : 0,
+					backgroundColor: this.props.backgroundColour,
+				}}
 			/>
 		)
 	}
@@ -36,6 +42,8 @@ export interface IImageProps extends IEnhancedComponentProps{
 	width?: number;
 	height?: number;
 	className?: string;
+	rounded?: boolean;
+	backgroundColour?: string;
 }
 
 export interface IImageState extends IEnhancedComponentState {
