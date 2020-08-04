@@ -35,12 +35,16 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 		};
 	}
 
+	private textInputRef: TextInput;
+
 	private constructor(props: IChatProps) {
 		super(props);
 		this.state = {
 			currentMessage: "",
 			isInitialized: false
 		};
+
+		this.saveTextInputRef = this.saveTextInputRef.bind(this);
 	}
 
 	setInitialized = (s: boolean) => {
@@ -60,6 +64,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 		socket.emit("message", data, () => {
 			this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
 		});
+		this.textInputRef.resetText();
 		callback();
 	};
 
@@ -109,6 +114,10 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 		this.messagesEndRef.current.scrollIntoView({behavior: 'smooth'})
 	}
 
+	private saveTextInputRef(ref: TextInput): void {
+		this.textInputRef = ref;
+	}
+
 	public render(): ReactNode {
 		const items = this.props.messages.map(function (item) {
 			let message = item.username + " says: " + item.message;
@@ -135,6 +144,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 							justifyContent: "center",
 							alignItems: "center"
 						}}
+						ref={this.saveTextInputRef}
 					/>
 					<TextButton
 						text={"Send"}
@@ -142,7 +152,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 						width={"10%"}
 						fontColour={"#ffffff"}
 						buttonColour={"#6236FF"}
-						height={20}
+						height={35}
 						onAction={this.handleSubmit}
 					/>
 				</div>
