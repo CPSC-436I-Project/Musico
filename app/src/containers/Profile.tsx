@@ -4,7 +4,6 @@ import "./Container.css";
 import "../components/css/Profile.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
 import { IStore } from "src/redux/initialStore";
-import { TextButton, Image } from "src/components";
 import { removeUser } from "src/redux/actions/userActions";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import { PageEnum } from ".";

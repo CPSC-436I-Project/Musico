@@ -53,14 +53,14 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	}
 
 	handleSubmit = (callback: () => void) => {
-		let thismessage = this.state.currentMessage
+		let thisMessage = this.state.currentMessage
 		let filter = new Filter();
-		thismessage = filter.clean(thismessage)
+		thisMessage = filter.clean(thisMessage)
 		let data = {
 			token: getCookie('auth-token'),
 			username: this.props.username,
 			userId: this.props.userId,
-			message: thismessage
+			message: thisMessage
 		};
 		socket.emit("message", data, () => {
 			this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))

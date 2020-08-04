@@ -6,7 +6,6 @@ import {ExpandableButton, Image, TextButton, TextInput} from "../components";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {createUser, loginUser} from "../redux/actions";
-import {PageEnum} from "./index";
 
 class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 
