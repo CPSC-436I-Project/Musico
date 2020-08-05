@@ -114,7 +114,7 @@ export interface ISidebarProps extends IEnhancedComponentProps {
     hasSearch?: boolean;
     selectedGenre?: GenreEnum | null;
     changePage: (page: PageEnum) => void;
-    favouriteGenres?: string[];
+    favouriteGenres?: GenreEnum[];
 }
 
 export interface ISidebarState extends IEnhancedComponentState {

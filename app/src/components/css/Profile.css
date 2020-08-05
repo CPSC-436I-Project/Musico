@@ -1,13 +1,14 @@
-.inner-profile .enhanced-component-container {
+.profile .enhanced-component-container {
     max-height: 100%;
     overflow: auto;
 }
 
-.inner-profile {
+.profile {
     color: #ffffff;
+    padding: 15px;
 }
 
-.inner-profile .profile-head {
+.profile .profile-head {
     display: flex;
     flex-direction: row;
     align-items: center;

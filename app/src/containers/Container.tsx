@@ -35,7 +35,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.state = {
 			popupOpen: false,
 			profileOpen: false,
-			sidebarOpen: true,
+			sidebarOpen: this.props.sidebarOpen,
 			musicSidebarOpen: true,
 		};
 

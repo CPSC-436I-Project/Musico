@@ -33,7 +33,6 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 		this.state = {
 			errorMessage: "",
 		}
-
 	}
 
 	private displayError(message: string) {
@@ -55,31 +54,35 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 			<TextInput
 				defaultText={"email"}
 				ref={(ref: TextInput) => {this.loginUserNameTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
 			<TextInput
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.loginPasswordTextRef = ref; }}
 				textType={"password"}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
-			<TextButton buttonColour={"#ffffff"} buttonHoverColour={"#ffffff"} fontColour={"#242424"} text={"Log In"} width={70} onAction={this.loginButtonOnClick}/>
+			<TextButton text={"Log In"} width={100} onAction={this.loginButtonOnClick}/>
 		</div>;
 
 		const signUpButtonChild: ReactNode = <div className={"flex-column-center"}>
 			<TextInput
 				defaultText={"email"}
 				ref={(ref: TextInput) => {this.signUpEmailTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
 			<TextInput
 				defaultText={"username"}
 				ref={(ref: TextInput) => {this.signUpUserNameTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
 			<TextInput
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.signUpPasswordTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 				textType={"password"}
 			/>
-
-			<TextButton buttonColour={"#6236ff"} buttonHoverColour={"#6236ff"} text={"Sign Up"} width={80} onAction={this.signUpButtonOnClick}/>
+			<TextButton text={"Sign Up"} width={100} onAction={this.signUpButtonOnClick}/>
 		</div>;
 
 		return (

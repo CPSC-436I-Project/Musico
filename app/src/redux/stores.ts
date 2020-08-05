@@ -19,7 +19,7 @@ export interface IUserStore {
 	profileImgSrc: string | null;
 	requests: string[] | null;
 	likedSongs: string[] | null;
-	favouriteGenres: string[] | null;
+	favouriteGenres: GenreEnum[] | null;
 	channels: string[] | null;
 }
 

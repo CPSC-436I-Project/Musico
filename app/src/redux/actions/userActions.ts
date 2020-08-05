@@ -1,9 +1,10 @@
 import {UserEnum} from "../reducers/userReducer";
 import {API_URL} from "src/utility/constants";
 import {setCookie, getCookie, deleteCookie} from "src/utility/cookies";
+import {GenreEnum} from "../../components";
 
 export const setUser = (id: string, username: string, email: string, profilePicture: string,
-                        requests: string[], likedSongs: string[], favouriteGenres: string[], channels: string[]) => {
+                        requests: string[], likedSongs: string[], favouriteGenres: GenreEnum[], channels: string[]) => {
     return {
         type: UserEnum.SET_USER,
         userId: id,
