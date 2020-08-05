@@ -47,19 +47,6 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                     }}
                 >
                     <YouTube containerClassName="youtube-player" videoId={this.props.song.src.replace("https://www.youtube.com/watch?v=", "")} opts={opts}/>
-                    {/* <iframe
-                        title={this.props.song.songName}
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            pointerEvents: "none",
-                        }}
-                        src={this.props.song.src.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/") + "?rel=0&autoplay=1&modestbranding=1&autohide=1&showinfo=0&controls=0&start="+start}
-                        frameBorder={"0"}
-                    /> */}
                 </div>
                 <p>Currently Playing: {this.props.song.songName}</p>
             </div>
