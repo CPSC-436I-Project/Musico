@@ -6,7 +6,6 @@ import {Image} from "./Image";
 import {ImageButton} from "./buttons/ImageButton";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
-import musicNoteIcon from "../icons/musicNote.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
 import { unselectGenre } from "src/redux/actions/chatRoomActions";
@@ -45,10 +44,7 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
                         <ImageButton src={menuIcon} width={30} height={30} buttonColour="transparent" onAction={this.props.onMenuClick}/>
                     </div>
                     <div className="logo-container" onClick={this.resetGenre}>
-                        <div className="logo-icon">
-                            <Image width={40} height={40} path={musicNoteIcon} />
-                        </div>
-                        <span className="logo">Musico</span>
+                        <Image path={"/textlogo.png"} width={100} height={25} />
                     </div>
                 </div>
                 <div className="header-right">
