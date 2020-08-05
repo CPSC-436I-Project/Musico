@@ -9,7 +9,7 @@ const GenreEnum = {
 	HIP_HOP: "Hip-Hop",
 	INDEPENDENT: "Independent",
 	JAZZ: "Jazz",
-	LATIN_AMERICAN: "Latin American",
+	LATIN: "Latin",
 	OTHER: "Other",
 	POP: "Pop",
 	REGGAE: "Reggae",

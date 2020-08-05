@@ -122,16 +122,6 @@ class Room extends Container<IRoomProps, IRoomState> {
 				this.props.dispatch(getChannelQueue(this.props.selectedGenre));
 				this.props.dispatch(updateCurrentlyPlaying(data.song, data.startTime));
             });
-            // socket.on("newMessage", (data: any) => {
-            //     this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
-			// });
-			// socket.on("updateQueue", (data: any) => {
-            //     this.props.dispatch(getChannelQueue(this.props.selectedGenre));
-			// });
-			// socket.on("updateQueueAndPlay", (data: any) => {
-			// 	this.props.dispatch(getChannelQueue(this.props.selectedGenre));
-			// 	this.props.dispatch(updateCurrentlyPlaying(data.song, data.startTime));
-			// });
         }
 	}
 

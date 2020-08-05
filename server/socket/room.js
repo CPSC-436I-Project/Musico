@@ -70,13 +70,13 @@ module.exports = function(socket, io) {
                 .catch(err => {console.log(err)})
             } else {
                 // remove the item from the Queue
-                //await Queue.updateOne({channel: genre}, {$pull: {queue: songId}});
+                await Queue.updateOne({channel: genre}, {$pull: {queue: songId}});
             }
             
             let song = await Song.findById(songId);
             
             // set the duration to the duration of the current song
-            durationMap[genre] = 100 // (song.duration === undefined || typeof(song.duration) !== "number") ? 100 : song.duration; 
+            durationMap[genre] = (song.duration === undefined || typeof(song.duration) !== "number") ? 10 : song.duration; 
             
             // set the song with now as the start time
             let now = new Date();

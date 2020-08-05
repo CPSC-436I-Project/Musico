@@ -26,7 +26,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.HIP_HOP, icon: hiphopIcon},
         {genre: GenreEnum.INDEPENDENT, icon: bluesIcon},
         {genre: GenreEnum.JAZZ, icon: jazzIcon},
-        {genre: GenreEnum.LATIN_AMERICAN, icon: latinAmericanIcon},
+        {genre: GenreEnum.LATIN, icon: latinAmericanIcon},
         {genre: GenreEnum.OTHER, icon: bluesIcon},
         {genre: GenreEnum.POP, icon: popIcon},
         {genre: GenreEnum.REGGAE, icon: reggaeIcon},

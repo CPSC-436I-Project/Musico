@@ -9,6 +9,7 @@ import {IStore} from "../redux/initialStore";
 import "./css/AddSongForm.css";
 import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
+import moment from 'moment';
 
 class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState> {
 
@@ -58,7 +59,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 		}).then((res) => {
 			videoList = res.items || [];
 			return youtubeQuery("videos", {
-				part: "topicDetails",
+				part: "topicDetails,contentDetails",
 				id: res.items.map((k: any) => k.id.videoId).join(","),
 			});
 		}).then((res) => {
@@ -67,7 +68,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					videoList[i].genreCategories = Array.from(new Set(res.items[i].topicDetails.relevantTopicIds
 						.map((k: string) => genreIDMap[k])
 						.filter((k: string) => !!k)))
-
+					videoList[i].duration = moment.duration(res.items[i].contentDetails.duration).asSeconds();
 					if (!videoList[i].genreCategories || videoList[i].genreCategories.length === 0) {
 						res.items.splice(i, 1);
 						videoList.splice(i, 1);
@@ -116,6 +117,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 				body: JSON.stringify({
 					albumCover: video.snippet.thumbnails.default.url,
 					numVotes: 1,
+					duration: video.duration,
 					songName: video.snippet.title,
 					genre: this.props.selectedGenre,
 					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
