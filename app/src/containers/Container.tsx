@@ -96,7 +96,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 					</div>}
 					<div className={"container-contents"}>
 						{(this.props.showSidebar && this.state.sidebarOpen) &&
-						<div id={"dashboard_sidebar"}>
+						<div className={"dashboard_sidebar dashboard_lower"}>
 							<Sidebar changePage={this.props.changePage}/>
 						</div>}
 						<div className={"fill-container"}>
