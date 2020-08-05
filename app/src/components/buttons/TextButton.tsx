@@ -27,7 +27,6 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 				className={"center-mid unselectable"}
 				style={{
 					...this.props.additionalStyling,
-					fontSize: this.props.fontSize * (this.state.text.length > 10 ? 0.75 : 1),
 					color: this.props.fontColour,
 					fontWeight: this.props.bold ? "bold" : "normal",
 					height: this.props.height,

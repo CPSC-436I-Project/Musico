@@ -58,6 +58,7 @@ class ExpandableButton extends Button<IExpandableButtonProps, IExpandableButtonS
 				}}
 			>
 				<p style={{color: this.props.fontColour}}>{this.state.text}</p>
+
 				<motion.div
 					initial={{height: 0, opacity: 0}}
 					animate={{

@@ -5,10 +5,10 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import {ImageButton} from "./buttons/ImageButton";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
-import musicNoteIcon from "../icons/musicNote.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
-import { unselectGenre } from "src/redux/actions/chatRoomActions";
+import {unselectGenre} from "src/redux/actions/chatRoomActions";
+import {Image} from "./Image";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
@@ -43,17 +43,8 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
                     <div className="hamburger">
                         <ImageButton src={menuIcon} width={30} height={30} buttonColour="transparent" onAction={this.props.onMenuClick}/>
                     </div>
-                    <div className="logo-container logo-icon">
-                        <ImageButton
-                            src={musicNoteIcon}
-                            width={40}
-                            height={40}
-                            onAction={this.props.onLogoClick}
-                            buttonColour={"transparent"}
-                            buttonFocusedColour={"transparent"}
-                            buttonHoverColour={"transparent"}
-                        />
-                        <span className="logo">Musico</span>
+                    <div className="logo-container" onClick={this.resetGenre}>
+                        <Image path={"/textlogo.png"} width={100} height={25} />
                     </div>
                 </div>
                 <div className="header-right">
