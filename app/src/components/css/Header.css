@@ -17,8 +17,8 @@
 }
 
 .header .logo-container {
-    display: flex;
     cursor: pointer;
+    margin: auto auto auto 3%;
 }
 
 .header .hamburger {
@@ -28,22 +28,6 @@
 
 .header .hamburger .main-button {
     width: 30px;
-}
-
-.header .logo-icon {
-    padding: 6px 0;
-    margin-left: 40px;
-}
-
-.header .logo {
-    margin: 0 5px;
-    color: #ffffff;
-    text-align: center;
-    padding: 12px 0;
-    text-decoration: none;
-    line-height: 25px;
-    font-size: 40px;
-    font-weight: bold;
 }
 
 .header-right {

@@ -2,7 +2,7 @@ import * as React from "react";
 import SidebarTextImageButton from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./css/Sidebar.css";
-import {asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinAmericanIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, jazzIcon, classicalIcon, popIcon, soulIcon} from "../icons/genres";
+import {asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, indieIcon, jazzIcon, classicalIcon, otherIcon, popIcon, soulIcon} from "../icons/genres";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {SearchBar} from "./SearchBar";
 import {IStore} from "../redux/initialStore";
@@ -26,10 +26,10 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.COUNTRY, icon: countryIcon},
         {genre: GenreEnum.ELECTRONIC, icon: electronicIcon},
         {genre: GenreEnum.HIP_HOP, icon: hiphopIcon},
-        {genre: GenreEnum.INDEPENDENT, icon: bluesIcon},
+        {genre: GenreEnum.INDEPENDENT, icon: indieIcon},
         {genre: GenreEnum.JAZZ, icon: jazzIcon},
-        {genre: GenreEnum.LATIN, icon: latinAmericanIcon},
-        {genre: GenreEnum.OTHER, icon: bluesIcon},
+        {genre: GenreEnum.LATIN, icon: latinIcon},
+        {genre: GenreEnum.OTHER, icon: otherIcon},
         {genre: GenreEnum.POP, icon: popIcon},
         {genre: GenreEnum.REGGAE, icon: reggaeIcon},
         {genre: GenreEnum.ROCK, icon: rockIcon},
