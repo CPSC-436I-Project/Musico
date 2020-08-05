@@ -28,11 +28,6 @@ const userReducer = (store: IUserStore, action: any) => {
               ...store,
               profileImgSrc: action.profilePicture
             };
-        case UserEnum.INVALID_USER_UPDATE:
-            return {
-                ...store,
-                profileImgSrc: action.profilePicture
-            };
         case UserEnum.LIKE_GENRE:
             return {
                 ...store,

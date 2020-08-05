@@ -56,12 +56,6 @@ export const receiveUserUpdate = (url: string) => {
     }
 };
 
-export const invalidUserUpdate = (url: string) => {
-    return {
-        type: UserEnum.INVALID_USER_UPDATE,
-        profilePicture: url
-    }
-};
 
 export const likeGenre = (genre: string) => {
     return (dispatch: any) => {
