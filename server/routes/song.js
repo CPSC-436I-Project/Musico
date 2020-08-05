@@ -53,6 +53,7 @@ router.post('/add', verifyToken, (req, res) => {
         songName: req.body.songName,
         genre: req.body.genre,
         src: req.body.src,
+        duration: req.body.duration,
         requesterID: req.user._id,
         albumCover: req.body.albumCover,
         numVotes: req.body.numVotes
@@ -60,30 +61,27 @@ router.post('/add', verifyToken, (req, res) => {
 
     newSong.save()
         .then((song) => {
-            console.log(song)
             return Queue.findOneAndUpdate(
                 {channel: req.body.genre},
                 {$push: {queue: song._id}})
         })
         .then(() => {
-            console.log("done");
-            Playlist.findOneAndUpdate(
+            return Playlist.findOneAndUpdate(
                 {channel: req.body.genre},
                 {$push: {playlist: newSong}},
                 {new: true, useFindAndModify: false},
                 (err, playlist) => {
                     if (err) {
-                        return res.json('Error: ' + err)
+                        res.json('Error: ' + err)
                     } else {
-                        return res.json(playlist)
+                        res.json(playlist)
                     }
                 }
             )
-            return res.json(newSong);
         })
         .catch((err) => {
             console.log(err);
-            return res.json('Error: ' + err);
+            res.json('Error: ' + err);
         });
 })
 

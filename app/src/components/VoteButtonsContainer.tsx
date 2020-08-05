@@ -30,7 +30,6 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
         })
         .then(response => {
             if(response.status === 200) {
-                console.log(response);
                 this.props.voteCompletionHandler();
             }
             response.json()

@@ -3,7 +3,7 @@ import {GenreEnum} from "../../components";
 import { IMessageInterface } from "src/utility/messages";
 import { getCookie } from "src/utility/cookies";
 import { API_URL } from "src/utility/constants";
-import { ISongInterface } from "src/utility/songs";
+import { ISongInterface, defaultSong } from "src/utility/songs";
 
 export const setSelectedGenre = (genre: GenreEnum) => {
 	return {
@@ -33,10 +33,11 @@ export const updateQueue = (queue: ISongInterface[]) => {
 	}
 }
 
-export const updateCurrentlyPlaying = (song: ISongInterface) => {
+export const updateCurrentlyPlaying = (song: ISongInterface, startTime: string) => {
 	return {
 		type: RoomEnum.UPDATE_PLAYING,
-		song: song
+		song: song,
+		startTime: startTime
 	}
 }
 
@@ -85,15 +86,7 @@ export const getChannelQueue = (genre: GenreEnum) => {
 
 const getSongsFromQueue = (ids: string[]) => {
 	const token = getCookie('auth-token');
-	let song: ISongInterface = {
-		songName: "default",
-		artists: [],
-		genre: GenreEnum.POP,
-		src: "",
-		requesterID: 0,
-		albumCover: "",
-		numVotes: 0
-	}
+	let song: ISongInterface = defaultSong;
 
 	return Promise.all(
 		ids.map((id: string) => fetch(API_URL + "songs/" + id, {

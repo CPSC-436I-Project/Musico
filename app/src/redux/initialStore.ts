@@ -22,6 +22,7 @@ export default {
 		messages: [],
 		queue: [defaultSong],
 		currentlyPlaying: defaultSong,
+		startTime: null
 	},
 	userStore: {
 		userId: null,

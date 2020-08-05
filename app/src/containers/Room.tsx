@@ -6,7 +6,7 @@ import Chat from "src/components/Chat";
 import {AddSongForm, MusicSidebar, GenreEnum} from "src/components";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
-import { downloadMessages, getChannelQueue } from "src/redux/actions/roomActions";
+import { downloadMessages, getChannelQueue, updateCurrentlyPlaying } from "src/redux/actions/roomActions";
 import { API_URL } from "src/utility/constants";
 import io from "socket.io-client";
 import { getCookie } from "src/utility/cookies";
@@ -69,11 +69,6 @@ class Room extends Container<IRoomProps, IRoomState> {
 	}
 
 	// -----------------------------
-	// MUSIC SYNC
-	// -----------------------------
-
-
-	// -----------------------------
 	// ADD SONG POPUP
 	// -----------------------------
 
@@ -95,15 +90,22 @@ class Room extends Container<IRoomProps, IRoomState> {
                 console.log("No selected genre!");
                 return;
             }
-            socket.emit('join', {genre: this.props.selectedGenre}, () => {
+            socket.emit('join', {genre: this.props.selectedGenre}, (data: any) => {
 				this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
 				this.props.dispatch(getChannelQueue(this.props.selectedGenre));
+				this.props.dispatch(updateCurrentlyPlaying(data.song, data.startTime));
             });
             socket.on("newMessage", (data: any) => {
                 this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
 			});
 			socket.on("updateQueue", (data: any) => {
                 this.props.dispatch(getChannelQueue(this.props.selectedGenre));
+			});
+			socket.on("updateQueueAndPlay", (data: any) => {
+				if(data.song.genre === this.props.selectedGenre) {
+					this.props.dispatch(getChannelQueue(this.props.selectedGenre));
+					this.props.dispatch(updateCurrentlyPlaying(data.song, data.startTime));
+				}
 			});
 		}
 	}
@@ -115,16 +117,11 @@ class Room extends Container<IRoomProps, IRoomState> {
                 console.log("No selected genre!");
                 return;
             }
-            socket.emit('join', {genre: this.props.selectedGenre}, () => {
+            socket.emit('join', {genre: this.props.selectedGenre}, (data: any) => {
 				this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
 				this.props.dispatch(getChannelQueue(this.props.selectedGenre));
+				this.props.dispatch(updateCurrentlyPlaying(data.song, data.startTime));
             });
-            socket.on("newMessage", (data: any) => {
-                this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback));
-			});
-			socket.on("updateQueue", (data: any) => {
-                this.props.dispatch(getChannelQueue(this.props.selectedGenre));
-			});
         }
 	}
 

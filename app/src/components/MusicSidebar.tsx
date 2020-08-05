@@ -23,7 +23,8 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
             musicSidebarOpen: state.musicSidebarStore.musicSidebarOpen,
             selectedGenre: state.musicSidebarStore.selectedGenre,
             queue: state.roomStore.queue,
-            currentlyPlaying: state.roomStore.currentlyPlaying
+            currentlyPlaying: state.roomStore.currentlyPlaying,
+            startTime: state.roomStore.startTime
         };
     }
 
@@ -55,7 +56,7 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
         return (
             <div className="music-sidebar">
                 <div className="currently-playing">
-                    <CurrentlyPlaying song={this.props.queue[0]}/>
+                    <CurrentlyPlaying song={this.props.currentlyPlaying} startTime={this.props.startTime}/>
                 </div>
                 <div className="music-player-queue">
                     <MusicPlayerQueue queue={this.props.queue} voteCompletionHandler={this.props.voteCompletionHandler}/>
@@ -87,6 +88,7 @@ export interface IMusicSidebarProps extends IEnhancedComponentProps {
     showPopup?: () => void;
     childRef?: (ref: MusicSidebar) => void;
     voteCompletionHandler?: () => void;
+    startTime?: string;
 }
 
 export interface IMusicSidebarState extends IEnhancedComponentState {

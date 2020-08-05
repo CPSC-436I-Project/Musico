@@ -7,7 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
-const { socketmap } = require('../socket/utility');
 
 /**
  * Get port from environment and store in Express.
@@ -27,31 +26,12 @@ var server = http.createServer(app);
  */
 const io = require("socket.io")(server);
 
-io.on("connection", socket => {
-
-  // join a room, a room is available for every genre.
-  // The chat component connects the socket to the genre's room
-  socket.on("join", ({genre}, callback) => {
-    // join the room
-    socket.join(genre);
-    // store the socketid mapped to the userid
-    socketmap[socket.id] = genre;
-    // call the callback
-    if (typeof(callback) === "function") {
-      callback();
-    }
-  });
+io.on("connect", socket => {
 
   require('../socket/chat')(socket, io);
   require('../socket/queue')(socket, io);
+  require('../socket/room')(socket, io);
 
-  socket.on("disconnect", (data, callback) => {
-    // remove socket from socketmap
-    delete socketmap[socket.id];
-    // call the callback
-    //callback();
-  });
-  
   return io;
 
 });
