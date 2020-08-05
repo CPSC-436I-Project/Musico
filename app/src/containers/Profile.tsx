@@ -110,17 +110,17 @@ class Profile extends Container<IProfileProps, IProfileState> {
 
     public render(): ReactNode {
         return (
-            <div className="inner-profile">
+            <div className="profile">
                 <div className="profile-head">
-                    <Image path={this.props.profileImgSrc} width={170} height={170} rounded={true}/>
+                    <Image path={this.props.profileImgSrc} width={170} height={170} rounded={true} backgroundColour={"#FFFFFF"}/>
                     <div className="profile-info">
                         <span className="username">
                             <h2>{this.props.username || "Unknown User"}</h2>
                             <div className="update-profile-buttons">
-                                <span className="update-profile-pic">
+                                {/*<span className="update-profile-pic">*/}
                                     <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={250}
                                                 buttonColour={"#6236FF"}/>
-                                </span>
+                                {/*</span>*/}
                                 <span className="log-out">
                                     <TextButton text="Log out" onAction={this.logOut} width={100}/>
                                 </span>
