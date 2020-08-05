@@ -2,14 +2,17 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
-import {hidePopUp, showPopUp} from "../redux/actions";
+import {hidePopUp, hideSidebar, showPopUp, showSidebar} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 import {PageEnum} from "./index";
+import {Header, Sidebar} from "../components";
+import profilePlaceholder from "../icons/profile-placeholder.png";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
 	public static defaultProps: IContainerProps = {
-
+		showHeader: true,
+		showSidebar: true,
 	};
 
 	private readonly childRender: () => ReactNode;
@@ -18,7 +21,8 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
-			selectedGenre: state.chatRoomStore.selectedGenre
+			selectedGenre: state.chatRoomStore.selectedGenre,
+			sidebarOpen: state.sidebarStore.sidebarOpen,
 		};
 	}
 
@@ -39,6 +43,9 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.openPopup = this.openPopup.bind(this);
 		this.closePopup = this.closePopup.bind(this);
 		this.popupRender = this.popupRender.bind(this);
+		this.toggleProfile = this.toggleProfile.bind(this);
+		this.onMenuClick = this.onMenuClick.bind(this);
+		this.logoClick = this.logoClick.bind(this);
 		this.wrapRender();
 	}
 
@@ -54,15 +61,48 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		return <div/>;
 	};
 
-	toggleProfile = (callback: () => void) => {
-		this.setState({profileOpen: !this.state.profileOpen}, callback)
-	};
+	private toggleProfile(callback: () => void) {
+		this.props.changePage(PageEnum.Profile);
+		callback();
+	}
+
+	private onMenuClick(callback: () => void) {
+		this.setState({sidebarOpen: !this.state.sidebarOpen}, () => {
+			if (this.state.sidebarOpen) {
+				this.props.dispatch(showSidebar());
+			} else {
+				this.props.dispatch(hideSidebar());
+			}
+			callback();
+		});
+	}
+
+	private logoClick(callback: () => void) {
+		this.props.changePage(PageEnum.Dashboard);
+		callback();
+	}
 
 	private wrapRender(): void {
 		this.render = (): ReactNode => {
 			return (
 				<div className={"fill-container"}>
-					{this.childRender()}
+					{this.props.showHeader && <div id={"dashboard_upper"}>
+						<Header
+							profileImgSrc={profilePlaceholder}
+							onProfileClick={this.toggleProfile}
+							onMenuClick={this.onMenuClick}
+							onLogoClick={this.logoClick}
+						/>
+					</div>}
+					<div className={"container-contents"}>
+						{(this.props.showSidebar && this.state.sidebarOpen) &&
+						<div id={"dashboard_sidebar"}>
+							<Sidebar changePage={this.props.changePage}/>
+						</div>}
+						<div className={"fill-container"}>
+							{this.childRender()}
+						</div>
+					</div>
 					{this.props.popupOpen &&
 					<PopupContainer closeFn={this.closePopup}>
 						{this.popupRender()}
@@ -80,6 +120,8 @@ export interface IContainerProps {
 	dispatch?: any;
 	changePage?: (page: PageEnum) => void;
 	selectedGenre?: string;
+	showHeader?: boolean;
+	showSidebar?: boolean;
 }
 
 export interface IContainerState {

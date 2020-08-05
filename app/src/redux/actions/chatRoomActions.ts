@@ -4,7 +4,7 @@ import { IMessageInterface } from "src/utility/messages";
 import { getCookie } from "src/utility/cookies";
 import { API_URL } from "src/utility/constants";
 
-export const setSelectedGenre = (genre: GenreEnum) => {
+export const setSelectedGenre = (genre: GenreEnum | null) => {
 	return {
 		type: ChatRoomEnum.SET_SELECTED_GENRE,
 		genre: genre,

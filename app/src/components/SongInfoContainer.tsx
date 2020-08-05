@@ -12,6 +12,8 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
         color: "#ffffff",
         songName: "default",
         albumCover: thumbnailPlaceholder,
+        width: 250,
+        height: 150,
     };
 
     protected constructor(props: ISongInfoContainerProps) {

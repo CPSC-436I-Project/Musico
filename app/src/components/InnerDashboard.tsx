@@ -66,7 +66,7 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             .then((songs: Song[]) => {
                 songs.forEach(function (song: Song) {
                     // @ts-ignore //lint error for string enums because they can't be reverse mapped
-                    if (song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
+                    if (song !== null && song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
                         topSong = song;
                     }
                 });
@@ -81,9 +81,19 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             .then(() => {
                 return Promise.resolve();
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err);
                 return Promise.reject();
             });
+    }
+
+    private static createSongInfo(song: Song): ReactNode {
+        return (<DashboardSongInfo
+            key={song.songName + Math.random() * 10000}
+            genre={song.genre}
+            albumCover={song.albumCover}
+            songName={song.songName}
+        />);
     }
 
     public componentDidMount(): void {
@@ -91,16 +101,6 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     };
 
     public render(): ReactNode {
-        const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
-        let nextSongs: any[] = [];
-        this.state.topSongs.forEach(function (song: Song) {
-            nextSongs.push(<DashboardSongInfo
-                genre={song.genre}
-                albumCover={song.albumCover}
-                songName={song.songName}
-            />);
-        });
-
         return (
             <div className="inner-dashboard">
                 <div
@@ -111,11 +111,11 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                         justifyContent: "flexstart",
                     }}
                 >
-                    <Image width={40} height={40} path={audioWaveIcon}/>
+                    <Image width={40} height={40} path={"https://img.icons8.com/nolan/64/audio-wave.png"}/>
                     <h2> Playing next </h2>
                 </div>
                 <div className="dashboard-trending">
-                    {nextSongs}
+                    {this.state.topSongs.map(InnerDashboard.createSongInfo)}
                 </div>
             </div>
         );

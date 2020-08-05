@@ -1,8 +1,6 @@
 import * as React from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import {Image} from "./Image";
-import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
 
 class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurrentlyPlayingState> {
     public static defaultProps: ICurrentlyPlayingProps = {
@@ -34,6 +32,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                     }}
                 >
                     <iframe
+                        title={this.props.song.songName}
                         style={{
                             position: "absolute",
                             top: 0,

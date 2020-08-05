@@ -73,7 +73,6 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
     private getChannelQueue(genre: GenreEnum) {
         const token = getCookie('auth-token');
-        console.log("Getting queue");
         fetch(API_URL + "queues/" + genre, {
             method: 'GET',
             headers: {
@@ -140,8 +139,9 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
                 <div className="currently-playing">
                     <CurrentlyPlaying song={this.state.queue[0]}/>
                 </div>
-                <div className="music-player-queue">
+                <div className="music-player-queue scrollable-container">
                     <MusicPlayerQueue queue={this.state.queue.slice(1)}/>
+                    <div className={"music-player-queue-hidden-component"}/>
                 </div>
                 <div className="add-music-button">
                     <TextButton

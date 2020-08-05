@@ -94,11 +94,15 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					path={video.snippet.thumbnails.high.url}
 				/>
 				<div className={"flex-column-center"} style={{width: "100%"}}>
-					<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
-						<h2>{decodeHTML(video.snippet.title)}</h2></a>
-					<p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
+					<div className="song-info">
+						<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
+							<h3>{decodeHTML(video.snippet.title)}</h3>
+						</a>
+						<p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
+					</div>
 					<TextButton
-						text={"Add to Queue"}
+						text={"Add to Queue"} bold={true}
+						buttonColour={"#6236FF"}
 						onAction={this.addSongToQueue(video)}
 					/>
 				</div>
@@ -142,18 +146,24 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	public render(): ReactNode {
 		return (
 			<div className="add-song-form">
-				<h3>Search a song</h3>
-				<TextInput
-					defaultText="Enter a song title here"
-					submit={this.updateSongLink}
-				/>
-				<TextButton
-					text="Submit" bold={true}
-					buttonColour="#6236FF"
-					height={30}
-					width={90}
-					onAction={this.addSongSender}
-				/>
+				<h3>Search for a song</h3>
+				<div className="search-bar">
+					<span className="search-input">
+					<TextInput
+						defaultText="Enter a song title here"
+						submit={this.updateSongLink}
+					/>
+					</span>
+					<div className="submit-button">
+					<TextButton
+						text="Submit" bold={true}
+						buttonColour="#6236FF"
+						height={30}
+						width={90}
+						onAction={this.addSongSender}
+					/>
+					</div>
+				</div>
 				<div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
 					{this.state.videoList.map(this.renderVideoObject)}
 				</div>
