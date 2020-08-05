@@ -38,7 +38,7 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
                     <ImageButton
                         width={30}
 						buttonColour={this.state.liked ? "#6236FF" : "#00000000"}
-						buttonHoverColour={this.state.liked ? "#6236FF" : "#00000000"}      // read liked genres from userStore
+						buttonHoverColour={this.state.liked ? "#6236FF" : "#00000000"}
 						src={this.props.icon}
 						onAction={this.genreLiked}
                     />
