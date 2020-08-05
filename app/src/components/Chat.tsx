@@ -124,11 +124,13 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	}
 
 	public render(): ReactNode {
+		let messages = this.props.messages;
+		messages = messages.reverse();
 		return (
 			<div className="chat">
 				<div className="scrollable-container">
 					<div className={"chat-hidden-component"}/>
-					{this.props.messages.reverse().map(Chat.renderMessageObject)}
+					{messages.map(Chat.renderMessageObject)}
 				</div>
 				<div className="chat-input" style={{width: `calc(100% - ${this.props.sidebarOpen ? 460 : 250}px)`}}>
 					<TextInput
