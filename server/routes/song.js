@@ -4,6 +4,7 @@ const Song = require('../mongoDB/models/songModel');
 const Queue = require('../mongoDB/models/queueModel');
 const Playlist = require('../mongoDB/models/playlistModel');
 const { verifyToken } = require('../authenticate');
+const UserProfile = require('../mongoDB/models/userProfileModel');
 
 router.get('/', verifyToken, (req, res) => {
     Song.find()
@@ -19,20 +20,30 @@ router.get('/:id', verifyToken, (req, res) => {
         .catch(err => {console.log(err)})
 });
 
-router.patch('/upvote/:id', verifyToken, (req, res) => {
-    Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: 1}})
-        .then(song => {
-            res.json(song)
-        })
-        .catch(err => {
-            res.status(400).json(err);
-            console.log(err);
-        });
+router.patch('/upvote/:id', verifyToken, async (req, res) => {
+    let userLiked = await UserProfile.findById(req.user._id).then(user => user.likedSongs)
+    if (!userLiked.includes(req.params.id)) {
+        Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: 1}})
+            .then(song => {
+                return UserProfile.findByIdAndUpdate(req.user._id, {$push: {likedSongs: song._id}})
+            })
+            .then((_) => res.json(""))
+            .catch(err => {
+                res.status(400).json(err);
+                console.log(err);
+            });
+    } else {
+        res.json("already upvoted!")
+    }
 })
 
-router.patch('/downvote/:id', verifyToken, (req, res) => {
+router.patch('/downvote/:id', verifyToken, async (req, res) => {
+    let userLiked = await UserProfile.findById(req.user._id).then(user => user.likedSongs)
     Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: -1}})
-        .then(song => {
+        .then(async song => {
+            if (userLiked.includes(req.params.id)) {
+                await UserProfile.findByIdAndUpdate(req.user._id, {$pull: {likedSongs: song._id}})
+            }
             res.json(song);
         })
         .catch(err => {
@@ -58,12 +69,13 @@ router.post('/add', verifyToken, (req, res) => {
         albumCover: req.body.albumCover,
         numVotes: req.body.numVotes
     });
-
+    let songId = ""; 
     newSong.save()
         .then((song) => {
+            songId = song._id;
             return Queue.findOneAndUpdate(
                 {channel: req.body.genre},
-                {$push: {queue: song._id}})
+                {$push: {queue: songId}})
         })
         .then(() => {
             return Playlist.findOneAndUpdate(
@@ -78,6 +90,9 @@ router.post('/add', verifyToken, (req, res) => {
                     }
                 }
             )
+        })
+        .then(() => {
+            return UserProfile.findByIdAndUpdate(req.user._id, {$push: {likedSongs: songId}, $push: {requests: songId}})
         })
         .catch((err) => {
             console.log(err);
