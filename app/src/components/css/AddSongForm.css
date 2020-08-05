@@ -7,6 +7,10 @@
     margin-bottom: 10px;
 }
 
+.add-song-form .flex-row {
+    margin: 5px;
+}
+
 .add-song-form .main-button {
     display: flex;
     margin: 10px 0px auto auto;
@@ -47,10 +51,12 @@ p {
     flex-direction: row;
     align-items: baseline;
     justify-content: flex-start;
+    margin-bottom: 20px;
 }
 
 .search-input {
     width: 100%;
+    background-color: transparent;
 }
 
 .song-info {
@@ -59,5 +65,5 @@ p {
 }
 
 .submit-button {
-    margin-left: 5px;
+    margin-left: 10px;
 }

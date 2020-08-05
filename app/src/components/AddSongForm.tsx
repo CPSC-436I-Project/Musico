@@ -91,6 +91,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 			<div key={video.id.videoId} className={"flex-row"}>
 				<Image
 					path={video.snippet.thumbnails.high.url}
+					height={140}
+					width={250}
 				/>
 				<div className={"flex-column-center"} style={{width: "100%"}}>
 					<div className="song-info">
@@ -102,6 +104,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					<TextButton
 						text={"Add to Queue"} bold={true}
 						buttonColour={"#6236FF"}
+						height={30}
+						width={140}
 						onAction={this.addSongToQueue(video)}
 					/>
 				</div>
