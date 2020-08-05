@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
-import {hidePopUp, showPopUp} from "../redux/actions";
+import {hidePopUp, hideSidebar, showPopUp, showSidebar} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 import {PageEnum} from "./index";
 import {Header, Sidebar} from "../components";
@@ -22,6 +22,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 			...props,
 			popupOpen: state.popupStore.popupOpen,
 			selectedGenre: state.chatRoomStore.selectedGenre,
+			sidebarOpen: state.sidebarStore.sidebarOpen,
 		};
 	}
 
@@ -66,9 +67,14 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 	}
 
 	private onMenuClick(callback: () => void) {
-		// TODO: add sidebar state to redux
-		this.setState({sidebarOpen: !this.state.sidebarOpen});
-		callback();
+		this.setState({sidebarOpen: !this.state.sidebarOpen}, () => {
+			if (this.state.sidebarOpen) {
+				this.props.dispatch(showSidebar());
+			} else {
+				this.props.dispatch(hideSidebar());
+			}
+			callback();
+		});
 	}
 
 	private logoClick(callback: () => void) {

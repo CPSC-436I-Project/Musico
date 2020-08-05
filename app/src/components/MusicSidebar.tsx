@@ -73,7 +73,6 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
 
     private getChannelQueue(genre: GenreEnum) {
         const token = getCookie('auth-token');
-        console.log("Getting queue");
         fetch(API_URL + "queues/" + genre, {
             method: 'GET',
             headers: {

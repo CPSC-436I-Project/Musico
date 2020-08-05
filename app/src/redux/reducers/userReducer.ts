@@ -11,7 +11,6 @@ export enum UserEnum {
 const userReducer = (store: IUserStore, action: any) => {
     switch (action.type) {
         case UserEnum.SET_USER:
-            console.log("Setting user");
             return {
                 userId: action.userId,
                 username: action.username,
