@@ -7,13 +7,14 @@ import {IStore} from "src/redux/initialStore";
 import {removeUser} from "src/redux/actions/userActions";
 import {PageEnum} from ".";
 import {connect} from "react-redux";
-import {GenreEnum, Image, Song, TextButton} from "../components";
+import {GenreEnum, Image, TextButton} from "../components";
 import UpdateProfilePicBar from "../components/UpdateProfilePicBar";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import {getCookie} from "../utility/cookies";
 import {API_URL} from "../utility/constants";
 import {ProfileSongInfo} from "../components/ProfileSongInfo";
 import {setSelectedGenre} from "../redux/actions";
+import { ISongInterface } from "src/utility/songs";
 
 class Profile extends Container<IProfileProps, IProfileState> {
 
@@ -57,10 +58,10 @@ class Profile extends Container<IProfileProps, IProfileState> {
         this.setState({updateProfile: !this.state.updateProfile}, callback);
     };
 
-    private getSongs(idList: string[], stateToUpdate: Song[]): void {
+    private getSongs(idList: string[], stateToUpdate: ISongInterface[]): void {
         let that = this;
         const token = getCookie('auth-token');
-        let updatedSongs: Song[] = [];
+        let updatedSongs: ISongInterface[] = [];
         Promise.all(
             idList.map((songID: string) => fetch(API_URL + 'songs/' + songID, {
                 method: 'GET',
@@ -69,8 +70,8 @@ class Profile extends Container<IProfileProps, IProfileState> {
             .then((responses) => {
                 return Promise.all(responses.map(response => response.json()))
             })
-            .then((songs: Song[]) => {
-                songs.forEach(function (song: Song) {
+            .then((songs: ISongInterface[]) => {
+                songs.forEach(function (song: ISongInterface) {
                     updatedSongs.push(song);
                 })
             })
@@ -98,7 +99,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
         />)
     };
 
-    private static inflateSongs(song: Song): ReactNode {
+    private static inflateSongs(song: ISongInterface): ReactNode {
         return (<ProfileSongInfo
             key={song.songName}
             pic={song.albumCover}
@@ -167,8 +168,8 @@ export interface IProfileProps extends IContainerProps {
 }
 
 export interface IProfileState extends IContainerState {
-    requestsDetails: Song[];
-    likedSongDetails: Song[];
+    requestsDetails: ISongInterface[];
+    likedSongDetails: ISongInterface[];
     updateProfile: boolean;
 }
 
