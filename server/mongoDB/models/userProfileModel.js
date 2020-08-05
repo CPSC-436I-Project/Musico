@@ -34,11 +34,6 @@ const userProfileSchema = new Schema({
             "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
         // unique: true
     }
-    // channels: {
-    //     type: [String],
-    //     enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
-    //         "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"]
-    // }
 });
 
 // userProfileSchema.plugin(uniqueArrayItems);

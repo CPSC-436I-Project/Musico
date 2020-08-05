@@ -24,10 +24,10 @@ router.patch('/upvote/:id', verifyToken, async (req, res) => {
     let userLiked = await UserProfile.findById(req.user._id).then(user => user.likedSongs)
     if (!userLiked.includes(req.params.id)) {
         Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: 1}})
-            .then(song => {
-                return UserProfile.findByIdAndUpdate(req.user._id, {$push: {likedSongs: song._id}})
+            .then(async song => {
+                await UserProfile.findByIdAndUpdate(req.user._id, {$push: {likedSongs: song._id}})
+                res.json(song);
             })
-            .then((_) => res.json(""))
             .catch(err => {
                 res.status(400).json(err);
                 console.log(err);
@@ -86,7 +86,7 @@ router.post('/add', verifyToken, (req, res) => {
                     if (err) {
                         res.json('Error: ' + err)
                     } else {
-                        res.json(playlist)
+                        res.json(newSong)
                     }
                 }
             )

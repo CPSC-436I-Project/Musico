@@ -6,7 +6,8 @@ export enum UserEnum {
     RESET_USER = "RESET_USER",
     UPDATE_USER_RECEIVE = "UPDATE_USER_RECEIVE",
     INVALID_USER_UPDATE = "INVALID_USER_UPDATE",
-    LIKE_GENRE = "LIKE_GENRE"
+    LIKE_GENRE = "LIKE_GENRE",
+    UPDATE_REQUEST_SONG = "UPDATE_REQUEST_SONG",
 }
 
 const userReducer = (store: IUserStore, action: any) => {
@@ -36,6 +37,13 @@ const userReducer = (store: IUserStore, action: any) => {
             return {
                 ...store,
                 favouriteGenres: action.genres
+            };
+        case UserEnum.UPDATE_REQUEST_SONG:
+            let req = store.requests;
+            req.push(action.song);
+            return {
+                ...store,
+                requests: req
             };
         case UserEnum.RESET_USER:
             return initialStore.userStore;

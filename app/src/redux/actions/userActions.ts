@@ -42,6 +42,13 @@ export const updateUser = (url: string, errorCallback: (message: string) => void
     }
 };
 
+export const updateRequestedSongs = (song: string) => {
+    return {
+        type: UserEnum.UPDATE_REQUEST_SONG,
+        song: song
+    }
+};
+
 export const receiveUserUpdate = (url: string) => {
     return {
         type: UserEnum.UPDATE_USER_RECEIVE,
