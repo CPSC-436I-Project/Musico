@@ -16,7 +16,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 		return {
 			...props,
 			...Container.mapStateToProps(state, props),
-			selectedGenre: state.chatRoomStore.selectedGenre,
+			selectedGenre: state.roomStore.selectedGenre,
 		};
 	}
 
@@ -145,7 +145,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 }
 
 export interface IDashboardProps extends IContainerProps {
-	selectedGenre?: string;
+	selectedGenre?: GenreEnum | null;
 }
 
 export interface IDashboardState extends IContainerState {

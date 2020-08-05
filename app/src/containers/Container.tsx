@@ -5,6 +5,7 @@ import {PopupContainer} from "./PopupContainer";
 import {hidePopUp, hideSidebar, showPopUp, showSidebar} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 import {PageEnum} from "./index";
+import { GenreEnum } from "src/components";
 import {Header, Sidebar} from "../components";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 
@@ -21,7 +22,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
-			selectedGenre: state.chatRoomStore.selectedGenre,
+			selectedGenre: state.roomStore.selectedGenre,
 			sidebarOpen: state.sidebarStore.sidebarOpen,
 		};
 	}
@@ -119,7 +120,7 @@ export interface IContainerProps {
 	musicSidebarOpen?: boolean;
 	dispatch?: any;
 	changePage?: (page: PageEnum) => void;
-	selectedGenre?: string;
+	selectedGenre?: GenreEnum | null;
 	showHeader?: boolean;
 	showSidebar?: boolean;
 }

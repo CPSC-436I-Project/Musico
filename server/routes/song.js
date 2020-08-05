@@ -24,15 +24,21 @@ router.patch('/upvote/:id', verifyToken, (req, res) => {
         .then(song => {
             res.json(song)
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            res.status(400).json(err);
+            console.log(err);
+        });
 })
 
 router.patch('/downvote/:id', verifyToken, (req, res) => {
     Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: -1}})
         .then(song => {
-            res.json(song)
+            res.json(song);
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            res.status(400).json(err);
+            console.log(err);
+        });
 })
 
 
@@ -47,38 +53,36 @@ router.post('/add', verifyToken, (req, res) => {
         songName: req.body.songName,
         genre: req.body.genre,
         src: req.body.src,
+        duration: req.body.duration,
         requesterID: req.user._id,
         albumCover: req.body.albumCover,
         numVotes: req.body.numVotes
     });
 
     newSong.save()
-        .then(
-            Queue.findOneAndUpdate(
+        .then((song) => {
+            return Queue.findOneAndUpdate(
                 {channel: req.body.genre},
-                {$push: {queue: newSong._id}},
+                {$push: {queue: song._id}})
+        })
+        .then(() => {
+            return Playlist.findOneAndUpdate(
+                {channel: req.body.genre},
+                {$push: {playlist: newSong}},
                 {new: true, useFindAndModify: false},
-                (err, docs) => {
+                (err, playlist) => {
                     if (err) {
-                        return res.json('Error: ' + err)
-                    } 
-                    else {
-                        Playlist.findOneAndUpdate(
-                            {channel: req.body.genre},
-                            {$push: {playlist: newSong}},
-                            {new: true, useFindAndModify: false},
-                            (err, playlist) => {
-                                if (err) {
-                                    return res.json('Error: ' + err)
-                                } else {
-                                    return res.json(playlist)
-                                }
-                            }
-                        )
+                        res.json('Error: ' + err)
+                    } else {
+                        res.json(playlist)
                     }
-            })
-        )
-        .catch(err => res.json('Error: ' + err));
+                }
+            )
+        })
+        .catch((err) => {
+            console.log(err);
+            res.json('Error: ' + err);
+        });
 })
 
 module.exports = router;
