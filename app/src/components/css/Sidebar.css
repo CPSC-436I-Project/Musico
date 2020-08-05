@@ -49,7 +49,7 @@
 .sidebar .sidebar-channels {
     display: flex;
     background-color: transparent;
-    margin: 0.4em 0.8em;
+    margin: 0.8em 0 0 0.4em;
     flex-direction: column;
     height: calc(100% - 55px);
 } 
