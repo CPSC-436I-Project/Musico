@@ -53,7 +53,39 @@ export const invalidUserUpdate = (url: string) => {
         type: UserEnum.INVALID_USER_UPDATE,
         profilePicture: url
     }
-}
+};
+
+export const likeGenre = (genre: string) => {
+    return (dispatch: any) => {
+        const token = getCookie('auth-token');
+        return fetch(API_URL + "userprofiles/updateLikedGenres", {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json', 'auth-token': token},
+            body: JSON.stringify({genre: genre})
+        })
+            .then(async response => {
+                return {text: await response.text(), status: response.status}
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    let genreStrings = res.text.slice(1,-1);
+                    let genres = genreStrings.replace(/"/g, "");
+                    let genreArray = genres.split(",");
+                    dispatch(receiveLikedGenres(genreArray));
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
+export const receiveLikedGenres = (genreList: string[]) => {
+    return {
+        type: UserEnum.LIKE_GENRE,
+        genres: genreList
+    }
+};
 
 export const resetUser = () => {
     return {
