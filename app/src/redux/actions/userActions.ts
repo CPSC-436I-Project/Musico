@@ -1,9 +1,10 @@
 import {UserEnum} from "../reducers/userReducer";
 import {API_URL} from "src/utility/constants";
 import {setCookie, getCookie, deleteCookie} from "src/utility/cookies";
+import {GenreEnum} from "../../components";
 
 export const setUser = (id: string, username: string, email: string, profilePicture: string,
-                        requests: string[], likedSongs: string[], favouriteGenres: string[], channels: string[]) => {
+                        requests: string[], likedSongs: string[], favouriteGenres: GenreEnum[], channels: string[]) => {
     return {
         type: UserEnum.SET_USER,
         userId: id,
@@ -53,7 +54,39 @@ export const invalidUserUpdate = (url: string) => {
         type: UserEnum.INVALID_USER_UPDATE,
         profilePicture: url
     }
-}
+};
+
+export const likeGenre = (genre: string) => {
+    return (dispatch: any) => {
+        const token = getCookie('auth-token');
+        return fetch(API_URL + "userprofiles/updateLikedGenres", {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json', 'auth-token': token},
+            body: JSON.stringify({genre: genre})
+        })
+            .then(async response => {
+                return {text: await response.text(), status: response.status}
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    let genreStrings = res.text.slice(1,-1);
+                    let genres = genreStrings.replace(/"/g, "");
+                    let genreArray = genres.split(",");
+                    dispatch(receiveLikedGenres(genreArray));
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+};
+
+export const receiveLikedGenres = (genreList: string[]) => {
+    return {
+        type: UserEnum.LIKE_GENRE,
+        genres: genreList
+    }
+};
 
 export const resetUser = () => {
     return {

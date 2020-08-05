@@ -6,7 +6,6 @@ import {ExpandableButton, Image, TextButton, TextInput} from "../components";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {createUser, loginUser} from "../redux/actions";
-import {PageEnum} from "./index";
 
 class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 
@@ -34,7 +33,6 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 		this.state = {
 			errorMessage: "",
 		}
-
 	}
 
 	private displayError(message: string) {
@@ -56,52 +54,60 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 			<TextInput
 				defaultText={"email"}
 				ref={(ref: TextInput) => {this.loginUserNameTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
 			<TextInput
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.loginPasswordTextRef = ref; }}
 				textType={"password"}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
-			<TextButton text={"Log In"} width={70} onAction={this.loginButtonOnClick}/>
+			<TextButton text={"Log In"} width={100} onAction={this.loginButtonOnClick}/>
 		</div>;
 
 		const signUpButtonChild: ReactNode = <div className={"flex-column-center"}>
 			<TextInput
 				defaultText={"email"}
 				ref={(ref: TextInput) => {this.signUpEmailTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
 			<TextInput
 				defaultText={"username"}
 				ref={(ref: TextInput) => {this.signUpUserNameTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
 			<TextInput
 				defaultText={"password"}
 				ref={(ref: TextInput) => {this.signUpPasswordTextRef = ref; }}
+				parentStyle={{marginTop: 5, marginBottom: 5}}
 				textType={"password"}
 			/>
-
-			<TextButton text={"Sign Up"} width={70} onAction={this.signUpButtonOnClick}/>
+			<TextButton text={"Sign Up"} width={100} onAction={this.signUpButtonOnClick}/>
 		</div>;
 
 		return (
 			<div
-				className={"fill-container center-mid"}
+				className={"login-screen fill-container center-mid"}
 			>
 				<div style={{
-					marginBottom: 180,
+					marginBottom: 15,
+					marginRight: 100
 				}}>
-					<Image path={"/logo.png"} width={600} height={140}/>
+					<img src={"/musico.svg"} alt="Logo" width={800} height={500} />
 				</div>
 				<div className={"flex-column-center"}>
 					<ExpandableButton
-						buttonHoverColour={"#6236ff"}
 						buttonColour={"#6236ff"}
+						buttonHoverColour={"#6236ff"}
+						fontColour={"#ffffff"}
 						text={"Login"}
 						width={350}
 						child={loginButtonChild}
 					/>
 					<div style={{height: 10}}/>
 					<ExpandableButton
+						buttonColour={"#ffffff"}
+						buttonHoverColour={"#ffffff"}
 						text={"Sign Up"}
 						width={350}
 						child={signUpButtonChild}

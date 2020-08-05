@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReactNode} from "react";
+import {CSSProperties, ReactNode} from "react";
 import {Button, IButtonProps, IButtonState} from "./Button";
 import "./Button.css";
 
@@ -26,7 +26,7 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
 			<div
 				className={"center-mid unselectable"}
 				style={{
-					fontSize: this.props.fontSize,
+					...this.props.additionalStyling,
 					color: this.props.fontColour,
 					fontWeight: this.props.bold ? "bold" : "normal",
 					height: this.props.height,
@@ -43,6 +43,7 @@ export interface ITextButtonProps extends IButtonProps {
 	bold?: boolean;
 	fontSize?: number;
 	fontColour?: string;
+	additionalStyling?: CSSProperties;
 }
 
 export interface ITextButtonState extends IButtonState {

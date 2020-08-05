@@ -29,12 +29,15 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
                     albumCover = {this.props.albumCover === "" ? thumbnailPlaceholder : this.props.albumCover}
                     songName = {this.props.songName}
                 />
-                <TextButton text={this.props.genre}
-                            fontSize={14} width={100}
-                            fontColour={"#ffffff"}
-                            buttonColour={"#6236FF"}
-                            buttonHoverColour={"#383838"}
-                            height={20}
+                <TextButton
+                    text={this.props.genre}
+                    fontSize={14}
+                    width={100}
+                    fontColour={"#ffffff"}
+                    buttonColour={"#6236FF"}
+                    buttonHoverColour={"#383838"}
+                    height={20}
+                    onAction={this.props.onButtonClick}
                 />
             </div>
         );
@@ -46,6 +49,7 @@ export interface IDashboardSongInfoProps extends IEnhancedComponentProps {
     genre: string;
     albumCover: string;
     songName: string;
+    onButtonClick?: (callback: () => void) => void;
 }
 
 export interface IDashboardSongInfoState extends IEnhancedComponentState {

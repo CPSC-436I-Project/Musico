@@ -22,6 +22,7 @@
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     width: 200px;
+    height: 100%;
 }
 
 .sidebar .sidebar-search-wrapper {
@@ -48,10 +49,7 @@
 .sidebar .sidebar-channels {
     display: flex;
     background-color: transparent;
-    padding: 0.4em 0.8em;
+    margin: 0.8em 0 0 0.4em;
     flex-direction: column;
-} 
-
-.sidebar .sidebar-channels .main-button .center-mid {
-    background-color: #212121;
+    height: calc(100% - 70px);
 }

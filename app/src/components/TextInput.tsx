@@ -30,6 +30,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 		this.updateText = this.updateText.bind(this);
 		this.getText = this.getText.bind(this);
 		this.onKeyDownWrapper = this.onKeyDownWrapper.bind(this);
+		this.resetText = this.resetText.bind(this);
 	}
 
 	protected onKeyDownWrapper(e: any): void {
@@ -58,8 +59,11 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 		return this.state.text;
 	}
 
+	public resetText(): void {
+		this.setState({text: ""});
+	}
+
 	public render(): ReactNode {
-		let input_width = 2 * this.props.colorMargin + 5;
 		return (
 			<div
 				className="text_input_div"
@@ -79,7 +83,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 					onKeyDown={this.onKeyDownWrapper}
 					style={{
 						margin: this.props.colorMargin,
-						width: `calc(100% - ${input_width}px)`,
+						width: `calc(100% - ${2 * this.props.colorMargin + 5}px)`,
 						fontSize: this.props.fontSize,
 					}}
 				/>

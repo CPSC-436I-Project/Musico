@@ -58,8 +58,9 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
                 <div className="currently-playing">
                     <CurrentlyPlaying song={this.props.currentlyPlaying} startTime={this.props.startTime}/>
                 </div>
-                <div className="music-player-queue">
+                <div className="music-player-queue scrollable-container">
                     <MusicPlayerQueue queue={this.props.queue} voteCompletionHandler={this.props.voteCompletionHandler}/>
+                    <div className={"music-player-queue-hidden-component"}/>
                 </div>
                 <div className="add-music-button">
                     <TextButton

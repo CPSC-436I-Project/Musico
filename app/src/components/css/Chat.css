@@ -1,11 +1,17 @@
 .chat {
     height: calc(100vh - 100px);
-    width: calc(100% - 140px);
+    width: calc(100% - 125px);
 }
 
 .chat .scrollable-container {
     overflow: auto;
-    height: calc(100vh - 140px);
+    max-height: calc(100vh - 75px);
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.chat .chat-hidden-component {
+    min-height: 65px;
 }
 
 .chat .messageItem {
@@ -16,7 +22,13 @@
     margin: 0 10px;
 }
 
-.chat .chat-input .enhanced-component-container {
-    display: inline-block;
-    width: 88%;
+.chat .chat-input {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    width: calc(100% - 210px - 250px);
+    bottom: 0;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    background: linear-gradient(180deg,hsla(0, 0%, 9.4%,0),hsla(0, 0%, 9.4%,.5) 40%,hsla(0, 0%, 9.4%,1))
 }

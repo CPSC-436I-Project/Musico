@@ -22,7 +22,6 @@
     max-width: 100%;
     width: 210px;
     height: 70%;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
 }
@@ -36,6 +35,11 @@
 .music-sidebar .music-player-queue {
     position: relative;
     top: -15px;
+    max-width: 230px;
+}
+
+.music-sidebar .music-player-queue-hidden-component {
+    min-height: 40px;
 }
 
 .music-sidebar p {
@@ -46,19 +50,12 @@
 }
 
 .add-music-button {
-    position: fixed;
-    bottom: 2%;
-    margin-bottom: 20px;
+    position: absolute;
+    bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    background: linear-gradient(180deg,hsla(0, 0%, 14.1%,0),hsla(0, 0%, 14.1%,.95) 30%,hsla(0, 0%, 14.1%,1))
 }
-
-/* .close-button {
-    position: relative;
-    top: -40px;
-    width: 45px;
-    height: 45px;
-    right: 60px;
-    margin-left: 50px;
-} */
 
 .queue-header {
     background-color: #242424;

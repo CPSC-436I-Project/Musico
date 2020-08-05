@@ -23,20 +23,8 @@
 }
 
 .sidebar-text-image-button {
-    align-items: center;
-    background-color: transparent;
-    border: none;
     display: flex;
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.sidebar-text-image-button p {
-    margin: 5px 10px;
-    color: #ffffff;
-}
-
-.sidebar-text-image-button-icon {
-    padding-right: 10px;
+    border-radius: 500px;
+    margin: 0 5px;
+    align-items: center;
 }

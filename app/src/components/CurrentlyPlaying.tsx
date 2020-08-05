@@ -1,8 +1,6 @@
 import * as React from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import {Image} from "./Image";
-import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
 import { ISongInterface, defaultSong } from "src/utility/songs";
 import { GenreEnum } from ".";
 
@@ -21,7 +19,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
         }
         let startTime = new Date(time);
         let currentTime = new Date();
-        return Math.floor((currentTime.getTime() - startTime.getTime()) / 1000); 
+        return Math.floor((currentTime.getTime() - startTime.getTime()) / 1000);
     }
 
     public render() {
@@ -38,6 +36,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                     }}
                 >
                     <iframe
+                        title={this.props.song.songName}
                         style={{
                             position: "absolute",
                             top: 0,
