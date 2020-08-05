@@ -4,12 +4,13 @@ import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
 import {connect} from "react-redux";
 import { IStore } from "src/redux/initialStore";
-import {GenreEnum, Image, Song} from "../components";
+import {GenreEnum, Image} from "../components";
 import {DashboardSongInfo} from "../components/DashboardSongInfo";
 import {getCookie} from "../utility/cookies";
 import {API_URL} from "../utility/constants";
 import {setSelectedGenre} from "../redux/actions";
 import {PageEnum} from "./index";
+import { ISongInterface, defaultSong } from "src/utility/songs";
 
 class Dashboard extends Container<IDashboardProps, IDashboardState> {
 	public static mapStateToProps:(state: IStore, props: IDashboardProps) => IDashboardProps = (state: IStore, props: IDashboardProps) => {
@@ -58,14 +59,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 	private addTopSong(queue: string[]): Promise<void> {
 		let that = this;
 		const token = getCookie('auth-token');
-		let topSong: Song = {
-			songName: "default",
-			genre: "Jazz",
-			src: "",
-			requesterID: 0,
-			albumCover: "",
-			numVotes: 0
-		};
+		let topSong: ISongInterface = defaultSong;
 		return Promise.all(
 			queue.map((songID: string) => fetch(API_URL + 'songs/' + songID, {
 				method: 'GET',
@@ -74,8 +68,8 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 			.then((responses) => {
 				return Promise.all(responses.map(response => response.json()))
 			})
-			.then((songs: Song[]) => {
-				songs.forEach(function (song: Song) {
+			.then((songs: ISongInterface[]) => {
+				songs.forEach(function (song: ISongInterface) {
 					// @ts-ignore //lint error for string enums because they can't be reverse mapped
 					if (song !== null && song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
 						topSong = song;
@@ -84,8 +78,8 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 			})
 			.then(() => {
 				if (topSong.songName !== "default") {
-					let topSongs: Song[] = that.state.topSongs;
-					let updatedTopSongs: Song[] = topSongs.concat(topSong);
+					let topSongs: ISongInterface[] = that.state.topSongs;
+					let updatedTopSongs: ISongInterface[] = topSongs.concat(topSong);
 					return that.setState({topSongs: updatedTopSongs});
 				}
 			})
@@ -106,13 +100,13 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 		};
 	}
 
-	private createSongInfo(song: Song): ReactNode {
+	private createSongInfo(song: ISongInterface): ReactNode {
 		return (<DashboardSongInfo
 			key={song.songName + Math.random() * 10000}
 			genre={song.genre}
 			albumCover={song.albumCover}
 			songName={song.songName}
-			onButtonClick={this.navigateToRoom(song.genre as GenreEnum)} // TODO: @Adi pls remove this type casting after your merge your changes
+			onButtonClick={this.navigateToRoom(song.genre)}
 		/>);
 	}
 
@@ -150,7 +144,7 @@ export interface IDashboardProps extends IContainerProps {
 
 export interface IDashboardState extends IContainerState {
 	sidebarOpen?: boolean;
-	topSongs: Song[];
+	topSongs: ISongInterface[];
 }
 
 // @ts-ignore

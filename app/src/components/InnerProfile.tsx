@@ -8,11 +8,11 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import {connect} from "react-redux";
 import {TextButton} from "./buttons/TextButton";
 import {removeUser} from "src/redux/actions/userActions";
-import {Song} from "./index";
 import {ProfileSongInfo} from "./ProfileSongInfo";
 import UpdateProfilePicBar from "./UpdateProfilePicBar";
 import {getCookie} from "../utility/cookies";
 import {API_URL} from "../utility/constants";
+import { ISongInterface } from "src/utility/songs";
 
 
 class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileState> {
@@ -53,10 +53,10 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         this.setState({updateProfile: !this.state.updateProfile}, callback);
     };
 
-    private getSongs(idList: string[], stateToUpdate: Song[]): void {
+    private getSongs(idList: string[], stateToUpdate: ISongInterface[]): void {
         let that = this;
         const token = getCookie('auth-token');
-        let updatedSongs: Song[] = [];
+        let updatedSongs: ISongInterface[] = [];
         Promise.all(
             idList.map((songID: string) => fetch(API_URL + 'songs/' + songID, {
                 method: 'GET',
@@ -65,8 +65,8 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
             .then((responses) => {
                 return Promise.all(responses.map(response => response.json()))
             })
-            .then((songs: Song[]) => {
-                songs.forEach(function (song: Song) {
+            .then((songs: ISongInterface[]) => {
+                songs.forEach(function (song: ISongInterface) {
                     updatedSongs.push(song);
                 })
             })
@@ -89,7 +89,7 @@ class InnerProfile extends EnhancedComponent<IInnerProfileProps, IInnerProfileSt
         />)
     };
 
-    private static inflateSongs(song: Song): ReactNode {
+    private static inflateSongs(song: ISongInterface): ReactNode {
         return (<ProfileSongInfo
             key={song.songName}
             pic={song.albumCover}
@@ -158,8 +158,8 @@ export interface IInnerProfileProps extends IEnhancedComponentProps {
 }
 
 export interface IInnerProfileState extends IEnhancedComponentState {
-    requestsDetails: Song[];
-    likedSongDetails: Song[];
+    requestsDetails: ISongInterface[];
+    likedSongDetails: ISongInterface[];
     updateProfile: boolean;
 }
 
