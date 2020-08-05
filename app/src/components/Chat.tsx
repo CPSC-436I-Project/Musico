@@ -33,6 +33,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 			messages: state.chatRoomStore.messages,
 			userId: state.userStore.userId,
 			username: state.userStore.username,
+			sidebarOpen: state.sidebarStore.sidebarOpen,
 		};
 	}
 
@@ -129,7 +130,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 					<div className={"chat-hidden-component"}/>
 					{this.props.messages.reverse().map(Chat.renderMessageObject)}
 				</div>
-				<div className="chat-input">
+				<div className="chat-input" style={{width: `calc(100% - ${this.props.sidebarOpen ? 460 : 250}px)`}}>
 					<TextInput
 						defaultText="Enter a message"
 						submit={this.updateCurrMessage}
@@ -164,6 +165,7 @@ export interface IChatProps extends IEnhancedComponentProps {
 	messages?: IMessageInterface[];
 	userId?: string | null;
 	username?: string;
+	sidebarOpen?: boolean;
 }
 
 export interface IChatState extends IEnhancedComponentState {
