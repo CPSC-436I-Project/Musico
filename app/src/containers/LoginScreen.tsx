@@ -2,7 +2,7 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
-import {ExpandableButton, Image, TextButton, TextInput} from "../components";
+import {ExpandableButton, TextButton, TextInput} from "../components";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {createUser, loginUser} from "../redux/actions";

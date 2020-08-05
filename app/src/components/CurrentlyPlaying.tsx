@@ -1,8 +1,7 @@
 import * as React from "react";
 import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import { ISongInterface, defaultSong } from "src/utility/songs";
-import { GenreEnum } from ".";
+import { ISongInterface } from "src/utility/songs";
 import YouTube from 'react-youtube';
 
 class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurrentlyPlayingState> {

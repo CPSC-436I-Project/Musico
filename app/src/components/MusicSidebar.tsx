@@ -6,10 +6,8 @@ import {connect} from "react-redux";
 import {GenreEnum} from ".";
 import {MusicPlayerQueue} from "./MusicPlayerQueue";
 import {TextButton} from "./buttons/TextButton";
-import { API_URL } from "src/utility/constants";
 import "./css/MusicSidebar.css";
 import { CurrentlyPlaying } from "./CurrentlyPlaying";
-import {getCookie} from "../utility/cookies";
 import { ISongInterface } from "src/utility/songs";
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {

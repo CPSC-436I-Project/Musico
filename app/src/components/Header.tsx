@@ -8,7 +8,6 @@ import menuIcon from "../icons/menu.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
 import { unselectGenre } from "src/redux/actions/roomActions";
-import {Image} from "./Image";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
