@@ -2,7 +2,6 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./css/Header.css";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import {Image} from "./Image";
 import {ImageButton} from "./buttons/ImageButton";
 import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
@@ -44,15 +43,27 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
                     <div className="hamburger">
                         <ImageButton src={menuIcon} width={30} height={30} buttonColour="transparent" onAction={this.props.onMenuClick}/>
                     </div>
-                    <div className="logo-container" onClick={this.resetGenre}>
-                        <div className="logo-icon">
-                            <Image width={40} height={40} path={musicNoteIcon} />
-                        </div>
+                    <div className="logo-container logo-icon">
+                        <ImageButton
+                            src={musicNoteIcon}
+                            width={40}
+                            height={40}
+                            onAction={this.props.onLogoClick}
+                            buttonColour={"transparent"}
+                            buttonFocusedColour={"transparent"}
+                            buttonHoverColour={"transparent"}
+                        />
                         <span className="logo">Musico</span>
                     </div>
                 </div>
                 <div className="header-right">
-                    <ImageButton src={this.props.profileImgSrc || profilePlaceholder} width={40} height={40} buttonColour="white" onAction={this.props.onProfileClick}/>
+                    <ImageButton
+                        src={this.props.profileImgSrc || profilePlaceholder}
+                        width={40}
+                        height={40}
+                        buttonColour="white"
+                        onAction={this.props.onProfileClick}
+                    />
                 </div>
             </div>
         );
@@ -64,6 +75,7 @@ export interface IHeaderProps extends IEnhancedComponentProps {
     sidebarOpen: boolean,
     onProfileClick?: (callback: () => void) => void;
     onMenuClick?: (callback: () => void) => void;
+    onLogoClick?: (callback: () => void) => void;
 }
 
 export interface IHeaderState extends IEnhancedComponentState {

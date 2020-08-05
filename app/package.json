@@ -16,6 +16,7 @@
     "@types/socket.io-client": "^1.4.33",
     "bad-words": "^3.0.3",
     "framer-motion": "^1.11.1",
+    "moment": "^2.27.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

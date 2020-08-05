@@ -1,11 +1,12 @@
 import React, {ReactNode} from 'react';
 import './App.css';
-import {Dashboard, LoginScreen, PageEnum, pageMap} from "./";
+import {PageEnum, pageMap} from "./";
 import {IStore} from 'src/redux/initialStore';
 import {getCookie} from 'src/utility/cookies';
 import {autoLoginUser} from 'src/redux/actions/userActions';
 import {connect} from "react-redux";
 import {IContainerProps} from "./Container";
+import {setSelectedGenre} from "../redux/actions";
 
 class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Component<P, S>{
 
@@ -33,11 +34,15 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
 	}
 
 	private changePage(page: PageEnum): void {
+		if (page !== PageEnum.Room) {
+			this.props.dispatch(setSelectedGenre(null));
+		}
 		this.setState({currentPage: page});
 	}
 
 	private determinePage(): ReactNode {
 		const props: IContainerProps = {
+				...pageMap[this.state.currentPage].props,
 			changePage: this.changePage,
 		};
 

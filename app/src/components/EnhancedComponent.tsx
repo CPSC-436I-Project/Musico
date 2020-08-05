@@ -1,5 +1,5 @@
 import * as React from "react";
-import {ReactNode} from "react";
+import {CSSProperties, ReactNode} from "react";
 import "./css/Components.css";
 
 abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedComponentProps,
@@ -7,6 +7,7 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 
 	public static defaultProps: IEnhancedComponentProps = {
 		/* add default props that belong to every component */
+		parentStyle: {},
 	}
 
 	private readonly childRender: () => ReactNode;
@@ -24,7 +25,7 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 	private wrapRender(): void {
 		this.render = (): ReactNode => {
 			return(
-				<div>
+				<div style={this.props.parentStyle}>
 					{this.childRender()}
 				</div>
 			);
@@ -34,6 +35,7 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
 
 export interface IEnhancedComponentProps {
 	dispatch?: any;
+	parentStyle?: CSSProperties;
 }
 
 export interface IEnhancedComponentState {

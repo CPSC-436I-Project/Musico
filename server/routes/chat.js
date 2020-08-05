@@ -12,7 +12,8 @@ router.get('/:genre', verifyToken, (req, res) => {
 router.post('/:genre', verifyToken, async (req, res) => {
     const newMessage = {
         user: req.user._id,
-        message: req.body.message
+        message: req.body.message,
+        time: Date.now(),
     };
 
     var messages = await Chat.findOne({channel: req.params.genre})

@@ -5,7 +5,6 @@
 .inner-dashboard {
     color: #ffffff;
     max-height: calc(100% - 75px);
-    overflow: auto;
 }
 
 .dashboard-trending {

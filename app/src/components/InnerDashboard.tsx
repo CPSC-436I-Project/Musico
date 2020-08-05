@@ -87,13 +87,13 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
             });
     }
 
-    private static inflateSongs(song: Song): ReactNode {
+    private static createSongInfo(song: Song): ReactNode {
         return (<DashboardSongInfo
-            key={song.songName}
+            key={song.songName + Math.random() * 10000}
             genre={song.genre}
             albumCover={song.albumCover}
             songName={song.songName}
-        />)
+        />);
     }
 
     public componentDidMount(): void {
@@ -101,7 +101,6 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
     };
 
     public render(): ReactNode {
-        const audioWaveIcon: string = "https://img.icons8.com/nolan/64/audio-wave.png";
         return (
             <div className="inner-dashboard">
                 <div
@@ -112,11 +111,11 @@ class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashb
                         justifyContent: "flexstart",
                     }}
                 >
-                    <Image width={40} height={40} path={audioWaveIcon}/>
+                    <Image width={40} height={40} path={"https://img.icons8.com/nolan/64/audio-wave.png"}/>
                     <h2> Playing next </h2>
                 </div>
                 <div className="dashboard-trending">
-                    {this.state.topSongs.map(InnerDashboard.inflateSongs)}
+                    {this.state.topSongs.map(InnerDashboard.createSongInfo)}
                 </div>
             </div>
         );
