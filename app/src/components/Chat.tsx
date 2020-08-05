@@ -10,7 +10,6 @@ import { GenreEnum } from ".";
 import { IMessageInterface } from "src/utility/messages";
 import { getCookie } from "src/utility/cookies";
 import "./css/Chat.css";
-import {API_URL} from "../utility/constants";
 import ChatMessage from "./ChatMessage";
 
 var Filter = require('bad-words');

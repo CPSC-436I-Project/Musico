@@ -69,10 +69,7 @@ export const likeGenre = (genre: string) => {
             })
             .then(res => {
                 if (res.status === 200) {
-                    let genreStrings = res.text.slice(1,-1);
-                    let genres = genreStrings.replace(/"/g, "");
-                    let genreArray = genres.split(",");
-                    dispatch(receiveLikedGenres(genreArray));
+                    dispatch(receiveLikedGenres(JSON.parse(res.text)));
                 }
             })
             .catch(err => {

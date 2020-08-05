@@ -3,7 +3,7 @@ import {ReactNode} from "react";
 import "../components/css/Room.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
 import Chat from "src/components/Chat";
-import {AddSongForm, MusicSidebar, GenreEnum} from "src/components";
+import {AddSongForm, MusicSidebar} from "src/components";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
 import { downloadMessages, getChannelQueue, updateCurrentlyPlaying } from "src/redux/actions/roomActions";
@@ -31,7 +31,7 @@ class Room extends Container<IRoomProps, IRoomState> {
 			...this.state,
 			isInitialized: false
 		};
-		
+
 		this.popupRender = this.popupRender.bind(this);
 	}
 
