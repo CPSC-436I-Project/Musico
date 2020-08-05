@@ -25,6 +25,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
     public static mapStateToProps:(state: IStore, props: IProfileProps) => IProfileProps = (state: IStore, props: IProfileProps) => {
         return {
             ...props,
+            ...Container.mapStateToProps(state, props),
             profileImgSrc: state.userStore.profileImgSrc,
             username: state.userStore.username,
             requests: state.userStore.requests,
@@ -37,6 +38,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
     private constructor(props: IProfileProps) {
         super(props);
         this.state = {
+            ...this.state,
             requestsDetails: [],
             likedSongDetails: [],
             updateProfile: false

@@ -4,7 +4,7 @@ import "./Container.css";
 import {Container, IContainerProps, IContainerState} from "./Container";
 import {connect} from "react-redux";
 import { IStore } from "src/redux/initialStore";
-import {GenreEnum, Image, Song, TextButton} from "../components";
+import {GenreEnum, Image, Song} from "../components";
 import {DashboardSongInfo} from "../components/DashboardSongInfo";
 import {getCookie} from "../utility/cookies";
 import {API_URL} from "../utility/constants";
@@ -15,6 +15,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 	public static mapStateToProps:(state: IStore, props: IDashboardProps) => IDashboardProps = (state: IStore, props: IDashboardProps) => {
 		return {
 			...props,
+			...Container.mapStateToProps(state, props),
 			selectedGenre: state.chatRoomStore.selectedGenre,
 		};
 	}

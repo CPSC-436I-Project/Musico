@@ -42,7 +42,7 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
 
 	private determinePage(): ReactNode {
 		const props: IContainerProps = {
-				...pageMap[this.state.currentPage].props,
+			...pageMap[this.state.currentPage].props,
 			changePage: this.changePage,
 		};
 
