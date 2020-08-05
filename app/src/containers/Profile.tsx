@@ -117,10 +117,10 @@ class Profile extends Container<IProfileProps, IProfileState> {
                         <span className="username">
                             <h2>{this.props.username || "Unknown User"}</h2>
                             <div className="update-profile-buttons">
-                                {/*<span className="update-profile-pic">*/}
+                                <span className="update-profile-pic">
                                     <TextButton text="Update Profile Picture" onAction={this.picUpdateShown} width={250}
                                                 buttonColour={"#6236FF"}/>
-                                {/*</span>*/}
+                                </span>
                                 <span className="log-out">
                                     <TextButton text="Log out" onAction={this.logOut} width={100}/>
                                 </span>
