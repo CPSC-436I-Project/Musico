@@ -28,6 +28,7 @@ class Room extends Container<IRoomProps, IRoomState> {
 		super(props);
 
 		this.state = {
+			...this.state,
 			isInitialized: false
 		};
 		

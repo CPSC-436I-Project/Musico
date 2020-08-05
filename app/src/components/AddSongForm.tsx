@@ -10,6 +10,7 @@ import "./css/AddSongForm.css";
 import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
 import moment from 'moment';
+import { updateRequestedSongs } from "src/redux/actions/userActions";
 
 class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState> {
 
@@ -138,6 +139,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 						console.log(res);
 					} else {
 						const newSong = JSON.parse(res.text);
+						console.log(newSong);
+						this.props.dispatch(updateRequestedSongs(newSong._id));
 						this.props.addSong(newSong);
 					}
 					callback();

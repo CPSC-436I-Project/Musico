@@ -62,7 +62,7 @@ module.exports = function(socket, io) {
             .catch(err => {console.log(err)})
 
             // if song is null, there are no songs in the queue, so use the playlist
-            if (song === null) {
+            if (song === null || song === undefined) {
                 // gets a random song from the playlist
                 let songId = await Playlist.findOne({channel: genre})
                 .then(playlist => playlist["playlist"])
@@ -76,7 +76,7 @@ module.exports = function(socket, io) {
             }
             
             // set the duration to the duration of the current song
-            durationMap[genre] = (song.duration === undefined || typeof(song.duration) !== "number") ? 10 : song.duration; 
+            durationMap[genre] = (song === null || song.duration === undefined || typeof(song.duration) !== "number") ? 10 : song.duration; 
             
             // set the song with now as the start time
             let now = new Date();
