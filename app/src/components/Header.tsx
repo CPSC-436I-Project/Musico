@@ -43,8 +43,15 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
                     <div className="hamburger">
                         <ImageButton src={menuIcon} width={30} height={30} buttonColour="transparent" onAction={this.props.onMenuClick}/>
                     </div>
-                    <div className="logo-container" onClick={this.resetGenre}>
-                        <Image path={"/textlogo.png"} width={100} height={25} />
+                    <div className="logo-container logo-icon">
+                        <ImageButton
+                            src={"/textlogo.png"}
+                            height={40}
+                            onAction={this.props.onLogoClick}
+                            buttonColour={"transparent"}
+                            buttonFocusedColour={"transparent"}
+                            buttonHoverColour={"transparent"}
+                        />
                     </div>
                 </div>
                 <div className="header-right">

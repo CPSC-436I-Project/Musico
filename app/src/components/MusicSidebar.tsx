@@ -65,8 +65,9 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
                 console.log("No selected genre!");
                 return;
             } else {
-                this.setState({queue: []});
-                this.getChannelQueue(this.props.selectedGenre);
+                this.setState({queue: []}, () => {
+                    this.getChannelQueue(this.props.selectedGenre);
+                });
             }
         }
     }
