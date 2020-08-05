@@ -8,6 +8,8 @@ import {GenreEnum, Image, Song, TextButton} from "../components";
 import {DashboardSongInfo} from "../components/DashboardSongInfo";
 import {getCookie} from "../utility/cookies";
 import {API_URL} from "../utility/constants";
+import {setSelectedGenre} from "../redux/actions";
+import {PageEnum} from "./index";
 
 class Dashboard extends Container<IDashboardProps, IDashboardState> {
 	public static mapStateToProps:(state: IStore, props: IDashboardProps) => IDashboardProps = (state: IStore, props: IDashboardProps) => {
@@ -27,6 +29,8 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 
 		this.getTopSongsOnQueues = this.getTopSongsOnQueues.bind(this);
 		this.addTopSong = this.addTopSong.bind(this);
+		this.navigateToRoom = this.navigateToRoom.bind(this);
+		this.createSongInfo = this.createSongInfo.bind(this);
 	}
 
 	private getTopSongsOnQueues(): void {
@@ -93,12 +97,21 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 			});
 	}
 
-	private static createSongInfo(song: Song): ReactNode {
+	private navigateToRoom(genre: GenreEnum): (callback: () => void) => void {
+		return (callback: () => void) => {
+			this.props.dispatch(setSelectedGenre(genre));
+			this.props.changePage(PageEnum.Room);
+			callback();
+		};
+	}
+
+	private createSongInfo(song: Song): ReactNode {
 		return (<DashboardSongInfo
 			key={song.songName + Math.random() * 10000}
 			genre={song.genre}
 			albumCover={song.albumCover}
 			songName={song.songName}
+			onButtonClick={this.navigateToRoom(song.genre as GenreEnum)} // TODO: @Adi pls remove this type casting after your merge your changes
 		/>);
 	}
 
@@ -122,7 +135,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
 						<h2> Playing next </h2>
 					</div>
 					<div className="dashboard-trending">
-						{this.state.topSongs.map(Dashboard.createSongInfo)}
+						{this.state.topSongs.map(this.createSongInfo)}
 					</div>
 				</div>
 			</div>
