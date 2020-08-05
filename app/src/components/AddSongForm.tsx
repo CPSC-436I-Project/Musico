@@ -47,7 +47,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	};
 
 	private addSongSender(callback: () => void) {
-		let videoList: any[] = [];
+		let videoList: any[];
 		youtubeQuery("search", {
 			part: "snippet",
 			maxResults: AddSongForm.NUM_SEARCH_RESULTS,
@@ -70,7 +70,12 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 						.map((k: string) => genreIDMap[k])
 						.filter((k: string) => !!k)))
 					videoList[i].duration = moment.duration(res.items[i].contentDetails.duration).asSeconds();
-					if (!videoList[i].genreCategories || videoList[i].genreCategories.length === 0) {
+					if (
+						!videoList[i].genreCategories ||
+						videoList[i].genreCategories.length === 0 ||
+						!videoList[i].genreCategories.includes(this.props.selectedGenre)
+						// TODO: Remove if song already in DB
+					) {
 						res.items.splice(i, 1);
 						videoList.splice(i, 1);
 						i -= 1;
@@ -88,6 +93,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	}
 
 	private renderVideoObject(video: any): ReactNode {
+		video.snippet.title = decodeHTML(video.snippet.title);
 		return (
 			<div key={video.id.videoId} className={"flex-row"}>
 				<Image
@@ -98,7 +104,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 				<div className={"flex-column-center"} style={{width: "100%"}}>
 					<div className="song-info">
 						<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
-							<h3>{decodeHTML(video.snippet.title)}</h3>
+							<h3>{video.snippet.title}</h3>
 						</a>
 						<p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
 					</div>
