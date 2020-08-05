@@ -50,6 +50,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
 
     logOut = () => {
         this.props.dispatch(removeUser());
+        this.props.changePage(PageEnum.LoginScreen);
     };
 
     picUpdateShown = (callback: () => void) => {
