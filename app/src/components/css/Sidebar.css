@@ -22,6 +22,7 @@
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     width: 200px;
+    height: 100%;
 }
 
 .sidebar .sidebar-search-wrapper {
@@ -50,8 +51,5 @@
     background-color: transparent;
     padding: 0.4em 0.8em;
     flex-direction: column;
+    height: calc(100% - 85px);
 } 
-
-/*.sidebar .sidebar-channels .main-button .center-mid {*/
-/*    background-color: #212121;*/
-/*}*/
