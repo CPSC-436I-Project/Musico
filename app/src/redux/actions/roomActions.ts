@@ -5,7 +5,7 @@ import { getCookie } from "src/utility/cookies";
 import { API_URL } from "src/utility/constants";
 import { ISongInterface, defaultSong } from "src/utility/songs";
 
-export const setSelectedGenre = (genre: GenreEnum) => {
+export const setSelectedGenre = (genre: GenreEnum | null) => {
 	return {
 		type: RoomEnum.SET_SELECTED_GENRE,
 		genre: genre,

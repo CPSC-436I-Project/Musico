@@ -3,6 +3,7 @@ import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import { ISongInterface, defaultSong } from "src/utility/songs";
 import { GenreEnum } from ".";
+import YouTube from 'react-youtube';
 
 class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurrentlyPlayingState> {
     public static defaultProps: ICurrentlyPlayingProps = {
@@ -24,6 +25,17 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
 
     public render() {
         let start = this.getStartSeconds(this.props.startTime)
+        const opts: any = {
+            playerVars: {
+              autoplay: 1,
+              rel: 0,
+              modestbranding: 1,
+              autohide: 1,
+              showinfo: 0,
+              controls: 0,
+              start: start
+            },
+          };
         return (
             <div className="currently-playing">
                 <div
@@ -35,7 +47,8 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                         height: 0
                     }}
                 >
-                    <iframe
+                    <YouTube containerClassName="youtube-player" videoId={this.props.song.src.replace("https://www.youtube.com/watch?v=", "")} opts={opts}/>
+                    {/* <iframe
                         title={this.props.song.songName}
                         style={{
                             position: "absolute",
@@ -47,7 +60,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                         }}
                         src={this.props.song.src.replace("https://www.youtube.com/watch?v=", "https://www.youtube.com/embed/") + "?rel=0&autoplay=1&modestbranding=1&autohide=1&showinfo=0&controls=0&start="+start}
                         frameBorder={"0"}
-                    />
+                    /> */}
                 </div>
                 <p>Currently Playing: {this.props.song.songName}</p>
             </div>
