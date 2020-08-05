@@ -43,7 +43,7 @@ module.exports = function(socket, io) {
             console.log("Setting new songs for genre: ", genre);
 
             // get a song from the queue of that genre, remove it from the queue
-            let songId = await Queue.findOne({channel: genre})
+            let song = await Queue.findOne({channel: genre})
             .then(queue => queue["queue"])
             .then(async queue => {
                 if (queue.length > 0) {
@@ -61,19 +61,19 @@ module.exports = function(socket, io) {
             })
             .catch(err => {console.log(err)})
 
-            // if songId is null, there are no songs in the queue, so use the playlist
-            if (songId === null) {
+            // if song is null, there are no songs in the queue, so use the playlist
+            if (song === null) {
                 // gets a random song from the playlist
-                songId = await Playlist.findOne({channel: genre})
+                let songId = await Playlist.findOne({channel: genre})
                 .then(playlist => playlist["playlist"])
                 .then(playlist => playlist[Math.floor(Math.random() * playlist.length)])
                 .catch(err => {console.log(err)})
+                song = await Song.findById(songId);
             } else {
-                // remove the item from the Queue
-                await Queue.updateOne({channel: genre}, {$pull: {queue: songId}});
+                // if song is not null, i.e. coming from the queue, delete the song from the queue
+                await Queue.updateOne({channel: genre}, {$pull: {queue: song._id}})
+                .catch(err => {console.log(err)});;
             }
-            
-            let song = await Song.findById(songId);
             
             // set the duration to the duration of the current song
             durationMap[genre] = (song.duration === undefined || typeof(song.duration) !== "number") ? 10 : song.duration; 
