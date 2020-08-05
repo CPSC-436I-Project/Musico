@@ -62,7 +62,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 				textType={"password"}
 				parentStyle={{marginTop: 5, marginBottom: 5}}
 			/>
-			<TextButton text={"Log In"} width={100} onAction={this.loginButtonOnClick}/>
+			<TextButton text={"Log In"} width={100} buttonColour={"#ffffff"} fontColour={"#181818"} onAction={this.loginButtonOnClick}/>
 		</div>;
 
 		const signUpButtonChild: ReactNode = <div className={"flex-column-center"}>
@@ -82,7 +82,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 				parentStyle={{marginTop: 5, marginBottom: 5}}
 				textType={"password"}
 			/>
-			<TextButton text={"Sign Up"} width={100} onAction={this.signUpButtonOnClick}/>
+			<TextButton text={"Sign Up"} width={100} buttonColour={"#6236ff"} fontColour={"#ffffff"} onAction={this.signUpButtonOnClick}/>
 		</div>;
 
 		return (
@@ -93,7 +93,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 					marginBottom: 15,
 					marginRight: 100
 				}}>
-					<img src={"/musico.svg"} alt="Logo" width={800} height={500} />
+					<img src={"/musico.svg"} alt="Logo" width={800} height={400} />
 				</div>
 				<div className={"flex-column-center"}>
 					<ExpandableButton
