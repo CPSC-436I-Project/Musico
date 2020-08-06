@@ -28,11 +28,12 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => {
+        .then(async response => {
             if(response.status === 200) {
-                this.props.voteCompletionHandler();
+                let resp = await response.json()
+                resp.type = "up";
+                this.props.voteCompletionHandler(resp);
             }
-            response.json()
         })
         .then(callback)
     };
@@ -46,9 +47,12 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => {
-            this.props.voteCompletionHandler();
-            response.json()
+        .then(async response => {
+            if(response.status === 200) {
+                let resp = await response.json()
+                resp.type = "down";
+                this.props.voteCompletionHandler(resp);
+            }
         })
         .then(callback)
     };
@@ -69,7 +73,7 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
 export interface IVoteButtonsContainerProps extends IEnhancedComponentProps {
     rating: number,
     songId: any,
-    voteCompletionHandler?: () => void,
+    voteCompletionHandler?: (resp: any) => void,
 }
 
 export interface IVoteButtonsContainerState extends IEnhancedComponentState {

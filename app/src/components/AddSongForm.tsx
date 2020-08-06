@@ -145,7 +145,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 						console.log(res);
 					} else {
 						const newSong = JSON.parse(res.text);
-						console.log(newSong);
 						this.props.dispatch(updateRequestedSongs(newSong._id));
 						this.props.addSong(newSong);
 					}

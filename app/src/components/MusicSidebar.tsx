@@ -86,7 +86,7 @@ export interface IMusicSidebarProps extends IEnhancedComponentProps {
     currentlyPlaying?: ISongInterface;
     showPopup?: () => void;
     childRef?: (ref: MusicSidebar) => void;
-    voteCompletionHandler?: () => void;
+    voteCompletionHandler?: (resp: any) => void;
     startTime?: string;
 }
 

@@ -8,6 +8,8 @@ export enum UserEnum {
     INVALID_USER_UPDATE = "INVALID_USER_UPDATE",
     LIKE_GENRE = "LIKE_GENRE",
     UPDATE_REQUEST_SONG = "UPDATE_REQUEST_SONG",
+    ADD_LIKED_SONG = "ADD_LIKED_SONG",
+    REMOVE_LIKED_SONG = "REMOVE_LIKED_SONG",
 }
 
 const userReducer = (store: IUserStore, action: any) => {
@@ -39,6 +41,23 @@ const userReducer = (store: IUserStore, action: any) => {
             return {
                 ...store,
                 requests: req
+            };
+        case UserEnum.REMOVE_LIKED_SONG:
+            let liked = store.likedSongs;
+            const index = liked.indexOf(action.song);
+            if (index > -1) {
+                liked.splice(index, 1);
+            }
+            return {
+                ...store,
+                likedSongs: liked
+            };
+        case UserEnum.ADD_LIKED_SONG:
+            let likedSongs = store.likedSongs;
+            likedSongs.push(action.song);
+            return {
+                ...store,
+                likedSongs: likedSongs
             };
         case UserEnum.RESET_USER:
             return initialStore.userStore;
