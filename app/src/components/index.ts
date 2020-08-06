@@ -2,6 +2,7 @@ import {Button} from "./buttons/Button";
 import {TextButton} from "./buttons/TextButton";
 import {ExpandableButton} from "./buttons/ExpandableButton";
 import AddSongForm from "./AddSongForm";
+import {RoundImageButton} from "./buttons/RoundImageButton";
 import {EnhancedComponent} from "./EnhancedComponent";
 import Header from "./Header";
 import {Image} from "./Image";
@@ -76,7 +77,7 @@ function decodeHTML(snippet: string) {
 
 export {
 	GenreEnum, ExpansionState,
-	Button, TextButton, ExpandableButton,
+	Button, TextButton, ExpandableButton, RoundImageButton,
 	AddSongForm, EnhancedComponent, Header, Image, MusicSidebar, Sidebar, TextInput,
 	youtubeQuery, decodeHTML,
 	genreIDMap,

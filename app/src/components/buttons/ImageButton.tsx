@@ -8,6 +8,7 @@ class ImageButton extends Button<IImageButtonProps, IImageButtonState> {
     public static defaultProps: IImageButtonProps = {
         ...Button.defaultProps,
         width: 150,
+        height: 30,
         src: "",
     };
 
@@ -16,14 +17,13 @@ class ImageButton extends Button<IImageButtonProps, IImageButtonState> {
         this.state = {
             ...this.state,
             pressed: false,
-            src: props.src,
         };
     }
 
     public render(): ReactNode {
         return (
             <div className="image_button"
-                 style={{backgroundImage: `url(${this.state.src})`,
+                 style={{backgroundImage: `url(${this.props.src})`,
                         width: this.props.width,
                         height: this.props.height || 30}}>
             </div>
@@ -36,7 +36,6 @@ export interface IImageButtonProps extends IButtonProps {
 }
 
 export interface IImageButtonState extends IButtonState {
-    src: string;
 }
 
 export {ImageButton};
