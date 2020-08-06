@@ -1,7 +1,7 @@
 import * as React from "react";
 import {ReactNode} from "react";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
-import {Image} from "./";
+import {GenreEnum, Image, TextButton} from "./";
 import {IMessageInterface} from "../utility/messages";
 import * as moment from "moment";
 import "./css/ChatMessage.css";
@@ -10,6 +10,8 @@ import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
+import {PageEnum} from "../containers";
+import {setSelectedGenre} from "../redux/actions";
 
 class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState> {
 	public static defaultProps: IChatMessageProps = {
@@ -19,8 +21,10 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 	public static mapStateToProps:(state: IStore, props: IChatMessageProps) => IChatMessageProps = (state: IStore, props: IChatMessageProps) => {
 		return {
 			...props,
+			selectedGenre: state.roomStore.selectedGenre,
 			userId: state.userStore.userId,
 			profileImgSrc: state.userStore.profileImgSrc,
+			favGenres: state.userStore.favouriteGenres,
 		};
 	}
 
@@ -33,6 +37,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 			name: this.props.message.username,
 			message: this.props.message.message,
 			isCurrentUser: this.props.userId === this.props.message.user,
+			favouriteGenres: [],
 			divRect: {
 				height: 0, left: 0, bottom: 0, right: 0, top: 0, width: 0, x: 0, y: 0, toJSON(): any {}
 			},
@@ -41,7 +46,32 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 		};
 
 		this.divRef = React.createRef();
+		this.switchRoom = this.switchRoom.bind(this);
+		this.createFavGenreButtons = this.createFavGenreButtons.bind(this);
 		this.updateRect = this.updateRect.bind(this);
+	}
+
+	private switchRoom(genre: GenreEnum): (callback: () => void) => void {
+		return (callback: () => void) => {
+			if (genre !== this.props.selectedGenre) {
+				this.props.dispatch(setSelectedGenre(genre));
+			}
+			callback();
+		}
+	}
+
+	private createFavGenreButtons(genre: GenreEnum): ReactNode {
+		return(
+			<TextButton
+				text={genre}
+				key={genre}
+				onAction={this.switchRoom(genre)}
+				height={10}
+				width={genre.length * 8}
+				fontSize={8}
+				buttonColour={"#6236FF"}
+			/>
+		)
 	}
 
 	/**
@@ -51,7 +81,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 	public componentDidMount() {
 		this.props.childRef(this);
 		if (this.state.isCurrentUser) {
-			this.setState({avatarURL: this.props.profileImgSrc});
+			this.setState({avatarURL: this.props.profileImgSrc, favouriteGenres: this.props.favGenres});
 		} else {
 			const token = getCookie('auth-token');
 			fetch(`${API_URL}userprofiles/username/${this.state.id}`, {
@@ -63,9 +93,13 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 				return {json: await res.json(), status: res.status}
 			}).then((res) => {
 				if (res.status !== 200) {
-					console.log("Error in fetching avatar info");
+					console.log("Error in fetching user info");
 				} else {
-					this.setState({avatarURL: res.json.profilePicture});
+					console.log(res.json.favouriteGenres);
+					this.setState({
+						avatarURL: res.json.profilePicture,
+						favouriteGenres: res.json.favouriteGenres || [],
+					});
 				}
 			}).catch((err) => {
 				console.log(err);
@@ -85,9 +119,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 		}
 	}
 
-
 	public render(): ReactNode {
-		console.log(this.state.name, this.state.divRect);
 		const avatarBlock: any = <div className={"chat-message-user-info"}>
 			<Image
 				path={this.state.avatarURL}
@@ -112,7 +144,11 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 					backgroundColour={"white"}
 					className={"chat-message-avatar"}
 				/>
-				<p>{this.state.name}</p>
+				<h4 style={{marginTop: 5, marginBottom: 5}}>{this.state.name}</h4>
+				<p style={{fontSize: 10, marginBottom: 5}}>
+					{this.state.favouriteGenres.length > 0 ? "Favourite Genres:" : "This user has no favourite genres"}
+				</p>
+				{this.state.favouriteGenres.map(this.createFavGenreButtons)}
 			</div>
 		</div>;
 
@@ -151,6 +187,8 @@ export interface IChatMessageProps extends IEnhancedComponentProps {
 	message?: IMessageInterface;
 	userId?: string;
 	profileImgSrc?: string;
+	favGenres?: GenreEnum[];
+	selectedGenre?: GenreEnum;
 	childRef?: (ref: ChatMessage) => void;
 }
 
@@ -160,6 +198,7 @@ export interface IChatMessageState extends IEnhancedComponentState {
 	name: string;
 	message: string;
 	avatarURL: string;
+	favouriteGenres: GenreEnum[];
 	isCurrentUser: boolean; // true if the sender is the current user
 	divRect: DOMRect;
 }

@@ -11,6 +11,7 @@ import { IMessageInterface } from "src/utility/messages";
 import { getCookie } from "src/utility/cookies";
 import "./css/Chat.css";
 import ChatMessage from "./ChatMessage";
+import {PageEnum} from "../containers";
 
 var Filter = require('bad-words');
 
@@ -85,10 +86,8 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
 	}
 
 	private onChatScroll(): void {
-		for (const msgRef of this.chatMessageRefs) {
-			if (msgRef) {
-				msgRef.updateRect();
-			}
+		for (const msgRef of this.chatMessageRefs.filter((k) => !!k)) {
+			msgRef.updateRect();
 		}
 	}
 
