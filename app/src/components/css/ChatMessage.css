@@ -31,7 +31,7 @@
 
 .chat-message-user-info:hover .chat-message-user-info-detailed {
     visibility: visible;
-    width: 200px;
+    width: 230px;
     opacity: 1;
 }
 

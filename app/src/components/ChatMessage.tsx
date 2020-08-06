@@ -133,7 +133,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 				className={"chat-message-user-info-detailed"}
 				style={{
 					left: this.state.isCurrentUser ? this.state.divRect.right : this.state.divRect.left + 60,
-					top: this.state.divRect.top,
+					top: this.state.divRect.top - 40,
 				}}
 			>
 				<Image
