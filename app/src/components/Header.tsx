@@ -7,22 +7,22 @@ import profilePlaceholder from "../icons/profile-placeholder.png";
 import menuIcon from "../icons/menu.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
-import { unselectGenre } from "src/redux/actions/roomActions";
+import {unselectGenre} from "src/redux/actions/roomActions";
 import {RoundImageButton} from "./index";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
     public static defaultProps: IHeaderProps = {
         ...EnhancedComponent.defaultProps,
-    }
+    };
 
-    public static mapStateToProps:(state: IStore, props: IHeaderProps) => IHeaderProps = (state: IStore, props: IHeaderProps) => {
+    public static mapStateToProps: (state: IStore, props: IHeaderProps) => IHeaderProps = (state: IStore, props: IHeaderProps) => {
         return {
             ...props,
             sidebarOpen: state.sidebarStore.sidebarOpen,
             profileImgSrc: state.userStore.profileImgSrc,
         };
-    }
+    };
 
     protected constructor(props: IHeaderProps) {
         super(props);
@@ -33,14 +33,15 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
     resetGenre = () => {
         this.props.dispatch(unselectGenre());
-    }
+    };
 
     public render(): ReactNode {
         return (
             <div className="header">
                 <div className="header-left">
                     <div className="hamburger">
-                        <ImageButton src={menuIcon} width={30} height={30} buttonColour="transparent" onAction={this.props.onMenuClick}/>
+                        <ImageButton src={menuIcon} width={30} height={30} buttonColour="transparent"
+                                     onAction={this.props.onMenuClick}/>
                     </div>
                     <div className="logo-container logo-icon">
                         <ImageButton

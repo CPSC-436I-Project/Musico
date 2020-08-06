@@ -2,7 +2,10 @@ import * as React from "react";
 import SidebarTextImageButton from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./css/Sidebar.css";
-import {asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, indieIcon, jazzIcon, classicalIcon, otherIcon, popIcon, soulIcon} from "../icons/genres";
+import {
+    asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinIcon, rockIcon, reggaeIcon, countryIcon,
+    hiphopIcon, indieIcon, jazzIcon, classicalIcon, otherIcon, popIcon, soulIcon
+} from "../icons/genres";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {SearchBar} from "./SearchBar";
 import {IStore} from "../redux/initialStore";
@@ -12,9 +15,11 @@ import {GenreEnum} from "./";
 import {PageEnum} from "../containers";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
+
     public static defaultProps: ISidebarProps = {
         ...EnhancedComponent.defaultProps,
-        changePage: () => {/**/},
+        changePage: () => {
+        },
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [
@@ -36,7 +41,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.SOUL, icon: soulIcon},
     ];
 
-    public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
+    public static mapStateToProps: (state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
         return {
             ...props,
             selectedGenre: state.roomStore.selectedGenre,
@@ -73,7 +78,6 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                 this.props.changePage(PageEnum.Room);
             }
             callback();
-
         }
     }
 

@@ -1,4 +1,3 @@
-/* Style the header with a grey background and some padding */
 .header {
     margin: 0 auto;
     overflow: hidden;
@@ -57,13 +56,13 @@
 
 .add-song-form .main-button {
     display: flex;
-    margin: 10px 0px auto auto;
+    margin: 10px 0 auto auto;
 }
 
 .add-song-form .valid-check {
     display: flex;
     font-size: 12px;
-    margin: 10px 0px 0 auto;
+    margin: 10px 0 0 auto;
 }
 
 .add-song-form .invalid-URL-text {
@@ -94,7 +93,7 @@
     user-select: none;
 }
 
-.log_out{
+.log_out {
     display: block;
 }
 
@@ -131,7 +130,7 @@
 }
 
 .music-player-queue .vote-buttons-container {
-    margin: 0px 10px 0px 0px;
+    margin: 0 10px 0 0;
 }
 
 .scrollable-container {

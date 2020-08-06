@@ -8,18 +8,20 @@ import "./css/MusicSidebar.css";
 import {ReactNode} from "react";
 
 class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicPlayerQueueState> {
+
     public static defaultProps: IMusicPlayerQueueProps = {
         ...EnhancedComponent.defaultProps,
         queue: [],
-        voteCompletionHandler: () => {}
-    }
+        voteCompletionHandler: () => {
+        }
+    };
 
     protected constructor(props: IMusicPlayerQueueProps) {
         super(props);
     }
 
     private static createSongElement(song: any, voteCompletionHandler: any): ReactNode {
-        return(
+        return (
             <div key={song._id} className={"flex-row"}>
                 <VoteButtonsContainer
                     rating={song.numVotes}
@@ -61,7 +63,6 @@ export interface IMusicPlayerQueueProps extends IEnhancedComponentProps {
 }
 
 export interface IMusicPlayerQueueState extends IEnhancedComponentState {
-
 }
 
 export {MusicPlayerQueue};

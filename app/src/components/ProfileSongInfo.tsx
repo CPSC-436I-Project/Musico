@@ -6,6 +6,7 @@ import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg";
 import "./css/Profile.css";
 
 class ProfileSongInfo extends EnhancedComponent<IProfileSongInfoProps, IProfileSongInfoState> {
+    
     public static defaultProps: IProfileSongInfoProps = {
         ...EnhancedComponent.defaultProps,
         width: 200,

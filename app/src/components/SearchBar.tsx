@@ -18,7 +18,8 @@ class SearchBar extends TextInput {
         borderColor: "black",
         fontSize: 18,
         onEnterDisabled: false,
-        submit: () => {},
+        submit: () => {
+        },
     };
 
     public render(): ReactNode {
@@ -33,19 +34,19 @@ class SearchBar extends TextInput {
                 }}
             >
                 <Image width={22} height={22} path={searchIcon}/>
-                    <input
-                        className="search-input"
-                        type="text"
-                        name="search_input"
-                        placeholder={this.props.defaultText}
-                        value={this.state.text}
-                        onChange={this.updateText}
-                        style={{
-                            margin: this.props.colorMargin,
-                            width: `calc(100% - ${input_width}px)`,
-                            fontSize: this.props.fontSize,
-                        }}
-                    />
+                <input
+                    className="search-input"
+                    type="text"
+                    name="search_input"
+                    placeholder={this.props.defaultText}
+                    value={this.state.text}
+                    onChange={this.updateText}
+                    style={{
+                        margin: this.props.colorMargin,
+                        width: `calc(100% - ${input_width}px)`,
+                        fontSize: this.props.fontSize,
+                    }}
+                />
             </div>
         );
     }

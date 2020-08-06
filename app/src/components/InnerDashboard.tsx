@@ -9,7 +9,6 @@ import {getCookie} from "../utility/cookies";
 import {API_URL} from "../utility/constants";
 import { ISongInterface, defaultSong } from "src/utility/songs";
 
-
 class InnerDashboard extends EnhancedComponent<IInnerDashboardProps, IInnerDashboardState> {
 
     public static defaultProps: IInnerDashboardProps = {

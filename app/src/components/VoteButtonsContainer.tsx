@@ -5,15 +5,16 @@ import "./css/Components.css";
 import {UpvoteButton} from "./buttons/UpvoteButton";
 import {DownvoteButton} from "./buttons/DownvoteButton";
 import "./buttons/VoteButtons.css"
-import { API_URL } from "src/utility/constants";
+import {API_URL} from "src/utility/constants";
 import {getCookie} from "../utility/cookies";
 
 class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps, IVoteButtonsContainerState> {
+
     public static defaultProps: IVoteButtonsContainerProps = {
         ...EnhancedComponent.defaultProps,
         rating: 1,
         songId: 0,
-    }
+    };
 
     protected constructor(props: IVoteButtonsContainerProps) {
         super(props);
@@ -28,13 +29,13 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => {
-            if(response.status === 200) {
-                this.props.voteCompletionHandler();
-            }
-            response.json()
-        })
-        .then(callback)
+            .then(response => {
+                if (response.status === 200) {
+                    this.props.voteCompletionHandler();
+                }
+                response.json()
+            })
+            .then(callback)
     };
 
     voteDown = (callback: () => void) => {
@@ -46,11 +47,11 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => {
-            this.props.voteCompletionHandler();
-            response.json()
-        })
-        .then(callback)
+            .then(response => {
+                this.props.voteCompletionHandler();
+                response.json()
+            })
+            .then(callback)
     };
 
     public render(): ReactNode {
@@ -73,7 +74,6 @@ export interface IVoteButtonsContainerProps extends IEnhancedComponentProps {
 }
 
 export interface IVoteButtonsContainerState extends IEnhancedComponentState {
-
 }
 
 export {VoteButtonsContainer}
