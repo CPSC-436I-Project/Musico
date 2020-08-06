@@ -7,7 +7,6 @@ import {IStore} from "../redux/initialStore";
 import {PageEnum} from "./index";
 import { GenreEnum } from "src/components";
 import {Header, Sidebar} from "../components";
-import profilePlaceholder from "../icons/profile-placeholder.png";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -89,7 +88,6 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 				<div className={"fill-container"}>
 					{this.props.showHeader && <div id={"dashboard_upper"}>
 						<Header
-							profileImgSrc={profilePlaceholder}
 							onProfileClick={this.toggleProfile}
 							onMenuClick={this.onMenuClick}
 							onLogoClick={this.logoClick}

@@ -7,102 +7,103 @@ import {updateUser} from "../redux/actions/userActions";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 
-
 class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, IUpdateProfilePicBarState> {
-    public static defaultProps: IUpdateProfilePicBarProps = {
-        ...EnhancedComponent.defaultProps
-    };
+	public static defaultProps: IUpdateProfilePicBarProps = {
+		...EnhancedComponent.defaultProps
+	};
 
-    public static mapStateToProps: (state: IStore, props: IUpdateProfilePicBarProps) =>
-        IUpdateProfilePicBarProps = (state: IStore, props: IUpdateProfilePicBarProps) => {
-        return {
-            ...props,
-            profileImgSrc: state.userStore.profileImgSrc
-        };
-    };
+	public static mapStateToProps: (state: IStore, props: IUpdateProfilePicBarProps) =>
+		IUpdateProfilePicBarProps = (state: IStore, props: IUpdateProfilePicBarProps) => {
+		return {
+			...props,
+			profileImgSrc: state.userStore.profileImgSrc
+		};
+	};
 
-    protected constructor(props: IUpdateProfilePicBarProps) {
-        super(props);
-        this.state = {
-            url: "",
-            error: ""
-        };
-        this.updateUrl = this.updateUrl.bind(this);
-        this.updateButtonOnClick = this.updateButtonOnClick.bind(this);
-        this.invalidUserError = this.invalidUserError.bind(this);
-        this.validateUrl = this.validateUrl.bind(this);
-    };
+	private profileTester: any;
+	private profileTesterRef: any;
 
-    updateUrl = (url: string) => {
-        this.setState({url: url.trim()});
-    };
+	protected constructor(props: IUpdateProfilePicBarProps) {
+		super(props);
+		this.state = {
+			url: "",
+			error: ""
+		};
+		this.updateUrl = this.updateUrl.bind(this);
+		this.updateButtonOnClick = this.updateButtonOnClick.bind(this);
+		this.invalidUserError = this.invalidUserError.bind(this);
+		this.updateProfileSuccess = this.updateProfileSuccess.bind(this);
+		this.updateProfileFail = this.updateProfileFail.bind(this);
+		this.updateButtonOnClick = this.updateButtonOnClick.bind(this);
+	};
 
-    private validateUrl(): Promise<boolean> {
-        if (!(this.state.url.includes("http://", 0) || this.state.url.includes("https://"))) {
-            return new Promise<boolean>(function(resolve, reject) {
-                resolve(false);
-            });
-        }
-        return fetch(this.state.url)
-            .then(res => {
-                return res.status === 200
-            })
-            .catch(() => {
-                return false;
-            })
-    }
+	private updateUrl(url: string): void {
+		this.setState({url: url.trim()});
+	};
 
-    private invalidUserError(message: string) {
-        this.setState({error: message});
-    }
+	private updateProfileSuccess(): void {
+		if (this.state.url) {
+			this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
+			this.props.onComplete();
+		}
+	}
 
-    updateButtonOnClick = (callback: () => void) => {
-        this.validateUrl()
-            .then(res => {
-                if (res) {
-                    this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
-                    this.props.onComplete();
-                    callback();
-                } else {
-                    this.setState({
-                        error: "Invalid URL"
-                    }, callback)
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
-    };
+	private updateProfileFail(): void {
+		if (this.state.url) {
+			this.setState({error: "Invalid URL"});
+		}
+	}
 
-    public render() {
-        return <div className={"update_profile_pic_bar"}>
-            <div className="error-message flex-column-center">
-                {this.state.error}
-            </div>
-            <div className={"update_profile_pic_input"}>
-                <TextInput
-                    defaultText={"Enter profile picture URL here"}
-                    submit={this.updateUrl}
-                />
-            </div>
-            <div className={"update_profile_pic_button"}>
-                <TextButton
-                    text={"Update"}
-                    width={100}
-                    onAction={this.updateButtonOnClick}
-                />
-            </div>
-        </div>
-    };
+	private invalidUserError(message: string): void {
+		this.setState({error: message});
+	}
+
+	private updateButtonOnClick(callback: () => void): void {
+		// validate URL
+		this.profileTesterRef.src = this.state.url;
+		callback();
+	};
+
+	public render() {
+		return (
+			<div className={"update_profile_pic_bar"}>
+				<div className="error-message flex-column-center" style={{color: "red"}}>
+					{this.state.error}
+				</div>
+				<div className={"update_profile_pic_input"}>
+					<TextInput
+						defaultText={"Enter profile picture URL here"}
+						submit={this.updateUrl}
+					/>
+				</div>
+				<div className={"update_profile_pic_button"}>
+					<TextButton
+						text={"Update"}
+						width={100}
+						onAction={this.updateButtonOnClick}
+					/>
+				</div>
+                <div style={{visibility: "hidden"}}>
+					<img
+						src={""}
+						alt={""}
+						onLoad={this.updateProfileSuccess}
+						onError={this.updateProfileFail}
+						ref={(ref) => {this.profileTesterRef = ref; }}
+					/>
+                </div>
+			</div>
+		)
+	};
 }
 
 export interface IUpdateProfilePicBarProps extends IEnhancedComponentProps {
-    onComplete?: any;
+	onComplete?: any;
 }
 
 export interface IUpdateProfilePicBarState extends IEnhancedComponentState {
-    url: string;
-    error: string;
+	url: string;
+	error: string;
 }
 
 // @ts-ignore

@@ -8,26 +8,26 @@ import menuIcon from "../icons/menu.png";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
 import { unselectGenre } from "src/redux/actions/roomActions";
+import {RoundImageButton} from "./index";
 
 class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
     public static defaultProps: IHeaderProps = {
         ...EnhancedComponent.defaultProps,
-        sidebarOpen: true
     }
 
     public static mapStateToProps:(state: IStore, props: IHeaderProps) => IHeaderProps = (state: IStore, props: IHeaderProps) => {
         return {
             ...props,
-            profileImgSrc: state.userStore.profileImgSrc,
             sidebarOpen: state.sidebarStore.sidebarOpen,
+            profileImgSrc: state.userStore.profileImgSrc,
         };
     }
 
     protected constructor(props: IHeaderProps) {
         super(props);
         this.state = {
-            sidebarOpen: true
+            ...this.state,
         };
     }
 
@@ -54,11 +54,10 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
                     </div>
                 </div>
                 <div className="header-right">
-                    <ImageButton
+                    <RoundImageButton
                         src={this.props.profileImgSrc || profilePlaceholder}
                         width={40}
                         height={40}
-                        buttonColour="white"
                         onAction={this.props.onProfileClick}
                     />
                 </div>
@@ -69,7 +68,7 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
 
 export interface IHeaderProps extends IEnhancedComponentProps {
     profileImgSrc?: string,
-    sidebarOpen: boolean,
+    sidebarOpen?: boolean,
     onProfileClick?: (callback: () => void) => void;
     onMenuClick?: (callback: () => void) => void;
     onLogoClick?: (callback: () => void) => void;
