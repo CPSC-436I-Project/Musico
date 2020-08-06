@@ -1,12 +1,11 @@
-import {IChatRoomStore, IPopUpStore, ISongListStore, IUserStore, ISidebarStore, IMusicSidebarStore} from "./stores";
+import {IRoomStore, IPopUpStore, IUserStore, ISidebarStore, IMusicSidebarStore} from "./stores";
 import profilePlaceholder from "../icons/profile-placeholder.png";
-import {defaultSongs} from "../utility/songs";
+import {defaultSong} from "../utility/songs";
 
 export interface IStore {
 	popupStore: IPopUpStore;
-	chatRoomStore: IChatRoomStore;
+	roomStore: IRoomStore;
 	userStore: IUserStore;
-	songListStore: ISongListStore;
 	sidebarStore: ISidebarStore;
 	musicSidebarStore: IMusicSidebarStore;
 }
@@ -18,22 +17,22 @@ export default {
 	popupStore: {
 		popupOpen: false,
 	},
-	chatRoomStore: {
+	roomStore: {
 		selectedGenre: null,
 		messages: [],
+		queue: [defaultSong],
+		currentlyPlaying: defaultSong,
+		startTime: null
 	},
 	userStore: {
 		userId: null,
 		username: null,
 		email: null,
 		profileImgSrc: profilePlaceholder,
-		requests: null,
-		likedSongs: null,
-		favouriteGenres: null,
+		requests: [],
+		likedSongs: [],
+		favouriteGenres: [],
 		channels: null,
-	},
-	songListStore: {
-		songs: defaultSongs
 	},
 	sidebarStore: {
 		sidebarOpen: true

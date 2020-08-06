@@ -7,8 +7,6 @@
 var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
-const Chat = require('../mongoDB/models/chatModel');
-const { getIdFromToken } = require('../authenticate');
 
 /**
  * Get port from environment and store in Express.
@@ -23,63 +21,19 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
-var socketmap = {};
-
 /**
  * Setup Socket
  */
 const io = require("socket.io")(server);
-io.on("connection", socket => {
 
-  // join a room, a room is available for every genre.
-  // The chat component connects the socket to the genre's room
-  socket.on("join", ({genre}, callback) => {
-    // join the room
-    socket.join(genre);
-    // store the socketid mapped to the userid
-    socketmap[socket.id] = genre;
-    // call the callback
-    if (typeof(callback) === "function") {
-      callback();
-    }
-  });
+io.on("connect", socket => {
 
-  socket.on("message", async (data, callback) => {
-    const id = getIdFromToken(data.token);
+  require('../socket/chat')(socket, io);
+  require('../socket/queue')(socket, io);
+  require('../socket/room')(socket, io);
 
-    if (id !== null && id === data.userId) {
-      console.log(data.username);
-      const newMessage = {
-        user: data.userId,
-        username: data.username,
-        message: data.message
-      };
-      // store the message in Mongodb
-      var messages = await Chat.findOne({channel: socketmap[socket.id]})
-        .then(chats => chats["messages"])
-        .catch(err => {console.log(err)});
+  return io;
 
-      messages.push(newMessage);
-
-      Chat.findOneAndUpdate({channel: socketmap[socket.id]}, {messages: messages})
-        .then(chatMessages => {
-          // use the socketmap to get the genre for that socket, 
-          // and post message to that genre
-          io.to(socketmap[socket.id]).emit("newMessage", newMessage);
-          // callback
-          callback();
-        })
-        .catch(err => console.log('Error: ' + err));
-    }
-  });
-
-  socket.on("disconnect", (data, callback) => {
-    console.log("disconnect called", socket.id);
-    // remove socket from socketmap
-    delete socketmap[socket.id];
-    // call the callback
-    //callback();
-  });
 });
 
 /**

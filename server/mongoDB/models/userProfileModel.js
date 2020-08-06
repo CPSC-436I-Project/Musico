@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+// const uniqueArrayItems =  require('mongoose-unique-array');
 const Schema = mongoose.Schema;
 
 
@@ -29,13 +30,12 @@ const userProfileSchema = new Schema({
     },
     favouriteGenres: {
         type: [String],
-        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"]
-    },
-    channels: {
-        type: [String],
-        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"]
+        enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
+            "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
+        // unique: true
     }
 });
 
+// userProfileSchema.plugin(uniqueArrayItems);
 let UserProfile = mongoose.model("UserProfile", userProfileSchema);
 module.exports = UserProfile;

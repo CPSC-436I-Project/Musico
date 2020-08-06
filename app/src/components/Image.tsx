@@ -39,8 +39,8 @@ class Image extends EnhancedComponent<IImageProps, IImageState> {
 export interface IImageProps extends IEnhancedComponentProps{
 	name?: string;
 	path: string;
-	width?: number;
-	height?: number;
+	width?: number | string;
+	height?: number | string;
 	className?: string;
 	rounded?: boolean;
 	backgroundColour?: string;

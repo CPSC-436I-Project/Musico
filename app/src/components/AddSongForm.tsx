@@ -6,10 +6,11 @@ import {TextInput} from "./TextInput";
 import {decodeHTML, GenreEnum, genreIDMap, Image, youtubeQuery} from "./index";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
-import {ISongListObject} from "../utility/songs";
 import "./css/AddSongForm.css";
 import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
+import moment from 'moment';
+import { updateRequestedSongs } from "src/redux/actions/userActions";
 
 class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState> {
 
@@ -20,9 +21,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	public static mapStateToProps: (state: IStore, props: IAddSongFormProps) => IAddSongFormProps = (state: IStore, props: IAddSongFormProps) => {
 		return {
 			...props,
-			selectedGenre: state.chatRoomStore.selectedGenre,
-			username: state.userStore.username,
-			songList: state.songListStore.songs
+			selectedGenre: state.roomStore.selectedGenre,
+			username: state.userStore.username
 		};
 	}
 
@@ -47,7 +47,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	};
 
 	private addSongSender(callback: () => void) {
-		let videoList: any[] = [];
+		let videoList: any[];
 		youtubeQuery("search", {
 			part: "snippet",
 			maxResults: AddSongForm.NUM_SEARCH_RESULTS,
@@ -60,7 +60,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 		}).then((res) => {
 			videoList = res.items || [];
 			return youtubeQuery("videos", {
-				part: "topicDetails",
+				part: "topicDetails,contentDetails",
 				id: res.items.map((k: any) => k.id.videoId).join(","),
 			});
 		}).then((res) => {
@@ -69,8 +69,13 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					videoList[i].genreCategories = Array.from(new Set(res.items[i].topicDetails.relevantTopicIds
 						.map((k: string) => genreIDMap[k])
 						.filter((k: string) => !!k)))
-
-					if (!videoList[i].genreCategories || videoList[i].genreCategories.length === 0) {
+					videoList[i].duration = moment.duration(res.items[i].contentDetails.duration).asSeconds();
+					if (
+						!videoList[i].genreCategories ||
+						videoList[i].genreCategories.length === 0 ||
+						!videoList[i].genreCategories.includes(this.props.selectedGenre)
+						// TODO: Remove if song already in DB
+					) {
 						res.items.splice(i, 1);
 						videoList.splice(i, 1);
 						i -= 1;
@@ -88,17 +93,26 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	}
 
 	private renderVideoObject(video: any): ReactNode {
+		video.snippet.title = decodeHTML(video.snippet.title);
 		return (
 			<div key={video.id.videoId} className={"flex-row"}>
 				<Image
 					path={video.snippet.thumbnails.high.url}
+					height={140}
+					width={250}
 				/>
 				<div className={"flex-column-center"} style={{width: "100%"}}>
-					<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
-						<h2>{decodeHTML(video.snippet.title)}</h2></a>
-					<p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
+					<div className="song-info">
+						<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
+							<h3>{video.snippet.title}</h3>
+						</a>
+						<p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
+					</div>
 					<TextButton
-						text={"Add to Queue"}
+						text={"Add to Queue"} bold={true}
+						buttonColour={"#6236FF"}
+						height={30}
+						width={140}
 						onAction={this.addSongToQueue(video)}
 					/>
 				</div>
@@ -108,7 +122,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 
 	private addSongToQueue(video: any): (callback: () => void) => void {
 		return (callback: () => void) => {
-			console.log(video);
 			const token = getCookie('auth-token');
 			fetch(API_URL + "songs/add", {
 				method: 'POST',
@@ -119,12 +132,12 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 				body: JSON.stringify({
 					albumCover: video.snippet.thumbnails.default.url,
 					numVotes: 1,
+					duration: video.duration,
 					songName: video.snippet.title,
 					genre: this.props.selectedGenre,
 					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
 				}),
-			})
-				.then(async res => {
+			}).then(async res => {
 					return {text: await res.text(), status: res.status}
 				})
 				.then((res) => {
@@ -132,6 +145,8 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 						console.log(res);
 					} else {
 						const newSong = JSON.parse(res.text);
+						console.log(newSong);
+						this.props.dispatch(updateRequestedSongs(newSong._id));
 						this.props.addSong(newSong);
 					}
 					callback();
@@ -142,18 +157,24 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	public render(): ReactNode {
 		return (
 			<div className="add-song-form">
-				<h3>Search a song</h3>
-				<TextInput
-					defaultText="Enter a song title here"
-					submit={this.updateSongLink}
-				/>
-				<TextButton
-					text="Submit" bold={true}
-					buttonColour="#6236FF"
-					height={30}
-					width={90}
-					onAction={this.addSongSender}
-				/>
+				<h3>Search for a song</h3>
+				<div className="search-bar">
+					<span className="search-input">
+					<TextInput
+						defaultText="Enter a song title here"
+						submit={this.updateSongLink}
+					/>
+					</span>
+					<div className="submit-button">
+					<TextButton
+						text="Submit" bold={true}
+						buttonColour="#6236FF"
+						height={30}
+						width={90}
+						onAction={this.addSongSender}
+					/>
+					</div>
+				</div>
 				<div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
 					{this.state.videoList.map(this.renderVideoObject)}
 				</div>
@@ -166,7 +187,6 @@ export interface IAddSongFormProps extends IEnhancedComponentProps {
 	addSong?: (song: any) => void;
 	selectedGenre?: GenreEnum | null;
 	username?: string | null;
-	songList?: ISongListObject;
 }
 
 export interface IAddSongFormState extends IEnhancedComponentState {

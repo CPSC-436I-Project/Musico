@@ -10,19 +10,21 @@ import {ReactNode} from "react";
 class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicPlayerQueueState> {
     public static defaultProps: IMusicPlayerQueueProps = {
         ...EnhancedComponent.defaultProps,
-        queue: []
+        queue: [],
+        voteCompletionHandler: () => {}
     }
 
     protected constructor(props: IMusicPlayerQueueProps) {
         super(props);
     }
 
-    private static createSongElement(song: any): ReactNode {
+    private static createSongElement(song: any, voteCompletionHandler: any): ReactNode {
         return(
             <div key={song._id} className={"flex-row"}>
                 <VoteButtonsContainer
                     rating={song.numVotes}
                     songId={song._id}
+                    voteCompletionHandler={voteCompletionHandler}
                 />
                 <SongInfoContainer
                     songName={song.songName}
@@ -46,25 +48,16 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
                     <h2>Queue</h2>
                 </div>
                 <div className={"queue-items center-mid"}>
-                    {this.props.queue.map(MusicPlayerQueue.createSongElement)}
+                    {this.props.queue.sort((a, b) => b.numVotes - a.numVotes).map(x => MusicPlayerQueue.createSongElement(x, this.props.voteCompletionHandler))}
                 </div>
             </div>
         )
     }
 }
 
-interface Song {
-    _id: any,
-    songName: string,
-    genre: string,
-    src: string,
-    requesterID: any,
-    albumCover: string,
-    numVotes: number
-}
-
 export interface IMusicPlayerQueueProps extends IEnhancedComponentProps {
-    queue: any[]
+    queue: any[],
+    voteCompletionHandler?: () => void
 }
 
 export interface IMusicPlayerQueueState extends IEnhancedComponentState {

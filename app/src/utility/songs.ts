@@ -1,64 +1,22 @@
 import {GenreEnum} from "../components";
 
 export interface ISongInterface {
-    link: string;
-    voteCount: number;
-    submittor: string;
+    songName: string,
+    genre: GenreEnum,
+    src: string,
+    duration: number,
+    requesterID: any,
+    albumCover: string,
+    numVotes: number
 }
 
-// export type ISongListMap<GenreEnum, ISongInterface[]>;
 
-export type ISongListObject = {
-    [key in GenreEnum]: ISongInterface[];
+export const defaultSong: ISongInterface = {
+    songName: "default",
+    genre: GenreEnum.POP,
+    src: "",
+    duration: 10,
+    requesterID: "",
+    albumCover: "",
+    numVotes: 0
 }
-
-export const defaultSongs: ISongListObject = {
-    [GenreEnum.ASIAN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.BLUES]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.CHILDREN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ], 
-    [GenreEnum.CHRISTIAN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.CLASSICAL]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.COUNTRY]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.ELECTRONIC]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.HIP_HOP]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.INDEPENDENT]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.JAZZ]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.LATIN_AMERICAN]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.OTHER]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.POP]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.REGGAE]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ],
-    [GenreEnum.ROCK]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ], 
-    [GenreEnum.SOUL]: [
-        {link: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", voteCount: 1, submittor: "default"}
-    ], 
-};

@@ -104,8 +104,6 @@ router.get('/getFromToken', verifyToken, async (req, res) => {
 
 router.get('/username/:id', verifyToken, async (req, res) => {
     const user = await UserProfile.findById(req.params.id);
-    console.log("IM HERE")
-    console.log(user);
     if (user !== undefined && user !== null) {
         res.json({id: user._id, username: user.username, profilePicture: user.profilePicture});
     } else {
@@ -121,6 +119,40 @@ router.patch('/updateProfilePic', verifyToken, (req, res) => {
         .catch(() => {
             return res.status(400).send('Invalid user');
         })
+});
+
+router.patch('/updateLikedGenres', verifyToken, (req, res) => {
+    UserProfile.findById(req.user._id)
+        .then(user => user.favouriteGenres)
+        .then((likedGenres) => {
+            let origLen = likedGenres.length;
+            let modGenres = likedGenres.filter(genre => genre !== req.body.genre);
+            let modLen = modGenres.length;
+            if (origLen === modLen) {
+                return UserProfile.findOneAndUpdate({_id: req.user._id},
+                    {$push: {favouriteGenres: req.body.genre}},
+                    {new: true, useFindAndModify: false})
+                    .then((response) => {
+                        return res.send(response.favouriteGenres);
+                    })
+                    .catch((err) => {
+                        return res.status(400).send('Invalid user');
+                    })
+            } else {
+                return UserProfile.findOneAndUpdate({_id: req.user._id},
+                    {favouriteGenres: modGenres},
+                    {new: true, useFindAndModify: false})
+                    .then((response) => {
+                        return res.send(response.favouriteGenres);
+                    })
+                    .catch((err) => {
+                        return res.status(400).send('Invalid user');
+                    })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        });
 });
 
 module.exports = router;

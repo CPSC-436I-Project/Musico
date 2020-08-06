@@ -2,6 +2,7 @@ import {Button} from "./buttons/Button";
 import {TextButton} from "./buttons/TextButton";
 import {ExpandableButton} from "./buttons/ExpandableButton";
 import AddSongForm from "./AddSongForm";
+import {RoundImageButton} from "./buttons/RoundImageButton";
 import {EnhancedComponent} from "./EnhancedComponent";
 import Header from "./Header";
 import {Image} from "./Image";
@@ -24,9 +25,9 @@ enum GenreEnum {
 	COUNTRY = "Country",
 	ELECTRONIC = "Electronic",
 	HIP_HOP = "Hip-Hop",
-	INDEPENDENT = "Independent",
+	INDEPENDENT = "Indie",
 	JAZZ = "Jazz",
-	LATIN_AMERICAN = "Latin American",
+	LATIN = "Latin",
 	OTHER = "Other",
 	POP = "Pop",
 	REGGAE = "Reggae",
@@ -45,7 +46,7 @@ const genreIDMap: { [key: string]: GenreEnum } = {
 	"/m/0glt670": GenreEnum.HIP_HOP,		// Hip Hop music
 	"/m/05rwpb": GenreEnum.INDEPENDENT,		// Independent music
 	"/m/03_d0": GenreEnum.JAZZ,				// Jazz music
-	"/m/0g293": GenreEnum.LATIN_AMERICAN,	// Latin American music
+	"/m/0g293": GenreEnum.LATIN,			// Latin American music
 	"/m/04rlf": GenreEnum.OTHER,			// Other music
 	"/m/064t9": GenreEnum.POP,				// Pop music
 	"/m/06cqb": GenreEnum.REGGAE,			// Reggae music
@@ -74,18 +75,9 @@ function decodeHTML(snippet: string) {
 	return txt.value;
 }
 
-export interface Song {
-	songName: string,
-	genre: string,
-	src: string,
-	requesterID: any,
-	albumCover: string,
-	numVotes: number
-}
-
 export {
 	GenreEnum, ExpansionState,
-	Button, TextButton, ExpandableButton,
+	Button, TextButton, ExpandableButton, RoundImageButton,
 	AddSongForm, EnhancedComponent, Header, Image, MusicSidebar, Sidebar, TextInput,
 	youtubeQuery, decodeHTML,
 	genreIDMap,

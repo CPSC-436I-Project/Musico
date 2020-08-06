@@ -1,9 +1,10 @@
 import {UserEnum} from "../reducers/userReducer";
 import {API_URL} from "src/utility/constants";
 import {setCookie, getCookie, deleteCookie} from "src/utility/cookies";
+import {GenreEnum} from "../../components";
 
 export const setUser = (id: string, username: string, email: string, profilePicture: string,
-                        requests: string[], likedSongs: string[], favouriteGenres: string[], channels: string[]) => {
+                        requests: string[], likedSongs: string[], favouriteGenres: GenreEnum[], channels: string[]) => {
     return {
         type: UserEnum.SET_USER,
         userId: id,
@@ -41,6 +42,13 @@ export const updateUser = (url: string, errorCallback: (message: string) => void
     }
 };
 
+export const updateRequestedSongs = (song: string) => {
+    return {
+        type: UserEnum.UPDATE_REQUEST_SONG,
+        song: song
+    }
+};
+
 export const receiveUserUpdate = (url: string) => {
     return {
         type: UserEnum.UPDATE_USER_RECEIVE,
@@ -48,12 +56,35 @@ export const receiveUserUpdate = (url: string) => {
     }
 };
 
-export const invalidUserUpdate = (url: string) => {
-    return {
-        type: UserEnum.INVALID_USER_UPDATE,
-        profilePicture: url
+
+export const likeGenre = (genre: string) => {
+    return (dispatch: any) => {
+        const token = getCookie('auth-token');
+        return fetch(API_URL + "userprofiles/updateLikedGenres", {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json', 'auth-token': token},
+            body: JSON.stringify({genre: genre})
+        })
+            .then(async response => {
+                return {text: await response.text(), status: response.status}
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    dispatch(receiveLikedGenres(JSON.parse(res.text)));
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
-}
+};
+
+export const receiveLikedGenres = (genreList: string[]) => {
+    return {
+        type: UserEnum.LIKE_GENRE,
+        genres: genreList
+    }
+};
 
 export const resetUser = () => {
     return {

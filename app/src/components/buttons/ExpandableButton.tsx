@@ -11,6 +11,7 @@ class ExpandableButton extends Button<IExpandableButtonProps, IExpandableButtonS
 		...Button.defaultProps,
 		text: "",
 		child: <div/>,
+		fontColour: "#222",
 	}
 
 	private readonly buttonVariant: Variants = {
@@ -56,7 +57,8 @@ class ExpandableButton extends Button<IExpandableButtonProps, IExpandableButtonS
 					height: "100%"
 				}}
 			>
-				<p>{this.state.text}</p>
+				<p style={{color: this.props.fontColour}}>{this.state.text}</p>
+
 				<motion.div
 					initial={{height: 0, opacity: 0}}
 					animate={{
@@ -77,6 +79,7 @@ class ExpandableButton extends Button<IExpandableButtonProps, IExpandableButtonS
 
 export interface IExpandableButtonProps extends IButtonProps {
 	text?: string;
+	fontColour?: string;
 	child?: ReactNode;
 }
 

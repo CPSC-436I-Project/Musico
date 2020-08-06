@@ -2,11 +2,11 @@ import * as React from "react";
 import {ReactNode} from "react";
 import "./Container.css";
 import {PopupContainer} from "./PopupContainer";
-import {hidePopUp, showPopUp} from "../redux/actions";
+import {hidePopUp, hideSidebar, showPopUp, showSidebar} from "../redux/actions";
 import {IStore} from "../redux/initialStore";
 import {PageEnum} from "./index";
+import { GenreEnum } from "src/components";
 import {Header, Sidebar} from "../components";
-import profilePlaceholder from "../icons/profile-placeholder.png";
 
 abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S extends IContainerState = IContainerState> extends React.PureComponent<P, S> {
 
@@ -21,7 +21,8 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		return {
 			...props,
 			popupOpen: state.popupStore.popupOpen,
-			selectedGenre: state.chatRoomStore.selectedGenre,
+			selectedGenre: state.roomStore.selectedGenre,
+			sidebarOpen: state.sidebarStore.sidebarOpen,
 		};
 	}
 
@@ -34,7 +35,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 		this.state = {
 			popupOpen: false,
 			profileOpen: false,
-			sidebarOpen: true,
+			sidebarOpen: this.props.sidebarOpen,
 			musicSidebarOpen: true,
 		};
 
@@ -66,9 +67,14 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 	}
 
 	private onMenuClick(callback: () => void) {
-		// TODO: add sidebar state to redux
-		this.setState({sidebarOpen: !this.state.sidebarOpen});
-		callback();
+		this.setState({sidebarOpen: !this.state.sidebarOpen}, () => {
+			if (this.state.sidebarOpen) {
+				this.props.dispatch(showSidebar());
+			} else {
+				this.props.dispatch(hideSidebar());
+			}
+			callback();
+		});
 	}
 
 	private logoClick(callback: () => void) {
@@ -82,7 +88,6 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 				<div className={"fill-container"}>
 					{this.props.showHeader && <div id={"dashboard_upper"}>
 						<Header
-							profileImgSrc={profilePlaceholder}
 							onProfileClick={this.toggleProfile}
 							onMenuClick={this.onMenuClick}
 							onLogoClick={this.logoClick}
@@ -90,7 +95,7 @@ abstract class Container <P extends (IContainerProps & {}) = IContainerProps, S 
 					</div>}
 					<div className={"container-contents"}>
 						{(this.props.showSidebar && this.state.sidebarOpen) &&
-						<div id={"dashboard_sidebar"}>
+						<div className={"dashboard_sidebar dashboard_lower"}>
 							<Sidebar changePage={this.props.changePage}/>
 						</div>}
 						<div className={"fill-container"}>
@@ -113,7 +118,7 @@ export interface IContainerProps {
 	musicSidebarOpen?: boolean;
 	dispatch?: any;
 	changePage?: (page: PageEnum) => void;
-	selectedGenre?: string;
+	selectedGenre?: GenreEnum | null;
 	showHeader?: boolean;
 	showSidebar?: boolean;
 }
