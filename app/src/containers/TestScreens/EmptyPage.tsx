@@ -5,11 +5,11 @@ import {Container} from "../Container";
 
 class EmptyPage extends Container {
 
-	public render(): ReactNode {
-		return (
-			<div/>
-		);
-	}
+    public render(): ReactNode {
+        return (
+            <div/>
+        );
+    }
 }
 
 export {EmptyPage};

@@ -11,12 +11,9 @@ class ImageButtonTest extends Container<IImageButtonTestProps, IImageButtonTestS
 
     protected constructor(props: IImageButtonTestProps) {
         super(props);
-        this.state = {};
-
     }
 
     private static imageButtonCallback(callback: () => void): void {
-        console.log("Image Button clicked");
         callback();
     }
 
@@ -47,11 +44,9 @@ class ImageButtonTest extends Container<IImageButtonTestProps, IImageButtonTestS
 }
 
 export interface IImageButtonTestProps extends IContainerProps {
-
 }
 
 export interface IImageButtonTestState extends IContainerState {
-
 }
 
 export {ImageButtonTest};

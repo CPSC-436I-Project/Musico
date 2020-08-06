@@ -24,11 +24,9 @@ class ChatTest extends Container<IChatTestProps, IChatTestState> {
 }
 
 export interface IChatTestProps extends IContainerProps {
-
 }
 
 export interface IChatTestState extends IContainerState {
-
 }
 
 export {ChatTest};

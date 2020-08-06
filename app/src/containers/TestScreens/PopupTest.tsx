@@ -11,12 +11,12 @@ class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
         ...Container.defaultProps,
     };
 
-    public static mapStateToProps:(state: IStore, props: IMainContainerProps) => IMainContainerProps = (state: IStore, props: IMainContainerProps) => {
+    public static mapStateToProps: (state: IStore, props: IMainContainerProps) => IMainContainerProps = (state: IStore, props: IMainContainerProps) => {
         return {
             ...props,
             ...Container.mapStateToProps(state, props),
         };
-    }
+    };
 
     protected constructor(props: IMainContainerProps) {
         super(props);
@@ -42,11 +42,9 @@ class PopupTest extends Container<IMainContainerProps, IMainContainerState> {
 }
 
 export interface IMainContainerProps extends IContainerProps {
-
 }
 
 export interface IMainContainerState extends IContainerState {
-
 }
 
 // @ts-ignore
