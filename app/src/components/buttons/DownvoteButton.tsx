@@ -11,7 +11,7 @@ class DownvoteButton extends Button<IDownvoteButtonProps, IDownvoteButtonState> 
         buttonHoverColour: "transparent",
         buttonFocusedColour: "transparent",
         width: 20,
-    }
+    };
 
     protected constructor(props: IDownvoteButtonProps) {
         super(props);
@@ -28,11 +28,9 @@ class DownvoteButton extends Button<IDownvoteButtonProps, IDownvoteButtonState> 
 }
 
 export interface IDownvoteButtonProps extends IButtonProps {
-
 }
 
 export interface IDownvoteButtonState extends IButtonState {
-
 }
 
 export {DownvoteButton};

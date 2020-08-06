@@ -6,37 +6,37 @@ import {Image} from "../";
 
 class RoundImageButton extends Button<IRoundImageButtonProps, IRoundImageButtonState> {
 
-	public static defaultProps: IRoundImageButtonProps = {
-		...Button.defaultProps,
-		height: 40,
-		width: 40,
-		src: "",
-		buttonColour: "transparent",
-		buttonFocusedColour: "transparent",
-	};
+    public static defaultProps: IRoundImageButtonProps = {
+        ...Button.defaultProps,
+        height: 40,
+        width: 40,
+        src: "",
+        buttonColour: "transparent",
+        buttonFocusedColour: "transparent",
+    };
 
-	protected constructor(props: IRoundImageButtonProps) {
-		super(props);
-		this.state = {
-			...this.state,
-			pressed: false,
-		};
-	}
+    protected constructor(props: IRoundImageButtonProps) {
+        super(props);
+        this.state = {
+            ...this.state,
+            pressed: false,
+        };
+    }
 
-	public render(): ReactNode {
-		return (
-			<Image
-				path={this.props.src}
-				width={this.props.width}
-				height={this.props.height}
-				rounded={true}
-			/>
-		);
-	}
+    public render(): ReactNode {
+        return (
+            <Image
+                path={this.props.src}
+                width={this.props.width}
+                height={this.props.height}
+                rounded={true}
+            />
+        );
+    }
 }
 
 export interface IRoundImageButtonProps extends IButtonProps {
-	src: string;
+    src: string;
 }
 
 export interface IRoundImageButtonState extends IButtonState {
