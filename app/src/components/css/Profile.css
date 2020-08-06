@@ -68,11 +68,11 @@
     white-space: nowrap;
 }
 
-.profile_song_description{
+.profile_song_description {
     font-size: 20px;
     font-family: "Roboto", sans-serif;
     font-weight: 500;
-    margin: 10px 0px 0px 20px;
+    margin: 10px 0 0 20px;
 }
 
 .profile_song_info_container {

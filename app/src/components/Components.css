@@ -107,19 +107,6 @@
     width: 300px;
 }
 
-.queue-header {
-    background-color: #242424;
-    color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: space-around;
-    flex-grow: 1;
-    margin-left: 10px;
-}
-
 .queue-items {
     display: flex;
     flex-direction: column;
