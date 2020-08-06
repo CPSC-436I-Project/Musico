@@ -116,7 +116,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
         return (
             <div className="profile">
                 <div className="profile-head">
-                    <Image path={this.props.profileImgSrc} width={170} height={170} rounded={true} backgroundColour={"#FFFFFF"}/>
+                    <Image path={this.props.profileImgSrc} width={170} height={170} rounded={true} backgroundColour={"transparent"}/>
                     <div className="profile-info">
                         <span className="username">
                             <h2>{this.props.username || "Unknown User"}</h2>
