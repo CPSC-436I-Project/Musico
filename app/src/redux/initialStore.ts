@@ -29,9 +29,9 @@ export default {
 		username: null,
 		email: null,
 		profileImgSrc: profilePlaceholder,
-		requests: null,
-		likedSongs: null,
-		favouriteGenres: null,
+		requests: [],
+		likedSongs: [],
+		favouriteGenres: [],
 		channels: null,
 	},
 	sidebarStore: {

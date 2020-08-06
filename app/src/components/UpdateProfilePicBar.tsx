@@ -3,9 +3,8 @@ import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {TextInput} from "./TextInput";
 import {TextButton} from "./buttons/TextButton";
-import {invalidUserUpdate, updateUser} from "../redux/actions/userActions";
+import {updateUser} from "../redux/actions/userActions";
 import {connect} from "react-redux";
-import profilePlaceholder from "../icons/profile-placeholder.png";
 import {IStore} from "../redux/initialStore";
 
 
@@ -65,7 +64,6 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
                     this.props.onComplete();
                     callback();
                 } else {
-                    this.props.dispatch(invalidUserUpdate(profilePlaceholder));
                     this.setState({
                         error: "Invalid URL"
                     }, callback)
