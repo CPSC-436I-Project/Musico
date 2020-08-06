@@ -41,6 +41,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 		};
 
 		this.divRef = React.createRef();
+		this.updateRect = this.updateRect.bind(this);
 	}
 
 	/**
@@ -48,6 +49,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 	 * If the message sender is not the current user then send GET request to server for avatar URL
 	 */
 	public componentDidMount() {
+		this.props.childRef(this);
 		if (this.state.isCurrentUser) {
 			this.setState({avatarURL: this.props.profileImgSrc});
 		} else {
@@ -70,12 +72,22 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 			})
 		}
 
+		this.updateRect();
+	}
+
+	public componentWillUnmount() {
+		this.props.childRef(undefined);
+	}
+
+	public updateRect(): void {
 		if (this.divRef.current && this.divRef.current.getBoundingClientRect) {
 			this.setState({divRect: this.divRef.current.getBoundingClientRect()});
 		}
 	}
 
+
 	public render(): ReactNode {
+		console.log(this.state.name, this.state.divRect);
 		const avatarBlock: any = <div className={"chat-message-user-info"}>
 			<Image
 				path={this.state.avatarURL}
@@ -88,10 +100,10 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 			<div
 				className={"chat-message-user-info-detailed"}
 				style={{
-					left: this.state.divRect.left,
-					right: this.state.divRect.right,
+					left: this.state.isCurrentUser ? this.state.divRect.right : this.state.divRect.left,
+					// bottom: this.state.divRect.bottom,
 					top: this.state.divRect.top,
-					bottom: this.state.divRect.bottom,
+					visibility: (this.state.divRect.top < 0 || this.state.divRect.top > 1080) ? "hidden" : "visible"
 				}}
 			>
 				<Image
@@ -141,6 +153,7 @@ export interface IChatMessageProps extends IEnhancedComponentProps {
 	message?: IMessageInterface;
 	userId?: string;
 	profileImgSrc?: string;
+	childRef?: (ref: ChatMessage) => void;
 }
 
 export interface IChatMessageState extends IEnhancedComponentState {
