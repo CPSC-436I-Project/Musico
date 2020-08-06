@@ -101,9 +101,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 				className={"chat-message-user-info-detailed"}
 				style={{
 					left: this.state.isCurrentUser ? this.state.divRect.right : this.state.divRect.left,
-					// bottom: this.state.divRect.bottom,
 					top: this.state.divRect.top,
-					visibility: (this.state.divRect.top < 0 || this.state.divRect.top > 1080) ? "hidden" : "visible"
 				}}
 			>
 				<Image

@@ -14,7 +14,7 @@
 
 .chat-message-user-info .chat-message-user-info-detailed {
     visibility: hidden;
-    width: 120px;
+    width: 0;
     background-color: white;
     color: #fff;
     text-align: center;
@@ -23,13 +23,15 @@
     position: absolute;
     z-index: 1;
 
-    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    /* Fade */
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: all 500ms ease-out;
+    transition-property: opacity, visibility, width;
 }
 
 .chat-message-user-info:hover .chat-message-user-info-detailed {
     visibility: visible;
+    width: 140px;
     opacity: 1;
 }
 
