@@ -11,7 +11,6 @@ import { IMessageInterface } from "src/utility/messages";
 import { getCookie } from "src/utility/cookies";
 import "./css/Chat.css";
 import ChatMessage from "./ChatMessage";
-import {PageEnum} from "../containers";
 
 var Filter = require('bad-words');
 

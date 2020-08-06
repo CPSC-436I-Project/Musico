@@ -10,7 +10,6 @@ import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
 import {IStore} from "../redux/initialStore";
 import {connect} from "react-redux";
-import {PageEnum} from "../containers";
 import {setSelectedGenre} from "../redux/actions";
 
 class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState> {
