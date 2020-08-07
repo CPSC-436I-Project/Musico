@@ -74,7 +74,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
                 }}
             >
                 <input
-                    className={"text_input unselectable"}
+                    className={"text_input"}
                     type={this.props.textType}
                     name={"text_input"}
                     placeholder={this.props.defaultText}
