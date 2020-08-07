@@ -65,9 +65,9 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 				text={genre}
 				key={genre}
 				onAction={this.switchRoom(genre)}
-				height={10}
-				width={genre.length * 8}
-				fontSize={8}
+				height={12}
+				width={genre.length * 9}
+				fontSize={10}
 				buttonColour={"#6236FF"}
 			/>
 		)
@@ -94,7 +94,6 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 				if (res.status !== 200) {
 					console.log("Error in fetching user info");
 				} else {
-					console.log(res.json.favouriteGenres);
 					this.setState({
 						avatarURL: res.json.profilePicture,
 						favouriteGenres: res.json.favouriteGenres || [],
@@ -144,7 +143,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
 					className={"chat-message-avatar"}
 				/>
 				<h4 style={{marginTop: 5, marginBottom: 5}}>{this.state.name}</h4>
-				<p style={{fontSize: 10, marginBottom: 5}}>
+				<p style={{fontSize: 12, marginBottom: 5}}>
 					{this.state.favouriteGenres.length > 0 ? "Favourite Genres:" : "This user has no favourite genres"}
 				</p>
 				{this.state.favouriteGenres.map(this.createFavGenreButtons)}
