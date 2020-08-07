@@ -11,7 +11,6 @@ export interface ISongInterface {
     _id?: string;
 }
 
-
 export const defaultSong: ISongInterface = {
     songName: "default",
     genre: GenreEnum.POP,

@@ -6,6 +6,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {verifyToken, createToken} = require('../authenticate');
 
+/**
+ * Get all user profiles
+ */
 router.get('/', verifyToken, (req, res) => {
     UserProfile.find()
         .then(profiles => {
@@ -16,6 +19,9 @@ router.get('/', verifyToken, (req, res) => {
         });
 });
 
+/**
+ * Validate a new user and add it's profile
+ */
 router.post('/register', async (req, res) => {
     // Validate
     const {error} = registerValidation(req.body);
@@ -57,6 +63,9 @@ router.post('/register', async (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * Validate a login and get the user's profile
+ */
 router.post('/login', async (req, res) => {
     // Validate
     const {error} = loginValidation(req.body);
@@ -88,6 +97,9 @@ router.post('/login', async (req, res) => {
     });
 });
 
+/**
+ * Auto-login a user from their authentication token and get their profile
+ */
 router.get('/getFromToken', verifyToken, async (req, res) => {
     const user = await UserProfile.findById(req.user._id);
     res.json({
@@ -102,6 +114,9 @@ router.get('/getFromToken', verifyToken, async (req, res) => {
     });
 });
 
+/**
+ * Get a user profile by ID
+ */
 router.get('/username/:id', verifyToken, async (req, res) => {
     const user = await UserProfile.findById(req.params.id);
     if (user !== undefined && user !== null) {
@@ -116,6 +131,9 @@ router.get('/username/:id', verifyToken, async (req, res) => {
     }
 });
 
+/**
+ * Update a user's profile picture
+ */
 router.patch('/updateProfilePic', verifyToken, (req, res) => {
     UserProfile.findOneAndUpdate({_id: req.user._id}, {profilePicture: req.body.profilePictureURL})
         .then(() => {
@@ -126,6 +144,9 @@ router.patch('/updateProfilePic', verifyToken, (req, res) => {
         })
 });
 
+/**
+ * Update a user's liked genres
+ */
 router.patch('/updateLikedGenres', verifyToken, (req, res) => {
     UserProfile.findById(req.user._id)
         .then(user => user.favouriteGenres)

@@ -59,7 +59,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
     }
 
     /**
-     * Set the top songs to the state
+     * Get the top voted song stored in the given queue and save it to state
      *
      * @param queue {string[]}
      * @private
