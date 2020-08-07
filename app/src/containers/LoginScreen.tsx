@@ -63,6 +63,10 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
         this.props.changePage(PageEnum.Dashboard);
     };
 
+    /**
+     * Check if cookie exists. If yes, then auto-login the user.		
+     * Otherwise render the Login Page.
+     */
     componentDidMount = () => {
         if (this.props.userId !== null) {
             this.userIsSet();
@@ -73,6 +77,9 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
         }
     };
 
+    /**
+     * If the user is set after updating the app layer, log them in.		
+     */
     componentDidUpdate = () => {
         if (this.props.userId) {
             this.userIsSet();
