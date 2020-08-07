@@ -9,7 +9,7 @@ router.get('/', verifyToken, (req, res) => {
             res.json(queues)
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         });
 });
 
@@ -19,7 +19,7 @@ router.get('/:genre', verifyToken, (req, res) => {
             res.json(queue["queue"])
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         })
 });
 

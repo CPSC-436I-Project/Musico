@@ -9,20 +9,20 @@ const UserProfile = require('../mongoDB/models/userProfileModel');
 router.get('/', verifyToken, (req, res) => {
     Song.find()
         .then(songs => {
-            res.json(songs)
+            res.json(songs);
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         });
 });
 
 router.get('/:id', verifyToken, (req, res) => {
     Song.findOne({_id: req.params.id})
         .then(song => {
-            res.json(song)
+            res.json(song);
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         })
 });
 
@@ -67,10 +67,10 @@ router.patch('/downvote/:id', verifyToken, async (req, res) => {
 router.get('/:songID', verifyToken, (req, res) => {
     Song.findOne({_id: req.params.songID})
         .then(song => {
-            res.json(song)
+            res.json(song);
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
         });
 });
 
@@ -101,9 +101,9 @@ router.post('/add', verifyToken, async (req, res) => {
                 {new: true, useFindAndModify: false},
                 (err, playlist) => {
                     if (err) {
-                        res.json('Error: ' + err)
+                        res.json('Error: ' + err);
                     } else {
-                        res.json(song)
+                        res.json(song);
                     }
                 }
             )
