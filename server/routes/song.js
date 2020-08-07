@@ -6,6 +6,9 @@ const Playlist = require('../mongoDB/models/playlistModel');
 const {verifyToken} = require('../authenticate');
 const UserProfile = require('../mongoDB/models/userProfileModel');
 
+/**
+ * Get all songs
+ */
 router.get('/', verifyToken, (req, res) => {
     Song.find()
         .then(songs => {
@@ -16,6 +19,9 @@ router.get('/', verifyToken, (req, res) => {
         });
 });
 
+/**
+ * Get a song by ID
+ */
 router.get('/:id', verifyToken, (req, res) => {
     Song.findOne({_id: req.params.id})
         .then(song => {
@@ -26,6 +32,9 @@ router.get('/:id', verifyToken, (req, res) => {
         })
 });
 
+/**
+ * Update a song when it get upvoted
+ */
 router.patch('/upvote/:id', verifyToken, async (req, res) => {
     let userLiked = await UserProfile.findById(req.user._id).then(user => user.likedSongs)
     if (!userLiked.includes(req.params.id)) {
@@ -45,6 +54,9 @@ router.patch('/upvote/:id', verifyToken, async (req, res) => {
     }
 });
 
+/**
+ * Update a song when it get downvoted
+ */
 router.patch('/downvote/:id', verifyToken, async (req, res) => {
     let userLiked = await UserProfile.findById(req.user._id).then(user => user.likedSongs)
     Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: -1}})
@@ -63,17 +75,9 @@ router.patch('/downvote/:id', verifyToken, async (req, res) => {
         });
 });
 
-
-router.get('/:songID', verifyToken, (req, res) => {
-    Song.findOne({_id: req.params.songID})
-        .then(song => {
-            res.json(song);
-        })
-        .catch(err => {
-            console.log(err);
-        });
-});
-
+/**
+ * Add a new song with 1 vote to the general song collection, the queue for the room it was added from and the user's list of requested songs
+ */
 router.post('/add', verifyToken, async (req, res) => {
     let song = await Song.findOne({src: req.body.src});
 

@@ -3,6 +3,9 @@ const router = express.Router();
 const Chat = require('../mongoDB/models/chatModel');
 const {verifyToken} = require('../authenticate');
 
+/**
+ * Get existing chat messages in a particular genre
+ */
 router.get('/:genre', verifyToken, (req, res) => {
     Chat.findOne({channel: req.params.genre})
         .then(chats => res.json(chats["messages"]))
@@ -11,6 +14,9 @@ router.get('/:genre', verifyToken, (req, res) => {
         })
 });
 
+/**
+ * Post a new message to a chat room
+ */
 router.post('/:genre', verifyToken, async (req, res) => {
     const newMessage = {
         user: req.user._id,
