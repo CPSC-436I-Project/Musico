@@ -63,8 +63,7 @@ router.post('/add', verifyToken, async (req, res) => {
     
     let song = await Song.findOne({src: req.body.src});
 
-    if (song === null || song === undefined) {
-
+    if (!song) {
         const newSong = new Song({
             songName: req.body.songName,
             genre: req.body.genre,
@@ -76,6 +75,8 @@ router.post('/add', verifyToken, async (req, res) => {
         });
 
         song = await newSong.save();
+    } else {
+        await Song.findByIdAndUpdate(song._id, {numVotes: 1});
     }
 
     return Queue.findOneAndUpdate(

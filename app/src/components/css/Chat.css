@@ -32,3 +32,7 @@
     padding-bottom: 10px;
     background: linear-gradient(180deg,hsla(0, 0%, 9.4%,0),hsla(0, 0%, 9.4%,.5) 40%,hsla(0, 0%, 9.4%,1))
 }
+
+.chat .chat-input .main-button {
+    font-size: 14px;
+}
