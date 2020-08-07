@@ -4,6 +4,11 @@ const { getIdFromToken } = require('../authenticate');
 
 module.exports = function(socket, io) {
 
+  /**
+   * Called when a message is recieved.
+   * Emits a message to all sockets on the genre to update their messages.
+   * 
+   */
   socket.on("message", async (data, callback) => {
     const id = getIdFromToken(data.token);
 
