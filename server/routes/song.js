@@ -110,8 +110,8 @@ router.post('/add', verifyToken, async (req, res) => {
         })
         .then(() => {
             return UserProfile.findByIdAndUpdate(req.user._id, {
-                $push: {likedSongs: song._id},
-                $push: {requests: song._id}
+                $addToSet: {likedSongs: song._id},
+                $addToSet: {requests: song._id}
             })
         })
         .catch((err) => {

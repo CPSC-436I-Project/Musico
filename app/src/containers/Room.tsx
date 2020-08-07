@@ -130,6 +130,13 @@ class Room extends Container<IRoomProps, IRoomState> {
         }
     };
 
+    componentWillUnmount = () => {
+        socket.off("newMessage");
+        socket.off("updateQueue");
+        socket.off("updateQueueAndPlay");
+        socket.emit('disconnect');
+    }
+
     public render(): ReactNode {
         return (
             <div className="room">
