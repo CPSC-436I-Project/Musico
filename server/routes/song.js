@@ -59,45 +59,50 @@ router.get('/:songID', verifyToken, (req, res) => {
         .catch(err => {console.log(err)});
 });
 
-router.post('/add', verifyToken, (req, res) => {
-    const newSong = new Song({
-        songName: req.body.songName,
-        genre: req.body.genre,
-        src: req.body.src,
-        duration: req.body.duration,
-        requesterID: req.user._id,
-        albumCover: req.body.albumCover,
-        numVotes: req.body.numVotes
-    });
-    let songId = ""; 
-    newSong.save()
-        .then((song) => {
-            songId = song._id;
-            return Queue.findOneAndUpdate(
-                {channel: req.body.genre},
-                {$push: {queue: songId}})
-        })
-        .then(() => {
-            return Playlist.findOneAndUpdate(
-                {channel: req.body.genre},
-                {$push: {playlist: newSong}},
-                {new: true, useFindAndModify: false},
-                (err, playlist) => {
-                    if (err) {
-                        res.json('Error: ' + err)
-                    } else {
-                        res.json(newSong)
-                    }
-                }
-            )
-        })
-        .then(() => {
-            return UserProfile.findByIdAndUpdate(req.user._id, {$push: {likedSongs: songId}, $push: {requests: songId}})
-        })
-        .catch((err) => {
-            console.log(err);
-            res.json('Error: ' + err);
+router.post('/add', verifyToken, async (req, res) => {
+    
+    let song = await Song.findOne({src: req.body.src});
+
+    if (!song) {
+        const newSong = new Song({
+            songName: req.body.songName,
+            genre: req.body.genre,
+            src: req.body.src,
+            duration: req.body.duration,
+            requesterID: req.user._id,
+            albumCover: req.body.albumCover,
+            numVotes: req.body.numVotes
         });
+
+        song = await newSong.save();
+    } else {
+        await Song.findByIdAndUpdate(song._id, {numVotes: 1});
+    }
+
+    return Queue.findOneAndUpdate(
+            {channel: req.body.genre},
+            {$addToSet: {queue: song._id}})
+    .then(() => {
+        return Playlist.findOneAndUpdate(
+            {channel: req.body.genre},
+            {$addToSet: {playlist: song._id}},
+            {new: true, useFindAndModify: false},
+            (err, playlist) => {
+                if (err) {
+                    res.json('Error: ' + err)
+                } else {
+                    res.json(song)
+                }
+            }
+        )
+    })
+    .then(() => {
+        return UserProfile.findByIdAndUpdate(req.user._id, {$push: {likedSongs: song._id}, $push: {requests: song._id}})
+    })
+    .catch((err) => {
+        console.log(err);
+        res.json('Error: ' + err);
+    });
 })
 
 module.exports = router;
