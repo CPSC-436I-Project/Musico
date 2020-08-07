@@ -3,13 +3,17 @@ const router = express.Router();
 const Song = require('../mongoDB/models/songModel');
 const Queue = require('../mongoDB/models/queueModel');
 const Playlist = require('../mongoDB/models/playlistModel');
-const { verifyToken } = require('../authenticate');
+const {verifyToken} = require('../authenticate');
 const UserProfile = require('../mongoDB/models/userProfileModel');
 
 router.get('/', verifyToken, (req, res) => {
     Song.find()
-        .then(songs => {res.json(songs)})
-        .catch(err => {console.log(err)});
+        .then(songs => {
+            res.json(songs)
+        })
+        .catch(err => {
+            console.log(err)
+        });
 });
 
 router.get('/:id', verifyToken, (req, res) => {
@@ -17,7 +21,9 @@ router.get('/:id', verifyToken, (req, res) => {
         .then(song => {
             res.json(song)
         })
-        .catch(err => {console.log(err)})
+        .catch(err => {
+            console.log(err)
+        })
 });
 
 router.patch('/upvote/:id', verifyToken, async (req, res) => {
@@ -35,7 +41,7 @@ router.patch('/upvote/:id', verifyToken, async (req, res) => {
     } else {
         res.json("already upvoted!")
     }
-})
+});
 
 router.patch('/downvote/:id', verifyToken, async (req, res) => {
     let userLiked = await UserProfile.findById(req.user._id).then(user => user.likedSongs)
@@ -50,13 +56,17 @@ router.patch('/downvote/:id', verifyToken, async (req, res) => {
             res.status(400).json(err);
             console.log(err);
         });
-})
+});
 
 
 router.get('/:songID', verifyToken, (req, res) => {
     Song.findOne({_id: req.params.songID})
-        .then(song => {res.json(song)})
-        .catch(err => {console.log(err)});
+        .then(song => {
+            res.json(song)
+        })
+        .catch(err => {
+            console.log(err)
+        });
 });
 
 router.post('/add', verifyToken, (req, res) => {
@@ -69,7 +79,7 @@ router.post('/add', verifyToken, (req, res) => {
         albumCover: req.body.albumCover,
         numVotes: req.body.numVotes
     });
-    let songId = ""; 
+    let songId = "";
     newSong.save()
         .then((song) => {
             songId = song._id;
@@ -98,6 +108,6 @@ router.post('/add', verifyToken, (req, res) => {
             console.log(err);
             res.json('Error: ' + err);
         });
-})
+});
 
 module.exports = router;
