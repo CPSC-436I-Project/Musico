@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const queueSchema = new Schema({
     channel: {
         type: String,
-        enum: ["Blues", "Christian", "Classical", "Country", "Electronic", "Gaming", "Hip-Hop", "Jazz", "Pop", "Rap", "Reggae", "Rock"],
+        enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
+            "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
         required: true
     },
     queue: [

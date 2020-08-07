@@ -1,24 +1,26 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const songSchema = new Schema({
     songName: {
         type: String,
         required: true
     },
-    artists: {
-        type: [String],
-        required: true
-    },
     genre: {
         type: String,
+        enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
+            "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
         required: true
     },
     src: {
         type: String,
         required: true,
         index: {unique: true}
+    },
+    duration: {
+        type: Number,
+        required: true,
+        default: 100
     },
     requesterID: {
         type: mongoose.Types.ObjectId,

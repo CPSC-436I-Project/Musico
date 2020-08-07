@@ -1,45 +1,44 @@
-import {IChatRoomStore, IPopUpStore, ISongListStore, IUserStore, ISidebarStore, IMusicSidebarStore} from "./stores";
+import {IRoomStore, IPopUpStore, IUserStore, ISidebarStore, IMusicSidebarStore} from "./stores";
 import profilePlaceholder from "../icons/profile-placeholder.png";
-import {defaultSongs} from "../utility/songs";
+import {defaultSong} from "../utility/songs";
 
 export interface IStore {
-	popupStore: IPopUpStore;
-	chatRoomStore: IChatRoomStore;
-	userStore: IUserStore;
-	songListStore: ISongListStore;
-	sidebarStore: ISidebarStore;
-	musicSidebarStore: IMusicSidebarStore;
+    popupStore: IPopUpStore;
+    roomStore: IRoomStore;
+    userStore: IUserStore;
+    sidebarStore: ISidebarStore;
+    musicSidebarStore: IMusicSidebarStore;
 }
 
 /**
  * Initial values of redux state
  */
 export default {
-	popupStore: {
-		popupOpen: false,
-	},
-	chatRoomStore: {
-		selectedGenre: null,
-		messages: [],
-	},
-	userStore: {
-		userId: null,
-		username: null,
-		email: null,
-		profileImgSrc: profilePlaceholder,
-		requests: null,
-		likedSongs: null,
-		favouriteGenres: null,
-		channels: null,
-	},
-	songListStore: {
-		songs: defaultSongs
-	},
-	sidebarStore: {
-		sidebarOpen: true
-	},
-	musicSidebarStore: {
-		musicSidebarOpen: true,
-		selectedGenre: null,
-	}
+    popupStore: {
+        popupOpen: false,
+    },
+    roomStore: {
+        selectedGenre: null,
+        messages: [],
+        queue: [defaultSong],
+        currentlyPlaying: defaultSong,
+        startTime: null
+    },
+    userStore: {
+        userId: null,
+        username: null,
+        email: null,
+        profileImgSrc: profilePlaceholder,
+        requests: [],
+        likedSongs: [],
+        favouriteGenres: [],
+        channels: [],
+    },
+    sidebarStore: {
+        sidebarOpen: true
+    },
+    musicSidebarStore: {
+        musicSidebarOpen: true,
+        selectedGenre: null,
+    }
 };

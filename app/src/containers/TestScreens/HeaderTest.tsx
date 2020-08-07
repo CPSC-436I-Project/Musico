@@ -6,8 +6,7 @@ import profilePlaceholder from "../../icons/profile-placeholder.png";
 
 class HeaderTest extends Container<IHeaderTestProps, IHeaderTestState> {
 
-    public static defaultProps: IHeaderTestProps = {
-    };
+    public static defaultProps: IHeaderTestProps = {};
 
     protected constructor(props: IHeaderTestProps) {
         super(props);
@@ -16,8 +15,8 @@ class HeaderTest extends Container<IHeaderTestProps, IHeaderTestState> {
 
     public render(): ReactNode {
         return (
-            <div style={{width:'100vw'}}>
-                <Header profileImgSrc={profilePlaceholder} />
+            <div style={{width: '100vw'}}>
+                <Header profileImgSrc={profilePlaceholder}/>
             </div>
         );
     }

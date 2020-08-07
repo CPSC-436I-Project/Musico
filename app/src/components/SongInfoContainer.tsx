@@ -4,29 +4,26 @@ import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedCompon
 import {Image} from "./Image";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
 import "./css/Dashboard.css";
-
+import {ReactNode} from "react";
 
 class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISongInfoContainerState> {
+
     public static defaultProps: ISongInfoContainerProps = {
         ...EnhancedComponent.defaultProps,
         color: "#ffffff",
         songName: "default",
-        artists: ["artist1", "artist2"],
         albumCover: thumbnailPlaceholder,
+        width: 250,
+        height: 150,
     };
 
     protected constructor(props: ISongInfoContainerProps) {
         super(props);
     }
 
-    public render() {
-        let artistsString = "";
-
-        this.props.artists.map(artist => artistsString += ", " + artist);
-        let artists = artistsString.substring(2);
-
+    public render(): ReactNode {
         return (
-            <div className={"song-info-container"} style={{color: this.props.color, width: this.props.width}} >
+            <div className={"song-info-container"} style={{color: this.props.color, width: this.props.width}}>
                 <Image
                     path={this.props.albumCover || thumbnailPlaceholder}
                     name={"Album"}
@@ -34,7 +31,7 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
                     height={this.props.height}
                 />
                 <div className={"song-description-container"}>
-                    <p className={"song-description"}>{this.props.songName} <br/> {artists}</p>
+                    <p className={"song-description"}>{this.props.songName}</p>
                 </div>
             </div>
         )
@@ -46,7 +43,6 @@ export interface ISongInfoContainerProps extends IEnhancedComponentProps {
     width?: number,
     height?: number,
     songName?: string,
-    artists?: string[],
     albumCover?: string,
 }
 

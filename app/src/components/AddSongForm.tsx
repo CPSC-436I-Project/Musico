@@ -6,109 +6,146 @@ import {TextInput} from "./TextInput";
 import {decodeHTML, GenreEnum, genreIDMap, Image, youtubeQuery} from "./index";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
-import {ISongListObject} from "../utility/songs";
 import "./css/AddSongForm.css";
 import {API_URL} from "../utility/constants";
 import {getCookie} from "../utility/cookies";
+import moment from 'moment';
+import {updateRequestedSongs} from "src/redux/actions/userActions";
 
 class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState> {
 
-	public static defaultProps: IAddSongFormProps = {
-		...EnhancedComponent.defaultProps,
-	};
+    public static defaultProps: IAddSongFormProps = {
+        ...EnhancedComponent.defaultProps,
+    };
 
-	public static mapStateToProps: (state: IStore, props: IAddSongFormProps) => IAddSongFormProps = (state: IStore, props: IAddSongFormProps) => {
-		return {
-			...props,
-			selectedGenre: state.chatRoomStore.selectedGenre,
-			username: state.userStore.username,
-			songList: state.songListStore.songs
-		};
-	}
+    public static mapStateToProps: (state: IStore, props: IAddSongFormProps) => IAddSongFormProps = (state: IStore, props: IAddSongFormProps) => {
+        return {
+            ...props,
+            selectedGenre: state.roomStore.selectedGenre,
+            username: state.userStore.username
+        };
+    };
 
-	private static NUM_SEARCH_RESULTS = 5;
+	private static NUM_SEARCH_RESULTS = 5; // number of songs returned by YouTube API
 
-	protected constructor(props: IAddSongFormProps) {
-		super(props);
-		this.state = {
-			...this.state,
-			songTitle: "",
-			videoList: [],
-		};
+    protected constructor(props: IAddSongFormProps) {
+        super(props);
+        this.state = {
+            ...this.state,
+            songTitle: "",
+            videoList: [],
+        };
+        this.updateSongLink = this.updateSongLink.bind(this);
+        this.addSongSender = this.addSongSender.bind(this);
+        this.renderVideoObject = this.renderVideoObject.bind(this);
+        this.addSongToQueue = this.addSongToQueue.bind(this);
+    }
 
-		this.updateSongLink = this.updateSongLink.bind(this);
-		this.addSongSender = this.addSongSender.bind(this);
-		this.renderVideoObject = this.renderVideoObject.bind(this);
-		this.addSongToQueue = this.addSongToQueue.bind(this);
-	}
-
+	/**
+	 * Update the state with the entered field in the TextInput
+	 *
+	 * @param text {string} - the string to update
+	 * @private
+	 */
 	private updateSongLink(text: string) {
-		this.setState({songTitle: text.trim()});
-	};
+        this.setState({songTitle: text.trim()});
+    };
 
-	private addSongSender(callback: () => void) {
-		let videoList: any[] = [];
-		youtubeQuery("search", {
-			part: "snippet",
-			maxResults: AddSongForm.NUM_SEARCH_RESULTS,
-			q: this.state.songTitle.replace(/ /g, "%20"),
-			type: "video",
-			videoCategoryId: 10,
-			safeSearch: "strict",
-			topicId: Object.keys(genreIDMap).filter((k: string) => genreIDMap[k] === this.props.selectedGenre)[0],
-			// videoDuration: "short",
-		}).then((res) => {
-			videoList = res.items || [];
-			return youtubeQuery("videos", {
-				part: "topicDetails",
-				id: res.items.map((k: any) => k.id.videoId).join(","),
-			});
-		}).then((res) => {
-			for (let i = 0; i < res.items.length; i++) {
-				if (res.items[i].topicDetails && res.items[i].topicDetails.topicCategories) {
-					videoList[i].genreCategories = Array.from(new Set(res.items[i].topicDetails.relevantTopicIds
-						.map((k: string) => genreIDMap[k])
-						.filter((k: string) => !!k)))
+	/**
+	 * Query YouTube API for a list of {AddSongForm.NUM_SEARCH_RESULTS} songs that match with the current genre
+	 * Then set the state with all the valid songs
+	 *
+	 * @param callback {() => void} -
+	 * @private
+	 */
+    private addSongSender(callback: () => void) {
+        let videoList: any[];
+        youtubeQuery("search", {
+            part: "snippet",
+            maxResults: AddSongForm.NUM_SEARCH_RESULTS,
+            q: this.state.songTitle.replace(/ /g, "%20"),
+            type: "video",
+            videoCategoryId: 10,
+            safeSearch: "strict",
+            topicId: Object.keys(genreIDMap).filter((k: string) => genreIDMap[k] === this.props.selectedGenre)[0],
+        }).then((res) => {
+            videoList = res.items || [];
+            return youtubeQuery("videos", {
+                part: "topicDetails,contentDetails",
+                id: res.items.map((k: any) => k.id.videoId).join(","),
+            });
+        }).then((res) => {
+            for (let i = 0; i < res.items.length; i++) {
+                if (res.items[i].topicDetails && res.items[i].topicDetails.topicCategories) {
+                    videoList[i].genreCategories = Array.from(new Set(res.items[i].topicDetails.relevantTopicIds
+                        .map((k: string) => genreIDMap[k])
+                        .filter((k: string) => !!k)));
+                    videoList[i].duration = moment.duration(res.items[i].contentDetails.duration).asSeconds();
+                    if (
+                        !videoList[i].genreCategories ||
+                        videoList[i].genreCategories.length === 0 ||
+                        !videoList[i].genreCategories.includes(this.props.selectedGenre)
+                    ) {
+                        res.items.splice(i, 1);
+                        videoList.splice(i, 1);
+                        i -= 1;
+                    }
+                } else {
+                    res.items.splice(i, 1);
+                    videoList.splice(i, 1);
+                    i -= 1;
+                }
+            }
+            this.setState({videoList: videoList}, callback);
+        }).catch((err) => {
+            console.error(err);
+        });
+    }
 
-					if (!videoList[i].genreCategories || videoList[i].genreCategories.length === 0) {
-						res.items.splice(i, 1);
-						videoList.splice(i, 1);
-						i -= 1;
-					}
-				} else {
-					res.items.splice(i, 1);
-					videoList.splice(i, 1);
-					i -= 1;
-				}
-			}
-			this.setState({videoList: videoList}, callback);
-		}).catch((err) => {
-			console.error(err);
-		});
-	}
-
+	/**
+	 * Render the given video as a component to be used in the form
+	 *
+	 * @param video {any} - The video object returned by YouTube API
+	 * @private
+	 * @return {ReactNode} The component to show in a list, with details of the given video
+	 */
 	private renderVideoObject(video: any): ReactNode {
-		return (
-			<div key={video.id.videoId} className={"flex-row"}>
-				<Image
-					path={video.snippet.thumbnails.high.url}
-				/>
-				<div className={"flex-column-center"} style={{width: "100%"}}>
-					<a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
-						<h2>{decodeHTML(video.snippet.title)}</h2></a>
-					<p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
-					<TextButton
-						text={"Add to Queue"}
-						onAction={this.addSongToQueue(video)}
-					/>
-				</div>
-			</div>
-		);
-	}
+        video.snippet.title = decodeHTML(video.snippet.title);
+        return (
+            <div key={video.id.videoId} className={"flex-row"}>
+                <Image
+                    path={video.snippet.thumbnails.high.url}
+                    height={140}
+                    width={250}
+                />
+                <div className={"flex-column-center"} style={{width: "100%"}}>
+                    <div className="song-info">
+                        <a href={`https://www.youtube.com/watch?v=${video.id.videoId}`}>
+                            <h3>{video.snippet.title}</h3>
+                        </a>
+                        <p>{video.genreCategories ? video.genreCategories.join(", ") : ""}</p>
+                    </div>
+                    <TextButton
+                        text={"Add to Queue"} bold={true}
+                        buttonColour={"#6236FF"}
+                        height={30}
+                        width={140}
+                        onAction={this.addSongToQueue(video)}
+                    />
+                </div>
+            </div>
+        );
+    }
 
+	/**
+	 * Add the given song video to Mongo, then update the front end accordingly
+	 *
+	 * @param video {any} - Video object returned by YouTube API
+	 * @private
+	 * @return {(callback: () => void) => void} The function to be passed by reference for a button's onAction
+	 */
 	private addSongToQueue(video: any): (callback: () => void) => void {
 		return (callback: () => void) => {
-			console.log(video);
 			const token = getCookie('auth-token');
 			fetch(API_URL + "songs/add", {
 				method: 'POST',
@@ -117,15 +154,14 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 					'auth-token': token,
 				},
 				body: JSON.stringify({
-					artists: [],
 					albumCover: video.snippet.thumbnails.default.url,
 					numVotes: 1,
+					duration: video.duration,
 					songName: video.snippet.title,
 					genre: this.props.selectedGenre,
 					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
 				}),
-			})
-				.then(async res => {
+			}).then(async res => {
 					return {text: await res.text(), status: res.status}
 				})
 				.then((res) => {
@@ -133,6 +169,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 						console.log(res);
 					} else {
 						const newSong = JSON.parse(res.text);
+						this.props.dispatch(updateRequestedSongs(newSong._id));
 						this.props.addSong(newSong);
 					}
 					callback();
@@ -143,38 +180,42 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
 	public render(): ReactNode {
 		return (
 			<div className="add-song-form">
-				<h3>Search a song</h3>
-				<TextInput
-					defaultText="Enter a song title here"
-					submit={this.updateSongLink}
-				/>
-				<TextButton
-					text="Submit" bold={true}
-					buttonColour="#6236FF"
-					height={30}
-					width={90}
-					onAction={this.addSongSender}
-				/>
-				<div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
-					{this.state.videoList.map(this.renderVideoObject)}
-				</div>
-			</div>
-		);
-	}
+				<h3>Search for a song</h3>
+				<div className="search-bar">
+					<span className="search-input">
+					<TextInput
+                        defaultText="Enter a song title here"
+                        submit={this.updateSongLink}
+                    />
+					</span>
+                    <div className="submit-button">
+                        <TextButton
+                            text="Submit" bold={true}
+                            buttonColour="#6236FF"
+                            height={30}
+                            width={90}
+                            onAction={this.addSongSender}
+                        />
+                    </div>
+                </div>
+                <div className={"scrollable-container"} style={{maxHeight: "55vh"}}>
+                    {this.state.videoList.map(this.renderVideoObject)}
+                </div>
+            </div>
+        );
+    }
 }
 
 export interface IAddSongFormProps extends IEnhancedComponentProps {
-	addSong?: (song: any) => void;
-	selectedGenre?: GenreEnum | null;
-	username?: string | null;
-	songList?: ISongListObject;
+    addSong?: (song: any) => void;
+    selectedGenre?: GenreEnum | null;
+    username?: string | null;
 }
 
 export interface IAddSongFormState extends IEnhancedComponentState {
-	songTitle: string;
-	videoList: any[];
+    songTitle: string;
+    videoList: any[];
 }
 
 // @ts-ignore
 export default connect(AddSongForm.mapStateToProps)(AddSongForm);
-

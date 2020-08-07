@@ -12,19 +12,19 @@
 }
 
 .music-player-queue .vote-buttons-container {
-    margin: 0px 10px 0px 0px;
+    margin: 0 10px 0 0;
 }
 
 .music-sidebar {
-    border-radius: 25px 0px 0px 25px;
+    border-radius: 25px 0 0 25px;
     background-color: #242424;
     padding: 15px 20px 15px 20px;
     max-width: 100%;
     width: 210px;
     height: 70%;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
+    margin-top: 12px;
 }
 
 .music-sidebar .currently-playing {
@@ -36,6 +36,11 @@
 .music-sidebar .music-player-queue {
     position: relative;
     top: -15px;
+    max-width: 230px;
+}
+
+.music-sidebar .music-player-queue-hidden-component {
+    min-height: 40px;
 }
 
 .music-sidebar p {
@@ -47,18 +52,11 @@
 
 .add-music-button {
     position: absolute;
-    bottom: 0;
-    margin-bottom: 20px;
+    bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    background: linear-gradient(180deg, hsla(0, 0%, 14.1%, 0), hsla(0, 0%, 14.1%, .95) 30%, hsla(0, 0%, 14.1%, 1))
 }
-
-/* .close-button {
-    position: relative;
-    top: -40px;
-    width: 45px;
-    height: 45px;
-    right: 60px;
-    margin-left: 50px;
-} */
 
 .queue-header {
     background-color: #242424;
@@ -72,16 +70,6 @@
     flex-grow: 1;
     margin-left: 10px;
 }
-
-/* .queue-items {
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    align-items: center;
-    flex-grow: 1;
-    width: 280px;
-    margin-left: 10px;
-} */
 
 .queue-items {
     display: flex;
@@ -114,4 +102,18 @@
     font-family: "Roboto";
     font-weight: 500;
     margin: 10px 0px;
+}
+
+.youtube-player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.youtube-player iframe {
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
 }

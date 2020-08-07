@@ -4,27 +4,29 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import "./css/Components.css";
 import {UpvoteButton} from "./buttons/UpvoteButton";
 import {DownvoteButton} from "./buttons/DownvoteButton";
-import "./buttons/VoteButtons.css"
-import { API_URL } from "src/utility/constants";
+import "./css/VoteButtons.css"
+import {API_URL} from "src/utility/constants";
 import {getCookie} from "../utility/cookies";
 
 class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps, IVoteButtonsContainerState> {
+
     public static defaultProps: IVoteButtonsContainerProps = {
         ...EnhancedComponent.defaultProps,
         rating: 1,
         songId: 0,
-    }
+    };
 
     protected constructor(props: IVoteButtonsContainerProps) {
         super(props);
-        this.state = {
-            rating: this.props.rating,
-        }
     }
 
+    /**
+     * Sends a request to upvote this song in the DB
+     *
+     * @param callback
+     */
     voteUp = (callback: () => void) => {
         const token = getCookie('auth-token');
-        this.setState({rating: this.state.rating + 1})
         fetch(API_URL + "songs/upvote/" + this.props.songId, {
             method: "PATCH",
             headers: {
@@ -32,13 +34,22 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => response.json())
-        .then(callback)
+            .then(async response => {
+                if (response.status === 200) {
+                    let resp = await response.json()
+                    resp.type = "up";
+                    this.props.voteCompletionHandler(resp);
+                }
+            })
+            .then(callback)
     };
 
+    /**
+     * Sends a request to downvote this song in the DB
+     * @param callback
+     */
     voteDown = (callback: () => void) => {
         const token = getCookie('auth-token');
-        this.setState({rating: this.state.rating - 1})
         fetch(API_URL + "songs/downvote/" + this.props.songId, {
             method: "PATCH",
             headers: {
@@ -46,8 +57,14 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
                 "auth-token": token
             }
         })
-        .then(response => response.json())
-        .then(callback)
+            .then(async response => {
+                if (response.status === 200) {
+                    let resp = await response.json()
+                    resp.type = "down";
+                    this.props.voteCompletionHandler(resp);
+                }
+            })
+            .then(callback)
     };
 
     public render(): ReactNode {
@@ -55,7 +72,7 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
             <div className={"vote-buttons-container"}>
                 <UpvoteButton onAction={this.voteUp}/>
                 <div className={"rating"}>
-                    {this.state.rating}
+                    {this.props.rating}
                 </div>
                 <DownvoteButton onAction={this.voteDown}/>
             </div>
@@ -65,11 +82,11 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
 
 export interface IVoteButtonsContainerProps extends IEnhancedComponentProps {
     rating: number,
-    songId: any,
+    songId: string | number,
+    voteCompletionHandler?: (resp: any) => void,
 }
 
 export interface IVoteButtonsContainerState extends IEnhancedComponentState {
-    rating: number;
 }
 
 export {VoteButtonsContainer}

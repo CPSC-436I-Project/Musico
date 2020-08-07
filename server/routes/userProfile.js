@@ -6,6 +6,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const {verifyToken, createToken} = require('../authenticate');
 
+/**
+ * Get all user profiles
+ */
 router.get('/', verifyToken, (req, res) => {
     UserProfile.find()
         .then(profiles => {
@@ -16,10 +19,13 @@ router.get('/', verifyToken, (req, res) => {
         });
 });
 
+/**
+ * Validate a new user and add it's profile
+ */
 router.post('/register', async (req, res) => {
     // Validate
     const {error} = registerValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message)
+    if (error) return res.status(400).send(error.details[0].message);
 
     const username = req.body.username;
     const password = req.body.password;
@@ -57,6 +63,9 @@ router.post('/register', async (req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+/**
+ * Validate a login and get the user's profile
+ */
 router.post('/login', async (req, res) => {
     // Validate
     const {error} = loginValidation(req.body);
@@ -88,6 +97,9 @@ router.post('/login', async (req, res) => {
     });
 });
 
+/**
+ * Auto-login a user from their authentication token and get their profile
+ */
 router.get('/getFromToken', verifyToken, async (req, res) => {
     const user = await UserProfile.findById(req.user._id);
     res.json({
@@ -102,15 +114,26 @@ router.get('/getFromToken', verifyToken, async (req, res) => {
     });
 });
 
+/**
+ * Get a user profile by ID
+ */
 router.get('/username/:id', verifyToken, async (req, res) => {
     const user = await UserProfile.findById(req.params.id);
     if (user !== undefined && user !== null) {
-        res.json({id: user._id, username: user.username});
+        res.json({
+            id: user._id,
+            username: user.username,
+            profilePicture: user.profilePicture,
+            favouriteGenres: user.favouriteGenres,
+        });
     } else {
         res.json({id: "invalid", username: "Deleted User"});
     }
 });
 
+/**
+ * Update a user's profile picture
+ */
 router.patch('/updateProfilePic', verifyToken, (req, res) => {
     UserProfile.findOneAndUpdate({_id: req.user._id}, {profilePicture: req.body.profilePictureURL})
         .then(() => {
@@ -119,6 +142,43 @@ router.patch('/updateProfilePic', verifyToken, (req, res) => {
         .catch(() => {
             return res.status(400).send('Invalid user');
         })
+});
+
+/**
+ * Update a user's liked genres
+ */
+router.patch('/updateLikedGenres', verifyToken, (req, res) => {
+    UserProfile.findById(req.user._id)
+        .then(user => user.favouriteGenres)
+        .then((likedGenres) => {
+            let origLen = likedGenres.length;
+            let modGenres = likedGenres.filter(genre => genre !== req.body.genre);
+            let modLen = modGenres.length;
+            if (origLen === modLen) {
+                return UserProfile.findOneAndUpdate({_id: req.user._id},
+                    {$push: {favouriteGenres: req.body.genre}},
+                    {new: true, useFindAndModify: false})
+                    .then((response) => {
+                        return res.send(response.favouriteGenres);
+                    })
+                    .catch((err) => {
+                        return res.status(400).send('Invalid user');
+                    })
+            } else {
+                return UserProfile.findOneAndUpdate({_id: req.user._id},
+                    {favouriteGenres: modGenres},
+                    {new: true, useFindAndModify: false})
+                    .then((response) => {
+                        return res.send(response.favouriteGenres);
+                    })
+                    .catch((err) => {
+                        return res.status(400).send('Invalid user');
+                    })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        });
 });
 
 module.exports = router;

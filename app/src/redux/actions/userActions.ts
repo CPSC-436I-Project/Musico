@@ -1,9 +1,10 @@
 import {UserEnum} from "../reducers/userReducer";
 import {API_URL} from "src/utility/constants";
 import {setCookie, getCookie, deleteCookie} from "src/utility/cookies";
+import {GenreEnum} from "../../components";
 
 export const setUser = (id: string, username: string, email: string, profilePicture: string,
-                        requests: string[], likedSongs: string[], favouriteGenres: string[], channels: string[]) => {
+                        requests: string[], likedSongs: string[], favouriteGenres: GenreEnum[], channels: string[]) => {
     return {
         type: UserEnum.SET_USER,
         userId: id,
@@ -41,6 +42,27 @@ export const updateUser = (url: string, errorCallback: (message: string) => void
     }
 };
 
+export const updateRequestedSongs = (songId: string) => {
+    return {
+        type: UserEnum.UPDATE_REQUEST_SONG,
+        song: songId
+    }
+};
+
+export const addLikedSong = (songId: string) => {
+    return {
+        type: UserEnum.ADD_LIKED_SONG,
+        song: songId
+    }
+};
+
+export const removeLikedSong = (songId: string) => {
+    return {
+        type: UserEnum.REMOVE_LIKED_SONG,
+        song: songId
+    }
+};
+
 export const receiveUserUpdate = (url: string) => {
     return {
         type: UserEnum.UPDATE_USER_RECEIVE,
@@ -48,12 +70,35 @@ export const receiveUserUpdate = (url: string) => {
     }
 };
 
-export const invalidUserUpdate = (url: string) => {
-    return {
-        type: UserEnum.INVALID_USER_UPDATE,
-        profilePicture: url
+
+export const likeGenre = (genre: string) => {
+    return (dispatch: any) => {
+        const token = getCookie('auth-token');
+        return fetch(API_URL + "userprofiles/updateLikedGenres", {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json', 'auth-token': token},
+            body: JSON.stringify({genre: genre})
+        })
+            .then(async response => {
+                return {text: await response.text(), status: response.status}
+            })
+            .then(res => {
+                if (res.status === 200) {
+                    dispatch(receiveLikedGenres(JSON.parse(res.text)));
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
-}
+};
+
+export const receiveLikedGenres = (genreList: string[]) => {
+    return {
+        type: UserEnum.LIKE_GENRE,
+        genres: genreList
+    }
+};
 
 export const resetUser = () => {
     return {
@@ -88,7 +133,6 @@ export const createUser = (username: string, email: string, password: string, er
             })
             .then(res => {
                 if (res.status !== 200) {
-                    // TODO: this needs to send an error to the front end
                     errorCallback(res.text);
                 } else {
                     // get the created user
@@ -127,7 +171,6 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
             })
             .then(res => {
                 if (res.status !== 200) {
-                    // TODO: this needs to send an error to the front end
                     errorCallback(res.text);
                 } else {
                     // get the created user
@@ -162,7 +205,6 @@ export const autoLoginUser = (callback: () => void) => {
             })
             .then(res => {
                 if (res.status !== 200) {
-                    // TODO: this needs to send an error to the front end
                     console.log("You have been logged out, please log in!");
                     callback();
                 } else {

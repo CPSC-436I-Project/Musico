@@ -3,13 +3,13 @@ import {EnhancedComponent} from "./EnhancedComponent";
 import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {TextInput} from "./TextInput";
 import {TextButton} from "./buttons/TextButton";
-import {invalidUserUpdate, updateUser} from "../redux/actions/userActions";
+import {updateUser} from "../redux/actions/userActions";
 import {connect} from "react-redux";
-import profilePlaceholder from "../icons/profile-placeholder.png";
 import {IStore} from "../redux/initialStore";
-
+import "./css/Components.css";
 
 class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, IUpdateProfilePicBarState> {
+
     public static defaultProps: IUpdateProfilePicBarProps = {
         ...EnhancedComponent.defaultProps
     };
@@ -22,6 +22,8 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         };
     };
 
+    private profileTesterRef: any;
+
     protected constructor(props: IUpdateProfilePicBarProps) {
         super(props);
         this.state = {
@@ -31,70 +33,100 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
         this.updateUrl = this.updateUrl.bind(this);
         this.updateButtonOnClick = this.updateButtonOnClick.bind(this);
         this.invalidUserError = this.invalidUserError.bind(this);
-        this.validateUrl = this.validateUrl.bind(this);
+        this.updateProfileSuccess = this.updateProfileSuccess.bind(this);
+        this.updateProfileFail = this.updateProfileFail.bind(this);
+        this.updateButtonOnClick = this.updateButtonOnClick.bind(this);
     };
 
-    updateUrl = (url: string) => {
+    /**
+     * Update the state's url with the given string
+     *
+     * @param url {string} - The url string
+     * @private
+     */
+    private updateUrl(url: string): void {
         this.setState({url: url.trim()});
     };
 
-    private validateUrl(): Promise<boolean> {
-        if (!(this.state.url.includes("http://", 0) || this.state.url.includes("https://"))) {
-            return new Promise<boolean>(function(resolve, reject) {
-                resolve(false);
-            });
+    /**
+     * Callback that occurs when the inputted url is a valid image url.
+     * Sends a request to set the given url as the user's avatar.
+     *
+     * @private
+     */
+    private updateProfileSuccess(): void {
+        if (this.state.url) {
+            this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
+            this.props.onComplete();
         }
-        return fetch(this.state.url)
-            .then(res => {
-                return res.status === 200
-            })
-            .catch(() => {
-                return false;
-            })
     }
 
-    private invalidUserError(message: string) {
+    /**
+     * Callback that occurs when the inputted url is an invalid image url.
+     * Display the error message
+     *
+     * @private
+     */
+    private updateProfileFail(): void {
+        if (this.state.url) {
+            this.setState({error: "Invalid URL"});
+        }
+    }
+
+    /**
+     * Callback for when the user update process fails.
+     *
+     * @param message {string} - The error string to display
+     * @private
+     */
+    private invalidUserError(message: string): void {
         this.setState({error: message});
     }
 
-    updateButtonOnClick = (callback: () => void) => {
-        this.validateUrl()
-            .then(res => {
-                if (res) {
-                    this.props.dispatch(updateUser(this.state.url, this.invalidUserError));
-                    this.props.onComplete();
-                    callback();
-                } else {
-                    this.props.dispatch(invalidUserUpdate(profilePlaceholder));
-                    this.setState({
-                        error: "Invalid URL"
-                    }, callback)
-                }
-            })
-            .catch(err => {
-                console.log(err);
-            })
+    /**
+     * the onClick function of the button to update the profile picture
+     *
+     * @param callback {() => void} - the callback function to let the button be clickable again
+     * @private
+     */
+    private updateButtonOnClick(callback: () => void): void {
+        // validate URL
+        this.profileTesterRef.src = this.state.url;
+        callback();
     };
 
     public render() {
-        return <div className={"update_profile_pic_bar"}>
-            <div className="error-message flex-column-center">
-                {this.state.error}
+        return (
+            <div className={"update_profile_pic_bar"}>
+                <div className="error-message flex-column-center">
+                    {this.state.error}
+                </div>
+                <div className={"update_profile_pic_input"}>
+                    <TextInput
+                        defaultText={"Enter profile picture URL here"}
+                        submit={this.updateUrl}
+                    />
+                </div>
+                <div className={"update_profile_pic_button"}>
+                    <TextButton
+                        text={"Update"}
+                        width={100}
+                        onAction={this.updateButtonOnClick}
+                    />
+                </div>
+                <div style={{visibility: "hidden"}}>
+                    <img
+                        src={""}
+                        alt={""}
+                        onLoad={this.updateProfileSuccess}
+                        onError={this.updateProfileFail}
+                        ref={(ref) => {
+                            this.profileTesterRef = ref;
+                        }}
+                    />
+                </div>
             </div>
-            <div className={"update_profile_pic_input"}>
-                <TextInput
-                    defaultText={"Enter profile picture URL here"}
-                    submit={this.updateUrl}
-                />
-            </div>
-            <div className={"update_profile_pic_button"}>
-                <TextButton
-                    text={"Update"}
-                    width={100}
-                    onAction={this.updateButtonOnClick}
-                />
-            </div>
-        </div>
+        )
     };
 }
 

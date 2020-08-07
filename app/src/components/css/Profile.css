@@ -1,13 +1,14 @@
-.inner-profile .enhanced-component-container {
+.profile .enhanced-component-container {
     max-height: 100%;
     overflow: auto;
 }
 
-.inner-profile {
+.profile {
     color: #ffffff;
+    padding: 15px;
 }
 
-.inner-profile .profile-head {
+.profile .profile-head {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -25,18 +26,10 @@
     overflow: hidden;
 }
 
-.update-profile-pic-bar {
+.profile-info {
     display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.update-profile-pic-input {
-    flex-grow: 1;
-}
-
-.update-profile-pic-button {
-    max-width: 100px;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .profile-songs {
@@ -61,7 +54,7 @@
     overflow: auto;
 }
 
-.profile-song-info-container {
+.-container {
     display: flex;
 }
 
@@ -75,9 +68,36 @@
     white-space: nowrap;
 }
 
-.profile-song-description{
+.profile_song_description {
     font-size: 20px;
-    font-family: "Roboto";
+    font-family: "Roboto", sans-serif;
     font-weight: 500;
-    margin: 10px 0px;
+    margin: 10px 0 0 20px;
+}
+
+.profile_song_info_container {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 5px 20px 5px;
+    align-items: center;
+}
+
+.update-profile-buttons {
+    display: flex;
+    flex-direction: row;
+    padding-left: 10%;
+}
+
+.update-profile-pic-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.update-profile-pic-input {
+    flex-grow: 1;
+}
+
+.update-profile-pic-button {
+    max-width: 100px;
 }

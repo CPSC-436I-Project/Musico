@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const playlistSchema = new Schema({
     channel: {
         type: String,
-        enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
+        enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
+            "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
         required: true
     },
     playlist: {

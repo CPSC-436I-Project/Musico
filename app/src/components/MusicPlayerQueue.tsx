@@ -6,27 +6,39 @@ import {SongInfoContainer} from "./SongInfoContainer";
 import {Image} from "./Image";
 import "./css/MusicSidebar.css";
 import {ReactNode} from "react";
+import {ISongInterface} from "../utility/songs";
 
 class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicPlayerQueueState> {
+
     public static defaultProps: IMusicPlayerQueueProps = {
         ...EnhancedComponent.defaultProps,
-        queue: []
-    }
+        queue: [],
+        voteCompletionHandler: () => {
+        }
+    };
 
     protected constructor(props: IMusicPlayerQueueProps) {
         super(props);
     }
 
-    private static createSongElement(song: any): ReactNode {
-        return(
+    /**
+     * Render the song in a queue as a ReactNode
+     *
+     * @param song {ISongInterface} - The song to render
+     * @param voteCompletionHandler {(resp: any) => void} - handler for when a vote happens
+     * @return {ReactNode} The rendered Song element
+     * @private
+     */
+    private static createSongElement(song: ISongInterface, voteCompletionHandler: (resp: any) => void): ReactNode {
+        return (
             <div key={song._id} className={"flex-row"}>
                 <VoteButtonsContainer
                     rating={song.numVotes}
                     songId={song._id}
+                    voteCompletionHandler={voteCompletionHandler}
                 />
                 <SongInfoContainer
                     songName={song.songName}
-                    artists={song.artists}
                     albumCover={song.albumCover}
                     width={132}
                     height={74}
@@ -47,30 +59,19 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
                     <h2>Queue</h2>
                 </div>
                 <div className={"queue-items center-mid"}>
-                    {this.props.queue.map(MusicPlayerQueue.createSongElement)}
+                    {this.props.queue.sort((a, b) => b.numVotes - a.numVotes).map(x => MusicPlayerQueue.createSongElement(x, this.props.voteCompletionHandler))}
                 </div>
             </div>
         )
     }
 }
 
-interface Song {
-    _id: any,
-    songName: string,
-    artists: string[],
-    genre: string,
-    src: string,
-    requesterID: any,
-    albumCover: string,
-    numVotes: number
-}
-
 export interface IMusicPlayerQueueProps extends IEnhancedComponentProps {
-    queue: any[]
+    queue: ISongInterface[];
+    voteCompletionHandler?: (resp: any) => void;
 }
 
 export interface IMusicPlayerQueueState extends IEnhancedComponentState {
-
 }
 
 export {MusicPlayerQueue};

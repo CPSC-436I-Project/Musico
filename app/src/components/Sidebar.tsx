@@ -1,18 +1,25 @@
 import * as React from "react";
-import {SidebarTextImageButton} from "./buttons/SidebarTextImageButton";
+import SidebarTextImageButton from "./buttons/SidebarTextImageButton";
 import "./buttons/Button.css";
 import "./css/Sidebar.css";
-import {asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinAmericanIcon, rockIcon, reggaeIcon, countryIcon, hiphopIcon, jazzIcon, classicalIcon, popIcon, soulIcon} from "../icons/genres";
+import {
+    asianIcon, bluesIcon, childrenIcon, christianIcon, electronicIcon, latinIcon, rockIcon, reggaeIcon, countryIcon,
+    hiphopIcon, indieIcon, jazzIcon, classicalIcon, otherIcon, popIcon, soulIcon
+} from "../icons/genres";
 import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedComponent";
 import {SearchBar} from "./SearchBar";
 import {IStore} from "../redux/initialStore";
 import {setSelectedGenre} from "../redux/actions";
 import {connect} from "react-redux";
 import {GenreEnum} from "./";
+import {PageEnum} from "../containers";
+import {ReactNode} from "react";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
+
     public static defaultProps: ISidebarProps = {
         ...EnhancedComponent.defaultProps,
+        changePage: () => {},
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [
@@ -24,22 +31,23 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         {genre: GenreEnum.COUNTRY, icon: countryIcon},
         {genre: GenreEnum.ELECTRONIC, icon: electronicIcon},
         {genre: GenreEnum.HIP_HOP, icon: hiphopIcon},
-        {genre: GenreEnum.INDEPENDENT, icon: bluesIcon},
+        {genre: GenreEnum.INDEPENDENT, icon: indieIcon},
         {genre: GenreEnum.JAZZ, icon: jazzIcon},
-        {genre: GenreEnum.LATIN_AMERICAN, icon: latinAmericanIcon},
-        {genre: GenreEnum.OTHER, icon: bluesIcon},
+        {genre: GenreEnum.LATIN, icon: latinIcon},
+        {genre: GenreEnum.OTHER, icon: otherIcon},
         {genre: GenreEnum.POP, icon: popIcon},
         {genre: GenreEnum.REGGAE, icon: reggaeIcon},
         {genre: GenreEnum.ROCK, icon: rockIcon},
         {genre: GenreEnum.SOUL, icon: soulIcon},
-    ]
+    ];
 
-    public static mapStateToProps:(state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
+    public static mapStateToProps: (state: IStore, props: ISidebarProps) => ISidebarProps = (state: IStore, props: ISidebarProps) => {
         return {
             ...props,
-            selectedGenre: state.chatRoomStore.selectedGenre,
+            selectedGenre: state.roomStore.selectedGenre,
+            favouriteGenres: state.userStore.favouriteGenres
         };
-    }
+    };
 
     protected constructor(props: ISidebarProps) {
         super(props);
@@ -51,7 +59,13 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         this.sidebarButtonClicked = this.sidebarButtonClicked.bind(this);
     }
 
-    private onSearch(searchValue: string) {
+    /**
+     * Filter the side bar genres based on the given string
+     *
+     * @param searchValue {string} - the string value to search for
+     * @private
+     */
+    private onSearch(searchValue: string): void {
         let currShownGenres: ISidebarGenreChannel[] = [];
         for (const currGenre of this.musicGenres) {
             if (currGenre.genre.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -65,12 +79,15 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 
     private sidebarButtonClicked(genre: GenreEnum): (callback: () => void) => void {
         return (callback: () => void): void => {
-            this.props.dispatch(setSelectedGenre(genre));
+            if (this.props.selectedGenre !== genre) {
+                this.props.dispatch(setSelectedGenre(genre));
+                this.props.changePage(PageEnum.Room);
+            }
             callback();
         }
     }
 
-    public render() {
+    public render(): ReactNode {
         let placeholder = "Search...";
         return (
             <div className="sidebar">
@@ -81,14 +98,14 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
                     />
                     <hr/>
                 </div>
-                <div className="sidebar-channels">
+                <div className="sidebar-channels scrollable-container">
                     {this.state.shownGenres.map(item =>
                         <SidebarTextImageButton
                             key={item.genre}
                             text={item.genre}
                             icon={item.icon}
-                            buttonColour="#212121"
-                            onAction={this.sidebarButtonClicked(item.genre)}
+                            liked={this.props.favouriteGenres.includes(item.genre)}
+                            onTextAction={this.sidebarButtonClicked(item.genre)}
                         />
                     )}
                 </div>
@@ -106,6 +123,8 @@ export interface ISidebarProps extends IEnhancedComponentProps {
     className?: string;
     hasSearch?: boolean;
     selectedGenre?: GenreEnum | null;
+    changePage: (page: PageEnum) => void;
+    favouriteGenres?: GenreEnum[];
 }
 
 export interface ISidebarState extends IEnhancedComponentState {
@@ -115,4 +134,3 @@ export interface ISidebarState extends IEnhancedComponentState {
 
 // @ts-ignore
 export default connect(Sidebar.mapStateToProps)(Sidebar);
-
