@@ -55,7 +55,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
             videoCategoryId: 10,
             safeSearch: "strict",
             topicId: Object.keys(genreIDMap).filter((k: string) => genreIDMap[k] === this.props.selectedGenre)[0],
-            // videoDuration: "short",
         }).then((res) => {
             videoList = res.items || [];
             return youtubeQuery("videos", {
@@ -73,7 +72,6 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
                         !videoList[i].genreCategories ||
                         videoList[i].genreCategories.length === 0 ||
                         !videoList[i].genreCategories.includes(this.props.selectedGenre)
-                    // TODO: Remove if song already in DB
                     ) {
                         res.items.splice(i, 1);
                         videoList.splice(i, 1);
