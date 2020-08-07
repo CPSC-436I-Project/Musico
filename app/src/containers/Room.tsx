@@ -10,6 +10,7 @@ import {downloadMessages, getChannelQueue, updateCurrentlyPlaying} from "src/red
 import {API_URL} from "src/utility/constants";
 import io from "socket.io-client";
 import {getCookie} from "src/utility/cookies";
+import {addLikedSong, removeLikedSong} from "src/redux/actions/userActions";
 
 const socket = io(API_URL);
 
@@ -58,15 +59,18 @@ class Room extends Container<IRoomProps, IRoomState> {
     // -----------------------------
 
     addSongCompletion = () => {
-        socket.emit("addToQueue", {token: getCookie('auth-token'), userId: this.props.userId}, () => {
-            this.props.dispatch(getChannelQueue(this.props.selectedGenre));
-        });
+        socket.emit("addToQueue", {token: getCookie('auth-token'), userId: this.props.userId});
     };
 
-    voteCompletion = () => {
-        socket.emit("updateVote", {token: getCookie('auth-token'), userId: this.props.userId}, () => {
-            this.props.dispatch(getChannelQueue(this.props.selectedGenre));
-        });
+    voteCompletion = (resp: any) => {
+        if (resp.update === true) {
+            if (resp.type === "up") {
+                this.props.dispatch(addLikedSong(resp.id));
+            } else {
+                this.props.dispatch(removeLikedSong(resp.id));
+            }
+        }
+        socket.emit("updateVote", {token: getCookie('auth-token'), userId: this.props.userId});
     };
 
     // -----------------------------
@@ -103,7 +107,7 @@ class Room extends Container<IRoomProps, IRoomState> {
                 this.props.dispatch(getChannelQueue(this.props.selectedGenre));
             });
             socket.on("updateQueueAndPlay", (data: any) => {
-                if (data.song.genre === this.props.selectedGenre) {
+                if (data.song && data.song.genre === this.props.selectedGenre) {
                     this.props.dispatch(getChannelQueue(this.props.selectedGenre));
                     this.props.dispatch(updateCurrentlyPlaying(data.song, data.startTime));
                 }

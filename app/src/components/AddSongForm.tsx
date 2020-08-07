@@ -119,45 +119,44 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
         );
     }
 
-    private addSongToQueue(video: any): (callback: () => void) => void {
-        return (callback: () => void) => {
-            const token = getCookie('auth-token');
-            fetch(API_URL + "songs/add", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'auth-token': token,
-                },
-                body: JSON.stringify({
-                    albumCover: video.snippet.thumbnails.default.url,
-                    numVotes: 1,
-                    duration: video.duration,
-                    songName: video.snippet.title,
-                    genre: this.props.selectedGenre,
-                    src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
-                }),
-            }).then(async res => {
-                return {text: await res.text(), status: res.status}
-            })
-                .then((res) => {
-                    if (res.status !== 200) {
-                        console.log(res);
-                    } else {
-                        const newSong = JSON.parse(res.text);
-                        console.log(newSong);
-                        this.props.dispatch(updateRequestedSongs(newSong._id));
-                        this.props.addSong(newSong);
-                    }
-                    callback();
-                });
-        }
-    }
+	private addSongToQueue(video: any): (callback: () => void) => void {
+		return (callback: () => void) => {
+			const token = getCookie('auth-token');
+			fetch(API_URL + "songs/add", {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'auth-token': token,
+				},
+				body: JSON.stringify({
+					albumCover: video.snippet.thumbnails.default.url,
+					numVotes: 1,
+					duration: video.duration,
+					songName: video.snippet.title,
+					genre: this.props.selectedGenre,
+					src: `https://www.youtube.com/watch?v=${video.id.videoId}`,
+				}),
+			}).then(async res => {
+					return {text: await res.text(), status: res.status}
+				})
+				.then((res) => {
+					if (res.status !== 200) {
+						console.log(res);
+					} else {
+						const newSong = JSON.parse(res.text);
+						this.props.dispatch(updateRequestedSongs(newSong._id));
+						this.props.addSong(newSong);
+					}
+					callback();
+				});
+		}
+	}
 
-    public render(): ReactNode {
-        return (
-            <div className="add-song-form">
-                <h3>Search for a song</h3>
-                <div className="search-bar">
+	public render(): ReactNode {
+		return (
+			<div className="add-song-form">
+				<h3>Search for a song</h3>
+				<div className="search-bar">
 					<span className="search-input">
 					<TextInput
                         defaultText="Enter a song title here"

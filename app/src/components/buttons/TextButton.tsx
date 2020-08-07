@@ -30,6 +30,7 @@ class TextButton extends Button<ITextButtonProps, ITextButtonState> {
                     color: this.props.fontColour,
                     fontWeight: this.props.bold ? "bold" : "normal",
                     height: this.props.height,
+                    fontSize: this.props.fontSize,
                 }}
             >
                 <p style={{

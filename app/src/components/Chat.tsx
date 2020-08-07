@@ -16,7 +16,7 @@ const Filter = require('bad-words');
 
 class Chat extends EnhancedComponent<IChatProps, IChatState> {
 
-    messagesEndRef: any = React.createRef();
+    messagesEndRef: any = React.createRef()
 
     public static defaultProps: IChatProps = {
         ...EnhancedComponent.defaultProps,
@@ -36,6 +36,7 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
     };
 
     private textInputRef: TextInput;
+    private chatMessageRefs: any[] = []; // ChatMessage[]
 
     private constructor(props: IChatProps) {
         super(props);
@@ -43,12 +44,15 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
             currentMessage: "",
         };
         this.saveTextInputRef = this.saveTextInputRef.bind(this);
+        this.renderMessageObject = this.renderMessageObject.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.onChatScroll = this.onChatScroll.bind(this);
     }
 
-    handleSubmit = (callback: () => void) => {
-        let thisMessage = this.state.currentMessage;
+    private handleSubmit(callback: () => void) {
+        let thisMessage = this.state.currentMessage
         let filter = new Filter();
-        thisMessage = filter.clean(thisMessage);
+        thisMessage = filter.clean(thisMessage)
         let data = {
             token: getCookie('auth-token'),
             username: this.props.username,
@@ -68,23 +72,33 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         this.textInputRef = ref;
     }
 
-    private static renderMessageObject(item: IMessageInterface): ReactNode {
+    private renderMessageObject(item: IMessageInterface): ReactNode {
         return (
             <ChatMessage
                 message={item}
                 key={item._id}
+                childRef={(ref) => {
+                    this.chatMessageRefs.push(ref);
+                }}
             />
-        )
+        );
+    }
+
+    private onChatScroll(): void {
+        for (const msgRef of this.chatMessageRefs.filter((k) => !!k)) {
+            msgRef.updateRect();
+        }
     }
 
     public render(): ReactNode {
         return (
             <div className="chat">
-                <div className="scrollable-container">
+                <div className="scrollable-container" onScroll={this.onChatScroll}>
                     <div className={"chat-hidden-component"}/>
-                    {[...this.props.messages].reverse().map(Chat.renderMessageObject)}
+                    {[...this.props.messages].reverse().map(this.renderMessageObject)}
                 </div>
-                <div className="chat-input" style={{width: `calc(100% - ${this.props.sidebarOpen ? 460 : 250}px)`}}>
+                <div className="chat-input"
+                     style={{width: `calc(100% - ${this.props.sidebarOpen ? 210 + 250 : 250}px)`}}>
                     <TextInput
                         defaultText="Enter a message"
                         submit={this.updateCurrMessage}

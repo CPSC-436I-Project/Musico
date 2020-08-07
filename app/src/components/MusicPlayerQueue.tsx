@@ -12,7 +12,8 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
     public static defaultProps: IMusicPlayerQueueProps = {
         ...EnhancedComponent.defaultProps,
         queue: [],
-        voteCompletionHandler: () => {}
+        voteCompletionHandler: () => {
+        }
     };
 
     protected constructor(props: IMusicPlayerQueueProps) {
@@ -58,7 +59,7 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
 
 export interface IMusicPlayerQueueProps extends IEnhancedComponentProps {
     queue: any[],
-    voteCompletionHandler?: () => void
+    voteCompletionHandler?: (x: any) => void
 }
 
 export interface IMusicPlayerQueueState extends IEnhancedComponentState {
