@@ -14,7 +14,7 @@ module.exports = function(socket, io) {
         message: data.message
       };
       // store the message in Mongodb
-      var messages = await Chat.findOne({channel: socketmap[socket.id]})
+      const messages = await Chat.findOne({channel: socketmap[socket.id]})
         .then(chats => chats["messages"])
         .catch(err => {console.log(err)});
 

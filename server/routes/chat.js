@@ -18,7 +18,7 @@ router.post('/:genre', verifyToken, async (req, res) => {
         time: Date.now(),
     };
 
-    var messages = await Chat.findOne({channel: req.params.genre})
+    const messages = await Chat.findOne({channel: req.params.genre})
         .then(chats => chats["messages"])
         .catch(err => {
             console.log(err)
