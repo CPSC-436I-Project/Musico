@@ -19,10 +19,11 @@ export const unselectGenre = () => {
     }
 };
 
-export const updateMessages = (messages: IMessageInterface[]) => {
+export const updateMessages = (messages: IMessageInterface[], genre: GenreEnum) => {
     return {
         type: RoomEnum.UPDATE_MESSAGES,
-        messages: messages
+        messages: messages,
+        genre: genre
     }
 };
 
@@ -53,7 +54,7 @@ export const downloadMessages = (genre: GenreEnum, callback: () => void) => {
             .then(res => res.text())
             .then(res => {
                 let messages = JSON.parse(res);
-                dispatch(updateMessages(messages));
+                dispatch(updateMessages(messages, genre));
                 callback();
             })
             .catch(err => {

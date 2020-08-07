@@ -13,6 +13,12 @@ module.exports = function(socket, io) {
     // join a room, a room is available for every genre.
     // The chat component connects the socket to the genre's room
     socket.on("join", ({genre}, callback) => {
+
+        // if socket is already in a room, remove it
+        if (socket.id in socketmap) {
+            socket.leave(socketmap[socket.id]);
+            delete socketmap[socket.id];
+        }
         // join the room
         socket.join(genre);
         // store the socketid mapped to the userid
@@ -91,11 +97,9 @@ module.exports = function(socket, io) {
         }, durationMap[genre]*1000)
     }
 
-    socket.on("disconnect", (data, callback) => {
+    socket.on("disconnect", () => {
         // remove socket from socketmap
-        // socket.leave(socketmap[socket.id]);
+        socket.leave(socketmap[socket.id]);
         delete socketmap[socket.id];
-        // call the callback
-        //callback();
     });
 };

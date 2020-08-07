@@ -29,12 +29,18 @@ const roomReducer = (store: IRoomStore, action: any) => {
                 startTime: null
             };
         case RoomEnum.UPDATE_MESSAGES:
-            return {
-                selectedGenre: store.selectedGenre,
-                messages: action.messages,
-                queue: store.queue,
-                currentlyPlaying: store.currentlyPlaying,
-                startTime: store.startTime
+            if (action.genre !== store.selectedGenre) {
+                return {
+                    ...store
+                }
+            } else {
+                return {
+                    selectedGenre: store.selectedGenre,
+                    messages: action.messages,
+                    queue: store.queue,
+                    currentlyPlaying: store.currentlyPlaying,
+                    startTime: store.startTime
+                };
             };
         case RoomEnum.UPDATE_QUEUE:
             return {
