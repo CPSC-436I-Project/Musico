@@ -20,6 +20,11 @@ abstract class EnhancedComponent<P extends IEnhancedComponentProps = IEnhancedCo
         this.wrapRender();
     }
 
+    /**
+     * Wrap the render function of all child classes with the following node structure
+     *
+     * @private
+     */
     private wrapRender(): void {
         this.render = (): ReactNode => {
             return (

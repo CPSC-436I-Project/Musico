@@ -26,7 +26,7 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
         };
     };
 
-    private static NUM_SEARCH_RESULTS = 5;
+	private static NUM_SEARCH_RESULTS = 5; // number of songs returned by YouTube API
 
     protected constructor(props: IAddSongFormProps) {
         super(props);
@@ -41,10 +41,23 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
         this.addSongToQueue = this.addSongToQueue.bind(this);
     }
 
-    private updateSongLink(text: string) {
+	/**
+	 * Update the state with the entered field in the TextInput
+	 *
+	 * @param text {string} - the string to update
+	 * @private
+	 */
+	private updateSongLink(text: string) {
         this.setState({songTitle: text.trim()});
     };
 
+	/**
+	 * Query YouTube API for a list of {AddSongForm.NUM_SEARCH_RESULTS} songs that match with the current genre
+	 * Then set the state with all the valid songs
+	 *
+	 * @param callback {() => void} -
+	 * @private
+	 */
     private addSongSender(callback: () => void) {
         let videoList: any[];
         youtubeQuery("search", {
@@ -89,7 +102,14 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
         });
     }
 
-    private renderVideoObject(video: any): ReactNode {
+	/**
+	 * Render the given video as a component to be used in the form
+	 *
+	 * @param video {any} - The video object returned by YouTube API
+	 * @private
+	 * @return {ReactNode} The component to show in a list, with details of the given video
+	 */
+	private renderVideoObject(video: any): ReactNode {
         video.snippet.title = decodeHTML(video.snippet.title);
         return (
             <div key={video.id.videoId} className={"flex-row"}>
@@ -117,6 +137,13 @@ class AddSongForm extends EnhancedComponent<IAddSongFormProps, IAddSongFormState
         );
     }
 
+	/**
+	 * Add the given song video to Mongo, then update the front end accordingly
+	 *
+	 * @param video {any} - Video object returned by YouTube API
+	 * @private
+	 * @return {(callback: () => void) => void} The function to be passed by reference for a button's onAction
+	 */
 	private addSongToQueue(video: any): (callback: () => void) => void {
 		return (callback: () => void) => {
 			const token = getCookie('auth-token');

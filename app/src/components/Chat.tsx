@@ -49,6 +49,12 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         this.onChatScroll = this.onChatScroll.bind(this);
     }
 
+    /**
+     * Send the input text to chat, filtering out profanity with `bad-words`
+     *
+     * @param callback
+     * @private
+     */
     private handleSubmit(callback: () => void) {
         let thisMessage = this.state.currentMessage
         let filter = new Filter();
@@ -64,14 +70,32 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         callback();
     };
 
+    /**
+     * Update the current message in the state
+     *
+     * @param text {string} - text to update with
+     */
     updateCurrMessage = (text: string) => {
         this.setState({currentMessage: text});
     };
 
+    /**
+     * save the reference to the text input
+     *
+     * @param ref {TextInput} - ref to save
+     * @private
+     */
     private saveTextInputRef(ref: TextInput): void {
         this.textInputRef = ref;
     }
 
+    /**
+     * Render each individual message item as a ChatMessage component
+     *
+     * @param item {IMessageInterface} - a chat message to render
+     * @private
+     * @return {ReactNode} The rendered ChatMessage
+     */
     private renderMessageObject(item: IMessageInterface): ReactNode {
         return (
             <ChatMessage
@@ -84,6 +108,10 @@ class Chat extends EnhancedComponent<IChatProps, IChatState> {
         );
     }
 
+    /**
+     * Update the chat message's DivRect
+     * @private
+     */
     private onChatScroll(): void {
         for (const msgRef of this.chatMessageRefs.filter((k) => !!k)) {
             msgRef.updateRect();
