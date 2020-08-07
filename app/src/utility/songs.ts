@@ -19,4 +19,4 @@ export const defaultSong: ISongInterface = {
     requesterID: "",
     albumCover: "",
     numVotes: 0
-}
+};
