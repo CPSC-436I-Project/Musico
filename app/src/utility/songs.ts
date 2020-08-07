@@ -8,6 +8,7 @@ export interface ISongInterface {
     requesterID: any,
     albumCover: string,
     numVotes: number
+    _id?: string;
 }
 
 

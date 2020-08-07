@@ -6,6 +6,7 @@ import {SongInfoContainer} from "./SongInfoContainer";
 import {Image} from "./Image";
 import "./css/MusicSidebar.css";
 import {ReactNode} from "react";
+import {ISongInterface} from "../utility/songs";
 
 class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicPlayerQueueState> {
 
@@ -20,7 +21,15 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
         super(props);
     }
 
-    private static createSongElement(song: any, voteCompletionHandler: any): ReactNode {
+    /**
+     * Render the song in a queue as a ReactNode
+     *
+     * @param song {ISongInterface} - The song to render
+     * @param voteCompletionHandler {(resp: any) => void} - handler for when a vote happens
+     * @return {ReactNode} The rendered Song element
+     * @private
+     */
+    private static createSongElement(song: ISongInterface, voteCompletionHandler: (resp: any) => void): ReactNode {
         return (
             <div key={song._id} className={"flex-row"}>
                 <VoteButtonsContainer
@@ -58,8 +67,8 @@ class MusicPlayerQueue extends EnhancedComponent<IMusicPlayerQueueProps, IMusicP
 }
 
 export interface IMusicPlayerQueueProps extends IEnhancedComponentProps {
-    queue: any[],
-    voteCompletionHandler?: (x: any) => void
+    queue: ISongInterface[];
+    voteCompletionHandler?: (resp: any) => void;
 }
 
 export interface IMusicPlayerQueueState extends IEnhancedComponentState {

@@ -33,6 +33,12 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         this.resetText = this.resetText.bind(this);
     }
 
+    /**
+     * Execute the `onKeyDown` function when the enter button is pressed while the TextButton is focused
+     *
+     * @param e {any} - KeyboardEvent
+     * @protected
+     */
     protected onKeyDownWrapper(e: any): void {
         if (e.key === 'Enter' && !this.state.onEnterDisabled && !this.props.onEnterDisabled) {
             this.setState({onEnterDisabled: true}, () => {
@@ -46,6 +52,12 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         }
     }
 
+    /**
+     * Set the state's text when an input is given
+     *
+     * @param event {any} - ChangeEvent
+     * @protected
+     */
     protected updateText(event: any): void {
         event.preventDefault();
         this.setState({
@@ -55,10 +67,17 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
         });
     }
 
+    /**
+     * Return the string in the text input
+     * @return {string} String saved in the state of the TextInput
+     */
     public getText(): string {
         return this.state.text;
     }
 
+    /**
+     * Clear the text input to be empty
+     */
     public resetText(): void {
         this.setState({text: ""});
     }

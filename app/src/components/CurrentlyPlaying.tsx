@@ -14,7 +14,13 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
         super(props);
     }
 
-    getStartSeconds = (time: string) => {
+    /**
+     * Calculate the startTime for the Embedded YouTube video
+     *
+     * @param time {string} - the DateString of when the DB started playing the song
+     * @return {number} the start time in seconds
+     */
+    getStartSeconds = (time: string): number => {
         if (time === undefined || time === null) {
             return 0;
         }
@@ -24,7 +30,6 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
     };
 
     public render() {
-        let start = this.getStartSeconds(this.props.startTime);
         const opts: any = {
             playerVars: {
                 autoplay: 1,
@@ -33,7 +38,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                 autohide: 1,
                 showinfo: 0,
                 controls: 0,
-                start: start
+                start: this.getStartSeconds(this.props.startTime),
             },
         };
         return (
@@ -47,8 +52,11 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                         height: 0
                     }}
                 >
-                    <YouTube containerClassName="youtube-player"
-                             videoId={this.props.song.src.replace("https://www.youtube.com/watch?v=", "")} opts={opts}/>
+                    <YouTube
+                        containerClassName="youtube-player"
+                        videoId={this.props.song.src.replace("https://www.youtube.com/watch?v=", "")}
+                        opts={opts}
+                    />
                 </div>
                 <p>Currently Playing: {this.props.song.songName}</p>
             </div>
