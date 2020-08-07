@@ -1,99 +1,113 @@
 # Musico
 
-### Project Description
-Musico (Music-Collaborate) provides a platform for people with similar tastes in music to meet and interact with one another by integrating genre-based playlists with online chat rooms! Users can join virtual rooms playing a certain genre of music, add/upvote/downvote songs on the upcoming songs queue (more votes means the song plays sooner) and chat with other users in the room.
+## Project Description
+Musico provides a platform for music enthusiasts to meet and interact with one another by integrating genre-based playlists with group chats. Users can join virtual rooms, in which each room plays a certain genre of music, request new songs to be played, and upvote or downvote songs on the queue.
 
-### Project Requirements
+## Project Goals and Requirements
 
-#### Detailed Description
+### Minimal Requirements
+✔️ Rooms that automatically play a specific genre of music when users join   
+✔️ Either from the queue of song requests or from a default playlist if the queue is empty  
+✔️ A group chat for each room  
+✔️ A registration and login system for users  
 
-Musico (Music-Collaborate) provides a platform for people with similar tastes in music to meet and interact with one another by integrating genre-based playlists with online chat rooms. Users can join virtual rooms, in which each room plays a certain genre of music, and request a song to be played by adding it to a queue of pre-existing requests. If a queue has no requests, music will automatically play from a default playlist selected for the corresponding genre. Each room will have its own chat, where users can meet and talk with one another. In addition, users will have their own profile showing their favourite genres and songs they have previously requested. If time permits, we hope to integrate a voting system to the request queues, allowing users to upvote songs they like to increase their ranking and hence, get those songs to play sooner.
+### Standard Requirements:  
+✔️ Each user has a profile with the following information:  
+* Username 
+* Profile picture
+* Favourite music genres 
+* Songs the user previously requested and liked  
 
-### Task Requirements
+✔️ Song request queues will be linked to the YouTube API   
+✔️ Develop a system that can check if a song is of a particular genre  
 
-#### Minimal Requirements:
-* Rooms that automatically play a specific genre of music when users join 
-    * Either from the queue of song requests or from a default playlist if the queue is empty
-* A group chat for each room
-* A registration and login system for users
-
-#### Standard Requirements:
-* Each user has a profile with the following information:
-    * Username 
-    * Profile picture
-    * Their favourite music genres
-    * Songs they have previously requested
-* The song queue will be linked to youtube using the YouTube API
-* Develop a system that can check if a song is of a particular genre
-
-#### Stretch Goals:
-* Integrate user voting system on song request queues
-* Add additional sources of music (Soundcloud or Spotify)
-* Users will be able to view other users’ profiles to learn about their favourite genres/songs and find common ground
+### Stretch Goals:
+✔️ Integrate user voting system on song queues  
+❌ Add additional sources of music (Soundcloud or Spotify)  
+✔️ Users will be able to view other users’ profiles to learn about their favourite genres/songs and find common ground  
 
 ----
 
-#### Who is it for?
-Everyone! In a more narrow sense: it is for people who want to discover new music and meet people who are interested in the same genres as they are.
+## Technology Stack
 
-#### What will it do? (What "human activity" will it support?)
-Musicology provides a platform for people with similar tastes in music to meet and interact with one another by integrating genre-based playlists with online chat rooms.
+### Unit 1 - HTML, CSS, JS
+* HTML is used within TSX to render React components.
+* CSS is used for styling React components.
+* JavaScript is used for implementing client-side and server-side logic, but for the frontend, we chose to use TypeScript instead to make the code easier to understand, to debug, and to take advantage of static checking.
 
-#### What type of data will it store?
-* User profiles
-* Song requests
-* Chat messages
+### Unit 2 - React & Redux
+* React is used to create components to build the frontend.
+* Redux is used to store and organize the application’s state.
+     * Redux stores and manages the entire state of the application in one place, optimizing UI performance and React Redux makes it easy to get the two working together seamlessly.
 
-#### What will users be able to do with this data?
-* User profiles will be displayed to all users to learn about each other
-* Song requests go on a queue of upcoming songs (with voting, users will be able to influence which songs play sooner)
-* Chat messages for users to communicate with each other
+### Unit 3 - MongoDB
+* MongoDB is used to store the bulk of our data including songs, queues, default playlists, user profiles, and chat messages.
+     * Since MongoDB is a non-relational, document oriented database management system, it’s significantly faster and easier to use than a traditional database system. MongoDB Atlas also provides a simple and easy alternative to using the command line to access the database.
 
-#### What is some additional functionality you can add/remove based on time constraints?
-Song voting system and integrating additional music sources
+### Unit 4 - Node & Express
+* Node.js is used for backend API services and server-side logic.
+* Express provides server-side logic through routing, request handling, and endpoints.
+     * Node.js and Express easily integrate with MongoDB with Mongoose to provide a backend for our app.
 
+### Unit 5 - Release Engineering
+* Musico is deployed on Heroku with continuous integration enabled.
+     * Used Heroku’s student plan to deploy it on a Hobby Dyno for a more stable and reliable website experience
+     
+### Other
+* JSON Web Tokens and JS browser cookies for authentication
+* Socket.io for real-time chat, queue syncing and currently playing song syncing
+* YouTube API to find songs and categorize them into relevant genres
 
-### Division of Work
+## Above and Beyond Functionality
+* Real-time syncing using web sockets (Socket.io)
+     * Enables a fully real-time group chat experience across all genres
+     * Keeps currently playing music in sync, using socket messages to manage currently playing songs
+     * Enables real-time updates in queue functionality, including adding a song, upvoting/downvoting
+* YouTube Data API for music
+     * YouTube API allows users to find relevant music from within our app
+     * Used metadata in video information obtained from the API to display and filter music videos by genre
+     * For every song, we use the API to obtain the duration, thumbnail, and other relevant information for the song, which we store in our database
+* A custom authentication solution using JSON Web Tokens
+     * The sign up endpoint hashes the password for the database and sends back an authentication token that is then stored in a browser cookie
+     * All our endpoints are protected, and API requests need to send this auth token in the header to validate the user
+* UI Design using Sketch & Figma
+     * In the planning phase of the app, we designed lo-fidelity and hi-fidelity prototypes of the app UI and defined a colour scheme
+     * Sketch Cloud enabled us to share these designs with each other and obtain CSS for certain components
 
-#### Pick 2 of your minimal requirements and break each of them down into ~2-5 smaller tasks!
+## Next Steps
+* Implement ability for users to see other users’ full profiles instead of just their favourite genres
+* Introduce more genres and allow users to add genres to increase music variety
+* Enable new music sources such as Spotify or SoundCloud
 
-**Requirement 1: Rooms that automatically play a specific genre of music when users join**
-* A frontend interface based on the prototypes below:
-    * A genre selection sidebar component 
-    * A music player component
-    * A song component for each song in the queue
-* A backend queue for the music
-* Default queues for each genre
+## Contributions
 
-**Requirement 2: A group chat for each room**
-* A frontend chat component, which includes a list of messages
-* Backend hooks for these components
-* Some real-time chat integration using socket.io (or alternatives) and MongoDB
-* User profiles for the chat, storing backend user profiles (depends on requirement 3)
+**Adi**
+* Implemented an authentication system using JSON web tokens and password hashing
+* Developed the chat backend systems as well as real-time syncing of queues and currently playing songs using Socket.io
+* Helped design the app using Sketch and made a high-fidelity UI designs
 
-**Requirement 3: A registration and login system for users**
-* A component for login
-* A similar component for registering users
-* Backend design to store user profiles
+**Breanne**
+* Set up MongoDB with Jen
+* Helped with Express routing to handle requests
+* Created React components for the music sidebar including the vote buttons and song queue and implemented functionality to retrieve data from MongoDB to populate song queues
+* Implemented sidebar with functionality to enter different rooms
+* Used Figma to design login page and logo
 
-### Prototypes
-https://www.sketch.com/s/27d4371a-0086-456b-9cd1-ee272c0eec58
+**Jen**
+* Implemented the dashboard display, profile page and other React components
+* Implemented functionality to retrieve queue data for displaying upcoming songs
+* Implemented ability to retrieve and update user profile data
+* Set up MongoDB with Breanne
+* Helped with Express routes and keeping the Redux store in sync as requests are processed
 
-#### Register:
-![Register](images/Register.png)
+**Perry**
+* Implemented app navigation using reactstrap
+* Queried for songs using the YouTube API and uploaded into respective genres in MongoDB
+* Set up abstract Component/Container structure which all ReactNodes in the app are based on
+* Designed & Created Chat UI
 
-#### Sign In:
-![Sign In](images/SignIn.png)
-
-#### Landing:
-![Landing](images/Landing.png)
-
-#### Channel:
-![Channel](images/Channel.png)
-
-#### Add Song:
-![Add song](images/AddSong.png)
-
-#### Profile:
-![Profile](images/Profile.png)
-
+## References
+* Link to Musico: musico-436i.herokuapp.com/
+* JavaScript Cookies: https://www.w3schools.com/js/js_cookies.asp
+* JS Authentication: https://www.youtube.com/watch?v=2jqok-WgelI
+* Implementing Chat using Socket.io: https://www.youtube.com/watch?v=jD7FnbI76Hg
