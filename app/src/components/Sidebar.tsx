@@ -13,6 +13,7 @@ import {setSelectedGenre} from "../redux/actions";
 import {connect} from "react-redux";
 import {GenreEnum} from "./";
 import {PageEnum} from "../containers";
+import {ReactNode} from "react";
 
 class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 
@@ -58,7 +59,13 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         this.sidebarButtonClicked = this.sidebarButtonClicked.bind(this);
     }
 
-    private onSearch(searchValue: string) {
+    /**
+     * Filter the side bar genres based on the given string
+     *
+     * @param searchValue {string} - the string value to search for
+     * @private
+     */
+    private onSearch(searchValue: string): void {
         let currShownGenres: ISidebarGenreChannel[] = [];
         for (const currGenre of this.musicGenres) {
             if (currGenre.genre.toLowerCase().includes(searchValue.toLowerCase())) {
@@ -80,7 +87,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
         }
     }
 
-    public render() {
+    public render(): ReactNode {
         let placeholder = "Search...";
         return (
             <div className="sidebar">

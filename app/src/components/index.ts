@@ -56,6 +56,14 @@ const genreIDMap: { [key: string]: GenreEnum } = {
 
 const txt = document.createElement("textarea");
 
+/**
+ * Send an API call to YouTube
+ *
+ * @param type {string} - type of YouTube API call to perform
+ * @param options {any} - the options to pass with the query
+ * @return {Promise<any>} A promise of the result recieved from YouTube
+ * @see https://developers.google.com/youtube/v3
+ */
 async function youtubeQuery(type: string, options: any): Promise<any> {
     const optionKeys = Object.keys(options);
     const optionsString = optionKeys
@@ -70,7 +78,14 @@ async function youtubeQuery(type: string, options: any): Promise<any> {
         });
 }
 
-function decodeHTML(snippet: string) {
+/**
+ * Decode a string with HTML entities to their characters
+ *
+ * @param snippet {string} - the string to decode
+ * @return {string} The decoded string value
+ * @see https://developers.google.com/youtube/v3 for the list of HTML character refs
+ */
+function decodeHTML(snippet: string): string {
     txt.innerHTML = snippet;
     return txt.value;
 }

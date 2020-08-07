@@ -31,6 +31,9 @@ class Header extends EnhancedComponent<IHeaderProps, IHeaderState> {
         };
     }
 
+    /**
+     * set the currently selected genre to null
+     */
     resetGenre = () => {
         this.props.dispatch(unselectGenre());
     };

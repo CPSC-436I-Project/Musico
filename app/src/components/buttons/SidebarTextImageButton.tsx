@@ -28,7 +28,13 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
         this.genreLiked = this.genreLiked.bind(this);
     }
 
-    genreLiked = (callback: () => void) => {
+    /**
+     * Set the selected genre to be liked by the current user
+     *
+     * @param callback {() => void} - function to allow the button to be clickable again
+     * @private
+     */
+    private genreLiked(callback: () => void) {
         this.props.dispatch(likeGenre(this.props.text));
         this.setState({liked: !this.state.liked}, callback);
     };

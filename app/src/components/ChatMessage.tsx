@@ -49,6 +49,13 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
         this.updateRect = this.updateRect.bind(this);
     }
 
+    /**
+     * Set the current genre in redux to be the given genre, if they are different.
+     * No navigation is necessary because we are already in a Room
+     *
+     * @param genre {GenreEnum} - genre to set
+     * @private
+     */
     private switchRoom(genre: GenreEnum): (callback: () => void) => void {
         return (callback: () => void) => {
             if (genre !== this.props.selectedGenre) {
@@ -58,6 +65,13 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
         }
     }
 
+    /**
+     * Create TextButtons for each genre that allows navigation to that room
+     *
+     * @param genre {GenreEnum} - Genre to encapsulate in the TextButton
+     * @private
+     * @return {ReactNode} The TextButton to go to the specific genre room
+     */
     private createFavGenreButtons(genre: GenreEnum): ReactNode {
         return (
             <TextButton
@@ -77,7 +91,7 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
      * If the message sender is not the current user then send GET request to server for avatar URL
      */
     public componentDidMount() {
-        this.props.childRef(this);
+        this.props.childRef(this); // let the parent component save reference to this component
         if (this.state.isCurrentUser) {
             this.setState({avatarURL: this.props.profileImgSrc, favouriteGenres: this.props.favGenres});
         } else {
@@ -105,10 +119,16 @@ class ChatMessage extends EnhancedComponent<IChatMessageProps, IChatMessageState
         this.updateRect();
     }
 
+    /**
+     * Remove reference to this component when unmounted
+     */
     public componentWillUnmount() {
         this.props.childRef(undefined);
     }
 
+    /**
+     * Recalculate the position of the detailed profile view in chat
+     */
     public updateRect(): void {
         if (this.divRef.current && this.divRef.current.getBoundingClientRect) {
             this.setState({divRect: this.divRef.current.getBoundingClientRect()});

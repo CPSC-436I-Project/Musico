@@ -4,7 +4,7 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import "./css/Components.css";
 import {UpvoteButton} from "./buttons/UpvoteButton";
 import {DownvoteButton} from "./buttons/DownvoteButton";
-import "./buttons/VoteButtons.css"
+import "./css/VoteButtons.css"
 import {API_URL} from "src/utility/constants";
 import {getCookie} from "../utility/cookies";
 
@@ -20,6 +20,11 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
         super(props);
     }
 
+    /**
+     * Sends a request to upvote this song in the DB
+     *
+     * @param callback
+     */
     voteUp = (callback: () => void) => {
         const token = getCookie('auth-token');
         fetch(API_URL + "songs/upvote/" + this.props.songId, {
@@ -39,6 +44,10 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
             .then(callback)
     };
 
+    /**
+     * Sends a request to downvote this song in the DB
+     * @param callback
+     */
     voteDown = (callback: () => void) => {
         const token = getCookie('auth-token');
         fetch(API_URL + "songs/downvote/" + this.props.songId, {
@@ -73,7 +82,7 @@ class VoteButtonsContainer extends EnhancedComponent<IVoteButtonsContainerProps,
 
 export interface IVoteButtonsContainerProps extends IEnhancedComponentProps {
     rating: number,
-    songId: any,
+    songId: string | number,
     voteCompletionHandler?: (resp: any) => void,
 }
 

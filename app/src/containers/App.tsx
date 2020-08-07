@@ -30,6 +30,12 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         this.determinePage = this.determinePage.bind(this);
     }
 
+    /**
+     * Change the page that is currently rendered on screen
+     *
+     * @param page {PageEnum} - The page to go to
+     * @private
+     */
     private changePage(page: PageEnum): void {
         if (page !== PageEnum.Room) {
             this.props.dispatch(setSelectedGenre(null));
@@ -37,6 +43,10 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         this.setState({currentPage: page});
     }
 
+    /**
+     * Render the currently selected page
+     * @private
+     */
     private determinePage(): ReactNode {
         const props: IContainerProps = {
             ...pageMap[this.state.currentPage].props,
@@ -45,14 +55,24 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         return React.createElement(pageMap[this.state.currentPage].pointer, props);
     }
 
+    /**
+     * Callback for when login fails
+     */
     whenLoginFails = () => {
         this.setState({isLoggedOut: true})
     };
 
+    /**
+     * User is valid. Go to the Dashboard.
+     */
     userIsSet = () => {
         this.setState({isLoggedOut: false, currentPage: PageEnum.Dashboard})
     };
 
+    /**
+     * Check if cookie exists. If yes, then auto-login the user.
+     * Otherwise render the Login Page.
+     */
     componentDidMount = () => {
         if (this.props.userId !== null) {
             this.userIsSet();
@@ -63,6 +83,9 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         }
     };
 
+    /**
+     * If the user is set after updating the app layer, log them in.
+     */
     componentDidUpdate = () => {
         if (this.props.userId !== null && this.state.isLoggedOut) {
             this.userIsSet();

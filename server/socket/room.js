@@ -9,9 +9,12 @@ var durationMap = {};
 
 module.exports = function(socket, io) {
 
+    // Starts the currently playing queue manager
     initializeCurrentlyPlaying();
-    // join a room, a room is available for every genre.
-    // The chat component connects the socket to the genre's room
+
+    /**
+     * Called when a socket wants to join a room, a room is available for every genre.
+     */
     socket.on("join", ({genre}, callback) => {
 
         // if socket is already in a room, remove it
@@ -29,6 +32,17 @@ module.exports = function(socket, io) {
         }
     });
 
+    /**
+     * Called when a socket wants to leave the room, i.e. on unmount
+     */
+    socket.on("disconnect", () => {
+        socket.leave(socketmap[socket.id]);
+        delete socketmap[socket.id];
+    });
+
+    /**
+     * Initialized the currently playing queue manager for all genres
+     */
     function initializeCurrentlyPlaying() {
         console.log("Initializing currently playing songs!");
         if (currentlyPlayingMap !== null) {  
@@ -41,7 +55,14 @@ module.exports = function(socket, io) {
             queueSocketManager(genre);
         }
     }
-        
+    
+    /**
+     * A recursive function to update currently playing songs.
+     * The function calls itself after the duration of time 
+     * of playing the current song.
+     * 
+     * @param {} genre 
+     */
     function queueSocketManager(genre) {
         setTimeout(async () => {
 
@@ -97,9 +118,5 @@ module.exports = function(socket, io) {
         }, durationMap[genre]*1000)
     }
 
-    socket.on("disconnect", () => {
-        // remove socket from socketmap
-        socket.leave(socketmap[socket.id]);
-        delete socketmap[socket.id];
-    });
+    
 };
