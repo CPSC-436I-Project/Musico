@@ -107,7 +107,7 @@ class Room extends Container<IRoomProps, IRoomState> {
                 this.props.dispatch(getChannelQueue(this.props.selectedGenre));
 			});
 			socket.on("updateQueueAndPlay", (data: any) => {
-				if(data.song.genre === this.props.selectedGenre) {
+				if(data.song && data.song.genre === this.props.selectedGenre) {
 					this.props.dispatch(getChannelQueue(this.props.selectedGenre));
 					this.props.dispatch(updateCurrentlyPlaying(data.song, data.startTime));
 				}

@@ -12,6 +12,29 @@
     justify-content: center;
 }
 
+.chat-message-user-info .chat-message-user-info-detailed {
+    visibility: hidden;
+    width: 0;
+    background-color: white;
+    color: #222;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+
+    /* Fade */
+    opacity: 0;
+    transition: all 500ms ease-out;
+    transition-property: opacity, visibility, width;
+}
+
+.chat-message-user-info:hover .chat-message-user-info-detailed {
+    visibility: visible;
+    width: 230px;
+    opacity: 1;
+}
+
 .chat-message-username {
     margin-top: 5px;
     margin-bottom: 5px;
