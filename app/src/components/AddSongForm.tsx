@@ -192,4 +192,3 @@ export interface IAddSongFormState extends IEnhancedComponentState {
 
 // @ts-ignore
 export default connect(AddSongForm.mapStateToProps)(AddSongForm);
-
