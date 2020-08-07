@@ -25,8 +25,8 @@ const userReducer = (store: IUserStore, action: any) => {
             };
         case UserEnum.UPDATE_USER_RECEIVE:
             return {
-              ...store,
-              profileImgSrc: action.profilePicture
+                ...store,
+                profileImgSrc: action.profilePicture
             };
         case UserEnum.LIKE_GENRE:
             return {
