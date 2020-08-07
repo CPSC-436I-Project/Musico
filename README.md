@@ -26,8 +26,6 @@ Musico provides a platform for music enthusiasts to meet and interact with one a
 ❌ Add additional sources of music (Soundcloud or Spotify)  
 ✔️ Users will be able to view other users’ profiles to learn about their favourite genres/songs and find common ground  
 
-----
-
 ## Technology Stack
 
 ### Unit 1 - HTML, CSS, JS
