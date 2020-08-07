@@ -40,14 +40,25 @@ class Room extends Container<IRoomProps, IRoomState> {
     // CHAT
     // -----------------------------
 
+    /**
+     * Sets the initialized state to True when messages are recieved
+     */
     gotMessagesCallback = () => {
         this.setInitialized(true);
     };
 
+    /**
+     * Helper to set the initialized state
+     */
     setInitialized = (s: boolean) => {
         this.setState({isInitialized: s});
     };
 
+    /**
+     * Submit chat message to the server using socket
+     * 
+     * @param messageData - message contents
+     */
     sendMessage = (messageData) => {
         socket.emit("message", messageData, () => {
             this.props.dispatch(downloadMessages(this.props.selectedGenre, this.gotMessagesCallback))
@@ -58,10 +69,19 @@ class Room extends Container<IRoomProps, IRoomState> {
     // QUEUE
     // -----------------------------
 
+    /**
+     * Sends socket update to notify the server that the queue has changed
+     */
     addSongCompletion = () => {
         socket.emit("addToQueue", {token: getCookie('auth-token'), userId: this.props.userId});
     };
 
+    /**
+     * Completion handler to update redux store and emit socket 
+     * message to server to sync votes
+     * 
+     * @param resp - vote info, including song id
+     */
     voteCompletion = (resp: any) => {
         if (resp.update === true) {
             if (resp.type === "up") {
@@ -77,6 +97,9 @@ class Room extends Container<IRoomProps, IRoomState> {
     // ADD SONG POPUP
     // -----------------------------
 
+    /**
+     * Renders the Add Song popup
+     */
     protected popupRender() {
         return (
             <AddSongForm
@@ -89,6 +112,10 @@ class Room extends Container<IRoomProps, IRoomState> {
     // Component
     // -----------------------------
 
+    /**
+     * Called on component mount. Handles new socket connections
+     * when Room is initialized
+     */
     componentDidMount = () => {
         if (!this.state.isInitialized) {
             if (this.props.selectedGenre === null) {
@@ -115,6 +142,12 @@ class Room extends Container<IRoomProps, IRoomState> {
         }
     };
 
+    /**
+     * Called when component is updated, such as, when the genre room changes.
+     * Disconnects the existing socket connection and joins the new genre room.
+     * 
+     * @param previousProps 
+     */
     componentDidUpdate = (previousProps: any) => {
         if (this.props.selectedGenre !== previousProps.selectedGenre) {
             socket.emit('disconnect');
@@ -129,6 +162,17 @@ class Room extends Container<IRoomProps, IRoomState> {
             });
         }
     };
+
+    /**
+     * Called when component is unmounted. Unsubscribes socket connections
+     * and disconnects it from the current genre room.
+     */
+    componentWillUnmount = () => {
+        socket.off("newMessage");
+        socket.off("updateQueue");
+        socket.off("updateQueueAndPlay");
+        socket.emit('disconnect');
+    }
 
     public render(): ReactNode {
         return (

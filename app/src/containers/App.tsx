@@ -27,6 +27,12 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         this.determinePage = this.determinePage.bind(this);
     }
 
+    /**
+     * Change the page that is currently rendered on screen
+     *
+     * @param page {PageEnum} - The page to go to
+     * @private
+     */
     private changePage(page: PageEnum): void {
         if (page !== PageEnum.Room) {
             this.props.dispatch(setSelectedGenre(null));
@@ -34,6 +40,10 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         this.setState({currentPage: page});
     }
 
+    /**
+     * Render the currently selected page
+     * @private
+     */
     private determinePage(): ReactNode {
         const props: IContainerProps = {
             ...pageMap[this.state.currentPage].props,

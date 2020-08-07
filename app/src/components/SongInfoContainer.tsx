@@ -4,6 +4,7 @@ import {IEnhancedComponentProps, IEnhancedComponentState} from "./EnhancedCompon
 import {Image} from "./Image";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
 import "./css/Dashboard.css";
+import {ReactNode} from "react";
 
 class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISongInfoContainerState> {
 
@@ -20,7 +21,7 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
         super(props);
     }
 
-    public render() {
+    public render(): ReactNode {
         return (
             <div className={"song-info-container"} style={{color: this.props.color, width: this.props.width}}>
                 <Image

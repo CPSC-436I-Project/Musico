@@ -34,6 +34,10 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
         this.createSongInfo = this.createSongInfo.bind(this);
     }
 
+    /**
+     * Go through all the genre rooms and get the next song to play
+     * @private
+     */
     private getTopSongsOnQueues(): void {
         const token = getCookie('auth-token');
         fetch(API_URL + 'queues', {
@@ -49,12 +53,17 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
                 });
             })
             .then(queueList => {
-                let queueRequests = queueList.map((queue: string[]) =>
-                    this.addTopSong(queue));
+                let queueRequests = queueList.map((queue: string[]) => this.addTopSong(queue));
                 Promise.all(queueRequests);
             });
     }
 
+    /**
+     * Get the top voted song stored in the given queue and save it to state
+     *
+     * @param queue {string[]}
+     * @private
+     */
     private addTopSong(queue: string[]): Promise<void> {
         let that = this;
         const token = getCookie('auth-token');
@@ -69,8 +78,7 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
             })
             .then((songs: ISongInterface[]) => {
                 songs.forEach(function (song: ISongInterface) {
-                    // @ts-ignore //lint error for string enums because they can't be reverse mapped
-                    if (song !== null && song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
+                    if (song && song.numVotes > topSong.numVotes && Object.values(GenreEnum).includes(song.genre)) {
                         topSong = song;
                     }
                 });
@@ -91,6 +99,12 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
             });
     }
 
+    /**
+     * Go to the selected genre room
+     *
+     * @param genre {GenreEnum} - Genre of room to go to
+     * @private
+     */
     private navigateToRoom(genre: GenreEnum): (callback: () => void) => void {
         return (callback: () => void) => {
             this.props.dispatch(setSelectedGenre(genre));
@@ -99,6 +113,13 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
         };
     }
 
+    /**
+     * Render the component to display on the dashboard
+     *
+     * @param song {ISongInterface} - Song info to showcase
+     * @return {ReactNode} The Dashboard song info component
+     * @private
+     */
     private createSongInfo(song: ISongInterface): ReactNode {
         return (<DashboardSongInfo
             key={song.songName + Math.random() * 10000}

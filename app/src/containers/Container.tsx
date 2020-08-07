@@ -46,24 +46,48 @@ abstract class Container<P extends (IContainerProps & {}) = IContainerProps, S e
         this.wrapRender();
     }
 
+    /**
+     * Update the redux store to display the pop up modal
+     * @protected
+     */
     protected openPopup() {
         this.props.dispatch(showPopUp());
     };
 
+    /**
+     * Update the redux store to hide the pop up modal
+     * @protected
+     */
     protected closePopup() {
         this.props.dispatch(hidePopUp());
     };
 
+    /**
+     * Function to be overridden for the ReactNode to be rendered in the popup modal
+     * @protected
+     */
     protected popupRender(): ReactNode {
         return <div/>;
     };
 
-    private toggleProfile(callback: () => void) {
+    /**
+     * Go to profile
+     *
+     * @param callback {() => void} - Callback to execute at the end
+     * @private
+     */
+    private toggleProfile(callback: () => void): void {
         this.props.changePage(PageEnum.Profile);
         callback();
     }
 
-    private onMenuClick(callback: () => void) {
+    /**
+     * Hide/Show the sidebar depending on the state stored in redux
+     *
+     * @param callback {() => void} - Callback to execute at the end
+     * @private
+     */
+    private onMenuClick(callback: () => void): void {
         this.setState({sidebarOpen: !this.state.sidebarOpen}, () => {
             if (this.state.sidebarOpen) {
                 this.props.dispatch(showSidebar());
@@ -74,7 +98,13 @@ abstract class Container<P extends (IContainerProps & {}) = IContainerProps, S e
         });
     }
 
-    private logoClick(callback: () => void) {
+    /**
+     * Go to Dashboard
+     *
+     * @param callback {() => void} - Callback to execute at the end
+     * @private
+     */
+    private logoClick(callback: () => void): void {
         this.props.changePage(PageEnum.Dashboard);
         callback();
     }
