@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-let defaultProfilePic = "https://img.icons8.com/ios-glyphs/30/000000/cat-profile--v1.png"
+let defaultProfilePic = "https://i.imgur.com/6qet8nK.png"
 
 const userProfileSchema = new Schema({
     username: {
