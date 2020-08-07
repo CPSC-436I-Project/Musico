@@ -3,7 +3,7 @@ const Chat = require('../mongoDB/models/chatModel');
 const { getIdFromToken } = require('../authenticate');
 
 module.exports = function(socket, io) {
-  
+
   socket.on("message", async (data, callback) => {
     const id = getIdFromToken(data.token);
 
@@ -14,7 +14,7 @@ module.exports = function(socket, io) {
         message: data.message
       };
       // store the message in Mongodb
-      var messages = await Chat.findOne({channel: socketmap[socket.id]})
+      const messages = await Chat.findOne({channel: socketmap[socket.id]})
         .then(chats => chats["messages"])
         .catch(err => {console.log(err)});
 
@@ -31,5 +31,4 @@ module.exports = function(socket, io) {
         .catch(err => console.log('Error: ' + err));
     }
   });
-  
-}
+};

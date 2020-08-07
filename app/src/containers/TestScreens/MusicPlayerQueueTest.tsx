@@ -1,18 +1,18 @@
 import * as React from "react";
-import { ReactNode } from "react";
+import {ReactNode} from "react";
 import "../Container.css";
-import { Container } from "../Container";
-import { MusicPlayerQueue } from "../../components/MusicPlayerQueue";
+import {Container} from "../Container";
+import {MusicPlayerQueue} from "../../components/MusicPlayerQueue";
 
 class MusicPlayerQueueTest extends Container {
     public render(): ReactNode {
         return (
             <div className={"flex-column-center"}>
                 <h2>Music Player Queue</h2>
-                <MusicPlayerQueue />
+                <MusicPlayerQueue/>
             </div>
         )
     }
 }
 
-export { MusicPlayerQueueTest }
+export {MusicPlayerQueueTest}

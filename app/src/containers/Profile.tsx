@@ -14,7 +14,7 @@ import {getCookie} from "../utility/cookies";
 import {API_URL} from "../utility/constants";
 import {ProfileSongInfo} from "../components/ProfileSongInfo";
 import {setSelectedGenre} from "../redux/actions";
-import { ISongInterface } from "src/utility/songs";
+import {ISongInterface} from "src/utility/songs";
 
 class Profile extends Container<IProfileProps, IProfileState> {
 
@@ -23,7 +23,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
         profileImgSrc: profilePlaceholder,
     };
 
-    public static mapStateToProps:(state: IStore, props: IProfileProps) => IProfileProps = (state: IStore, props: IProfileProps) => {
+    public static mapStateToProps: (state: IStore, props: IProfileProps) => IProfileProps = (state: IStore, props: IProfileProps) => {
         return {
             ...props,
             ...Container.mapStateToProps(state, props),
@@ -34,7 +34,7 @@ class Profile extends Container<IProfileProps, IProfileState> {
             favouriteGenres: state.userStore.favouriteGenres,
             channels: state.userStore.channels,
         };
-    }
+    };
 
     private constructor(props: IProfileProps) {
         super(props);
@@ -116,7 +116,8 @@ class Profile extends Container<IProfileProps, IProfileState> {
         return (
             <div className="profile">
                 <div className="profile-head">
-                    <Image path={this.props.profileImgSrc} width={170} height={170} rounded={true} backgroundColour={"transparent"}/>
+                    <Image path={this.props.profileImgSrc} width={170} height={170} rounded={true}
+                           backgroundColour={"transparent"}/>
                     <div className="profile-info">
                         <span className="username">
                             <h2>{this.props.username || "Unknown User"}</h2>

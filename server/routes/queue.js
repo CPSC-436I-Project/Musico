@@ -1,12 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const Queue = require('../mongoDB/models/queueModel');
-const { verifyToken } = require('../authenticate');
+const {verifyToken} = require('../authenticate');
 
 router.get('/', verifyToken, (req, res) => {
     Queue.find()
-        .then(queues => {res.json(queues)})
-        .catch(err => {console.log(err)});
+        .then(queues => {
+            res.json(queues)
+        })
+        .catch(err => {
+            console.log(err);
+        });
 });
 
 router.get('/:genre', verifyToken, (req, res) => {
@@ -14,7 +18,9 @@ router.get('/:genre', verifyToken, (req, res) => {
         .then(queue => {
             res.json(queue["queue"])
         })
-        .catch(err => {console.log(err)})
+        .catch(err => {
+            console.log(err);
+        })
 });
 
 module.exports = router;

@@ -23,9 +23,12 @@ class ImageButton extends Button<IImageButtonProps, IImageButtonState> {
     public render(): ReactNode {
         return (
             <div className="image_button"
-                 style={{backgroundImage: `url(${this.props.src})`,
-                        width: this.props.width,
-                        height: this.props.height || 30}}>
+                 style={{
+                     backgroundImage: `url(${this.props.src})`,
+                     width: this.props.width,
+                     height: this.props.height || 30
+                 }}
+            >
             </div>
         );
     }

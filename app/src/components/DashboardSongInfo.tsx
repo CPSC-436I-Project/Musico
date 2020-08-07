@@ -26,8 +26,8 @@ class DashboardSongInfo extends EnhancedComponent<IDashboardSongInfoProps, IDash
                 <SongInfoContainer
                     color={"#ffffff"}
                     width={this.props.width}
-                    albumCover = {this.props.albumCover === "" ? thumbnailPlaceholder : this.props.albumCover}
-                    songName = {this.props.songName}
+                    albumCover={this.props.albumCover === "" ? thumbnailPlaceholder : this.props.albumCover}
+                    songName={this.props.songName}
                 />
                 <TextButton
                     text={this.props.genre}

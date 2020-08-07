@@ -7,15 +7,16 @@ import {GenreEnum} from ".";
 import {MusicPlayerQueue} from "./MusicPlayerQueue";
 import {TextButton} from "./buttons/TextButton";
 import "./css/MusicSidebar.css";
-import { CurrentlyPlaying } from "./CurrentlyPlaying";
-import { ISongInterface } from "src/utility/songs";
+import {CurrentlyPlaying} from "./CurrentlyPlaying";
+import {ISongInterface} from "src/utility/songs";
 
 class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarState> {
+
     public static defaultProps: IMusicSidebarProps = {
         ...EnhancedComponent.defaultProps,
     };
 
-    public static mapStateToProps:(state: IStore, props: IMusicSidebarProps) => IMusicSidebarProps = (state: IStore, props: IMusicSidebarProps) => {
+    public static mapStateToProps: (state: IStore, props: IMusicSidebarProps) => IMusicSidebarProps = (state: IStore, props: IMusicSidebarProps) => {
         return {
             ...props,
             musicSidebarOpen: state.musicSidebarStore.musicSidebarOpen,
@@ -24,20 +25,19 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
             currentlyPlaying: state.roomStore.currentlyPlaying,
             startTime: state.roomStore.startTime
         };
-    }
+    };
 
     protected constructor(props: IMusicSidebarProps) {
         super(props);
         this.state = {
             musicSidebarOpen: true,
         };
-
         this.showPopup = this.showPopup.bind(this);
     }
 
     componentDidMount = () => {
         this.props.childRef(this);
-    }
+    };
 
 
     componentWillUnmount() {
@@ -57,7 +57,8 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
                     <CurrentlyPlaying song={this.props.currentlyPlaying} startTime={this.props.startTime}/>
                 </div>
                 <div className="music-player-queue scrollable-container">
-                    <MusicPlayerQueue queue={this.props.queue} voteCompletionHandler={this.props.voteCompletionHandler}/>
+                    <MusicPlayerQueue queue={this.props.queue}
+                                      voteCompletionHandler={this.props.voteCompletionHandler}/>
                     <div className={"music-player-queue-hidden-component"}/>
                 </div>
                 <div className="add-music-button">
@@ -65,11 +66,11 @@ class MusicSidebar extends EnhancedComponent<IMusicSidebarProps, IMusicSidebarSt
                         text={"+ Add Music"}
                         bold={true}
                         buttonColour="#6236FF"
-					    height={44}
+                        height={44}
                         width={204}
                         fontSize={20}
                         onAction={this.showPopup}
-				    />
+                    />
                 </div>
             </div>
         )

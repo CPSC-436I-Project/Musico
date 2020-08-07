@@ -12,11 +12,11 @@
 }
 
 .music-player-queue .vote-buttons-container {
-    margin: 0px 10px 0px 0px;
+    margin: 0 10px 0 0;
 }
 
 .music-sidebar {
-    border-radius: 25px 0px 0px 25px;
+    border-radius: 25px 0 0 25px;
     background-color: #242424;
     padding: 15px 20px 15px 20px;
     max-width: 100%;
@@ -55,7 +55,7 @@
     bottom: 10px;
     padding-top: 20px;
     padding-bottom: 5px;
-    background: linear-gradient(180deg,hsla(0, 0%, 14.1%,0),hsla(0, 0%, 14.1%,.95) 30%,hsla(0, 0%, 14.1%,1))
+    background: linear-gradient(180deg, hsla(0, 0%, 14.1%, 0), hsla(0, 0%, 14.1%, .95) 30%, hsla(0, 0%, 14.1%, 1))
 }
 
 .queue-header {
@@ -70,16 +70,6 @@
     flex-grow: 1;
     margin-left: 10px;
 }
-
-/* .queue-items {
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    align-items: center;
-    flex-grow: 1;
-    width: 280px;
-    margin-left: 10px;
-} */
 
 .queue-items {
     display: flex;

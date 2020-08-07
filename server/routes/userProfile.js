@@ -19,7 +19,7 @@ router.get('/', verifyToken, (req, res) => {
 router.post('/register', async (req, res) => {
     // Validate
     const {error} = registerValidation(req.body);
-    if (error) return res.status(400).send(error.details[0].message)
+    if (error) return res.status(400).send(error.details[0].message);
 
     const username = req.body.username;
     const password = req.body.password;

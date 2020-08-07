@@ -10,7 +10,6 @@ class InnerProfileTest extends Container<IInnerProfileTestProps, IInnerProfileTe
 
     protected constructor(props: IInnerProfileTestProps) {
         super(props);
-        this.state = {};
     }
 
     public render(): ReactNode {
@@ -24,11 +23,9 @@ class InnerProfileTest extends Container<IInnerProfileTestProps, IInnerProfileTe
 }
 
 export interface IInnerProfileTestProps extends IContainerProps {
-
 }
 
 export interface IInnerProfileTestState extends IContainerState {
-
 }
 
 export {InnerProfileTest};

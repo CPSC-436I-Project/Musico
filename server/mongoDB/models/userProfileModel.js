@@ -1,8 +1,5 @@
 const mongoose = require('mongoose');
-// const uniqueArrayItems =  require('mongoose-unique-array');
 const Schema = mongoose.Schema;
-
-
 let defaultProfilePic = "https://img.icons8.com/ios-glyphs/30/000000/cat-profile--v1.png"
 
 const userProfileSchema = new Schema({
@@ -32,10 +29,8 @@ const userProfileSchema = new Schema({
         type: [String],
         enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
             "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
-        // unique: true
     }
 });
 
-// userProfileSchema.plugin(uniqueArrayItems);
 let UserProfile = mongoose.model("UserProfile", userProfileSchema);
 module.exports = UserProfile;

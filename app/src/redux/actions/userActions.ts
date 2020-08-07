@@ -54,14 +54,14 @@ export const addLikedSong = (songId: string) => {
         type: UserEnum.ADD_LIKED_SONG,
         song: songId
     }
-}
+};
 
 export const removeLikedSong = (songId: string) => {
     return {
         type: UserEnum.REMOVE_LIKED_SONG,
         song: songId
     }
-}
+};
 
 export const receiveUserUpdate = (url: string) => {
     return {
@@ -133,7 +133,6 @@ export const createUser = (username: string, email: string, password: string, er
             })
             .then(res => {
                 if (res.status !== 200) {
-                    // TODO: this needs to send an error to the front end
                     errorCallback(res.text);
                 } else {
                     // get the created user
@@ -172,7 +171,6 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
             })
             .then(res => {
                 if (res.status !== 200) {
-                    // TODO: this needs to send an error to the front end
                     errorCallback(res.text);
                 } else {
                     // get the created user
@@ -207,7 +205,6 @@ export const autoLoginUser = (callback: () => void) => {
             })
             .then(res => {
                 if (res.status !== 200) {
-                    // TODO: this needs to send an error to the front end
                     console.log("You have been logged out, please log in!");
                     callback();
                 } else {

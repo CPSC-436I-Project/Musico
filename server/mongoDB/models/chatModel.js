@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-
 const messageObject = {
     user: {
         type: mongoose.Types.ObjectId,
@@ -20,13 +19,14 @@ const messageObject = {
         default: Date.now,
         required: false,
     },
-}
+};
 
 const chatSchema = new Schema(
     {
         channel: {
             type: String,
-            enum: ["Electronic", "Rock", "Lo-Fi", "Reggae", "Country", "Hip-Hop", "Jazz", "Rap"],
+            enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
+                "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
             required: true
         },
         messages: [messageObject]

@@ -5,14 +5,15 @@ import {Container} from "../Container";
 import {VoteButtonsContainer} from "../../components/VoteButtonsContainer";
 
 class VoteButtonTest extends Container {
-	public render(): ReactNode {
-		return (
-			<div className={"VoteButtonTest"}>
-				<h2>Vote Button</h2>
-				<VoteButtonsContainer />
-			</div>
-		);
-	}
+
+    public render(): ReactNode {
+        return (
+            <div className={"VoteButtonTest"}>
+                <h2>Vote Button</h2>
+                <VoteButtonsContainer/>
+            </div>
+        );
+    }
 }
 
 export {VoteButtonTest};

@@ -6,20 +6,20 @@ import Room from "./Room";
 import Profile from "./Profile";
 
 enum PageEnum {
-	LoginScreen,
-	Dashboard,
-	Room,
-	Profile,
+    LoginScreen,
+    Dashboard,
+    Room,
+    Profile,
 }
 
-const pageMap: {[key: string]: { pointer: any, props: IContainerProps}} = {
-	[PageEnum.LoginScreen]: {pointer: LoginScreen, props: {showSidebar: false, showHeader: false}},
-	[PageEnum.Dashboard]: {pointer: Dashboard, props: {showSidebar: true, showHeader: true}},
-	[PageEnum.Room]: {pointer: Room, props: {showSidebar: true, showHeader: true}},
-	[PageEnum.Profile]: {pointer: Profile, props: {showSidebar: true, showHeader: true}},
+const pageMap: { [key: string]: { pointer: any, props: IContainerProps } } = {
+    [PageEnum.LoginScreen]: {pointer: LoginScreen, props: {showSidebar: false, showHeader: false}},
+    [PageEnum.Dashboard]: {pointer: Dashboard, props: {showSidebar: true, showHeader: true}},
+    [PageEnum.Room]: {pointer: Room, props: {showSidebar: true, showHeader: true}},
+    [PageEnum.Profile]: {pointer: Profile, props: {showSidebar: true, showHeader: true}},
 };
 
 export {
-	Container, LoginScreen, Dashboard, DebugScreen,
-	PageEnum, pageMap, Room, Profile
+    Container, LoginScreen, Dashboard, DebugScreen,
+    PageEnum, pageMap, Room, Profile
 };

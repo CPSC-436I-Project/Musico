@@ -5,8 +5,8 @@ import {Image} from "./Image";
 import thumbnailPlaceholder from "../icons/thumbnail-placeholder.jpeg"
 import "./css/Dashboard.css";
 
-
 class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISongInfoContainerState> {
+
     public static defaultProps: ISongInfoContainerProps = {
         ...EnhancedComponent.defaultProps,
         color: "#ffffff",
@@ -22,7 +22,7 @@ class SongInfoContainer extends EnhancedComponent<ISongInfoContainerProps, ISong
 
     public render() {
         return (
-            <div className={"song-info-container"} style={{color: this.props.color, width: this.props.width}} >
+            <div className={"song-info-container"} style={{color: this.props.color, width: this.props.width}}>
                 <Image
                     path={this.props.albumCover || thumbnailPlaceholder}
                     name={"Album"}

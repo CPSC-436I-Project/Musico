@@ -8,89 +8,84 @@ import {connect} from "react-redux";
 import {IContainerProps} from "./Container";
 import {setSelectedGenre} from "../redux/actions";
 
-class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Component<P, S>{
+class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Component<P, S> {
 
-	public static defaultProps: IAppProps = {
-		/* any default props to all popups here */
-	};
+    public static defaultProps: IAppProps = {};
 
-	public static mapStateToProps: (state: IStore, props: any) => IAppProps = (state: IStore, props: any) => {
-		return {
-			...props,
-			userId: state.userStore.userId
-		};
-	}
+    public static mapStateToProps: (state: IStore, props: any) => IAppProps = (state: IStore, props: any) => {
+        return {
+            ...props,
+            userId: state.userStore.userId
+        };
+    };
 
-	protected constructor(props: P) {
-		super(props);
-		// @ts-ignore
-		this.state = {
-			isLoggedOut: true,
-			currentPage: PageEnum.LoginScreen,
-		}
+    protected constructor(props: P) {
+        super(props);
+        // @ts-ignore
+        this.state = {
+            isLoggedOut: true,
+            currentPage: PageEnum.LoginScreen,
+        };
+        this.changePage = this.changePage.bind(this);
+        this.determinePage = this.determinePage.bind(this);
+    }
 
-		this.changePage = this.changePage.bind(this);
-		this.determinePage = this.determinePage.bind(this);
-	}
+    private changePage(page: PageEnum): void {
+        if (page !== PageEnum.Room) {
+            this.props.dispatch(setSelectedGenre(null));
+        }
+        this.setState({currentPage: page});
+    }
 
-	private changePage(page: PageEnum): void {
-		if (page !== PageEnum.Room) {
-			this.props.dispatch(setSelectedGenre(null));
-		}
-		this.setState({currentPage: page});
-	}
+    private determinePage(): ReactNode {
+        const props: IContainerProps = {
+            ...pageMap[this.state.currentPage].props,
+            changePage: this.changePage,
+        };
+        return React.createElement(pageMap[this.state.currentPage].pointer, props);
+    }
 
-	private determinePage(): ReactNode {
-		const props: IContainerProps = {
-			...pageMap[this.state.currentPage].props,
-			changePage: this.changePage,
-		};
+    whenLoginFails = () => {
+        this.setState({isLoggedOut: true})
+    };
 
-		return React.createElement(pageMap[this.state.currentPage].pointer, props);
-	}
+    userIsSet = () => {
+        this.setState({isLoggedOut: false, currentPage: PageEnum.Dashboard})
+    };
 
-	whenLoginFails = () => {
-		this.setState({isLoggedOut: true})
-	}
+    componentDidMount = () => {
+        if (this.props.userId !== null) {
+            this.userIsSet();
+        }
+        let cookie = getCookie('auth-token');
+        if (cookie !== "") {
+            this.props.dispatch(autoLoginUser(this.whenLoginFails));
+        }
+    };
 
-	userIsSet = () => {
-		this.setState({isLoggedOut: false, currentPage: PageEnum.Dashboard})
-	}
+    componentDidUpdate = () => {
+        if (this.props.userId !== null && this.state.isLoggedOut) {
+            this.userIsSet();
+        }
+    };
 
-	componentDidMount = () => {
-		if (this.props.userId !== null) {
-			this.userIsSet();
-		}
-		let cookie = getCookie('auth-token');
-		if (cookie !== "") {
-			this.props.dispatch(autoLoginUser(this.whenLoginFails));
-		}
-	}
-
-	componentDidUpdate = () => {
-		if (this.props.userId !== null && this.state.isLoggedOut === true) {
-			this.userIsSet();
-		}
-	}
-
-	public render(): ReactNode {
-		return (
-			<div className="App">
-				{this.determinePage()}
-			</div>
-		);
-	}
-
+    public render(): ReactNode {
+        return (
+            <div className="App">
+                {this.determinePage()}
+            </div>
+        );
+    }
 }
 
 export interface IAppProps {
-	dispatch?: any;
-	userId?: string | null;
+    dispatch?: any;
+    userId?: string | null;
 }
 
 export interface IAppState {
-	isLoggedOut: boolean;
-	currentPage: PageEnum;
+    isLoggedOut: boolean;
+    currentPage: PageEnum;
 }
 
 // @ts-ignore

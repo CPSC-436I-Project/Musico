@@ -10,7 +10,6 @@ class InnerDashboardTest extends Container<IInnerDashboardTestProps, IInnerDashb
 
     protected constructor(props: IInnerDashboardTestProps) {
         super(props);
-        this.state = {};
     }
 
     public render(): ReactNode {
@@ -24,11 +23,9 @@ class InnerDashboardTest extends Container<IInnerDashboardTestProps, IInnerDashb
 }
 
 export interface IInnerDashboardTestProps extends IContainerProps {
-
 }
 
 export interface IInnerDashboardTestState extends IContainerState {
-
 }
 
 export {InnerDashboardTest};

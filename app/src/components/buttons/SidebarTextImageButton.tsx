@@ -11,27 +11,27 @@ import {connect} from "react-redux";
 
 class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonProps, ISidebarTextImageButtonState> {
 
-	public static defaultProps: ISidebarTextImageButtonProps = {
-		...Button.defaultProps,
-		text: "Electronic",
-		icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png",
-		fontSize: 18,
-		liked: false,
-	};
+    public static defaultProps: ISidebarTextImageButtonProps = {
+        ...Button.defaultProps,
+        text: "Electronic",
+        icon: "https://img.icons8.com/ios-glyphs/30/000000/electronic-music.png",
+        fontSize: 18,
+        liked: false,
+    };
 
     protected constructor(props: ISidebarTextImageButtonProps) {
         super(props);
         this.state = {
-			...this.state,
-        	liked: this.props.liked
+            ...this.state,
+            liked: this.props.liked
         };
         this.genreLiked = this.genreLiked.bind(this);
     }
 
     genreLiked = (callback: () => void) => {
         this.props.dispatch(likeGenre(this.props.text));
-    	this.setState({liked: !this.state.liked}, callback);
-	};
+        this.setState({liked: !this.state.liked}, callback);
+    };
 
     public render(): ReactNode {
         return (
@@ -39,19 +39,19 @@ class SidebarTextImageButton extends EnhancedComponent<ISidebarTextImageButtonPr
                 <div>
                     <ImageButton
                         width={30}
-						buttonColour={this.state.liked ? "#6236FF" : "#00000000"}
-						buttonHoverColour={this.state.liked ? "#6236FF" : "#00000000"}
-						src={this.props.icon}
-						onAction={this.genreLiked}
+                        buttonColour={this.state.liked ? "#6236FF" : "#00000000"}
+                        buttonHoverColour={this.state.liked ? "#6236FF" : "#00000000"}
+                        src={this.props.icon}
+                        onAction={this.genreLiked}
                     />
                 </div>
-				<TextButton
-					buttonColour={"#00000000"}
-					buttonHoverColour={"#00000000"}
-					text={this.props.text}
-					onAction={this.props.onTextAction}
-					additionalStyling={{alignItems: "flex-start", textAlign: "start"}}
-				/>
+                <TextButton
+                    buttonColour={"#00000000"}
+                    buttonHoverColour={"#00000000"}
+                    text={this.props.text}
+                    onAction={this.props.onTextAction}
+                    additionalStyling={{alignItems: "flex-start", textAlign: "start"}}
+                />
             </div>
         );
     }
@@ -66,7 +66,7 @@ export interface ISidebarTextImageButtonProps extends IEnhancedComponentProps {
 }
 
 export interface ISidebarTextImageButtonState extends IEnhancedComponentState {
-	liked: boolean;
+    liked: boolean;
 }
 
 // @ts-ignore

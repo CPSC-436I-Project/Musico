@@ -11,7 +11,7 @@ class UpvoteButton extends Button<IUpvoteButtonProps, IUpvoteButtonState> {
         buttonHoverColour: "transparent",
         buttonFocusedColour: "transparent",
         width: 20,
-    }
+    };
 
     public constructor(props: IUpvoteButtonProps) {
         super(props);
@@ -31,7 +31,6 @@ export interface IUpvoteButtonProps extends IButtonProps {
 }
 
 export interface IUpvoteButtonState extends IButtonState {
-
 }
 
 export {UpvoteButton};
