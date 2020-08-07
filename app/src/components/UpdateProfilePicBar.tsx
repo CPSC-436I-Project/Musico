@@ -6,6 +6,7 @@ import {TextButton} from "./buttons/TextButton";
 import {updateUser} from "../redux/actions/userActions";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
+import "./css/Components.css";
 
 class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, IUpdateProfilePicBarState> {
 
@@ -67,7 +68,7 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
     public render() {
         return (
             <div className={"update_profile_pic_bar"}>
-                <div className="error-message flex-column-center" style={{color: "red"}}>
+                <div className="error-message flex-column-center">
                     {this.state.error}
                 </div>
                 <div className={"update_profile_pic_input"}>
