@@ -81,6 +81,7 @@ class TextInput extends EnhancedComponent<ITextInputProps, ITextInputState> {
 					value={this.state.text}
 					onChange={this.updateText}
 					onKeyDown={this.onKeyDownWrapper}
+					autoComplete="off"
 					style={{
 						margin: this.props.colorMargin,
 						width: `calc(100% - ${2 * this.props.colorMargin + 5}px)`,
