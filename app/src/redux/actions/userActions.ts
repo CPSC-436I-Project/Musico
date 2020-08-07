@@ -42,12 +42,26 @@ export const updateUser = (url: string, errorCallback: (message: string) => void
     }
 };
 
-export const updateRequestedSongs = (song: string) => {
+export const updateRequestedSongs = (songId: string) => {
     return {
         type: UserEnum.UPDATE_REQUEST_SONG,
-        song: song
+        song: songId
     }
 };
+
+export const addLikedSong = (songId: string) => {
+    return {
+        type: UserEnum.ADD_LIKED_SONG,
+        song: songId
+    }
+}
+
+export const removeLikedSong = (songId: string) => {
+    return {
+        type: UserEnum.REMOVE_LIKED_SONG,
+        song: songId
+    }
+}
 
 export const receiveUserUpdate = (url: string) => {
     return {

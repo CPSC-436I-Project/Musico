@@ -26,14 +26,16 @@ router.patch('/upvote/:id', verifyToken, async (req, res) => {
         Song.findOneAndUpdate({_id: req.params.id}, {$inc: {numVotes: 1}})
             .then(async song => {
                 await UserProfile.findByIdAndUpdate(req.user._id, {$push: {likedSongs: song._id}})
-                res.json(song);
+                .then(() => {
+                    res.json({update: true, id: song._id});
+                })
             })
             .catch(err => {
                 res.status(400).json(err);
                 console.log(err);
             });
     } else {
-        res.json("already upvoted!")
+        res.json({update: false})
     }
 })
 
@@ -43,8 +45,11 @@ router.patch('/downvote/:id', verifyToken, async (req, res) => {
         .then(async song => {
             if (userLiked.includes(req.params.id)) {
                 await UserProfile.findByIdAndUpdate(req.user._id, {$pull: {likedSongs: song._id}})
+                .then(() => {
+                    res.json({update: true, id: song._id});
+                })
             }
-            res.json(song);
+            res.json({update: false});
         })
         .catch(err => {
             res.status(400).json(err);
