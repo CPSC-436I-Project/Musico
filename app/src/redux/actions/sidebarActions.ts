@@ -1,13 +1,13 @@
-import { SidebarActionEnum } from "../reducers/sidebarReducer";
+import {SidebarActionEnum} from "../reducers/sidebarReducer";
 
 export const showSidebar = () => {
-	return {
-		type: SidebarActionEnum.SHOW_SIDEBAR,
-	}
-}
+    return {
+        type: SidebarActionEnum.SHOW_SIDEBAR,
+    }
+};
 
 export const hideSidebar = () => {
-	return {
-		type: SidebarActionEnum.HIDE_SIDEBAR,
-	}
-}
+    return {
+        type: SidebarActionEnum.HIDE_SIDEBAR,
+    }
+};

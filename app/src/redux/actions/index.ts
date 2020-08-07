@@ -4,4 +4,15 @@ import {setUser, createUser, loginUser} from "./userActions";
 import {hideSidebar, showSidebar} from "./sidebarActions";
 import {hideMusicSidebar, showMusicSidebar} from "./musicSidebarActions";
 
-export {showPopUp, hidePopUp, setSelectedGenre, setUser, createUser, loginUser, hideSidebar, showSidebar, hideMusicSidebar, showMusicSidebar};
+export {
+    showPopUp,
+    hidePopUp,
+    setSelectedGenre,
+    setUser,
+    createUser,
+    loginUser,
+    hideSidebar,
+    showSidebar,
+    hideMusicSidebar,
+    showMusicSidebar
+};

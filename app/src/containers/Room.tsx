@@ -14,6 +14,7 @@ import {getCookie} from "src/utility/cookies";
 const socket = io(API_URL);
 
 class Room extends Container<IRoomProps, IRoomState> {
+
     public static mapStateToProps: (state: IStore, props: IRoomProps) => IRoomProps = (state: IStore, props: IRoomProps) => {
         return {
             ...props,
