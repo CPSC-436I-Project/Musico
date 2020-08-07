@@ -6,12 +6,16 @@ import {ExpandableButton, TextButton, TextInput} from "../components";
 import {connect} from "react-redux";
 import {IStore} from "../redux/initialStore";
 import {createUser, loginUser} from "../redux/actions";
+import {PageEnum} from "./index";
+import {getCookie} from "../utility/cookies";
+import {autoLoginUser} from "../redux/actions/userActions";
 
 class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 
     public static mapStateToProps: (state: IStore, props: any) => ILoginScreenProps = (state: IStore, props: any) => {
         return {
             ...props,
+            userId: state.userStore.userId,
             username: state.userStore.username,
             email: state.userStore.email,
         };
@@ -46,6 +50,34 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
         this.props.dispatch(createUser(this.signUpUserNameTextRef.getText(), this.signUpEmailTextRef.getText(), this.signUpPasswordTextRef.getText(), this.displayError));
         callback();
     }
+
+
+    whenLoginFails = () => {
+        // do nothing
+    };
+
+    /**
+     * Go to Dashboard
+     */
+    userIsSet = () => {
+        this.props.changePage(PageEnum.Dashboard);
+    };
+
+    componentDidMount = () => {
+        if (this.props.userId !== null) {
+            this.userIsSet();
+        }
+        let cookie = getCookie('auth-token');
+        if (cookie !== "") {
+            this.props.dispatch(autoLoginUser(this.whenLoginFails));
+        }
+    };
+
+    componentDidUpdate = () => {
+        if (this.props.userId) {
+            this.userIsSet();
+        }
+    };
 
     public render(): ReactNode {
         const loginButtonChild: ReactNode = <div className={"flex-column-center"}>
@@ -134,6 +166,7 @@ class LoginScreen extends Container<ILoginScreenProps, ILoginScreenState> {
 export interface ILoginScreenProps extends IContainerProps {
     username?: string | null;
     email?: string | null;
+    userId?: string | null;
 }
 
 export interface ILoginScreenState extends IContainerState {

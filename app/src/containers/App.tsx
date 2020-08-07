@@ -2,8 +2,6 @@ import React, {ReactNode} from 'react';
 import './App.css';
 import {PageEnum, pageMap} from "./";
 import {IStore} from 'src/redux/initialStore';
-import {getCookie} from 'src/utility/cookies';
-import {autoLoginUser} from 'src/redux/actions/userActions';
 import {connect} from "react-redux";
 import {IContainerProps} from "./Container";
 import {setSelectedGenre} from "../redux/actions";
@@ -23,7 +21,6 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         super(props);
         // @ts-ignore
         this.state = {
-            isLoggedOut: true,
             currentPage: PageEnum.LoginScreen,
         };
         this.changePage = this.changePage.bind(this);
@@ -45,30 +42,6 @@ class App<P extends IAppProps, S extends IAppState = IAppState> extends React.Co
         return React.createElement(pageMap[this.state.currentPage].pointer, props);
     }
 
-    whenLoginFails = () => {
-        this.setState({isLoggedOut: true})
-    };
-
-    userIsSet = () => {
-        this.setState({isLoggedOut: false, currentPage: PageEnum.Dashboard})
-    };
-
-    componentDidMount = () => {
-        if (this.props.userId !== null) {
-            this.userIsSet();
-        }
-        let cookie = getCookie('auth-token');
-        if (cookie !== "") {
-            this.props.dispatch(autoLoginUser(this.whenLoginFails));
-        }
-    };
-
-    componentDidUpdate = () => {
-        if (this.props.userId !== null && this.state.isLoggedOut) {
-            this.userIsSet();
-        }
-    };
-
     public render(): ReactNode {
         return (
             <div className="App">
@@ -84,7 +57,6 @@ export interface IAppProps {
 }
 
 export interface IAppState {
-    isLoggedOut: boolean;
     currentPage: PageEnum;
 }
 
