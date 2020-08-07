@@ -10,7 +10,6 @@ export interface ISongInterface {
     numVotes: number
 }
 
-
 export const defaultSong: ISongInterface = {
     songName: "default",
     genre: GenreEnum.POP,

@@ -34,6 +34,9 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
         this.createSongInfo = this.createSongInfo.bind(this);
     }
 
+    /**
+     * Get the list of queues and wait for the top song in each to get saved to state
+     */
     private getTopSongsOnQueues(): void {
         const token = getCookie('auth-token');
         fetch(API_URL + 'queues', {
@@ -55,6 +58,11 @@ class Dashboard extends Container<IDashboardProps, IDashboardState> {
             });
     }
 
+    /**
+     * Get the top voted song stored in the given queue and save it to state
+     * @param queue
+     * @return Promise<void>
+     */
     private addTopSong(queue: string[]): Promise<void> {
         let that = this;
         const token = getCookie('auth-token');

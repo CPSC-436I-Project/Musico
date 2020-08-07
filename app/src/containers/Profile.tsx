@@ -58,6 +58,11 @@ class Profile extends Container<IProfileProps, IProfileState> {
         this.setState({updateProfile: !this.state.updateProfile}, callback);
     };
 
+    /**
+     * Get the songs stored in the given idList and save them to state
+     * @param idList
+     * @param stateToUpdate
+     */
     private getSongs(idList: string[], stateToUpdate: ISongInterface[]): void {
         let that = this;
         const token = getCookie('auth-token');
@@ -107,6 +112,9 @@ class Profile extends Container<IProfileProps, IProfileState> {
         />)
     };
 
+    /**
+     * Update the user's requested and liked songs in state
+     */
     public componentDidMount(): void {
         this.getSongs(this.props.requests, this.state.requestsDetails);
         this.getSongs(this.props.likedSongs, this.state.likedSongDetails);
