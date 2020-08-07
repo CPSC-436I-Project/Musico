@@ -9,7 +9,7 @@ const songSchema = new Schema({
     genre: {
         type: String,
         enum: ["Asian", "Blues", "Children", "Christian", "Classical", "Country", "Electronic", "Hip-Hop",
-            "Independent", "Jazz", "Latin American", "Other", "Pop", "Reggae", "Rock", "Soul"],
+            "Indie", "Jazz", "Latin", "Other", "Pop", "Reggae", "Rock", "Soul"],
         required: true
     },
     src: {
