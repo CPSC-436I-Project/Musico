@@ -59,6 +59,7 @@ class UpdateProfilePicBar extends EnhancedComponent<IUpdateProfilePicBarProps, I
     }
 
     private updateButtonOnClick(callback: () => void): void {
+        // validate URL
         this.profileTesterRef.src = this.state.url;
         callback();
     };

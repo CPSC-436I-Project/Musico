@@ -18,8 +18,7 @@ class Sidebar extends EnhancedComponent<ISidebarProps, ISidebarState> {
 
     public static defaultProps: ISidebarProps = {
         ...EnhancedComponent.defaultProps,
-        changePage: () => {
-        },
+        changePage: () => {},
     };
 
     private readonly musicGenres: ISidebarGenreChannel[] = [

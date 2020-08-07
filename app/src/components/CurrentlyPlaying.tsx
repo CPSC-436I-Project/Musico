@@ -42,7 +42,7 @@ class CurrentlyPlaying extends EnhancedComponent<ICurrentlyPlayingProps, ICurren
                     className="video"
                     style={{
                         position: "relative",
-                        paddingBottom: "56.25%",
+                        paddingBottom: "56.25%", /* 16:9 */
                         paddingTop: 25,
                         height: 0
                     }}

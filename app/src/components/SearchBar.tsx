@@ -18,8 +18,7 @@ class SearchBar extends TextInput {
         borderColor: "black",
         fontSize: 18,
         onEnterDisabled: false,
-        submit: () => {
-        },
+        submit: () => {},
     };
 
     public render(): ReactNode {
