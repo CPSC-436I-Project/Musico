@@ -4,7 +4,7 @@ import {EnhancedComponent, IEnhancedComponentProps, IEnhancedComponentState} fro
 import "./css/Components.css";
 import {UpvoteButton} from "./buttons/UpvoteButton";
 import {DownvoteButton} from "./buttons/DownvoteButton";
-import "./buttons/VoteButtons.css"
+import "./css/VoteButtons.css"
 import {API_URL} from "src/utility/constants";
 import {getCookie} from "../utility/cookies";
 

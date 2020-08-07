@@ -40,6 +40,12 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
         this.wrapRenderButton();
     }
 
+    /**
+     * If the button is not disabled,
+     * lock the button and run the `onAction` function before releasing the lock,
+     *
+     * @private
+     */
     private onActionWrapper(): void {
         if (!this.state.disabled && !this.props.disabled) {
             this.setState({disabled: true}, () => {
@@ -53,6 +59,11 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
         }
     }
 
+    /**
+     * Display the onPress colour
+     *
+     * @private
+     */
     private onPressedIn(): void {
         this.setState({
             pressed: true,
@@ -60,6 +71,11 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
         });
     }
 
+    /**
+     * Dismiss the onPress colour
+     *
+     * @private
+     */
     private onPressedOut(): void {
         this.setState({
             pressed: false,
@@ -67,6 +83,11 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
         });
     }
 
+    /**
+     * Display the hover colour
+     *
+     * @private
+     */
     private onHoverIn(): void {
         this.setState({
             colour: this.props.buttonHoverColour,
@@ -74,6 +95,11 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
         })
     }
 
+    /**
+     * Dismiss the hover colour
+     *
+     * @private
+     */
     private onHoverOut(): void {
         this.setState({
             colour: this.props.buttonColour,
@@ -81,6 +107,12 @@ abstract class Button<P extends IButtonProps = IButtonProps, S extends IButtonSt
         })
     }
 
+    /**
+     * Wrap child button classes with the following structure
+     *
+     * @private
+     * @see EnhancedComponent.wrapRender()
+     */
     private wrapRenderButton(): void {
         this.render = (): ReactNode => {
             return (
