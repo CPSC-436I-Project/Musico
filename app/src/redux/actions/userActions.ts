@@ -56,6 +56,7 @@ export const receiveUserUpdate = (url: string) => {
     }
 };
 
+
 export const likeGenre = (genre: string) => {
     return (dispatch: any) => {
         const token = getCookie('auth-token');
@@ -105,6 +106,7 @@ export const createUser = (username: string, email: string, password: string, er
         password: password
     };
     return (dispatch: any) => {
+        // register the user
         return fetch(API_URL + 'userprofiles/register', {
             method: 'POST',
             headers: {
@@ -120,9 +122,12 @@ export const createUser = (username: string, email: string, password: string, er
                     // TODO: this needs to send an error to the front end
                     errorCallback(res.text);
                 } else {
+                    // get the created user
                     const user = JSON.parse(res.text);
                     if (user) {
+                        // store the user token as a cookie
                         setCookie('auth-token', user.token, 70)
+                        // set the user in redux to be the current user
                         dispatch(setUser(user.id, user.username, user.email, user.profilePicture, user.requests,
                             user.likedSongs, user.favouriteGenres, user.channels));
                     }
@@ -140,6 +145,7 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
         password: password
     };
     return (dispatch: any) => {
+        // register the user
         return fetch(API_URL + 'userprofiles/login', {
             method: 'POST',
             headers: {
@@ -155,9 +161,12 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
                     // TODO: this needs to send an error to the front end
                     errorCallback(res.text);
                 } else {
+                    // get the created user
                     const user = JSON.parse(res.text);
                     if (user) {
+                        // store the user token as a cookie
                         setCookie('auth-token', user.token, 70)
+                        // set the user in redux to be the current user
                         dispatch(setUser(user.id, user.username, user.email, user.profilePicture, user.requests,
                             user.likedSongs, user.favouriteGenres, user.channels));
                     }
@@ -172,6 +181,7 @@ export const loginUser = (email: string, password: string, errorCallback: (messa
 export const autoLoginUser = (callback: () => void) => {
     const token = getCookie('auth-token');
     return (dispatch: any) => {
+        // register the user
         return fetch(API_URL + 'userprofiles/getFromToken', {
             method: 'GET',
             headers: {
@@ -187,8 +197,10 @@ export const autoLoginUser = (callback: () => void) => {
                     console.log("You have been logged out, please log in!");
                     callback();
                 } else {
+                    // get the created user
                     const user = res.json;
                     if (user) {
+                        // set the user in redux to be the current user
                         dispatch(setUser(user.id, user.username, user.email, user.profilePicture, user.requests,
                             user.likedSongs, user.favouriteGenres, user.channels));
                     } else {

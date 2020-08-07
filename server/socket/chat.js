@@ -3,7 +3,7 @@ const Chat = require('../mongoDB/models/chatModel');
 const { getIdFromToken } = require('../authenticate');
 
 module.exports = function(socket, io) {
-  
+
   socket.on("message", async (data, callback) => {
     const id = getIdFromToken(data.token);
 
@@ -31,5 +31,4 @@ module.exports = function(socket, io) {
         .catch(err => console.log('Error: ' + err));
     }
   });
-  
-}
+};

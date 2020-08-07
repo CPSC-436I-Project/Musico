@@ -37,7 +37,6 @@ module.exports = function(socket, io) {
     }
         
     function queueSocketManager(genre) {
-
         setTimeout(async () => {
 
             console.log("Setting new songs for genre: ", genre);
@@ -67,12 +66,12 @@ module.exports = function(socket, io) {
                 let songId = await Playlist.findOne({channel: genre})
                 .then(playlist => playlist["playlist"])
                 .then(playlist => playlist[Math.floor(Math.random() * playlist.length)])
-                .catch(err => {console.log(err)})
+                .catch(err => {console.log(err)});
                 song = await Song.findById(songId);
             } else {
                 // if song is not null, i.e. coming from the queue, delete the song from the queue
                 await Queue.updateOne({channel: genre}, {$pull: {queue: song._id}})
-                .catch(err => {console.log(err)});;
+                .catch(err => {console.log(err)});
             }
             
             // set the duration to the duration of the current song
@@ -80,7 +79,7 @@ module.exports = function(socket, io) {
             
             // set the song with now as the start time
             let now = new Date();
-            currentlyPlayingMap[genre] = {song: song, startTime: now.toString()}
+            currentlyPlayingMap[genre] = {song: song, startTime: now.toString()};
             console.log("Loaded song for: ", genre);
 
             // send a socket event to update the frontend queue
@@ -90,7 +89,6 @@ module.exports = function(socket, io) {
             queueSocketManager(genre)
 
         }, durationMap[genre]*1000)
-
     }
 
     socket.on("disconnect", (data, callback) => {
@@ -100,5 +98,4 @@ module.exports = function(socket, io) {
         // call the callback
         //callback();
     });
-}
-
+};

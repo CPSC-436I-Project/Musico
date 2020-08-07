@@ -17,12 +17,15 @@ router.post('/:genre', verifyToken, async (req, res) => {
         message: req.body.message,
         time: Date.now(),
     };
+
     var messages = await Chat.findOne({channel: req.params.genre})
         .then(chats => chats["messages"])
         .catch(err => {
             console.log(err)
         });
+
     messages.push(newMessage);
+
     Chat.findOneAndUpdate({channel: req.params.genre}, {messages: messages})
         .then(m => res.json(m))
         .catch(err => res.status(400).json('Error: ' + err));
